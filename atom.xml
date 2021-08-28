@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2021-08-28T18:13:32.526Z</updated>
+  <updated>2021-08-28T18:19:56.794Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://goodguyjameswin.github.io/2021/08/29/hello-world/"/>
+    <id>http://goodguyjameswin.github.io/2021/08/29/hello-world/</id>
+    <published>2021-08-28T18:20:01.000Z</published>
+    <updated>2021-08-28T18:19:56.794Z</updated>
+    
+    <summary type="html">
+    
+      hexo-使用教程
+    
+    </summary>
+    
+      <category term="转载" scheme="http://goodguyjameswin.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
+    
+    
+      <category term="图库" scheme="http://goodguyjameswin.github.io/tags/%E5%9B%BE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo-Theme-Sakura</title>
@@ -33,26 +53,6 @@
     
     
       <category term="悦读" scheme="http://goodguyjameswin.github.io/tags/%E6%82%A6%E8%AF%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://goodguyjameswin.github.io/2018/12/12/hello-world/"/>
-    <id>http://goodguyjameswin.github.io/2018/12/12/hello-world/</id>
-    <published>2018-12-12T14:16:01.000Z</published>
-    <updated>2021-08-28T18:11:08.602Z</updated>
-    
-    <summary type="html">
-    
-      hexo-使用教程
-    
-    </summary>
-    
-      <category term="转载" scheme="http://goodguyjameswin.github.io/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    
-      <category term="图库" scheme="http://goodguyjameswin.github.io/tags/%E5%9B%BE%E5%BA%93/"/>
     
   </entry>
   
