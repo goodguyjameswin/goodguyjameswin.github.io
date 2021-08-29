@@ -36,6 +36,8 @@
   mashiro_option.site_name = "SAOのKirito";
   mashiro_option.author_name = "Kirito";
   mashiro_option.site_url = "https://www.sao-kirito.top";
+  // mashiro_option.v_appId = "";
+  // mashiro_option.v_appKey = "";
   mashiro_option.v_appId = "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI";
   mashiro_option.v_appKey = "QLSh39tFIMnFiT4bET0u05WM";
   mashiro_option.mathjax = "0";
@@ -71,10 +73,13 @@
   <div id="banner_wave_2"></div>
   <figure id="centerbg" class="centerbg">
     <div class="focusinfo no-select">
-      <div class="header-tou">
+      <!-- <div class="header-tou">
         <a href="https://www.sao-kirito.top">
           <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@1.0/blog_res/img/icon/kirito.jpg">
         </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="Terry Joe">Terry Joe</h1>
       </div>
       <div class="header-info">
         <p>Everything that has a beginning has its end.</p>
@@ -326,21 +331,101 @@
     <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
       
       <!-- .entry-content -->
-      
+      <!-- 
 <div id="vcomments"></div>
 <script>
   window.onload = function(){
       var valine = new Valine();
       valine.init({
         el: '#vcomments',
-        appId: "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI",
-        appKey: "QLSh39tFIMnFiT4bET0u05WM",
+        appId: "",
+        appKey: "",
         path: window.location.pathname,
         placeholder: "你是我一生只会遇见一次的惊喜 ..."
       })
   }
 </script>
+ -->
 
+
+  <div id="vcomments"></div>
+  <!-- 先引入样式,从footer提前 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/Valine.min.js"></script>
+  <!-- 评论框美化 -->
+  <style>
+      .v .vwrap{padding: 0 0 44px;}
+      .v .veditor{min-height: 10rem;
+          background-image: url(https://cdn.jsdelivr.net/gh/cungudafa/img/images/girls2.png);
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: right;
+          background-color: rgba(255,255,255,0);
+          resize: none;}
+      .v .vwrap .vedit{padding-top:20px;}
+      .v .vwrap .vheader{width: 80%;bottom:0;position: absolute;background: #fff7f7f7;}
+      .v .vinput{padding:10px 15px; text-align: center;}
+      .v .vwrap .vheader .vinput{border-bottom:0px}
+      .v .vwrap .vedit .vctrl{margin-top:-44px;right:0;position:absolute;margin-right:-3px;}
+      .v .vwrap .vcontrol{position:absolute;right:0;bottom:0;width:20%;padding-top:0px;}
+      .v .vwrap .vcontrol .col.col-20,
+      .v .vwrap .vedit .vctrl span.vpreview-btn{display: none}
+      .v .vwrap .vcontrol .col.col-80{width: 100%;}
+      .v .vbtn.vsubmit{border-radius: 0;padding: 0;color: #fff;line-height: 44px;width:100%;border: none;background:#ff9999;}
+      .v .vlist .vcard .vhead .vsys{background: #fff7f7f7;}
+      @media screen and (max-width: 520px){
+      .v .vwrap .vheader .vinput{width: 33.33%;padding:10px 5px;}
+      }
+  </style>
+  <script>
+      new Valine({
+          el: '#vcomments',
+          appId: "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI",
+          appKey: "QLSh39tFIMnFiT4bET0u05WM",
+          path: window.location.pathname,
+          notify: false,
+          verify: true,
+          avatar: 'monsterid',//小怪物头像
+          placeholder: "你是我一生只会遇见一次的惊喜 ..."  
+      });
+      //   自定义邮箱审核规则
+      document.body.addEventListener('click', function(e) {
+          if (e.target.classList.contains('vsubmit')) {
+              const email = document.querySelector('input[type=email]');
+              const nick = document.querySelector('input[name=nick]');
+              const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+              if (!email.value || !nick.value || !reg.test(email.value)) {
+                  const str = `<div class="valert text-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+                  const vmark = document.querySelector('.vmark');
+                  vmark.innerHTML = str;
+                  vmark.style.display = 'block';
+                  setTimeout(function() {
+                      vmark.style.display = 'none';
+                      vmark.innerHTML = '';
+                  }, 2500);
+              }
+          }
+      });
+      // 点击回复直接评论,官方版本点击回复时都是跳回到页面上方的评论框进行回复，评论框是固定不动的
+      // 参考https://immmmm.com/valine-diy,用到jQuery
+      $(document).ready(function(){
+          //$('.vemoji-btn').text('😀');
+          $("#vcomments").on('click', 'span.vat',function(){
+              $(this).parent('div.vmeta').next("div.vcontent").after($("div.vwrap"));
+              $('textarea#veditor').focus();
+          })
+      })
+  </script>
+  <!-- 今日诗词：随机返回一句古诗词名句的接口，宅到用来做 Valine 的 placeholder 显示内容 -->
+  <script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      jinrishici.load(function(result) {
+          var jrsc_plac =  result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin.dynasty + " · " + result.data.origin.author
+          document.getElementById("veditor").setAttribute("placeholder",jrsc_plac);
+      });
+  </script>
+  
+  
       <div class="single-reward">
         <div class="reward-open">赏
           <div class="reward-main">
@@ -756,6 +841,11 @@ $(document).ready(function() {
     })
   });
 </script>
+  <script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/fly-engine.js" type="module"></script>
 </body>
 </html>
-<script src="https://aliyun-oss-pic-bucket.oss-cn-beijing.aliyuncs.com/file/fireworks.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/mouse-click-firework.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/live2d/autoload.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/noSomeKey.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/hititle.js"></script>
+<!-- <script src="https://aliyun-oss-pic-bucket.oss-cn-beijing.aliyuncs.com/file/fireworks.js"></script> -->
