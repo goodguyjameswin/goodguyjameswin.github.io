@@ -49,7 +49,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://api.flymc.cc/cover.php https://random.52ecy.cn/randbg.php".split(",");
+  var bg = "https://api.flymc.cc/cover.php,https://random.52ecy.cn/randbg.php".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -395,7 +395,7 @@
 
   <div class="post-thumb">
     <a href="/2021/08/29/hello-world/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@1.0/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.jpg">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.jpg">
     </a>
   </div>
   <div class="post-content-wrap">
@@ -436,7 +436,7 @@
 
   <div class="post-thumb">
     <a href="/2018/12/12/Hexo-Theme-Sakura/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@1.0/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/sakura.md.png">
+      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/sakura.md.png">
     </a>
   </div>
   <div class="post-content-wrap">
@@ -547,8 +547,8 @@
 <script type="text/javascript" src="/js/sakura-app.js"></script>
 <!-- 自定义Valine样式注释掉 -->
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
-<!-- <script type="text/javascript" src="/js/Valine.min.js"></script> -->
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/Valine.min.js"></script>
 <script src="/js/botui.js"></script>
 <!-- 不蒜子 网页计数器 -->
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
