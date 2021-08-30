@@ -775,10 +775,10 @@ svg:not(:root) {
 figure {
     margin:1em 40px
 }
-hr {
+/* hr {
     box-sizing:content-box;
     height:0
-}
+} */
 pre {
     overflow:auto
 }
@@ -858,7 +858,7 @@ p {
 dfn,cite,em,i {
     font-style:italic
 }
-blockquote {
+/* blockquote {
     margin:0;
     padding:30px 60px;
     position:relative
@@ -869,7 +869,7 @@ blockquote:before {
     position:absolute;
     top:-25px;
     left:12px;
-    color:orange;
+    color:rgb(0, 195, 255);
     font-family:FontAwesome
 }
 blockquote:after {
@@ -878,7 +878,38 @@ blockquote:after {
     position:absolute;
     bottom:-25px;
     right:-5px;
-    color:orange;
+    color:rgb(0, 195, 255);
+    font-family:FontAwesome
+} */
+blockquote {
+    width:fit-content;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+    width:-ms-fit-content;
+    width:-o-fit-content;
+    margin:0;
+    margin-bottom: 20px;
+    padding:12px 45px;
+    position:relative;
+    border-radius: 1.5rem;
+    background: rgba(225, 225, 225, .43);
+}
+blockquote:before {
+    content:"\f10d" !important;
+    font-size:2rem;
+    position:absolute;
+    top:-25px;
+    left:2px;
+    color:#50bdff;
+    font-family:FontAwesome
+}
+blockquote:after {
+    content:'\f10e' !important;
+    font-size:2rem;
+    position:absolute;
+    bottom:-25px;
+    right:0px;
+    color:#50bdff;
     font-family:FontAwesome
 }
 blockquote p {
@@ -947,12 +978,12 @@ blockquote:before,blockquote:after,q:before,q:after {
 blockquote,q {
     quotes:"" ""
 }
-hr {
+/* hr {
     background-color:#ccc;
     border:0;
     height:1px;
     margin-bottom:1.5em
-}
+} */
 ul,ol {
     margin:0 0 1.5em 3em
 }
@@ -992,14 +1023,14 @@ button,input[type="button"],input[type="reset"],input[type="submit"] {
     line-height:1;
     padding:.6em 1em .4em
 }
-button:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover {
+/* button:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover {
     /*border-color:#ccc #bbb #aaa;*/
     /*box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 15px 17px rgba(255,255,255,.8),inset 0 -5px 12px rgba(0,0,0,.02)*/
 }
 button:focus,input[type="button"]:focus,input[type="reset"]:focus,input[type="submit"]:focus,button:active,input[type="button"]:active,input[type="reset"]:active,input[type="submit"]:active {
     /*border-color:#aaa #bbb #bbb;*/
     /*box-shadow:inset 0 -1px 0 rgba(255,255,255,.5),inset 0 2px 5px rgba(0,0,0,.15)*/
-}
+} */
 input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea {
     color:#666;
     border:1px solid #ccc;
@@ -1027,14 +1058,14 @@ a {
     transition:color .2s ease-out,border .2s ease-out,opacity .2s ease-out
 }
 a:hover,a:focus,a:active {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 a:focus {
     outline:0
 }
 a:hover,a:active {
     outline:0;
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .site-top {
     width:100%;
@@ -1067,7 +1098,7 @@ a:hover,a:active {
     animation-duration:.5s;
     -webkit-animation:fade-in .5s
 }
-#bgvideo {
+/* #bgvideo {
     position:absolute;
     top:0;
     left:0;
@@ -1124,7 +1155,7 @@ a:hover,a:active {
     -moz-transition:.4s ease all;
     -o-transition:.4s ease all;
     transition:.4s ease all
-}
+} */
 .pattern-center {
     position:relative;
     top:0;
@@ -1260,14 +1291,14 @@ a:hover,a:active {
     right:0;
     background-color:rgba(0,0,0,.3)
 }
-.pattern-attachment-img {
+/* .pattern-attachment-img {
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center center;
     background-origin:border-box;
     width:100%;
     height:400px
-}
+} */
 .pattern-center-sakura header.pattern-header {
     position:absolute;
     top:45%;
@@ -1389,7 +1420,7 @@ a:hover,a:active {
     font-weight:400
 }
 .site-title a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .site-title img {
     height:40px;
@@ -1485,7 +1516,7 @@ a:hover,a:active {
     color:#666
 }
 .site-top ul li a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .site-top ul li a:after {
     content:"";
@@ -1493,7 +1524,7 @@ a:hover,a:active {
     position:absolute;
     bottom:-16px;
     height:6px;
-    background-color:#fe9600;
+    background-color:#00a1fe;
     width:100%;
     max-width:0;
     transition:max-width .25s ease-in-out
@@ -1504,7 +1535,7 @@ a:hover,a:active {
     position:absolute;
     bottom:-21px;
     height:6px;
-    background-color:#fe9600;
+    background-color:#00a1fe;
     width:100%;
     max-width:0;
     transition:max-width .25s ease-in-out
@@ -1654,7 +1685,8 @@ a:hover,a:active {
     border-radius:50%;
     padding:2px;
     border:1px solid #dadada;
-    position:relative
+    position:relative;
+    object-fit: cover;
 }
 .feature :hover .overlay i {
     opacity:1
@@ -1676,7 +1708,7 @@ a:hover,a:active {
     color:#504e4e
 }
 .entry-title a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .p-time {
     position:absolute;
@@ -2012,8 +2044,8 @@ i.iconfont.hotpost {
 }
 .navigator i:hover {
     color:#fff;
-    background:orange;
-    border:2px solid orange;
+    background:rgb(0, 195, 255);
+    border:2px solid rgb(0, 195, 255);
     -webkit-transition:all .2s ease-in-out;
     -moz-transition:all .2s ease-in-out;
     -o-transition:all .2s ease-in-out;
@@ -2035,7 +2067,7 @@ i.iconfont.hotpost {
     color:#b9b9b9
 }
 .site-info a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .footertext p {
     margin-bottom:8px
@@ -2144,8 +2176,8 @@ i.iconfont.hotpost {
     text-decoration:underline dotted rgba(0,0,0,.1)
 }
 .entry-content a:hover {
-    color:orange;
-    text-decoration:underline orange
+    color:blue;
+    text-decoration:underline blue
 }
 h1.entry-title {
     font-size:24px;
@@ -2186,7 +2218,7 @@ h1.entry-title {
     background:none
 }
 .entry-content hr:before {
-    content:'...';
+    /* content:'...'; */
     display:inline-block;
     margin-left:.6em;
     color:rgba(0,0,0,.8);
@@ -2325,7 +2357,7 @@ h1.page-title.mb- {
     margin-right:5px
 }
 .post-tags a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .post-tags i {
     margin-right:5px
@@ -2385,7 +2417,7 @@ h1.page-title.mb- {
     margin-right:10px
 }
 .post-share ul li a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .post-share .show-share {
     margin-left:10px;
@@ -2851,7 +2883,7 @@ h3#comments-list-title {
     margin:auto
 }
 .butterBar-message {
-    background:#fe9600;
+    background:#00a1fe;
     color:#fff;
     border-bottom-left-radius:4px;
     border-bottom-right-radius:4px;
@@ -3024,7 +3056,7 @@ h1.works-title {
     font-style:italic;
     font-size:20px;
     font-weight:400;
-    color:orange;
+    color:rgb(0, 195, 255);
     margin-left:30px;
     margin-top:50px
 }
@@ -3050,7 +3082,7 @@ span.time {
 .ar-time i {
     padding:10px;
     border-radius:100px;
-    background:orange;
+    background:rgb(0, 195, 255);
     color:#fff
 }
 .ar-time {
@@ -3076,7 +3108,7 @@ span.time {
 span.ar-circle {
     height:10px;
     width:10px;
-    background:orange;
+    background:rgb(0, 195, 255);
     display:inline-block;
     position:absolute;
     left:-5px;
@@ -3158,7 +3190,7 @@ header.page-header {
     -ms-transform:rotate(360deg)
 }
 span.sitename {
-    color:orange;
+    color:rgb(0, 195, 255);
     padding-bottom:10px;
     display:block;
     -webkit-transition:all .3s;
@@ -3189,11 +3221,11 @@ span.sitename {
 }
 .link-title span.fake-title {
     padding-left:10px;
-    border-left:3px solid orange
+    border-left:3px solid rgb(0, 195, 255)
 }
 .links ul li:before {
     content:"";
-    background-color:orange;
+    background-color:rgb(0, 195, 255);
     -webkit-transform:skew(45deg,0);
     transform:skew(45deg,0);
     width:0;
@@ -3207,7 +3239,7 @@ span.sitename {
 }
 .links ul li:hover {
     color:#27323a;
-    border:1px solid orange
+    border:1px solid rgb(0, 195, 255)
 }
 .links ul li:hover:before {
     width:180%
@@ -3484,7 +3516,7 @@ a.page-numbers {
     font-weight:600
 }
 .comment h4 a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .comment hr {
     clear:both;
@@ -3637,9 +3669,9 @@ a.page-numbers {
     text-shadow:none
 }
 .comment-respond input[type='submit']:hover {
-    border:1px solid #fe9600;
+    border:1px solid #00a1fe;
     background:none !important;
-    color:#fe9600
+    color:#00a1fe
 }
 .comment-respond input[type='submit']:hover {
     background:#5aa738
@@ -3733,7 +3765,7 @@ a.page-numbers {
     line-height:1
 }
 .siren-checkbox-radio:checked+.siren-checkbox-radioInput:after {
-    background-color:#fe9600;
+    background-color:#00a1fe;
     border-radius:100%;
     content:"";
     display:block;
@@ -3829,9 +3861,13 @@ li.feature-2 {
     transform:translateY(0)
 }
 .notice {
-    padding:20px;
+    /* padding:20px;
     border:1px dashed #e6e6e6;
-    color:#969696;
+    color:#969696; */
+    padding:17px;
+    border:1px dashed #cacacaed;
+    color:#707070;
+    margin:-10px 0 -25px 0;
     position:relative;
     display:inline-block;
     width:100%;
@@ -4362,7 +4398,7 @@ i.iconfont.js-toggle-search.iconsearch {
     padding:10px 0
 }
 .sorry li a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .sorry-inner {
     padding:20px;
@@ -4377,14 +4413,14 @@ i.iconfont.js-toggle-search.iconsearch {
 .err-button.back a {
     padding:10px 30px;
     margin:0 10px;
-    border:1px solid orange;
-    color:orange;
+    border:1px solid rgb(0, 195, 255);
+    color:rgb(0, 195, 255);
     -webkit-border-radius:50px;
     -moz-border-radius:50px;
     border-radius:50px
 }
 #gohome {
-    background:orange;
+    background:rgb(0, 195, 255);
     color:#fff
 }
 .err-button.back a:hover {
@@ -4497,7 +4533,7 @@ embed,iframe,object {
     position:absolute
 }
 #nprogress .bar {
-    background:orange;
+    background:rgb(0, 195, 255);
     position:fixed;
     z-index:1031;
     top:0;
@@ -4511,7 +4547,7 @@ embed,iframe,object {
     right:0;
     width:100px;
     height:100%;
-    box-shadow:0 0 10px orange,0 0 5px orange;
+    box-shadow:0 0 10px rgb(0, 195, 255),0 0 5px rgb(0, 195, 255);
     opacity:1;
     -webkit-transform:rotate(3deg) translate(0px,-4px);
     -ms-transform:rotate(3deg) translate(0px,-4px);
@@ -4533,8 +4569,8 @@ embed,iframe,object {
     height:20px;
     box-sizing:border-box;
     border:solid 3px transparent;
-    border-top-color:orange;
-    border-left-color:orange;
+    border-top-color:rgb(0, 195, 255);
+    border-left-color:rgb(0, 195, 255);
     border-radius:50%;
     -webkit-animation:nprogress-spinner 400ms linear infinite;
     animation:nprogress-spinner 400ms linear infinite
@@ -4638,8 +4674,8 @@ i.iconfont.down {
     font-size:15px
 }
 #pagination a:hover {
-    border:1px solid orange;
-    color:orange
+    border:1px solid rgb(0, 195, 255);
+    color:rgb(0, 195, 255)
 }
 #pagination .loading {
     background:url("https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg");
@@ -4802,7 +4838,7 @@ i.iconfont.down {
         display:none
     }
     .links ul li:hover .sitename {
-        color:orange
+        color:rgb(0, 195, 255)
     }
     .links ul li:hover .linkdes {
         color:#949494;
@@ -5015,7 +5051,7 @@ i.iconfont.js-toggle-search.iconsearch {
 }
 #mo-nav ul li a:hover {
     cursor:pointer;
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .we-content li {
     height:250px
@@ -5810,11 +5846,11 @@ button.botui-actions-buttons-button {
     width:auto
 }
 .logolink a:hover .sakurasono {
-    background-color:orange;
+    background-color:rgb(0, 195, 255);
     color:#fff
 }
 .logolink a:hover .shironeko,.logolink a:hover rt {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .logolink.moe-mashiro a {
     color:#464646;
@@ -6197,7 +6233,7 @@ button.botui-actions-buttons-button {
 }
 @media(min-width:861px) {
     .hide-live2d {
-    background-color:orange;
+    background-color:rgb(0, 195, 255);
     bottom:156px;
     visibility:visible;
     min-height:38.75px
@@ -6313,10 +6349,10 @@ button.botui-actions-buttons-button {
 .changeSkin-gear i {
     font-size:20px
 }
-}position:relative;
+/* }position:relative;
     z-index:99;
     cursor:pointer
-}
+} */
 .changeSkin-gear span:before {
     content:"切换主题 | Change Skin "
 }
@@ -6605,7 +6641,7 @@ progress {
     color:#000
 }
 .art .art-content #archives a:hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .art .art-content #archives .al_year {
     padding-left:100px
@@ -6756,7 +6792,7 @@ a.toc-link {
     width:2px
 }
 .is-active-link::before {
-    background-color:orange !important
+    background-color:rgb(0, 195, 255) !important
 }
 .flipx {
     -moz-transform:scaleX(-1);
@@ -6890,10 +6926,10 @@ to {
 }
 .motion-switcher-table th:hover {
     background-color:rgba(245,245,245,.5);
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .motion-switcher-table .on-hover {
-    color:orange
+    color:rgb(0, 195, 255)
 }
 .motion-container {
     height:110px;
@@ -7125,8 +7161,8 @@ to {
     cursor:pointer
 }
 .insert-image-tips:hover {
-    color:orange;
-    border:1px solid orange
+    color:rgb(0, 195, 255);
+    border:1px solid rgb(0, 195, 255)
 }
 .insert-image-button {
     opacity:0;
@@ -7139,8 +7175,8 @@ to {
     cursor:pointer
 }
 .insert-image-tips-hover {
-    color:orange;
-    border:1px solid orange
+    color:rgb(0, 195, 255);
+    border:1px solid rgb(0, 195, 255)
 }
 .upload-image-preview {
     display:inline-block;
@@ -7161,7 +7197,7 @@ to {
     cursor:pointer
 }
 .top-feature-row {
-    width:100%;
+    width:150%;
     height:auto;
     margin-top:55px
 }
@@ -7208,7 +7244,7 @@ to {
     transform:scale(1)
 }
 .the-feature.from_left_and_right .info {
-    position:absolute;
+    /* position:absolute;
     top:0;
     bottom:0;
     left:0;
@@ -7222,10 +7258,22 @@ to {
     opacity:0;
     -webkit-transition:all .35s ease-in-out;
     -moz-transition:all .35s ease-in-out;
+    transition:all .35s ease-in-out */
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align:center;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    background:transparent;
+    -webkit-transition:all .35s ease-in-out;
+    -moz-transition:all .35s ease-in-out;
     transition:all .35s ease-in-out
 }
 .the-feature.from_left_and_right .info h3 {
-    text-transform:uppercase;
+    /* text-transform:uppercase;
     color:#fff;
     text-align:center;
     font-size:17px;
@@ -7239,7 +7287,31 @@ to {
     -moz-transform:translateX(-100%);
     -ms-transform:translateX(-100%);
     -o-transform:translateX(-100%);
-    transform:translateX(-100%)
+    transform:translateX(-100%) */
+    text-transform:uppercase;
+    color:rgba(255, 255, 255);
+    text-align:center;
+    font-size:22px;
+    letter-spacing:1px;
+    text-shadow: 0 0 8px #000,0 0 8px #000;
+    font-weight:bold;
+    padding:10px;
+    margin:30px 0 0 0;
+    background:transparent;
+    -webkit-transition:all .35s ease-in-out;
+    -moz-transition:all .35s ease-in-out;
+    transition:all .35s ease-in-out;
+    -webkit-transform:translateY(50%);
+    -moz-transform:translateY(50%);
+    -ms-transform:translateY(50%);
+    -o-transform:translateY(50%);
+    transform:translateY(50%)
+}
+.the-feature.from_left_and_right .info:hover h3{
+    background:rgba(22, 22, 22, 0.85);
+    letter-spacing: 0;
+    text-shadow: none;
+    font-size:17px;
 }
 .the-feature.from_left_and_right .info p {
     font-style:italic;
@@ -7266,7 +7338,8 @@ to {
 }
 .the-feature.from_left_and_right a:hover .info {
     visibility:visible;
-    opacity:1
+    opacity:1;
+    background: rgba(0,0,0,0.6);
 }
 .the-feature.from_left_and_right a:hover .info h3,.the-feature.from_left_and_right a:hover .info p {
     -webkit-transform:translateX(0);
@@ -7470,8 +7543,11 @@ to {
 .Ubuntu-font {
     font-family:'Ubuntu',sans-serif
 }
-.serif {
+/* .serif {
     font-family:'Source Han Serif SC','Source Han Serif','source-han-serif-sc','PT Serif','SongTi SC','MicroSoft Yahei',Georgia,serif
+} */
+.serif {
+    font-family:'Noto Serif SC', 'Source Han Serif SC', 'Source Han Serif', source-han-serif-sc, 'PT Serif', 'SongTi SC', 'MicroSoft Yahei', Georgia, serif
 }
 @media(max-width:860px) {
     .serif {
@@ -7551,7 +7627,8 @@ to {
     margin:0 4px;
     box-shadow:none;
     background-color:#f5f5f5;
-    cursor:pointer
+    cursor:pointer;
+    outline:none;
 }
 .font-family-controls button.selected {
     background-color:#fc3;
@@ -7805,7 +7882,8 @@ td.hljs-ln-numbers {
     display: inline-block;
 }
 #page {
-    min-height: calc(100vh - 150px);
+    /* min-height: calc(100vh - 150px); */
+    min-height: calc(100vh - 45562px); 
 }
 .entry-content * {
     box-sizing: border-box;
@@ -7837,7 +7915,234 @@ td.hljs-ln-numbers {
     position: fixed !important;
     top: 85px;
 }
-
 @media(max-width:1200px) {
     .toc {display: none;}
+}
+.readmore{
+    text-align:left;
+    position:relative;
+    margin-top:10px;
+}
+.readmore a {
+    color:#08f;
+    text-decoration:underline dotted rgba(0,0,0,.1)
+}
+.readmore a:hover {
+    color:#05f !important;
+    text-decoration:underline #05f
+}
+.readmore p {
+    color:#5c5c5c;
+    line-height:27px;
+    margin: 0;
+}
+.readmore hr {
+    margin-top:40px;
+    margin-bottom:40px;
+    display:block;
+    border:0;
+    text-align:center;
+    background:none
+}
+.readmore hr:before {
+    display:inline-block;
+    margin-left:.6em;
+    color:rgba(0,0,0,.8);
+    position:relative;
+    top:-30px;
+    font-size:28px;
+    letter-spacing:.6em
+}
+.readmore img{transform:none!important;}
+.readmore blockquote {
+    margin-bottom: 10px;
+    padding:10px 15px;
+    border-radius: 1.3rem;
+}
+.readmore blockquote:before {
+    font-size:1.2rem;
+    top:-5px;
+    left:-2px;
+}
+.readmore blockquote:after {
+    font-size:1.2rem;
+    bottom:-15px;
+    right:0px;
+}
+.category-meta,.category-meta a {
+    color:#888;
+    font-size:13px
+}
+.category-meta em {
+    margin: 0 5px;
+    color: #666;
+}
+hr {
+    height: 3px !important;
+    border: none !important;
+    background-color: #bfbfbf !important;
+    background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px) !important;
+}
+.butterfly-tags{
+    display: inline-block;
+    margin: 0.4rem 1rem 0.4rem 0;
+    padding: 0rem 0.45rem;
+    border: 1px solid transparent;
+    border-radius: 1px 6px 6px 1px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    text-shadow: none;
+    position: relative;
+    transition: all 0.1s linear;
+    height:22px;
+}
+.spfk-li:hover{
+    transition: all 0.1s linear;
+    opacity: 0.85;
+    color: inherit;
+}
+.butterfly-tags:hover{color: inherit;}
+.butterfly-tags:focus{color: #fff;}
+.butterfly-tags:after{
+    content: " ";
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    position: absolute;
+    left: -2px;
+    top: 8px;
+}
+.spfk-ul{
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+.triangle{
+    border:11px solid transparent;
+    display:inline-block;
+    position:relative;
+    top:6px;
+}
+.spfk-li{
+    display: inline-block;
+    margin-right:-17px;
+    margin-left:-2px;
+}
+.spfk-color1 a{
+    background: #39b3d7;
+    border-color: #39b3d7;
+}
+.spfk-color1 span{border-right-color: #39b3d7;}
+.spfk-color2 a{
+    background: #4cae4c;
+    border-color: #4cae4c;
+}
+.spfk-color2 span{border-right-color: #4cae4c;}
+.spfk-color3 a{
+    background: #f4a83c;
+    border-color: #f4a83c;
+}
+.spfk-color3 span{border-right-color: #f4a83c;}
+.spfk-color4 a{
+    background: #ee6252;
+    border-color: #ee6252;
+}
+.spfk-color4 span{border-right-color: #ee6252;}
+.spfk-color5 a{
+    background: #e23794;
+    border-color: #e23794;
+}
+.spfk-color5 span{border-right-color: #e23794;}
+.spfk-color6 a{
+    background: #9537ff;
+    border-color: #9537ff;
+}
+.spfk-color6 span{border-right-color: #9537ff;}
+.spfk-color7 a{
+    background: #0a5dff;
+    border-color: #0a5dff;
+}
+.spfk-color7 span{border-right-color: #0a5dff;}
+.spfk-color8 a{
+    background: #cb3800;
+    border-color: #cb3800;
+}
+.spfk-color8 span{border-right-color: #cb3800;}
+span.spoiler:hover {text-shadow: grey 0px 0px 4px;}
+span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 8px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+    -moz-transition: text-shadow .5s ease;
+    transition: text-shadow .5s ease;
+}
+span.spoiler.revealed {text-shadow: grey 0px 0px 0px;}
+.article-category{
+    display: inline-block;
+    line-height: 0 !important;
+    margin: 0;
+    padding: 0.55rem 0.2rem;
+    border: 1px solid #0a87ff;
+    background: rgba(255, 255, 255, 0.93);
+    color: #0a87ff !important;
+    text-decoration: none;
+    font-size: 13px;
+    text-shadow: none;
+    box-shadow: 0 0 6px #111;
+    transition: all 0.1s linear;
+    border-radius:10%;
+}
+.article-category:hover{
+    transition: all 0.1s linear;
+    color: #fff !important;
+    background: #0a89ffec;
+}
+.article-category a{color:inherit !important;}
+.gather{
+    width:830px;
+    margin:0  auto;
+    margin-bottom: 25px;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6);
+    background:rgba(255,255,255,0.8) !important;
+    border-radius:15px;
+}
+#vcomments{
+    width:800px;
+    padding:2.3% 1% 2% 1%;
+    margin:0 auto;
+}
+#v-qq{height:30px;}
+#v-tieba{height:35px;}
+#v-menhera:not(.v-avoid){max-width: 6.5%;}
+#v-chino:not(.v-avoid){max-width: 8%;}
+.ctz{display: inline-block;}
+
+/* 输入昵称、邮箱下方虚线的颜色 */
+.vinput:focus{border-bottom-color: #3ca0ff !important;}
+/* 评论者的昵称颜色 */
+.vnick:not(.vinput){color:#006eff!important;}
+/* 鼠标悬浮时，评论者的昵称颜色 */
+.vnick:not(.vinput):hover{color:#04f!important;}
+/* 回复按钮的颜色*/
+.vat{
+    color:#3ca0ff !important;
+    margin-right:3px;
+    border:1px solid #3ca0ff;
+    border-radius:4px;
+    padding:0 0.5% 0 0.5%;
+}
+/* 评论框的边框 */
+.vwrap{
+    border:none !important;
+    border-radius:12px !important;
+    background:rgba(255, 255, 255, 0.3);
+    box-shadow:0px 0px 18px #bbb;
+    padding:14px;
+    margin-top:10px;
 }

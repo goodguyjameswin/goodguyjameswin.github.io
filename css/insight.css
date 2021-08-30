@@ -50,7 +50,7 @@
   display: inline-block;
 }
 .ins-close:hover {
-  color: #e78170;
+  color: #00a1fe;
 }
 .ins-search-container {
   right: 50%;
@@ -124,7 +124,7 @@
 .ins-section .ins-search-item:hover,
 .ins-section .ins-search-item.active {
   color: #fff !important;
-  background: #e78170 !important;
+  background: #00a1fe !important;
 }
 .ins-section .ins-search-item:hover .ins-slug,
 .ins-section .ins-search-item.active .ins-slug,
