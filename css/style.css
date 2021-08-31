@@ -7960,3 +7960,14 @@ td.hljs-ln-numbers {
 @media(max-width:1200px) {
     .toc {display: none;}
 }
+/* span.spoiler:hover {text-shadow: grey 0px 0px 4px;}
+span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 8px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+    -moz-transition: text-shadow .5s ease;
+    transition: text-shadow .5s ease;
+}
+span.spoiler.revealed {text-shadow: grey 0px 0px 0px;} */
