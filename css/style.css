@@ -3829,10 +3829,21 @@ li.feature-2 {
     -webkit-transform:translateY(0);
     transform:translateY(0)
 }
-.notice {
+/* .notice {
     padding:20px;
     border:1px dashed #e6e6e6;
     color:#969696;
+    position:relative;
+    display:inline-block;
+    width:100%;
+    background:#fbfbfb50;
+    border-radius:10px
+} */
+.notice {
+    padding:17px;
+    border:1px dashed #cacacaed;
+    color:#707070;
+    margin:-10px 0 -25px 0;
     position:relative;
     display:inline-block;
     width:100%;
