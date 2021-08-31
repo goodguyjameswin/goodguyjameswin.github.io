@@ -186,35 +186,6 @@ function imgError (ele, type) {
       ele.src = 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/image-404.png'
   }
 }
-// mashiro_global.post_list_show_animation = new function () {
-//   this.ini = function (ajax) {
-//     $('article.post-list-thumb').each(function (i) {
-//       if (ajax) {
-//         var window_height = $(window).height()
-//       } else {
-//         if ($('.headertop').hasClass('headertop-bar')) {
-//           var window_height = 0
-//         } else {
-//           var window_height = $(window).height() - 300
-//         }
-//       }
-//       if (!mashiro_global.landing_at_home) {
-//         window_height += 300
-//       }
-//       var article_height = $('article.post-list-thumb').eq(i).offset().top
-//       if ($(window).height() + $(window).scrollTop() >= article_height) {
-//         $('article.post-list-thumb').eq(i).addClass('post-list-show')
-//       }
-//       $(window).scroll(function () {
-//         var scrolltop = $(window).scrollTop()
-//         if (scrolltop + window_height >= article_height && scrolltop) {
-//           $('article.post-list-thumb').eq(i).addClass('post-list-show')
-//         }
-//       })
-//     })
-//   }
-// }()
-var previousFlag=false;
 mashiro_global.post_list_show_animation = new function () {
   this.ini = function (ajax) {
     $('article.post-list-thumb').each(function (i) {
@@ -233,25 +204,16 @@ mashiro_global.post_list_show_animation = new function () {
       var article_height = $('article.post-list-thumb').eq(i).offset().top
       if ($(window).height() + $(window).scrollTop() >= article_height) {
         $('article.post-list-thumb').eq(i).addClass('post-list-show')
-        previousFlag=true;
       }
       $(window).scroll(function () {
         var scrolltop = $(window).scrollTop()
         if (scrolltop + window_height >= article_height && scrolltop) {
-          $('article.post-list-thumb').eq(i).addClass('post-list-show')        
-          previousFlag=true;
+          $('article.post-list-thumb').eq(i).addClass('post-list-show')
         }
       })
     })
   }
 }()
-setInterval(function(){
-if(previousFlag && MathJax){
-    previousFlag=false;
-    if(MathJax)MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-}
-},1000);
-
 mashiro_global.font_control = new function () {
   this.change_font = function () {
     if ($('body').hasClass('serif')) {
@@ -269,16 +231,6 @@ mashiro_global.font_control = new function () {
       }
     }
   }
-  // this.ini = function () {
-  //   if (document.body.clientWidth > 860) {
-  //     if (!getCookie('font_family') || getCookie('font_family') == 'serif') { $('body').addClass('serif') }
-  //   }
-  //   if (getCookie('font_family') == 'sans-serif') {
-  //     $('body').removeClass('sans-serif')
-  //     $('.control-btn-serif').removeClass('selected')
-  //     $('.control-btn-sans-serif').addClass('selected')
-  //   }
-  // }
   this.ini = function () {
     var font = getCookie('font_family')
     if (document.body.clientWidth > 860) {
@@ -323,11 +275,11 @@ function code_highlight_style () {
   for (var i = 0; i < $('article pre').length; i++) {
     gen_top_bar(i)
   }
-  // $('pre').on('click', function (e) {
-  //   if (e.target !== this) return
-  //   $(this).toggleClass('code-block-fullscreen')
-  //   $('html').toggleClass('code-block-fullscreen-html-scroll')
-  // })
+  $('pre').on('click', function (e) {
+    if (e.target !== this) return
+    $(this).toggleClass('code-block-fullscreen')
+    $('html').toggleClass('code-block-fullscreen-html-scroll')
+  })
   hljs.initLineNumbersOnLoad()
 }
 try {
@@ -491,8 +443,7 @@ function checkBgImgCookie () {
       $('.blank').css('background-color', 'rgba(255,255,255,1)')
       $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
       $('.headertop-bar').removeClass('headertop-bar').addClass('headertop-bar-sakura')
-    // } else if (bgurl == 'https://api.shino.cc/bing/') {
-    } else if (bgurl == 'https://api.ixiaowai.cn/api/api.php') {
+    } else if (bgurl == 'https://api.shino.cc/bing/') {
       mashiro_global.variables.skinSecter = true
       mashiro_global.variables.isNight = true
       $('#night-mode-cover').css('visibility', 'hidden')
@@ -505,9 +456,6 @@ function checkBgImgCookie () {
     return false
   }
 }
-// if (document.body.clientWidth > 860) {
-//   checkBgImgCookie()
-// }
 function checkEffectsCookie() {
   var efurl = getCookie('sakuraEffectCookie')
   if(efurl) {
@@ -570,10 +518,8 @@ function no_right_click () {
   })
 }
 if (mashiro_global.variables.isNight) {
-  // $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
   $('.toc').css('background', 'rgba(255,255,255,0.8)')
 } else {
-  // $('.changeSkin-gear, .toc').css('background', 'none')
   $('.toc').css('background', 'none')
 }
 $(document).ready(function () {
@@ -613,8 +559,7 @@ $(document).ready(function () {
   changeBG('#pixiv-bg', 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/themebg/star.png')
   changeBG('#KAdots-bg', 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/themebg/point.png')
   changeBG('#totem-bg', 'https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/themebg/little-monster.png')
-  // changeBGnoTrans('#bing-bg', 'https://api.shino.cc/bing/')
-  changeBGnoTrans('#bing-bg', 'https://api.ixiaowai.cn/api/api.php')
+  changeBGnoTrans('#bing-bg', 'https://api.shino.cc/bing/')
   $('.skin-menu #white-bg').click(function () {
     mashiro_global.variables.skinSecter = false
     mashiro_global.variables.isNight = false
@@ -631,7 +576,7 @@ $(document).ready(function () {
   $('.skin-menu #dark-bg').click(function () {
     mashiro_global.variables.skinSecter = true
     mashiro_global.variables.isNight = true
-    $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/starry_sky.png)')
+    $('body').css('background-image', 'url(https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/starry_sky.png)')
     $('.blank').css('background-color', 'rgba(255,255,255,.8)')
     $('#night-mode-cover').css('visibility', 'visible')
     $('.pattern-center').removeClass('pattern-center').addClass('pattern-center-sakura')
@@ -639,7 +584,7 @@ $(document).ready(function () {
     $('#banner_wave_1').addClass('banner_wave_hide_fit_skin')
     $('#banner_wave_2').addClass('banner_wave_hide_fit_skin')
     closeSkinMenu()
-    setCookie('bgImgSetting','https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/starry_sky.png',30)
+    setCookie('bgImgSetting','https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/starry_sky.png',30)
   })
   $('.skin-menu #empty-effect').click(function(){
     sakuraEffectClear()
@@ -808,10 +753,8 @@ $(document).ready(function () {
       $('.changeSkin-gear').css('visibility', 'visible')
     }, 300)
     if (mashiro_global.variables.isNight) {
-      // $('.changeSkin-gear, .toc').css('background', 'rgba(255,255,255,0.8)')
       $('.toc').css('background', 'rgba(255,255,255,0.8)')
     } else {
-      // $('.changeSkin-gear, .toc').css('background', 'none')
       $('.toc').css('background', 'none')
     }
   }
@@ -1098,14 +1041,12 @@ function add_copyright () {
 
   function setClipboardText (event) {
     event.preventDefault()
-    // var htmlData = '' + '著作权归作者所有。<br>' + '商业转载请联系作者获得授权，非商业转载请注明出处。<br>' + '作者：' + mashiro_option.author_name + '<br>' + '链接：' + window.location.href + '<br>' + '来源：' + mashiro_option.site_name + '<br><br>' + window.getSelection().toString().replace(/\r\n/g, '<br>')
-    // var textData = '' + '著作权归作者所有。\n' + '商业转载请联系作者获得授权，非商业转载请注明出处。\n' + '' + mashiro_option.author_name + '\n' + '链接：' + window.location.href + '\n' + '来源：' + mashiro_option.site_name + '\n\n' + window.getSelection().toString().replace(/\r\n/g, '\n')
-    var htmlData = window.getSelection()
-    var textData = window.getSelection()
+    var htmlData = '' + '著作权归作者所有。<br>' + '商业转载请联系作者获得授权，非商业转载请注明出处。<br>' + '作者：' + mashiro_option.author_name + '<br>' + '链接：' + window.location.href + '<br>' + '来源：' + mashiro_option.site_name + '<br><br>' + window.getSelection().toString().replace(/\r\n/g, '<br>')
+    var textData = '' + '著作权归作者所有。\n' + '商业转载请联系作者获得授权，非商业转载请注明出处。\n' + '' + mashiro_option.author_name + '\n' + '链接：' + window.location.href + '\n' + '来源：' + mashiro_option.site_name + '\n\n' + window.getSelection().toString().replace(/\r\n/g, '\n')
     if (event.clipboardData) {
       event.clipboardData.setData('text/html', htmlData)
       event.clipboardData.setData('text/plain', textData)
-      // addComment.createButterbar('复制成功！<br>Copied to clipboard successfully!', 1000)
+      addComment.createButterbar('复制成功！<br>Copied to clipboard successfully!', 1000)
     } else if (window.clipboardData) {
       return window.clipboardData.setData('text', textData)
     }
@@ -1322,8 +1263,7 @@ var home = location.href,
   s = $('#bgvideo')[0],
   Siren = {
     BSZ: function() {
-      // $.getScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js')
-      $.getScript('//cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/js/busuanzi.pure.mini.js')
+      $.getScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js')
     },
     TOC: function () {
       if ($('.toc').length > 0 && document.body.clientWidth > 1200) {
@@ -1361,8 +1301,7 @@ var home = location.href,
             $('.toc').removeClass('toc-fixed')
           }
         }
-        // $.getScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
-        $.getScript('//cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/js/busuanzi.pure.mini.js');
+        $.getScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
       }
     },
     AB: function () {
@@ -1383,15 +1322,13 @@ var home = location.href,
           appKey: mashiro_option.v_appKey,
           // verify: mashiro_option.v_verify,
           path: window.location.pathname,
-          visitor:true,
-          placeholder: '说点什么好呢 ...'
+          placeholder: '你是我一生只会遇见一次的惊喜 ...'
         })
       }
     },
     MJ: function () {
       if (mashiro_option.mathjax == '1') {
-        // $.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML', function () {
-          $.getScript('https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML', function () {
+        $.getScript('//cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML', function () {
           MathJax.Hub.Config({tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}})
           var math = document.getElementsByClassName('entry-content')[0]
           MathJax.Hub.Queue(['Typeset', MathJax.Hub, math])
