@@ -7935,6 +7935,27 @@ td.hljs-ln-numbers {
     border-color: #cb3800;
 }
 .spfk-color8 span{border-right-color: #cb3800;}
+.article-category{
+    display: inline-block;
+    line-height: 0 !important;
+    margin: 0;
+    padding: 0.55rem 0.2rem;
+    border: 1px solid #0a87ff;
+    background: rgba(255, 255, 255, 0.93);
+    color: #0a87ff !important;
+    text-decoration: none;
+    font-size: 13px;
+    text-shadow: none;
+    box-shadow: 0 0 6px #111;
+    transition: all 0.1s linear;
+    border-radius:10%;
+}
+.article-category:hover{
+    transition: all 0.1s linear;
+    color: #fff !important;
+    background: #0a89ffec;
+}
+.article-category a{color:inherit !important;}
 
 @media(max-width:1200px) {
     .toc {display: none;}
