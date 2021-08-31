@@ -7839,12 +7839,102 @@ td.hljs-ln-numbers {
     position: fixed !important;
     top: 85px;
 }
+
 .hljs-ln-line:hover {
     background-color: rgba(255, 255, 255, .1);
 }
 .hljs-ln-line.hljs-ln-n:hover{
     background-color: rgba(0,0,0,0) !important;
 }
+.butterfly-tags{
+    display: inline-block;
+    margin: 0.4rem 1rem 0.4rem 0;
+    padding: 0rem 0.45rem;
+    border: 1px solid transparent;
+    border-radius: 1px 6px 6px 1px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    text-shadow: none;
+    position: relative;
+    transition: all 0.1s linear;
+    height:22px;
+}
+.spfk-li:hover{
+    transition: all 0.1s linear;
+    opacity: 0.85;
+    color: inherit;
+}
+.butterfly-tags:hover{color: inherit;}
+.butterfly-tags:focus{color: #fff;}
+.butterfly-tags:after{
+    content: " ";
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.3);
+    position: absolute;
+    left: -2px;
+    top: 8px;
+}
+.spfk-ul{
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+.triangle{
+    border:11px solid transparent;
+    display:inline-block;
+    position:relative;
+    top:6px;
+}
+.spfk-li{
+    display: inline-block;
+    margin-right:-17px;
+    margin-left:-2px;
+}
+.spfk-color1 a{
+    background: #39b3d7;
+    border-color: #39b3d7;
+}
+.spfk-color1 span{border-right-color: #39b3d7;}
+.spfk-color2 a{
+    background: #4cae4c;
+    border-color: #4cae4c;
+}
+.spfk-color2 span{border-right-color: #4cae4c;}
+.spfk-color3 a{
+    background: #f4a83c;
+    border-color: #f4a83c;
+}
+.spfk-color3 span{border-right-color: #f4a83c;}
+.spfk-color4 a{
+    background: #ee6252;
+    border-color: #ee6252;
+}
+.spfk-color4 span{border-right-color: #ee6252;}
+.spfk-color5 a{
+    background: #e23794;
+    border-color: #e23794;
+}
+.spfk-color5 span{border-right-color: #e23794;}
+.spfk-color6 a{
+    background: #9537ff;
+    border-color: #9537ff;
+}
+.spfk-color6 span{border-right-color: #9537ff;}
+.spfk-color7 a{
+    background: #0a5dff;
+    border-color: #0a5dff;
+}
+.spfk-color7 span{border-right-color: #0a5dff;}
+.spfk-color8 a{
+    background: #cb3800;
+    border-color: #cb3800;
+}
+.spfk-color8 span{border-right-color: #cb3800;}
 
 @media(max-width:1200px) {
     .toc {display: none;}
