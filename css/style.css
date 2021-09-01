@@ -7967,6 +7967,10 @@ td.hljs-ln-numbers {
     background: #0a89ffec;
 }
 .article-category a{color:inherit !important;}
+#v-qq{height:30px;}
+#v-tieba{height:35px;}
+#v-menhera:not(.v-avoid){max-width: 6.5%;}
+#v-chino:not(.v-avoid){max-width: 8%;}
 
 @media(max-width:1200px) {
     .toc {display: none;}
@@ -7982,3 +7986,26 @@ span.spoiler {
     transition: text-shadow .5s ease;
 }
 span.spoiler.revealed {text-shadow: grey 0px 0px 0px;} */
+/* 输入昵称、邮箱下方虚线的颜色 */
+.vinput:focus{border-bottom-color: #3ca0ff !important;}
+/* 评论者的昵称颜色 */
+.vnick:not(.vinput){color:#006eff!important;}
+/* 鼠标悬浮时，评论者的昵称颜色 */
+.vnick:not(.vinput):hover{color:#04f!important;}
+/* 回复按钮的颜色*/
+.vat{
+    color:#3ca0ff !important;
+    margin-right:3px;
+    border:1px solid #3ca0ff;
+    border-radius:4px;
+    padding:0 0.5% 0 0.5%;
+}
+/* 评论框的边框 */
+.vwrap{
+    border:none !important;
+    border-radius:12px !important;
+    background:rgba(255, 255, 255, 0.3);
+    box-shadow:0px 0px 18px #bbb;
+    padding:14px;
+    margin-top:10px;
+}

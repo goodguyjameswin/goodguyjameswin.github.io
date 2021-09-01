@@ -1322,7 +1322,7 @@ var home = location.href,
           appKey: mashiro_option.v_appKey,
           // verify: mashiro_option.v_verify,
           path: window.location.pathname,
-          placeholder: '你是我一生只会遇见一次的惊喜 ...'
+          placeholder: '说点什么呢 ...'
         })
       }
     },
