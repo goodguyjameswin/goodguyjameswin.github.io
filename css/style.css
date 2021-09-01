@@ -7971,21 +7971,6 @@ td.hljs-ln-numbers {
 #v-tieba{height:35px;}
 #v-menhera:not(.v-avoid){max-width: 6.5%;}
 #v-chino:not(.v-avoid){max-width: 8%;}
-
-@media(max-width:1200px) {
-    .toc {display: none;}
-}
-/* span.spoiler:hover {text-shadow: grey 0px 0px 4px;}
-span.spoiler {
-    color: rgba(0, 0, 0, 0);
-    background-color: rgba(0, 0, 0, 0);
-    text-shadow: grey 0px 0px 8px;
-    cursor: pointer;
-    -webkit-transition: text-shadow .5s ease;
-    -moz-transition: text-shadow .5s ease;
-    transition: text-shadow .5s ease;
-}
-span.spoiler.revealed {text-shadow: grey 0px 0px 0px;} */
 /* 输入昵称、邮箱下方虚线的颜色 */
 .vinput:focus{border-bottom-color: #3ca0ff !important;}
 /* 评论者的昵称颜色 */
@@ -8009,3 +7994,33 @@ span.spoiler.revealed {text-shadow: grey 0px 0px 0px;} */
     padding:14px;
     margin-top:10px;
 }
+
+@media(max-width:1200px) {
+    .toc {display: none;}
+}
+
+/* span.spoiler:hover {text-shadow: grey 0px 0px 4px;}
+span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 8px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+    -moz-transition: text-shadow .5s ease;
+    transition: text-shadow .5s ease;
+}
+span.spoiler.revealed {text-shadow: grey 0px 0px 0px;} 
+
+.gather{
+    width:830px;
+    margin:0  auto;
+    margin-bottom: 25px;
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.6);
+    background:rgba(255,255,255,0.8) !important;
+    border-radius:15px;
+}
+#vcomments{
+    width:800px;
+    padding:2.3% 1% 2% 1%;
+    margin:0 auto;
+} */
