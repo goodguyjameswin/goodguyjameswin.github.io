@@ -4107,7 +4107,7 @@ li.feature-2 {
     box-sizing:initial;
     white-space:nowrap
 }
-.header-info:before {
+/* .header-info:before {
     content:"";
     position:absolute;
     top:127px;
@@ -4116,7 +4116,7 @@ li.feature-2 {
     border-width:15px;
     border-style:solid;
     border-color:transparent transparent rgba(0,0,0,.5) transparent
-}
+} */
 .header-info p {
     margin:0;
     font-family:'Ubuntu',sans-serif;
