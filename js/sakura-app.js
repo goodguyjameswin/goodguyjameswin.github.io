@@ -1320,7 +1320,7 @@ var home = location.href,
           el: '#vcomments',
           appId: mashiro_option.v_appId,
           appKey: mashiro_option.v_appKey,
-          // verify: mashiro_option.v_verify,
+          avatar: 'identicon',
           path: window.location.pathname,
           placeholder: '说点什么呢 ...'
         })
