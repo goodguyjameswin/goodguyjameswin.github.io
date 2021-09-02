@@ -4151,8 +4151,7 @@ li.feature-2 {
 }
 .top-social li {
     float:left;
-    margin-right:10px;
-    margin-left:10px
+    margin-right:10px
 }
 .top-social_v2 {
     height:37px;
@@ -4178,7 +4177,8 @@ li.feature-2 {
 }
 .top-social_v2 li {
     float:left;
-    margin-right:13px
+    margin-right:10px;
+    margin-left:10px
 }
 .wechat {
     width:35px;
