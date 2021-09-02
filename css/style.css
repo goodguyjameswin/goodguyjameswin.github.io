@@ -775,10 +775,10 @@ svg:not(:root) {
 figure {
     margin:1em 40px
 }
-hr {
+/* hr {
     box-sizing:content-box;
     height:0
-}
+} */
 pre {
     overflow:auto
 }
@@ -858,7 +858,7 @@ p {
 dfn,cite,em,i {
     font-style:italic
 }
-blockquote {
+/* blockquote {
     margin:0;
     padding:30px 60px;
     position:relative
@@ -879,6 +879,37 @@ blockquote:after {
     bottom:-25px;
     right:-5px;
     color:orange;
+    font-family:FontAwesome
+} */
+blockquote {
+    width:fit-content;
+    width:-webkit-fit-content;
+    width:-moz-fit-content;
+    width:-ms-fit-content;
+    width:-o-fit-content;
+    margin:0;
+    margin-bottom: 20px;
+    padding:12px 45px;
+    position:relative;
+    border-radius: 1.5rem;
+    background: rgba(225, 225, 225, .43);
+}
+blockquote:before {
+    content:"\f10d" !important;
+    font-size:2rem;
+    position:absolute;
+    top:-25px;
+    left:2px;
+    color:#50bdff;
+    font-family:FontAwesome
+}
+blockquote:after {
+    content:'\f10e' !important;
+    font-size:2rem;
+    position:absolute;
+    bottom:-25px;
+    right:0px;
+    color:#50bdff;
     font-family:FontAwesome
 }
 blockquote p {
@@ -947,11 +978,17 @@ blockquote:before,blockquote:after,q:before,q:after {
 blockquote,q {
     quotes:"" ""
 }
-hr {
+/* hr {
     background-color:#ccc;
     border:0;
     height:1px;
     margin-bottom:1.5em
+} */
+hr {
+    height: 3px !important;
+    border: none !important;
+    background-color: #bfbfbf !important;
+    background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px) !important;
 }
 ul,ol {
     margin:0 0 1.5em 3em
@@ -2187,7 +2224,7 @@ h1.entry-title {
     background:none
 }
 .entry-content hr:before {
-    content:'...';
+    /* content:'...'; */
     display:inline-block;
     margin-left:.6em;
     color:rgba(0,0,0,.8);
