@@ -4151,7 +4151,8 @@ li.feature-2 {
 }
 .top-social li {
     float:left;
-    margin-right:10px
+    margin-right:10px;
+    margin-left:10px
 }
 .top-social_v2 {
     height:37px;
