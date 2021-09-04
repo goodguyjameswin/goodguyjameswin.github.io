@@ -1269,7 +1269,7 @@ a:hover,a:active {
     position:relative;
     top:0;
     left:0;
-    width:800px;
+    width:830px;
     overflow:hidden;
     margin:0 auto
 }
@@ -7888,9 +7888,14 @@ td.hljs-ln-numbers {
     opacity: 1;
     display: inline-block;
 }
-#page {
+/* #page {
     min-height: calc(100vh - 150px);
+} */
+/* 板块化 */
+#page {
+    min-height: calc(100vh - 45562px);
 }
+/* 板块化 */
 .entry-content * {
     box-sizing: border-box;
 }
