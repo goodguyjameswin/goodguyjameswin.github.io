@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">tags | zt&#39;s blog</title>
+  <title itemprop="name">yolo格式的数据标签转icdar格式 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -492,170 +492,226 @@
   </div>
 </header>
 
-      <div class="pattern-center-blank"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
 <!-- 板块化 -->
 <div class="gather">
 <!-- 板块化 -->
 
-  <!-- <div class="pattern-center "> -->
-  <div class="pattern-center-sakura">
-    <div class="pattern-attachment-img">
-      <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/tagging.webp" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp">
     </div>
-    <header class="pattern-header ">
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
       <h1 class="entry-title">
-      标签云</h1>
+      yolo格式的数据标签转icdar格式</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2021-9-5
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
     </header>
   </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>第一篇文章（水文）！研一参与的第一个项目，用yolo来检测（识别）图片中的喷码字符（<del>生产日期</del>），<del>然后很长一段时间都在给数据打标签</del></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ean_src.webp"></p>
+<p>问题在于用yolo去做逐字符的检测，输出的框顺序并不像我们所认知的那样，分行排列，从上至下，从左至右</p>
+<hr>
+<h3 id="yolo格式标签"><a href="#yolo格式标签" class="headerlink" title="yolo格式标签"></a>yolo格式标签</h3><pre><code class="txt">&lt;object-class&gt; &lt;x&gt; &lt;y&gt; &lt;width&gt; &lt;height&gt;
+</code></pre>
+<p>x，y是检测框的中心坐标；width，height是检测框的宽和高。这些坐标是通过归一化的，其中x，width是使用原图的width进行归一化；而y，height是使用原图的height进行归一化</p>
+<hr>
+<h3 id="icdar格式标签"><a href="#icdar格式标签" class="headerlink" title="icdar格式标签"></a>icdar格式标签</h3><pre><code class="txt">path/to/img [{&quot;transcription&quot;: &quot;content&quot;, &quot;points&quot;: [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]}, {...}]
+</code></pre>
+<p>标签是包含多个字典的list，字典中的 points 表示文本框的四个点的坐标(x, y)，从左上角的点开始顺时针排列。 transcription 表示当前文本框的内容</p>
+<hr>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>把问题转换为对yolo输出检测框的排序。已知量是每个检测框的横、纵坐标，思路是先把所有检测框按纵坐标分成不同行，每行再按横坐标排序。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_result.webp"></p>
+<p>原先的项目数据里，待识别的图片样式基本不变，可以直接在界面里设置每行文本的字符个数，当时的代码就是直接根据这一条件来对检测框排序。<del>然后就检测条形码和二维码去了</del></p>
+<p>后来项目的数据样式变多了，感觉原来的方法行不通了，最近在用<a href="https://github.com/goodguyjameswin/PaddleOCR" target="_blank" rel="noopener">paddleocr</a>做文本识别，需要把以前训练yolo的一些数据标签转成icdar格式，<del>所以又要重新面对这个yolo检测框的排序问题</del>，那就趁着这个机会把代码写清楚</p>
+<hr>
+<h3 id="自然断点法"><a href="#自然断点法" class="headerlink" title="自然断点法"></a>自然断点法</h3><pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135])
+</code></pre>
+<p>思路还是先把检测框按纵坐标分行，想了半天，放弃</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp"></p>
+<p>后来在pycharm里边写代码边debug，发现对数组View as Array的时候有个Colored cells选项，可以把一维数组分块，联想到yolo检测框按纵坐标分行，<del>然后上网去搜有没有一维数组的聚类方法</del></p>
+<p>发现可以用python的机器学习算法库里一个叫核密度估计的方法，实现对多维数据分布规律的曲线模拟。<del>那把一维数组扩充到多维不就好了？（大材小用）</del>，搜了下这个库的调用方法</p>
+<pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135]).reshape(-1, 1)
+kde = KernelDensity(kernel=&#39;gaussian&#39;, bandwidth=3).fit(a[:, 0].reshape(-1, 1))  # 构造指定数据的核密度估计
+s = np.linspace(0, 140)
+e = kde.score_samples(s.reshape(-1, 1))  # 在特定数据上用核函数拟合
+</code></pre>
+<p>观察了下拟合出来的曲线，确实求个极值就可以找到断点了</p>
+<pre><code class="python">mi, ma = argrelextrema(e, np.less)[0], argrelextrema(e, np.greater)[0]  # 计算数组指定轴的相对极值
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_2.webp"></p>
+<pre><code class="txt">Minima: [25.71428571 54.28571429 85.71428571 122.85714286]
+Maxima: [8.57142857 37.14285714 71.42857143 100. 134.28571429]
+</code></pre>
+<p>然后根据断点把一维数组分块，还行</p>
+<pre><code class="txt">[5 6 8 11 4 15 10 9 4 8]
+[35 38 41 42 46 40 36 37]
+[65 68 69 64 70 75 71 73 72]
+[98 99 100 99 105 106 102 104 103 100 110]
+[135]
+</code></pre>
+<hr>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>最后整合到<a href="https://github.com/goodguyjameswin/ocr_data_generator" target="_blank" rel="noopener">标签转换脚本</a>里去，<del>转换速度还行。。吧</del></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_3.webp"></p>
+<p><del>这样就可以用上学长的data_maker了哈哈哈</del><img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/quyin/OK.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_4.webp"></p>
+<p>虽然我个人倾向于用python的pillow库函数ImageFont来制作字符数据，但是喷码样式的字体文件着实不好搞，<del>字符贴图的背景区域定位那块代码也一直想吐槽，之后抽个时间优化下吧，顺便再水一篇文章</del></p>
 
-
-<!-- 
-<div class="site-content">
-    <br><br>
-    <div class="tag-cloud-title" style="text-align:center">
-      目前共计 2 个标签
-    </div>
-    <p></p>
-    <div class="tags" style="text-align:center">
-        <a href="/tags/blog搭建/" style="font-size: 14px; color: #808080">blog搭建</a> <a href="/tags/开源项目/" style="font-size: 14px; color: #808080">开源项目</a>
-    </div>
-    <style>
-        .article-entry ul li:before{
-            display: none;
-        }
-        .article-inner  {
-            text-align: center;
-        }
-        .tags {
-            max-width: 40em;
-            margin: 2em auto;
-            margin-top: 0em;
-        }
-        .tags a {
-            margin-right: 1em;
-            border-bottom: 1px solid gray;
-            line-height: 65px;
-            white-space: nowrap;
-        }
-        .tags a:hover {
-            transition: all 0.15s linear 0s;
-            border-bottom-color: #07f !important;
-            color: #07f !important;
-        }
-    </style>
-    </div>
- -->
-
-  <main class="content">
-    
-
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <!-- <div class="tag-title center-align">
-                <i class="fa fa-tags"></i>&nbsp;&nbsp;标签云
-            </div> -->
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/blog搭建/" title="blog搭建: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="blog搭建" style="background-color: #F9EBEA;">blog搭建
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/开源项目/" title="开源项目: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="开源项目" style="background-color: #F5EEF8;">开源项目
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/wallleap/cdn/css/jqcloud.css">
-<style type="text/css">
-    #tag-wordcloud {
-        width: 100%;
-        height: 300px;
-    }
-</style>
-
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="tag-wordcloud" class="card-content"></div>
-    </div>
-</div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/jqcloud-1.0.4.js"></script>
-<script type="text/javascript">
-    
-
-    $('#tag-wordcloud').jQCloud([{"text":"blog搭建","weight":1,"link":"http://goodguyjameswin.github.io/tags/blog搭建/"},{"text":"开源项目","weight":1,"link":"http://goodguyjameswin.github.io/tags/开源项目/"}], {
-        autoResize: true
-    });
-</script>
-  </main>
-
-
-
-<div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-    
-    <!-- .entry-content -->
-    <!-- 
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+          
+            
+              <div class="post-nepre full next">
+            
+              <a href="/2021/09/01/Hexo-Theme-Sakura/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/sakura.md.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/sakura.md.png">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  Hexo-Theme-Sakura</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
    -->
-    <!-- <div class="single-reward">
-      <div class="reward-open">赏
-        <div class="reward-main">
-          <ul class="reward-row">
-            <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
-            <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer> -->
-    <!-- .entry-footer -->
-  </article>
-    <!-- #post-## -->
-    <!-- <section class="author-profile">
-      <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-        <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="" height="70" width="70"></a>
-        <div class="meta">
-          <span class="title">Author</span>
-          <h3 itemprop="name">
-          <a href="https://www.sao-kirito.top" itemprop="url" rel="author"></a>
-          </h3>
-        </div>
-      </div>
-      <hr>
-      <p><i class="iconfont icon-write"></i>Everything that has a beginning has its end.</p>
-    </section> -->
-</div><!-- #primary -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
 </div>
 <!-- 板块化 -->
 <div class="gather">
+  </div>
 <!-- 板块化 -->
-  
-  
-</div>
-<!-- </div> -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
