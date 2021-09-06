@@ -585,7 +585,8 @@
 <h3 id="自然断点法"><a href="#自然断点法" class="headerlink" title="自然断点法"></a>自然断点法</h3><pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135])
 </code></pre>
 <p>思路还是先把检测框按纵坐标分行，想了半天，放弃</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp"></p>
+<a href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp" data-fancybox="images" data-caption="主人没有描述我哦~" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp"></a>
+
 <p>后来在pycharm里边写代码边debug，发现对数组View as Array的时候有个Colored cells选项，可以把一维数组分块，联想到yolo检测框按纵坐标分行，<del>然后上网去搜有没有一维数组的聚类方法</del></p>
 <p>发现可以用python的机器学习算法库里一个叫核密度估计的方法，实现对多维数据分布规律的曲线模拟。<del>那把一维数组扩充到多维不就好了？（大材小用）</del>，搜了下这个库的调用方法</p>
 <pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135]).reshape(-1, 1)
