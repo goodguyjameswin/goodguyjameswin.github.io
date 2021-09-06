@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2021-09-06T12:20:11.057Z</updated>
+  <updated>2021-09-06T12:33:42.164Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>text_generator</title>
+    <link href="http://goodguyjameswin.github.io/2021/09/06/text-generator/"/>
+    <id>http://goodguyjameswin.github.io/2021/09/06/text-generator/</id>
+    <published>2021-09-06T15:33:17.000Z</published>
+    <updated>2021-09-06T12:33:42.164Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://goodguyjameswin.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>yolo格式的数据标签转icdar格式</title>
-    <link href="http://goodguyjameswin.github.io/2021/09/05/yolo_icdar/"/>
-    <id>http://goodguyjameswin.github.io/2021/09/05/yolo_icdar/</id>
-    <published>2021-09-05T13:58:01.000Z</published>
-    <updated>2021-09-06T12:20:11.057Z</updated>
+    <link href="http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/"/>
+    <id>http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/</id>
+    <published>2021-09-06T12:30:01.000Z</published>
+    <updated>2021-09-06T12:29:35.189Z</updated>
     
     <summary type="html">
     
