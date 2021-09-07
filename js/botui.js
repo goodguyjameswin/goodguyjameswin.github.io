@@ -30,7 +30,7 @@ function bot_ui_ini() {
         }).then(function () {
             botui.message.add({
                 delay: 1100,
-                content: "一个娱乐至上主义者~"
+                content: "just a gamer"
             }).then(function () {
                 botui.action.button({
                     delay: 1600,
@@ -77,7 +77,7 @@ function bot_ui_ini() {
                     }).then(function () {
                         botui.message.add({
                             delay: 1500,
-                            content: "主攻 Go 语言和 Python，略懂 C++，偶尔也折腾 HTML/CSS/JavaScript/PHP"
+                            content: "主攻 java 语言和 Python，略懂 C++，偶尔也折腾 HTML/CSS/JavaScript"
                         }).then(function () {
                             botui.message.add({
                                 delay: 1500,
@@ -85,7 +85,7 @@ function bot_ui_ini() {
                             }).then(function () {
                                 botui.message.add({
                                     delay: 1800,
-                                    content: "喜欢宅，偶尔整点活，希望有一天能够被称为技术宅"
+                                    content: "比较宅，偶尔整点活，希望有一天能够被称为技术宅"
                                 }).then(function () {
                                     botui.action.button({
                                         delay: 1100,
