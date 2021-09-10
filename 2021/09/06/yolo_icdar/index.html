@@ -582,20 +582,20 @@
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_result.webp"></p>
 <p>原先的项目数据里，待识别的图片样式基本不变，可以直接在界面里设置每行文本的字符个数，当时的代码就是直接根据这一条件来对检测框排序。<del>然后就检测条形码和二维码去了</del></p>
 <p>后来项目的数据样式变多了，感觉原来的方法行不通了，最近在用<a href="https://github.com/goodguyjameswin/PaddleOCR" target="_blank" rel="noopener">paddleocr</a>做文本识别，需要把以前训练yolo的一些数据标签转成icdar格式，<del>所以又要重新面对这个yolo检测框的排序问题</del>，那就趁着这个机会把代码写清楚</p>
-<h3 id="自然断点法"><a href="#自然断点法" class="headerlink" title="自然断点法"></a>自然断点法</h3><pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135])
+<h3 id="自然断点法"><a href="#自然断点法" class="headerlink" title="自然断点法"></a>自然断点法</h3><pre><code class="py">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135])
 </code></pre>
 <p>思路还是先把检测框按纵坐标分行，想了半天，放弃</p>
 <a href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp" data-fancybox="images" data-caption="colored_cells" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_1.webp"></a>
 
 <p>后来在pycharm里边写代码边debug，发现对数组View as Array的时候有个Colored cells选项，可以把一维数组分块，联想到yolo检测框按纵坐标分行，<del>然后上网去搜有没有一维数组的聚类方法</del></p>
 <p>发现可以用python的机器学习算法库里一个叫核密度估计的方法，实现对多维数据分布规律的曲线模拟。<del>那把一维数组扩充到多维不就好了？（大材小用）</del>，搜了下这个库的调用方法</p>
-<pre><code class="python">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135]).reshape(-1, 1)
+<pre><code class="py">a = np.array([5, 35, 38, 41, 65, 68, 98, 99, 100, 99, 105, 106, 102, 104, 103, 100, 110, 69, 64, 70, 75, 71, 73, 72, 42, 46, 40, 36, 37, 6, 8, 11, 4, 15, 10, 9, 4, 8, 135]).reshape(-1, 1)
 kde = KernelDensity(kernel=&#39;gaussian&#39;, bandwidth=3).fit(a[:, 0].reshape(-1, 1))  # 构造指定数据的核密度估计
 s = np.linspace(0, 140)
 e = kde.score_samples(s.reshape(-1, 1))  # 在特定数据上用核函数拟合
 </code></pre>
 <p>观察了下拟合出来的曲线，确实求个极值就可以找到断点了</p>
-<pre><code class="python">mi, ma = argrelextrema(e, np.less)[0], argrelextrema(e, np.greater)[0]  # 计算数组指定轴的相对极值
+<pre><code class="py">mi, ma = argrelextrema(e, np.less)[0], argrelextrema(e, np.greater)[0]  # 计算数组指定轴的相对极值
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/ziran_2.webp"></p>
 <pre><code class="txt">Minima: [25.71428571 54.28571429 85.71428571 122.85714286]
@@ -659,9 +659,41 @@ layout: false
         <!-- <div class="toc" style="background: none;"></div> -->
         <section class="post-squares nextprev">
           
+            
+              <div class="post-nepre full previous">
+            
+              <a href="/2021/09/08/java学习笔记/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  java学习笔记</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
           
         </section>
         <!-- 
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI",
+        appKey: "QLSh39tFIMnFiT4bET0u05WM",
+        path: window.location.pathname,
+        avatar: 'identicon',
+        placeholder: "说点什么呢 ..."
+      })
+  }
+</script>
+
    -->
         <!-- <section class="author-profile">
           <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
@@ -682,6 +714,21 @@ layout: false
 </div>
 <!-- 板块化 -->
 <div class="gather">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI",
+        appKey: "QLSh39tFIMnFiT4bET0u05WM",
+        path: window.location.pathname,
+        avatar: 'identicon',
+        placeholder: "说点什么呢 ..."
+      })
+  }
+</script>
+
   </div>
 <!-- 板块化 -->
 

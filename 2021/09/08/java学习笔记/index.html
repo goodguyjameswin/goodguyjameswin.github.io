@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">categories | zt&#39;s blog</title>
+  <title itemprop="name">java学习笔记 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -492,173 +492,288 @@
   </div>
 </header>
 
-      <div class="pattern-center-blank"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
 <!-- 板块化 -->
 <div class="gather">
 <!-- 板块化 -->
 
-  <!-- <div class="pattern-center "> -->
-  <div class="pattern-center-sakura">
-    <div class="pattern-attachment-img">
-      <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/categories.webp" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp">
     </div>
-    <header class="pattern-header ">
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
       <h1 class="entry-title">
-      分类图</h1>
+      java学习笔记</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2021-9-8
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
     </header>
   </div>
-
-
-<!--  -->
-
-
-  <main class="content">
-    
-
-<div id="category-cloud" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <!-- <div class="tag-title center-align">
-                <i class="fa fa-bookmark"></i>&nbsp;&nbsp;文章分类
-            </div> -->
-            <div class="tag-chips">
-                
-                
-                
-                <a href="/categories/技术/" title="技术: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F9EBEA;">技术
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/生活/" title="生活: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #F5EEF8;">生活
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    <style type="text/css">
-  #category-radar {
-      margin-top: 50px;
-      width: 100%;
-      height: 360px;
-  }
-</style>
-
-<div class="container" data-aos="fade-up">
-  <div class="card">
-      <div id="category-radar" class="card-content"></div>
-  </div>
-</div>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/js/echarts.min.js"></script>
-<script type="text/javascript">
-  let radarChart = echarts.init(document.getElementById('category-radar'));
-
   
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p>应该是场持久战，先做好记录。。<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png"></p>
+<h2 id="How2J网站学习笔记"><a href="#How2J网站学习笔记" class="headerlink" title="How2J网站学习笔记"></a>How2J网站学习笔记</h2><h3 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h3><p>创建txt文件，写入代码实现打印”helloworld“，改后缀名变为java源文件，需要在命令行里用javac命令编译成class文件后运行</p>
+<pre><code class="bash">javac filename.java
+java classname
+</code></pre>
+<hr>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><p>整型数据类型byte、short、int的long缺省值都为0，<strong>默认的整数字面值是long类型</strong>，长度分别为8、16、32、64位（有符号数）</p>
+<p>char类型的值用单引号’表示 (双引号表示字符串)，其长度和short一样，<strong>只能存放一个字符</strong>，超过一个字符就会产生编译错误</p>
+<p>浮点数类型float、double分别为32、64位，缺省值都为0.0，<strong>默认的小数值是double类型</strong>，在数字后面<strong>加一个字母f</strong>，直接把该数字声明成float类型</p>
+<p>布尔类型boolean用于表示真假，长度为1，缺省值为false，虽然布尔型真正存放的数据是0（false）、1（true）但是，不能直接使用0、1进行赋值</p>
+<p>String其实<strong>并不是基本数据类型</strong>，String类型是Immutable的，一旦创建就不能够被改变</p>
+<pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {
+    long val = 26L; //以L结尾的字面值表示long型
+    int decVal = 26; //默认就是int型
+    int hexVal = 0x1a; //16进制
+    int oxVal = 032; //8进制
+    int binVal = 0b11010; //2进制
+    float f1 = 123.4F;  // 以F结尾的字面值表示float类型
+    double d1 = 123.4;  // 默认就是double类型
+    double d2 = 1.234e2;  // 科学计数法表示double，e2表示10的二次方
+  }
+}
+</code></pre>
+<p>如果任何运算单元的长度都不超过int，那么其结果就是int。如果有任何运算单元的长度超过int，那么结果就按照最长的长度计算</p>
+<pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {
+    byte b = 5;
+    int i1 = 10;
+    int i2 = 300;
+    b = (byte) i1;
+    //因为i1的值是在byte范围之内，所以即便进行强制转换
+    //最后得到的值，也是10
+    System.out.println(b);
+    //因为i2的值是在byte范围之外，所以就会按照byte的长度进行截取
+    //i2的值是300，其对应的二进制数是 100101100
+    //按照byte的长度8位进行截取后，其值为 00101100 即44
+    b =(byte) i2;
+    System.out.println(b);
+    //查看一个整数对应的二进制的方法：
+    System.out.println(Integer.toBinaryString(i2)); 
+    }
+}
+</code></pre>
+<hr>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>类的属性和方法名称一般来说，都是小写，如果有多个单词组成，后面的单词的第一个字母大写，比如moveSpeed</p>
+<p>当一个变量被声明在类下面，变量就叫做<strong>字段</strong>或者<strong>属性</strong>、<strong>成员变量</strong>、<strong>Field</strong>，其作用域就是从其声明的位置开始的整个类</p>
+<p>如果一个变量，是声明在一个方法上的，就叫做<strong>参数</strong>，参数的作用域即为该方法内的所有代码，其他方法不能访问该参数，类里面也不能访问该参数</p>
+<p>声明在方法内的变量，叫做<strong>局部变量</strong>，其作用域在声明开始的位置，到其所处于的块结束位置</p>
+<p>属性的作用域在方法中，参数的作用域也在方法中，如果属性和参数命名相同</p>
+<pre><code class="java">public class HelloWorld {
+    int i = 1;  //属性名是i
+    public void method1(int i) {  //参数也是i
+        System.out.println(i);
+    }
+    public static void main(String[] args) {
+        new HelloWorld().method1(5);
+        //结果打印出来是 5
+    }
+}
+</code></pre>
+<p>当一个变量被final修饰的时候，该变量<strong>只有一次赋值的机会</strong></p>
+<pre><code class="java">public class HelloWorld {
+  public void method1(final int j) {
+    j = 5; //这个不能执行
+  }
+}
+</code></pre>
+<p>以;结尾的一段代码，即为一个表达式，一个空;也是一个表达式。从 { 开始到对应的 } 结束，即一个块</p>
+<hr>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><h4 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h4><p>需要注意的是，如果在通过nextInt()读取了整数后，再接着读取字符串，读出来的是回车换行:”\r\n”,因为nextInt仅仅读取数字信息，而不会读取回车换行”\r\n”.</p>
+<p>所以，如果在业务上需要读取了整数后，接着读取字符串，那么就应该连续执行两次nextLine()，第一次是取走回车换行，第二次才是读取真正的字符串</p>
+<pre><code class="java">import java.util.Scanner;
 
-  let option = {
-      title: {
-          left: 'center',
-          text: '分类雷达图',
-          textStyle: {
-              fontWeight: 500,
-              fontSize: 22
-          }
-      },
-      tooltip: {},
-      radar: {
-          name: {
-              textStyle: {
-                  color: '#3C4858'
-              }
-          },
-          indicator: [{"name":"技术","max":2},{"name":"生活","max":2}],
-          nameGap: 5,
-          center: ['50%','55%'],
-          radius: '66%'
-      },
-      series: [{
-          type: 'radar',
-          color: ['#3ecf8e'],
-          itemStyle: {normal: {areaStyle: {type: 'default'}}},
-          data : [
-              {
-                  value : [1,1],
-                  name : '文章分类数量'
-              }
-          ]
-      }]
-  };
+public class HelloWorld {
+  public static void main(String[] args) {
+    Scanner s = new Scanner(System.in);
+    float a = s.nextFloat();
+    System.out.printIn(&quot;读取的浮点数的值是：&quot;+a);
+    int a = s.nextInt();
+    System.out.printIn(&quot;第一个整数：&quot;+a);
+    String rn = s.nextLine();
+    String a = s.nextLine();
+    System.out.printIn(&quot;读取的字符串是：&quot;+a);
+  }
+}
+</code></pre>
+<hr>
+<h4 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h4><p>无论&amp;&amp;还是&amp;，两边的运算单元都是布尔值，都为真时，才为真，任意为假，就为假。&amp;&amp;两侧，都会被运算，&amp;只要第一个是false，第二个就不进行运算了</p>
+<p>无论||还是|，两边的运算单元都是布尔值，都为真时，才为真，任意为假，就为假。||两侧，都会被运算，|只要第一个是false，第二个就不进行运算了</p>
+<p>通过Integer.toBinaryString()方法，可将一个十进制整数转换为一个<strong>二进制字符串</strong></p>
+<p>**带符号右移&gt;&gt;<strong>，对于正数，会把所有的位右移，并在最前面补0，对于负数，会把所有的位右移，并在最前面补1。</strong>无符号右移&gt;&gt;&gt;**，如果是一个负数，那么对应的二进制的第一位是1，会把第一位的1也向右移动，导致移动后，第一位变成0，这样就会使得负数在无符号右移后，得到一个正数</p>
+<hr>
+<h3 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h3><h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><p>switch可以使用byte、short、int、char、String和<strong>enum</strong>，每个表达式结束，都应该有一个break，String在Java1.7之前是不支持的，Java从1.7开始支持switch用String的，编译后是把String转化为hash值，其实还是整数</p>
+<hr>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>break;只能结束当前循环，使用标签结束外部循环</p>
+<pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {    
+    //打印单数    
+    outloop: //outloop这个标示是可以自定义的比如outloop1,ol2,out5
+    for (int i = 0; i &lt; 10; i++) { 
+      for (int j = 0; j &lt; 10; j++) {
+          System.out.println(i+&quot;:&quot;+j);
+          if(0==j%2) 
+              break outloop; //如果是双数，结束外部循环
+      }  
+    }    
+  }
+}
+</code></pre>
 
-  radarChart.setOption(option);
-</script>
-    
-  </main>
-
-
-<div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-    
-    <!-- .entry-content -->
-    <!-- 
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+          
+            
+              <div class="post-nepre full next">
+            
+              <a href="/2021/09/06/yolo_icdar/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  yolo格式的数据标签转icdar格式</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
    -->
-    <!-- <div class="single-reward">
-      <div class="reward-open">赏
-        <div class="reward-main">
-          <ul class="reward-row">
-            <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
-            <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer> -->
-    <!-- .entry-footer -->
-  </article>
-    <!-- #post-## -->
-    <!-- <section class="author-profile">
-      <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-        <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="" height="70" width="70"></a>
-        <div class="meta">
-          <span class="title">Author</span>
-          <h3 itemprop="name">
-          <a href="https://www.sao-kirito.top" itemprop="url" rel="author"></a>
-          </h3>
-        </div>
-      </div>
-      <hr>
-      <p><i class="iconfont icon-write"></i>Everything that has a beginning has its end.</p>
-    </section> -->
-</div><!-- #primary -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i>技术宅</p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
 </div>
 <!-- 板块化 -->
 <div class="gather">
+  </div>
 <!-- 板块化 -->
-  
-  
-</div>
-<!-- </div> -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
