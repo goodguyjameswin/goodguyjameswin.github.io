@@ -574,7 +574,6 @@
 <pre><code class="bash">javac filename.java
 java classname
 </code></pre>
-<hr>
 <h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><p>整型数据类型byte、short、int的long缺省值都为0，<strong>默认的整数字面值是long类型</strong>，长度分别为8、16、32、64位（有符号数）</p>
 <p>char类型的值用单引号’表示 (双引号表示字符串)，其长度和short一样，<strong>只能存放一个字符</strong>，超过一个字符就会产生编译错误</p>
 <p>浮点数类型float、double分别为32、64位，缺省值都为0.0，<strong>默认的小数值是double类型</strong>，在数字后面<strong>加一个字母f</strong>，直接把该数字声明成float类型</p>
@@ -638,7 +637,6 @@ java classname
 }
 </code></pre>
 <p>以;结尾的一段代码，即为一个表达式，一个空;也是一个表达式。从 { 开始到对应的 } 结束，即一个块</p>
-<hr>
 <h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><h4 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h4><p>需要注意的是，如果在通过nextInt()读取了整数后，再接着读取字符串，读出来的是回车换行:”\r\n”,因为nextInt仅仅读取数字信息，而不会读取回车换行”\r\n”.</p>
 <p>所以，如果在业务上需要读取了整数后，接着读取字符串，那么就应该连续执行两次nextLine()，第一次是取走回车换行，第二次才是读取真正的字符串</p>
 <pre><code class="java">import java.util.Scanner;
@@ -661,7 +659,6 @@ public class HelloWorld {
 <p>无论||还是|，两边的运算单元都是布尔值，都为真时，才为真，任意为假，就为假。||两侧，都会被运算，|只要第一个是false，第二个就不进行运算了</p>
 <p>通过Integer.toBinaryString()方法，可将一个十进制整数转换为一个<strong>二进制字符串</strong></p>
 <p>**带符号右移&gt;&gt;<strong>，对于正数，会把所有的位右移，并在最前面补0，对于负数，会把所有的位右移，并在最前面补1。</strong>无符号右移&gt;&gt;&gt;**，如果是一个负数，那么对应的二进制的第一位是1，会把第一位的1也向右移动，导致移动后，第一位变成0，这样就会使得负数在无符号右移后，得到一个正数</p>
-<hr>
 <h3 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h3><h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><p>switch可以使用byte、short、int、char、String和<strong>enum</strong>，每个表达式结束，都应该有一个break，String在Java1.7之前是不支持的，Java从1.7开始支持switch用String的，编译后是把String转化为hash值，其实还是整数</p>
 <hr>
 <h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>break;只能结束当前循环，使用标签结束外部循环</p>
