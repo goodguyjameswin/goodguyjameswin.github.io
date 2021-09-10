@@ -658,7 +658,7 @@ public class HelloWorld {
 <h4 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h4><p>无论&amp;&amp;还是&amp;，两边的运算单元都是布尔值，都为真时，才为真，任意为假，就为假。&amp;&amp;两侧，都会被运算，&amp;只要第一个是false，第二个就不进行运算了</p>
 <p>无论||还是|，两边的运算单元都是布尔值，都为真时，才为真，任意为假，就为假。||两侧，都会被运算，|只要第一个是false，第二个就不进行运算了</p>
 <p>通过Integer.toBinaryString()方法，可将一个十进制整数转换为一个<strong>二进制字符串</strong></p>
-<p>**带符号右移&gt;&gt;<strong>，对于正数，会把所有的位右移，并在最前面补0，对于负数，会把所有的位右移，并在最前面补1。</strong>无符号右移&gt;&gt;&gt;**，如果是一个负数，那么对应的二进制的第一位是1，会把第一位的1也向右移动，导致移动后，第一位变成0，这样就会使得负数在无符号右移后，得到一个正数</p>
+<p><strong>带符号</strong>右移&gt;&gt;，对于正数，会把所有的位右移，并在最前面补0，对于负数，会把所有的位右移，并在最前面补1。<strong>无符号</strong>右移&gt;&gt;&gt;，如果是一个负数，那么对应的二进制的第一位是1，会把第一位的1也向右移动，导致移动后，第一位变成0，这样就会使得负数在无符号右移后，得到一个正数</p>
 <h3 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h3><h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><p>switch可以使用byte、short、int、char、String和<strong>enum</strong>，每个表达式结束，都应该有一个break，String在Java1.7之前是不支持的，Java从1.7开始支持switch用String的，编译后是把String转化为hash值，其实还是整数</p>
 <hr>
 <h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>break;只能结束当前循环，使用标签结束外部循环</p>
