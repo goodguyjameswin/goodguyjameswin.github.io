@@ -569,7 +569,7 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><p>应该是场持久战，先做好记录。。<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png"></p>
+            <h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><p>应该是场持久战，先做好记录。。<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png">，部分学习笔记摘录于<a href="https://how2j.cn/" target="_blank" rel="noopener">How2J</a></p>
 <h3 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h3><p>创建txt文件，写入代码实现打印”helloworld“，改后缀名变为java源文件，需要在命令行里用javac命令编译成class文件后运行</p>
 <pre><code class="bash">javac filename.java
 java classname
@@ -676,6 +676,274 @@ public class HelloWorld {
   }
 }
 </code></pre>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {
+    //声明一个引用，但如果仅仅是这一句声明，则不会创建数组
+    int[] a;
+    //创建一个长度是5的数组，并且使用引用a指向该数组
+    a = new int[5]; //创建数组时，要指明数组的长度
+    int[] b = new int[5]; //声明的同时，指向一个数组
+  }
+}
+</code></pre>
+<p>获取0-100的随机整数，Math.random()，会得到一个0-1之间的随机浮点数</p>
+<pre><code class="java">(int) (Math.random() * 100)
+</code></pre>
+<p>给数组分配空间、赋值，数组的长度是<strong>不可变</strong>的</p>
+<pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {
+    //写法一： 分配空间同时赋值
+    int[] a = new int[]{100,102,444,836,3236};
+
+    //写法二： 省略了new int[],效果一样
+    int[] b = {100,102,444,836,3236};
+      
+    //写法三：同时分配空间，和指定内容
+    //在这个例子里，长度是3，内容是5个，产生矛盾了
+    //所以如果指定了数组的内容，就不能同时设置数组的长度
+    int[] c = new int[3]{100,102,444,836,3236};
+  }
+}
+</code></pre>
+<p>把一个数组的值，复制到另一个数组中</p>
+<pre><code class="java">System.arraycopy(src, srcPos, dest, destPos, length)
+</code></pre>
+<ul>
+<li>src: 源数组</li>
+<li>srcPos: 从源数组复制数据的起始位置</li>
+<li>dest: 目标数组</li>
+<li>destPos: 复制到目标数组的起始位置</li>
+<li>length: 复制的长度</li>
+</ul>
+<p>增强型for循环只能用来<strong>取值</strong>，却不能用来修改数组里的值</p>
+<pre><code class="java">int[] a = new int[5];
+for(int i = 0; i &lt; a.length; i++) {
+  a[i] = (int) (Math.random() * 100);
+  System.out.println(&quot;数组值依次为：&quot; + a[i]);
+}
+//增强型for循环遍历
+for (int each : a) {
+  System.out.println(each);
+}
+</code></pre>
+<hr>
+<h4 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h4><p>二维数组里的每一个元素，都是一个一维数组</p>
+<pre><code class="java">public class HelloWorld {
+  public static void main(String[] args) {
+    //初始化二维数组，
+    int[][] a = new int[2][3]; //有两个一维数组，每个一维数组的长度是3
+    a[1][2] = 5;  //可以直接访问一维数组，因为已经分配了空间
+      
+    //只分配了二维数组
+    int[][] b = new int[2][]; //有两个一维数组，每个一维数组的长度暂未分配
+    b[0]  =new int[3]; //必须事先分配长度，才可以访问
+    b[0][2] = 5;
+    
+    //指定内容的同时，分配空间
+    int[][] c = new int[][]{
+            {1,2,4},
+            {4,5},
+            {6,7,8,9}
+    };
+  }
+}
+</code></pre>
+<hr>
+<h4 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h4><p>Arrays是针对数组的工具类</p>
+<pre><code class="java">import java.util.Arrays;
+ 
+public class HelloWorld {
+  public static void main(String[] args) {
+    int a[] = new int[] { 18, 62, 68, 82, 65, 9 };
+    // copyOfRange(int[] original, int from, int to)
+    // 第一个参数表示源数组
+    // 第二个参数表示开始位置(取得到)
+    // 第三个参数表示结束位置(取不到)
+
+    // System.arraycopy，需要事先准备好目标数组，并分配长度。不同的是，copyOfRange只需要源数组就就可以了，通过返回值，就能够得到目标数组了
+    int[] b = Arrays.copyOfRange(a, 0, 3);
+    
+    // Arrays提供了一个toString()方法，直接把一个数组，转换为字符串
+    String content = Arrays.toString(a);
+
+    // Arrays工具类提供了一个sort方法，只需要一行代码即可完成排序功能
+    Arrays.sort(a);
+
+    // 查询元素出现的位置，需要注意的是，使用binarySearch进行查找之前，必须使用sort进行排序，如果数组中有多个相同的元素，查找结果是不确定的
+    Arrays.binarySearch(a, 62);
+
+    // 比较两个数组的内容是否一样
+    Arrays.equals(a, b);
+
+    // 使用同一个值，填充整个数组
+    Arrays.fill(a, 5);
+    }
+  }
+</code></pre>
+<h3 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h3><h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>如果一个变量的类型是 类类型，而非基本类型，那么该变量又叫做引用</p>
+<pre><code class="java">Hero h = new Hero();
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_1.webp"></p>
+<pre><code class="java">// 使用一个引用来指向这个对象
+Hero h1 = new Hero();
+Hero h2 = h1; // h2指向h1所指向的对象
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_2.webp"></p>
+<p>第一行，引用garen指向新创建的对象（对象1）；第二行，同一个引用garen指向新创建的对象（对象2）。这个时候，对象1，就没有任何引用指向了，换句话说，就没有任何手段控制和访问该对象，那么该对象就变得没有意义</p>
+<pre><code class="java">Hero garen =  new Hero();
+garen =  new Hero();
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_3.webp"></p>
+<hr>
+<h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>设计采用可变数量参数的方法，在方法里，使用操作数组的方式处理参数</p>
+<pre><code class="java">public void attack(Hero h1)
+public void attack(Hero h1,Hero h2)
+public void attack(Hero h1,Hero h2,Hero h3)
+
+// 可变数量的参数
+public void attack(Hero... heros) {
+  for (int i = 0; i &lt; heros.length; i++) {
+    System.out.println(name + &quot; 攻击了 &quot; + heros[i].name);
+  }
+}
+</code></pre>
+<p>构造方法名和类名一样（包括大小写），没有返回类型，实例化一个对象时，必然调用构造方法，如果不自己定义，就会默认提供一个无参的构造方法，一旦提供了一个有参的构造方法，同时<strong>没有显式</strong>提供一个无参的构造方法，就不会提供默认的无参构造方法了</p>
+<hr>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>如果要在一个构造方法中，调用另一个构造方法，可以使用this()</p>
+<pre><code class="java">//带一个参数的构造方法
+public Hero(String name){
+  System.out.println(&quot;一个参数的构造方法&quot;);
+  this.name = name;
+}
+  
+//带两个参数的构造方法
+public Hero(String name,float hp){
+  this(name);
+  System.out.println(&quot;两个参数的构造方法&quot;);
+  this.hp = hp;
+}
+</code></pre>
+<hr>
+<h4 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h4><p>如果一个变量是基本类型，=符号就表示<strong>赋值</strong>的意思。如果一个变量是类类型，=符号则表示<strong>指向</strong>的意思</p>
+<p>当变量作为基本类型传递时，在方法内，无法修改方法外的基本类型参数。当变量为类类型传递时，实质传递的是该引用的地址，内部对形参修改影响的只是引用的地址新指向，除非修改<strong>对象.属性值</strong>，才能真正影响外部实参</p>
+<hr>
+<h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/fanwen_xiushi.webp"></p>
+<p>从作用域来看，public能够使用所有的情况</p>
+<ul>
+<li>属性通常使用private封装起来</li>
+<li>方法一般使用public用于被调用</li>
+<li>会被子类继承的方法，通常使用protected</li>
+<li>package用的不多，一般新手会用package,因为还不知道有修饰符这个东西</li>
+</ul>
+<p><strong>作用范围最小原则</strong>，简单说，能用private就用private，不行就放大一级，用package，再不行就用protected，最后用public。这样就能把数据尽量的封装起来，没有必要露出来的，就不用露出来了</p>
+<hr>
+<h4 id="类属性"><a href="#类属性" class="headerlink" title="类属性"></a>类属性</h4><p>当一个属性被<strong>static</strong>修饰的时候，就叫做类属性，又叫做静态属性。当一个属性被声明成类属性，那么所有的对象，都共享一个值</p>
+<p>访问类属性可以使用</p>
+<ul>
+<li>对象.类属性</li>
+<li>类.类属性</li>
+</ul>
+<hr>
+<h4 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h4><p>访问类方法可以使用</p>
+<ul>
+<li>对象.类方法</li>
+<li>类.类方法</li>
+</ul>
+<p>如果方法里访问了对象属性，那么这个方法，就必须设计为对象方法。如果一个方法，没有调用任何对象属性，那么就可以考虑设计为类方法，这样更带有<strong>功能性色彩</strong></p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><pre><code class="java">package charactor;
+ 
+public class Hero {
+  // 对象属性初始化
+  public String name = &quot;some hero&quot;; //声明该属性的时候初始化
+  protected float hp;
+  float maxHP;
+  {
+    maxHP = 200; //初始化块
+  }  
+  public Hero(){
+    hp = 100; //构造方法中初始化    
+  }
+
+  // 类属性初始化
+  public static int itemCapacity=8; //声明的时候 初始化
+  static{
+    itemCapacity = 6;//静态初始化块 初始化
+  }
+}
+</code></pre>
+<h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>单例模式又叫做Singleton模式，指的是一个类，在一个JVM里，只有一个实例存在</p>
+<ul>
+<li>构造方法私有化</li>
+<li>静态属性指向实例</li>
+<li>public static的getInstance方法，返回第二步的静态属性</li>
+</ul>
+<pre><code class="java">package charactor;
+
+// 饿汉式单例模式
+public class GiantDragon {
+  //私有化构造方法使得该类无法在外部通过new 进行实例化
+  private GiantDragon(){}
+
+  //准备一个类属性，指向一个实例化对象。 因为是类属性，所以只有一个
+  private static GiantDragon instance = new GiantDragon();
+    
+  //public static 方法，提供给调用者获取12行定义的对象
+  public static GiantDragon getInstance(){
+    return instance;
+  }
+}
+// 懒汉式单例模式
+public class GiantDragon {
+  //私有化构造方法使得该类无法在外部通过new 进行实例化
+  private GiantDragon(){}
+
+  //准备一个类属性，用于指向一个实例化对象，但是暂时指向null
+  private static GiantDragon instance;
+    
+  //public static 方法，返回实例对象
+  public static GiantDragon getInstance(){
+    //第一次访问的时候，发现instance没有指向任何对象，这时实例化一个对象
+    if(null==instance){
+      instance = new GiantDragon();
+    }
+    //返回 instance指向的对象
+    return instance;
+  }
+}
+</code></pre>
+<p><strong>饿汉式</strong>是立即加载的方式，无论是否会用到这个对象，都会加载。<strong>懒汉式</strong>，是延迟加载的方式，只有使用的时候才会加载</p>
+<hr>
+<h4 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h4><p>枚举enum是一种特殊的类（还是类），使用枚举可以很方便的定义常量</p>
+<pre><code class="java">public enum Season {
+    SPRING,SUMMER,AUTUMN,WINTER
+}
+public class HelloWorld {
+  public static void main(String[] args) {
+    // 在switch语句中，使用枚举来进行判断
+    Season season = Season.SPRING;
+    switch (season) {
+    case SPRING:
+        System.out.println(&quot;春天&quot;);
+        break;
+    case SUMMER:
+        System.out.println(&quot;夏天&quot;);
+        break;
+    case AUTUMN:
+        System.out.println(&quot;秋天&quot;);
+        break;
+    case WINTER:
+        System.out.println(&quot;冬天&quot;);
+        break;
+    }
+
+    // 借助增强型for循环，可以很方便的遍历一个枚举都有哪些常量
+    for (Season s : Season.values()) {
+        System.out.println(s);
+    }
+  }
+}
+</code></pre>
+<p>使用枚举，就能把常量取值范围死死的限定在这四个当中</p>
 <hr>
 
           </div>
