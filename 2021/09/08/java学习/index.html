@@ -850,6 +850,7 @@ public Hero(String name,float hp){
 <li>类.类方法</li>
 </ul>
 <p>如果方法里访问了对象属性，那么这个方法，就必须设计为对象方法。如果一个方法，没有调用任何对象属性，那么就可以考虑设计为类方法，这样更带有<strong>功能性色彩</strong></p>
+<hr>
 <h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><pre><code class="java">package charactor;
  
 public class Hero {
@@ -871,6 +872,7 @@ public class Hero {
   }
 }
 </code></pre>
+<hr>
 <h4 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h4><p>单例模式又叫做Singleton模式，指的是一个类，在一个JVM里，只有一个实例存在</p>
 <ul>
 <li>构造方法私有化</li>
@@ -943,7 +945,146 @@ public class HelloWorld {
   }
 }
 </code></pre>
-<p>使用枚举，就能把常量取值范围死死的限定在这四个当中</p>
+<p>使用枚举，就能把常量season的取值范围限定在枚举类型Season的四个值当中</p>
+<h3 id="接口和继承"><a href="#接口和继承" class="headerlink" title="接口和继承"></a>接口和继承</h3><h4 id="对象转型"><a href="#对象转型" class="headerlink" title="对象转型"></a>对象转型</h4><p><strong>引用类型</strong>和<strong>对象类型</strong>不一致时，才需要进行类型转换。所有的<strong>子类转换为父类</strong>都是可以的，父类转子类必须进行<strong>强制转换</strong>（有时候会失败）。没有继承关系的两个类互相转换，一定会失败。<strong>实现了接口</strong>的类型可以转换成接口。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/leixing_zhuanhuan.webp"></p>
+<p>instanceof判断一个引用所指向的对象</p>
+<pre><code class="java">//判断引用h1指向的对象，是否是ADHero类型
+System.out.println(h1 instanceof ADHero);
+</code></pre>
+<hr>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p>同一类型，调用同一个方法，却能呈现出不同的状态。类的多态，指的是<strong>父类引用指向子类对象</strong></p>
+<hr>
+<h4 id="隐藏"><a href="#隐藏" class="headerlink" title="隐藏"></a>隐藏</h4><p>隐藏，就是子类覆盖父类的<strong>类方法</strong>。父类引用指向子类对象时，如果父类和子类创建的是<strong>静态</strong>方法，结果会调用引用所在的<strong>父类</strong>方法；如果父类和子类创建的是<strong>非静态</strong>方法，结果会调用引用所指向的<strong>子类</strong>方法</p>
+<hr>
+<h4 id="super"><a href="#super" class="headerlink" title="super"></a>super</h4><p>实例化子类会调用其构造方法，<strong>其父类的构造方法也一定会被调用</strong>，且<strong>后者先调用</strong>，子类构造方法会<strong>默认调用父类的无参构造方法</strong>。可以使用关键字<strong>super</strong>显式调用父类带参的构造方法和父类的属性</p>
+<p>若父类提供了有参构造方法，未提供无参构造方法，则需要在父类中显式提供无参构造方法，或者子类显式调用父类有参构造方法，否则实例化子类时会报错</p>
+<hr>
+<h4 id="object"><a href="#object" class="headerlink" title="object"></a>object</h4><p>所有类都默认继承了Object类，它提供了一个toString方法，用来打印返回当前对象的<strong>字符串表达</strong></p>
+<p>当<strong>一个对象没有任何引用指向</strong>的时候，它就满足垃圾回收的条件，当它被回收的时候，它的finalize()方法就会被调用</p>
+<p>equals()方法用于判断两个对象的<strong>内容是否相同</strong>，==不是Object的方法，用于判断两个引用是否指向了同一个对象</p>
+<p>hashcode()方法返回一个对象的哈希值，线程同步相关方法wait()、notify()、notifyAll()。getClass()会返回一个对象的类对象</p>
+<hr>
+<h4 id="final"><a href="#final" class="headerlink" title="final"></a>final</h4><p>final修饰类，表示其不能被继承；修饰方法，表示其不能被重写；修饰基本类型变量，表示其只有一次赋值机会；修饰引用，表示其只有一次指向对象的机会；<strong>String类是final的，不能被继承</strong></p>
+<pre><code class="java">public static final int itemTotalNumber = 6;  // 指的是常量，不会变化，公开，可以直接访问
+</code></pre>
+<hr>
+<h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><pre><code class="java">public abstract void attack();  // 抽象方法
+</code></pre>
+<p>当一个类里有抽象方法时，它必须被声明为抽象类，一个类也可以在不提供抽象方法的前提下，声明为抽象类，一旦声明，就不能被<strong>直接实例化</strong></p>
+<p>抽象类的子类<strong>必须提供</strong>父类中抽象方法的具体实现。子类只能继承一个抽象类，但是可以实现多个接口，抽象类的属性定义方式与一般的类相同，但是<strong>接口中声明的属性</strong>，只能是<strong>public、静态、final</strong>的，即便没有显式地声明</p>
+<hr>
+<h4 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h4><p>非静态内部类需要建立在外部类的基础上，且可以直接访问外部类的<strong>private</strong>实例属性，语法：<strong>new 外部类().new 内部类()</strong></p>
+<p>静态内部类的实例化不需要以一个外部类的实例为基础，可以直接实例化，语法：<strong>new 外部类.静态内部类()<strong>，静态内部类</strong>不可以访问外部类的实例属性和方法</strong>，除了可以访问外部类的<strong>私有静态成员外</strong>，静态内部类和普通类没什么大的区别</p>
+<p>匿名类指的是在<strong>声明一个类的同时实例化它</strong>，这个类，没有命名，本地类可以理解为<strong>有名字的匿名类</strong></p>
+<pre><code class="java">package charactor;
+ 
+public abstract class Hero {
+  private String name;
+  float hp;
+  float armor;
+  int moveSpeed;
+  public abstract void attack();
+  // 非静态内部类，只有一个外部类对象存在的时候，才有意义
+  class BattleScore {
+    int kill;
+    int die;
+    int assit;
+
+    public void legendary() {
+      if (kill &gt;= 8)
+          System.out.println(name + &quot;超神！&quot;);
+      else
+          System.out.println(name + &quot;尚未超神！&quot;);
+    }
+  }
+  static class EnemyCrystal{
+    int hp=5000;
+
+    public void checkIfVictory(){
+      if(hp==0){
+        Hero.battleWin();
+        //静态内部类不能直接访问外部类的对象属性
+        System.out.println(name + &quot; win this game&quot;);
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    //在匿名类中使用外部的局部变量damage 必须修饰为final
+    int damage = 5;  
+    //事实上的匿名类，会在匿名类里声明一个damage属性，并且使用构造方法初始化该属性的值
+    //在attack中使用的damage，真正使用的是这个内部damage，而非外部damage
+      
+    //假设外部属性不需要声明为final
+    //那么在attack中修改damage的值，就会被暗示为修改了外部变量damage的值
+      
+    //但是他们俩是不同的变量，是不可能修改外部变量damage的
+    //所以为了避免产生误导，外部的damage必须声明为final,&quot;看上去&quot;就不能修改了
+
+    //在jdk8中，已经不需要强制修饰成final了，如果没有写final，不会报错，因为编译器偷偷的帮你加上了看不见的final
+    Hero garen = new Hero();
+    garen.name = &quot;盖伦&quot;;
+    // 实例化内部类
+    // BattleScore对象只有在一个Hero对象存在的时候才有意义
+    // 所以其实例化必须建立在一个外部类对象的基础之上
+    BattleScore score = garen.new BattleScore();
+    score.kill = 9;
+    score.legendary();
+    // 实例化静态内部类
+    Hero.EnemyCrystal crystal = new Hero.EnemyCrystal();
+    crystal.checkIfVictory();
+    // 通常情况下，要使用一个接口或者抽象类，都必须创建一个子类，有的时候，为了快速使用，直接实例化一个抽象类，并“当场”实现其抽象方法。既然实现了抽象方法，那么就是一个新的类，只是这个类，没有命名，叫做匿名类
+    Hero h = new Hero(){
+      //当场实现attack方法
+      public void attack() {
+        System.out.println(&quot;新的进攻手段&quot;);
+      }
+    };
+    h.attack();
+    //通过打印h，可以看到h这个对象属于Hero$1这么一个系统自动分配的类名
+    System.out.println(h);
+    //与匿名类的区别在于，本地类有了自定义的类名。内部类与匿名类不一样的是，内部类必须声明在成员的位置，即与属性和方法平等的位置，本地类和匿名类一样，直接声明在代码块里面，可以是主方法，for循环里等等地方
+    class SomeHero extends Hero{
+      public void attack() {
+        System.out.println( name+ &quot; 新的进攻手段&quot;);
+      }
+    } 
+    SomeHero h  =new SomeHero();
+    h.name =&quot;地卜师&quot;;
+    h.attack();
+    //这里使用本地类AnonymousHero来模拟匿名类的隐藏属性机制
+    class AnonymousHero extends Hero{
+      int damage;
+      public AnonymousHero(int damage){
+        this.damage = damage;
+      }
+      public void attack() {
+        damage = 10;
+        System.out.printf(&quot;新的进攻手段，造成%d点伤害&quot;,this.damage );
+      }
+    }
+    Hero h = new AnonymousHero(damage);
+  }
+}
+</code></pre>
+<hr>
+<h4 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h4><p>默认方法是JDK8新特性，指的是接口也可以提供具体方法了，而不像以前，只能提供抽象方法</p>
+<pre><code class="java">package charactor;
+ 
+public interface Mortal {
+  public void die();
+  // Mortal这个接口，增加了一个默认方法revive，这个方法有实现体，并且被声明为了default
+  default public void revive() {
+    System.out.println(&quot;本英雄复活了&quot;);
+  }
+}
+</code></pre>
+<p>接口默认方法Override问题：如果是实现多个接口同时这些接口中都实现了同样的默认方法，那么实现的子类必须要实现这个默认方法（因为不知道要选择哪个方法）。而只要默认方法只有一个那么就可以不用实现（比如AP实现了默认方法，AD没实现，那么两个都实现的子类也不用实现），或者只实现了一个接口，那么子类也不用实现</p>
+<hr>
+<h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p>UML图中，实线表示继承关系，虚线表示实现关系</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_lei.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_jiekou.webp"></p>
 <hr>
 
           </div>
