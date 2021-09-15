@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2021-09-15T04:50:23.051Z</updated>
+  <updated>2021-09-15T04:56:08.164Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="http://goodguyjameswin.github.io/2021/09/15/%E5%BD%A2%E7%8A%B6%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%E7%9A%84%E5%BC%80%E6%BA%90%E5%B7%A5%E7%A8%8B%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/"/>
     <id>http://goodguyjameswin.github.io/2021/09/15/形状模板匹配的开源工程调试记录/</id>
     <published>2021-09-15T02:13:12.000Z</published>
-    <updated>2021-09-15T04:50:23.051Z</updated>
+    <updated>2021-09-15T04:56:08.164Z</updated>
     
     <summary type="html">
     
-      基于形状的模板匹配算法的c++工程实现
+      基于形状的模板匹配算法的c++工程
     
     </summary>
     

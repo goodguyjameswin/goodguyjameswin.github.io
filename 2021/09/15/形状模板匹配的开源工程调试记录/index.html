@@ -586,7 +586,7 @@
 <p>修改test.cpp里的prefix变量路径，指向资源文件：</p>
 <pre><code class="c++">static std::string prefix = &quot;../test/&quot;;
 </code></pre>
-<h3 id="api调用"><a href="#api调用" class="headerlink" title="api调用"></a>api调用</h3><p>原作者分别对模板做角度、尺度方面的测试，以及noise_test。这里假设模板是工业器件，且由于拍摄角度和器件摆放位置的随机性，需要简单写个<a href="https://github.com/goodguyjameswin/my_shape_based_match" target="_blank" rel="noopener">my_test</a>函数来调用api</p>
+<h3 id="api调用"><a href="#api调用" class="headerlink" title="api调用"></a>api调用</h3><p>原作者分别对模板做了角度、尺度方面的测试，以及noise_test（NMS筛选）。这里假设模板是工业器件，且由于拍摄角度和器件摆放位置的随机性，需要简单写个<a href="https://github.com/goodguyjameswin/my_shape_based_match" target="_blank" rel="noopener">my_test</a>函数来调用api</p>
 <pre><code class="c++">void my_test(string mode = &quot;test&quot;, bool use_rot = true) {
   int num_feature = 16;    // 特征点数量
   line2Dup::Detector detector(num_feature, { 4, 8 });
@@ -760,6 +760,7 @@
 <h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><h4 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/shapematch/train.webp"></p>
 <hr>
 <h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/shapematch/test.webp"></p>
+<hr>
 
           </div>
           <!-- .entry-content -->
