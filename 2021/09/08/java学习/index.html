@@ -1085,6 +1085,109 @@ public interface Mortal {
 <h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p>UML图中，实线表示继承关系，虚线表示实现关系</p>
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_lei.webp"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_jiekou.webp"></p>
+<h3 id="数字和字符串"><a href="#数字和字符串" class="headerlink" title="数字和字符串"></a>数字和字符串</h3><h4 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h4><p>所有的<strong>基本类型</strong>，都有对应的类类型，数字封装类有Byte、Short、Interger、Long、Float和Double，这些类都是抽象类Number的子类</p>
+<pre><code class="java">//把一个基本类型的变量,转换为Integer对象
+Integer it = new Integer(i);
+//把一个Integer对象，转换为一个基本类型的int
+int i2 = it.intValue();
+</code></pre>
+<p>不需要调用构造方法，<strong>通过=符号自动</strong>把基本类型转换为类类型叫装箱，反过来就叫拆箱。基本类型的最值可以通过其对应的 封装类.MAX_VALUE、封装类.MIN_VALUE获取</p>
+<hr>
+<h4 id="字符串转换"><a href="#字符串转换" class="headerlink" title="字符串转换"></a>字符串转换</h4><pre><code class="java">//使用String类的静态方法valueOf
+String str = String.valueOf(i);
+//先把基本类型装箱为对象，然后调用对象的toString
+Integer it = i;
+String str2 = it.toString();
+//调用Integer的静态方法parseInt
+int i= Integer.parseInt(str);
+</code></pre>
+<hr>
+<h4 id="数字方法"><a href="#数字方法" class="headerlink" title="数字方法"></a>数字方法</h4><pre><code class="java">import java.lang.Math
+
+Math.round(1.5);//四舍五入
+Math.sqrt(9);//开方
+Math.pow(2,4);//乘方
+Math.PI;//π
+Math.E;//自然常数
+</code></pre>
+<hr>
+<h4 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h4><p>printf和format能够达到一样的效果，在printf中直接调用了format</p>
+<pre><code class="java">//使用格式化输出
+//%s表示字符串，%d表示数字,%n表示换行
+String sentenceFormat =&quot;%s 在进行了连续 %d 次击杀后，获得了 %s 的称号%n&quot;;
+System.out.printf(sentenceFormat,name,kill,title);
+//使用format格式化输出
+System.out.format(sentenceFormat,name,kill,title);
+</code></pre>
+<p>回车符’\r’就是回到一行的开头，代码里敲回车键实际上是回车<strong>换行符</strong>。不同的操作系统中，换行符是不一样的，<strong>使用%n，就可以做到平台无关的换行</strong></p>
+<ul>
+<li>在DOS和Windows中，每行结尾是 “\r\n”；</li>
+<li>Linux系统里，每行结尾只有 “\n”；</li>
+<li>Mac系统里，每行结尾是只有 “\r”。</li>
+</ul>
+<hr>
+<h4 id="Char"><a href="#Char" class="headerlink" title="Char"></a>Char</h4><pre><code class="java">Character.isLetter(&#39;a&#39;); //判断是否为字母
+Character.isDigit(&#39;a&#39;); //判断是否为数字
+Character.isWhitespace(&#39; &#39;); //是否是空白
+Character.isUpperCase(&#39;a&#39;); //是否是大写
+Character.isLowerCase(&#39;a&#39;); //是否是小写
+Character.toUpperCase(&#39;a&#39;); //转换为大写
+Character.toLowerCase(&#39;A&#39;); //转换为小写
+
+String a = &#39;a&#39;; //不能够直接把一个字符转换成字符串
+String a2 = Character.toString(&#39;a&#39;); //转换为字符串
+
+String str = &quot;abc123&quot;;
+char[] cs = str.toCharArray(); //字符串转换为字符数组
+char[] cs = new char[]{&#39;崔&#39;,&#39;斯&#39;,&#39;特&#39;};   
+String hero = new String(cs);//通过字符数组创建一个字符串对象
+</code></pre>
+<p>字符串对象是immutable的，对象方法length()返回字符串的长度</p>
+<pre><code class="java">String sentenceFormat =&quot;%s 在进行了连续 %d 次击杀后，获得了 %s 的称号%n&quot;;
+String sentence2 = String.format(sentenceFormat, name,kill,title); //格式化字符串
+String unknowHero = &quot;&quot;;       
+//可以有长度为0的字符串,即空字符串
+System.out.println(unknowHero.length());
+</code></pre>
+<hr>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><pre><code class="java">String sentence = &quot;盖伦,在进行了连续8次击杀后,获得了 超神 的称号&quot;;
+char c = sentence.charAt(0); //charAt(int index)获取指定位置的字符
+char[] cs = sentence.toCharArray(); //toCharArray()获取对应的字符数组
+String subString1 = sentence.substring(3); //截取从第3个开始的字符串 （基0）
+//截取从第3个开始的字符串 （基0），到5-1的位置的字符串，左闭右开
+String subString2 = sentence.substring(3,5);
+//根据,进行分割，得到3个子字符串
+String subSentences[] = sentence.split(&quot;,&quot;);
+sentence.trim(); //去掉首尾空格
+sentence.toLowerCase(); //全部变成小写
+sentence.toUpperCase(); //全部变成大写
+sentence.indexOf(&#39;8&#39;); //字符第一次出现的位置
+sentence.indexOf(&quot;超神&quot;); //字符串第一次出现的位置
+sentence.lastIndexOf(&quot;了&quot;); //字符串最后出现的位置
+sentence.indexOf(&#39;,&#39;,5); //从位置5开始，出现的第一次,的位置
+sentence.contains(&quot;击杀&quot;); //是否包含字符串&quot;击杀&quot;
+String temp = sentence.replaceAll(&quot;击杀&quot;, &quot;被击杀&quot;); //替换所有的
+temp = sentence.replaceFirst(&quot;,&quot;,&quot;&quot;); //只替换第一个
+</code></pre>
+<p>一般来说，编译器没碰到一个字符串的字符串的字面值，就会创建一个新的对象，但如果编译器编译过程中发现已经存在现成的字符串字面值的对象，那么就直接拿来使用，而不会进行重复创建</p>
+<pre><code class="java">// ==用于判断是否是同一个字符串对象
+System.out.println( str1  ==  str2);
+System.out.println(str1.equals(str3));// 使用equals进行字符串内容的比较，必须大小写一致
+System.out.println(str1.equalsIgnoreCase(str3));// equalsIgnoreCase，忽略大小写判断内容是否一致
+System.out.println(str1.startsWith(start));//以...开始
+System.out.println(str1.endsWith(end));//以...结束
+</code></pre>
+<hr>
+<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p>和String<strong>内部是一个字符数组</strong>一样，StringBuffer也维护了一个字符数组。但是，这个字符数组，<strong>留有冗余长度</strong></p>
+<pre><code class="java">String str1 = &quot;let there &quot;;
+StringBuffer sb = new StringBuffer(str1); //根据str1创建一个StringBuffer对象
+sb.append(&quot;be light&quot;); //在最后追加
+sb.delete(4, 10); //删除4-10之间的字符
+sb.insert(4, &quot;there &quot;); //在4这个位置插入 there
+sb.reverse(); //反转
+System.out.println(sb.length()); //内容长度
+System.out.println(sb.capacity());//总空间，容量
+</code></pre>
 <hr>
 
           </div>

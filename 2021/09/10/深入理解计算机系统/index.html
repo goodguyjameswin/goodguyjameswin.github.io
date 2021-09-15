@@ -601,6 +601,8 @@
 <p>C语言中字符串中的每个字符用ASCII字符码编码，则在使用ASCII码作为字符码的任何系统上都将得到相同的结果，<strong>与字节顺序和字大小规则无关</strong>，UTF-8表示将每个字符编码为一个字节序列，则<strong>所有ASCII字节序列用ASCII码表示和UTF_8表示是一样的，Java编程语言使用Unicode表示字符串</strong></p>
 <p>二进制代码很少能在不同机器和操作系统组合之间移植，~0将生成一个<strong>全1的掩码</strong>，不管机器的字大小是多少，尽管对于一个32位机器来说，同样的掩码可以写成0xFFFFFFFF，但这样的代码是不可移植的</p>
 <p>对于一个由w位组成的数据类型，如果移动k&gt;=w位，而实际上的位移量是通过计算k mod w的得到的，Java只支持有符号数。c中无符号数和有符号数作运算时，会隐式将有符号参数强制类型转换为无符号数</p>
+<p>大多数编译器只在需要少量移位、加法和减法就足够的时候，用其来优化整数乘以（除以）常数的情况。浮点运算只有有限的范围和精度，且不遵循算术中的结合律和分配律</p>
+<h2 id="程序的机器级表示"><a href="#程序的机器级表示" class="headerlink" title="程序的机器级表示"></a>程序的机器级表示</h2><p>一个x86-64的中央处理单元（CPU）包含一组16个存储64位值的通用目的存储器</p>
 <hr>
 
           </div>
@@ -631,9 +633,26 @@
         <!-- <div class="toc" style="background: none;"></div> -->
         <section class="post-squares nextprev">
           
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2021/09/15/形状模板匹配的开源工程调试记录/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/resources.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/resources.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  形状模板匹配的开源工程调试记录</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
           
             
-              <div class="post-nepre full next">
+              <div class="post-nepre half next">
             
               <a href="/2021/09/08/java学习/" rel="next">
                 <div class="background">
