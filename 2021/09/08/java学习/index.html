@@ -783,17 +783,17 @@ public class HelloWorld {
 <h3 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h3><h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>如果一个变量的类型是 类类型，而非基本类型，那么该变量又叫做引用</p>
 <pre><code class="java">Hero h = new Hero();
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_1.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_1.webp"></p>
 <pre><code class="java">// 使用一个引用来指向这个对象
 Hero h1 = new Hero();
 Hero h2 = h1; // h2指向h1所指向的对象
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_2.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_2.webp"></p>
 <p>第一行，引用garen指向新创建的对象（对象1）；第二行，同一个引用garen指向新创建的对象（对象2）。这个时候，对象1，就没有任何引用指向了，换句话说，就没有任何手段控制和访问该对象，那么该对象就变得没有意义</p>
 <pre><code class="java">Hero garen =  new Hero();
 garen =  new Hero();
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yinyong_3.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_3.webp"></p>
 <hr>
 <h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>设计采用可变数量参数的方法，在方法里，使用操作数组的方式处理参数</p>
 <pre><code class="java">public void attack(Hero h1)
@@ -827,7 +827,7 @@ public Hero(String name,float hp){
 <h4 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h4><p>如果一个变量是基本类型，=符号就表示<strong>赋值</strong>的意思。如果一个变量是类类型，=符号则表示<strong>指向</strong>的意思</p>
 <p>当变量作为基本类型传递时，在方法内，无法修改方法外的基本类型参数。当变量为类类型传递时，实质传递的是该引用的地址，内部对形参修改影响的只是引用的地址新指向，除非修改<strong>对象.属性值</strong>，才能真正影响外部实参</p>
 <hr>
-<h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/fanwei_xiushi.webp"></p>
+<h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/fanwei_xiushi.webp"></p>
 <p>从作用域来看，public能够使用所有的情况</p>
 <ul>
 <li>属性通常使用private封装起来</li>
@@ -947,7 +947,7 @@ public class HelloWorld {
 </code></pre>
 <p>使用枚举，就能把常量season的取值范围限定在枚举类型Season的四个值当中</p>
 <h3 id="接口和继承"><a href="#接口和继承" class="headerlink" title="接口和继承"></a>接口和继承</h3><h4 id="对象转型"><a href="#对象转型" class="headerlink" title="对象转型"></a>对象转型</h4><p><strong>引用类型</strong>和<strong>对象类型</strong>不一致时，才需要进行类型转换。所有的<strong>子类转换为父类</strong>都是可以的，父类转子类必须进行<strong>强制转换</strong>（有时候会失败）。没有继承关系的两个类互相转换，一定会失败。<strong>实现了接口</strong>的类型可以转换成接口。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/leixing_zhuanhuan.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/leixing_zhuanhuan.webp"></p>
 <p>instanceof判断一个引用所指向的对象</p>
 <pre><code class="java">//判断引用h1指向的对象，是否是ADHero类型
 System.out.println(h1 instanceof ADHero);
@@ -1083,8 +1083,8 @@ public interface Mortal {
 <p>接口默认方法Override问题：如果是实现多个接口同时这些接口中都实现了同样的默认方法，那么实现的子类必须要实现这个默认方法（因为不知道要选择哪个方法）。而只要默认方法只有一个那么就可以不用实现（比如AP实现了默认方法，AD没实现，那么两个都实现的子类也不用实现），或者只实现了一个接口，那么子类也不用实现</p>
 <hr>
 <h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p>UML图中，实线表示继承关系，虚线表示实现关系</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_lei.webp"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/UML_jiekou.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_lei.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_jiekou.webp"></p>
 <h3 id="数字和字符串"><a href="#数字和字符串" class="headerlink" title="数字和字符串"></a>数字和字符串</h3><h4 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h4><p>所有的<strong>基本类型</strong>，都有对应的类类型，数字封装类有Byte、Short、Interger、Long、Float和Double，这些类都是抽象类Number的子类</p>
 <pre><code class="java">//把一个基本类型的变量,转换为Integer对象
 Integer it = new Integer(i);
@@ -1188,6 +1188,328 @@ sb.reverse(); //反转
 System.out.println(sb.length()); //内容长度
 System.out.println(sb.capacity());//总空间，容量
 </code></pre>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>零.零这个数字，代表Java中的时间原点，其对应的日期就是1970年1月1日8点0分0秒</p>
+<pre><code class="java">import java.util.Date; //而非 java.sql.Date，此类是给数据库访问的时候使用的
+
+// 从1970年1月1日 早上8点0分0秒 开始经历的毫秒数
+Date d2 = new Date(5000);
+Date now= new Date();
+//getTime() 得到一个long型的整数
+//这个整数代表 1970.1.1 08:00:00:000，每经历一毫秒，增加1
+System.out.println(&quot;当前时间getTime()返回的值是：&quot;+now.getTime());
+//通过System.currentTimeMillis()获取当前日期的毫秒数，和new Date.getTime()是一样的
+System.out.println(&quot;System.currentTimeMillis() \t返回值: &quot;+System.currentTimeMillis());
+</code></pre>
+<ul>
+<li>y 代表年</li>
+<li>M 代表月</li>
+<li>d 代表日</li>
+<li>H 代表24进制的小时</li>
+<li>h 代表12进制的小时</li>
+<li>m 代表分钟</li>
+<li>s 代表秒</li>
+<li>S 代表毫秒</li>
+</ul>
+<pre><code class="java">import java.text.SimpleDateFormat;
+
+SimpleDateFormat sdf =new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss SSS&quot; );
+Date d= new Date();
+String str = sdf.format(d);
+System.out.println(&quot;当前时间通过 yyyy-MM-dd HH:mm:ss SSS 格式化后的输出: &quot;+str);
+//模式（yyyy/MM/dd HH:mm:ss）需要和字符串格式保持一致，如果不一样就会抛出解析异常ParseException
+String str = &quot;2016/1/5 12:12:12&quot;;
+Date d = sdf.parse(str);
+System.out.printf(&quot;字符串 %s 通过格式  yyyy/MM/dd HH:mm:ss %n转换为日期对象: %s&quot;,str,d.toString());
+</code></pre>
+<p>采用<strong>单例模式</strong>获取日历对象</p>
+<pre><code class="java">import java.util.Calendar;
+
+Calendar c = Calendar.getInstance(); 
+//通过日历对象得到日期对象
+Date now = c.getTime();
+Date d2 = new Date(0);
+c.setTime(d2); //把这个日历，调成日期 : 1970.1.1 08:00:00
+// 下个月的今天
+c.setTime(now);
+c.add(Calendar.MONTH, 1);
+System.out.println(&quot;下个月的今天:\t&quot; +format(c.getTime()));
+// 去年的今天
+c.setTime(now);
+c.add(Calendar.YEAR, -1);
+System.out.println(&quot;去年的今天:\t&quot; +format(c.getTime()));
+// 上个月的第三天
+c.setTime(now);
+c.add(Calendar.MONTH, -1);
+c.set(Calendar.DATE, 3);
+System.out.println(&quot;上个月的第三天:\t&quot; +format(c.getTime()));
+</code></pre>
+<h2 id="Java中级"><a href="#Java中级" class="headerlink" title="Java中级"></a>Java中级</h2><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>如果代码运行时未发生异常，则顺序往下执行，并且不执行catch块中的代码，否则，try里的代码会立即终止，程序流程会运行到对应的catch块中，e.printStackTrace()，会打印出方法的调用痕迹</p>
+<pre><code class="java">import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+
+File f= new File(&quot;d:/LOL.exe&quot;);
+//若文件不存在，而试图打开文件LOL.exe，会抛出FileNotFoundException，如果不处理该异常，就会有编译错误
+try{
+  System.out.println(&quot;试图打开 d:/LOL.exe&quot;);
+  new FileInputStream(f);
+  Date d = sdf.parse(&quot;2016-06-03&quot;);
+  System.out.println(&quot;成功打开&quot;);
+}
+//FileNotFoundException是Exception的子类，使用Exception也可以catch到FileNotFoundException
+catch(FileNotFoundException e){
+  System.out.println(&quot;d:/LOL.exe不存在&quot;);
+  e.printStackTrace();
+}catch (ParseException e) {
+    System.out.println(&quot;日期格式解析错误&quot;);
+    e.printStackTrace();
+}
+//有时候一段代码会抛出多种异常，可以分别进行catch，也可以把多个异常，放在一个catch里统一捕捉
+//好处是捕捉的代码更紧凑，不足之处是，一旦发生异常，不能确定到底是哪种异常，需要通过instanceof进行判断具体的异常类型
+catch (FileNotFoundException | ParseException e) {
+  if (e instanceof FileNotFoundException)
+      System.out.println(&quot;d:/LOL.exe不存在&quot;);
+  if (e instanceof ParseException)
+      System.out.println(&quot;日期格式解析错误&quot;);
+}
+finally{
+  System.out.println(&quot;无论文件是否存在， 都会执行的代码&quot;);
+}
+//如果方法需要进行异常处理，但是方法体内不打算处理，可以在声明时把这个异常通过throws跑出去，外层调用此方法时就会接到这个异常，可以选择try catch处理掉，要么也是抛出去，如果处理掉了，继续往外的外层调用就不需要进行异常处理了
+private static void method2() throws FileNotFoundException {}
+</code></pre>
+<p>throws出现在方法声明上，而throw通常都出现在方法体内。throws表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某个异常对象</p>
+<p>如果一个有返回值的方法中进行了try catch的异常处理，那么在try和catch中有return依然会执行finally中的代码，若finally有返回值，那么将会覆盖try或是catch中返回的代码</p>
+<ul>
+<li><p>可查异常：CheckedException，即<strong>必须进行处理的异常</strong></p>
+</li>
+<li><p>运行时异常RuntimeException，即<strong>不是必须进行try catch的异常</strong>，常见的运行时异常有：ArithmeticException（除数不能为零异常）、ArrayIndexOutOfBoundsException（下标越界异常）、NullPointerException（空指针异常），与可查异常不同之处在于，<strong>即便不进行try catch，没有用throws子句声明抛出它，也不会有编译错误</strong></p>
+</li>
+<li><p>错误Error，指的是<strong>系统级别的异常</strong>，通常是内存用光了，抛出<strong>OutOfMemoryError</strong>。在<strong>默认设置</strong>下，一般java程序启动的时候，最大可以使用16m的内存。与运行时异常一样，错误也是不要求强制捕捉的</p>
+</li>
+</ul>
+<p>Throwable是类，Exception和Error都继承了该类。所以在捕捉的时候，也可以使用Throwable进行捕捉</p>
+<pre><code class="java">//自定义异常
+class EnemyHeroIsDeadException extends Exception{
+  public EnemyHeroIsDeadException(){}
+  public EnemyHeroIsDeadException(String msg){
+    super(msg);
+  }
+}
+//声明该方法通过throws抛出该异常
+public void attackHero(Hero h) throws EnemyHeroIsDeadException{
+  if(h.hp == 0){
+    //通过throw抛出该异常
+    throw new EnemyHeroIsDeadException(h.name + &quot; 已经挂了,不需要施放技能&quot; );
+  }
+}
+//捕捉异常的时候，可以通过 异常类名.getMessage() 获取当时出错的具体原因
+</code></pre>
+<h3 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h3><h4 id="文件和字节流"><a href="#文件和字节流" class="headerlink" title="文件和字节流"></a>文件和字节流</h4><pre><code class="java">// 绝对路径
+File f1 = new File(&quot;d:/LOLFolder&quot;);
+//System.out.println(&quot;当前文件是：&quot; +f); // 会打印出文件的绝对路径
+// 相对路径,相对于工作目录
+File f2 = new File(&quot;LOL.exe&quot;);
+// 把f1作为父目录创建文件对象
+File f3 = new File(f1, &quot;LOL.exe&quot;);
+System.out.println(&quot;f3的绝对路径：&quot; + f3.getAbsolutePath());
+//文件是否存在
+System.out.println(&quot;判断是否存在：&quot;+f.exists());
+//是否是文件夹
+System.out.println(&quot;判断是否是文件夹：&quot;+f.isDirectory());
+//是否是文件（非文件夹）
+System.out.println(&quot;判断是否是文件：&quot;+f.isFile());
+//文件长度
+System.out.println(&quot;获取文件的长度：&quot;+f.length());
+//文件最后修改时间
+long time = f.lastModified();
+Date d = new Date(time);
+System.out.println(&quot;获取文件的最后修改时间：&quot;+d);
+//设置文件修改时间为1970.1.1 08:00:00
+f.setLastModified(0);
+//文件重命名
+File f2 =new File(&quot;d:/LOLFolder/DOTA.exe&quot;);
+f.renameTo(f2);
+// 以字符串数组的形式，返回当前文件夹下的所有文件（不包含子文件及子文件夹）
+f = f.getParent();
+f.list();
+// 以文件数组的形式，返回当前文件夹下的所有文件（不包含子文件及子文件夹）
+File[] fs= f.listFiles();
+// 以字符串形式返回获取所在文件夹
+f.getParent();
+// 以文件形式返回获取所在文件夹
+f.getParentFile();
+// 创建文件夹，如果父文件夹skin不存在，创建就无效
+f.mkdir();
+// 创建文件夹，如果父文件夹skin不存在，就会创建父文件夹
+f.mkdirs();
+// 创建一个空文件,如果父文件夹skin不存在，就会抛出异常
+f.createNewFile();
+// 所以创建一个空文件之前，通常都会创建父目录
+f.getParentFile().mkdirs();
+// 列出所有的盘符c: d: e: 等等
+f.listRoots();
+// 刪除文件
+f.delete();
+// JVM结束的时候，刪除文件，常用于临时文件的删除
+f.deleteOnExit();
+</code></pre>
+<pre><code class="java">// OutputStream是字节输出流，同时也是抽象类，只提供方法声明，不提供方法的具体实现。FileOutputStream 是OutputStream子类
+import java.io.FileOutputStream
+
+File f = new File(&quot;d:/Downloads/source/test.txt&quot;);
+// 创建基于文件的输入流
+FileInputStream fis = new FileInputStream(f);
+// 通过这个输入流，就可以把数据从硬盘，读取到Java的虚拟机中来，也就是读取到内存中
+// 创建字节数组，其长度就是文件的长度
+byte[] all =new byte[(int) f.length()];
+// 以字节流的形式读取文件所有内容
+fis.read(all);
+for (byte b : all) {
+  //打印出来是65 66
+  System.out.println(b);
+}
+// 每次使用完流，都应该进行关闭
+fis.close();
+// 准备长度是2的字节数组，用88,89初始化，其对应的字符分别是X,Y
+byte data[] = { 88, 89 };
+// 创建基于文件的输出流
+FileOutputStream fos = new FileOutputStream(f);
+// 把数据写出到输出流
+fos.write(data);
+// 关闭输出流
+fos.close();
+//如果文件d:/Downloads/source/test.txt不存在，写出操作会自动创建该文件。但是如果是文件d:/Downloads/source/xyz/test.txt，而目录xyz又不存在，会抛出异常，此时可以：
+//首先获取文件所在的目录
+// File dir = f.getParentFile();
+//如果该目录不存在，则创建该目录
+// if(!dir.exists()){
+// dir.mkdir(); //使用mkdir会抛出异常，因为该目录的父目录也不存在
+  // dir.mkdirs(); //使用mkdirs则会把不存在的目录都创建好
+// }
+</code></pre>
+<p>在<strong>try的作用域</strong>里关闭文件输入流，如果文件不存在，或者读取的时候出现问题而抛出异常，那么就不会执行这一行关闭流的代码，存在巨大的资源占用隐患。不推荐使用</p>
+<p>标准的关闭流的方式包括在finally中关闭：</p>
+<ul>
+<li>首先把流的引用声明在try的外面，如果声明在try里面，其作用域无法抵达finally.</li>
+<li>在finally关闭之前，要先判断该引用是否为空</li>
+<li>关闭的时候，需要再一次进行try catch处理</li>
+</ul>
+<p><strong>所有的流，都实现了一个接口叫做AutoCloseable</strong>，任何类实现了这个接口，都可以在try()中进行实例化。 并且在try, catch, finally结束的时候自动关闭，回收相关资源</p>
+<pre><code class="java">//把流定义在try()里,try,catch或者finally结束的时候，会自动关闭，称为try-with-resources的编码方式，从JDK7开始支持
+try(FileInputStream fis = new FileInputStream(f))
+</code></pre>
+<hr>
+<h4 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h4><pre><code class="java">import java.io.FileReader;
+// ISO-8859-1 ASCII编码，一个字符对应一个字节的存储。GBK同时包含简体和繁体中文以及日文
+// UNICODE编码，数字、字母和汉字占4个字节，对应的子编码UTF-8对数字和字母使用一个字节，而对汉字使用3个字节
+// 准备文件lol.txt其中的内容是AB
+File f = new File(&quot;d:/lol.txt&quot;);
+// 创建基于文件的Reader
+try (FileReader fr = new FileReader(f)) {
+  // 创建字符数组，其长度就是文件的长度
+  char[] all = new char[(int) f.length()];
+  // 以字符流的形式读取文件所有内容
+  fr.read(all);
+  for (char b : all) {
+    // 打印出来是A B
+    System.out.println(b);
+  }
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+// 创建基于文件的Writer
+try (FileWriter fr = new FileWriter(f)) {
+  // 以字符流的形式把数据写入到文件中
+  String data=&quot;abcdefg1234567890&quot;;
+  char[] cs = data.toCharArray();
+  fr.write(cs);
+
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+</code></pre>
+<p>Java采用Unicode编码，写在java源代码中的汉字，在执行之后，都会变成JVM中的字符。<strong>ANSI</strong>这个不是ASCII的意思，而是采用<strong>本地编码</strong>的意思。如果你是中文的操作系统，就会使GBK，如果是英文的就会是ISO-8859-1</p>
+<pre><code class="java">import java.io.UnsupportedEncodingException;
+
+String[] encodes = { &quot;BIG5&quot;, &quot;GBK&quot;, &quot;GB2312&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;UTF-32&quot; };
+for (String encode : encodes) {
+  showCode(str, encode);
+}
+private static void showCode(String str, String encode) {
+  try {
+    System.out.printf(&quot;字符: \&quot;%s\&quot; 的在编码方式%s下的十六进制值是%n&quot;, str, encode);
+    byte[] bs = str.getBytes(encode);
+    for (byte b : bs) {
+      int i = b&amp;0xff;// 只取16进制的后两位
+      System.out.print(Integer.toHexString(i) + &quot;\t&quot;);
+    }
+    String str = new String(all, &quot;GBK&quot;);// 以对应编码方式识别这些字节数据，得到正确的字符
+  } catch (UnsupportedEncodingException e) {
+    System.out.printf(&quot;UnsupportedEncodingException: %s编码方式无法解析字符%s\n&quot;, encode, str);
+  }
+}
+</code></pre>
+<pre><code class="java">import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
+//FileReader得到的是字符，所以一定是已经把字节根据某种编码识别成了字符了
+//而FileReader使用的编码方式是Charset.defaultCharset()的返回值，如果是中文的操作系统，就是GBK
+try (FileReader fr = new FileReader(f)) {
+  char[] cs = new char[(int) f.length()];
+  fr.read(cs);
+  System.out.printf(&quot;FileReader会使用默认的编码方式%s,识别出来的字符是：%n&quot;,Charset.defaultCharset());
+  System.out.println(new String(cs));
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+//FileReader是不能手动设置编码方式的，为了使用其他的编码方式，只能使用InputStreamReader来代替
+//并且使用new InputStreamReader(new FileInputStream(f),Charset.forName(&quot;UTF-8&quot;)); 这样的形式
+try (InputStreamReader isr = new InputStreamReader(new FileInputStream(f),Charset.forName(&quot;UTF-8&quot;))) {
+  char[] cs = new char[(int) f.length()];
+  isr.read(cs);
+  System.out.printf(&quot;InputStreamReader 指定编码方式UTF-8,识别出来的字符是：%n&quot;);
+  System.out.println(new String(cs));
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+</code></pre>
+<p>如果是使用记事本另存为UTF-8的格式，那么在第一个字节有一个<strong>标示符</strong>，叫做BOM用来标志这个文件是用UTF-8来编码的</p>
+<hr>
+<h4 id="缓存流"><a href="#缓存流" class="headerlink" title="缓存流"></a>缓存流</h4><p>以介质是硬盘为例，<strong>字节流和字符流的弊端</strong>就是，在每一次读写的时候，都会访问硬盘。如果读写的频率比较高的时候，其性能表现不佳。而缓存流在读取的时候，<strong>会一次性读较多的数据到缓存中</strong>，以后每一次的读取，都是在缓存中访问，直到缓存中的数据读取完毕，再到硬盘中读取</p>
+<pre><code class="java">import java.io.BufferedReader;
+import java.io.PrintWriter;
+
+// 创建文件字符流
+// 缓存流必须建立在一个存在的流的基础上
+try (
+  FileReader fr = new FileReader(f);
+  BufferedReader br = new BufferedReader(fr);
+  PrintWriter pw = new PrintWriter(fw);
+  )
+{
+  while (true) {
+    // 一次读一行
+    String line = br.readLine();
+    if (null == line)
+        break;
+    System.out.println(line);
+    // 写入一行
+    pw.println(&quot;garen kill teemo&quot;);
+    // 强制把缓存中的数据写入硬盘，无论缓存是否已满
+    pw.flush(); 
+  }
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+</code></pre>
+<p>flush用于<strong>立即</strong>把数据写入到存储介质中（硬盘）</p>
 <hr>
 
           </div>
