@@ -1432,7 +1432,7 @@ try (FileWriter fr = new FileWriter(f)) {
   e.printStackTrace();
 }
 </code></pre>
-<p>Java采用Unicode编码，写在java源代码中的汉字，在执行之后，都会变成JVM中的字符。<strong>ANSI</strong>这个不是ASCII的意思，而是采用<strong>本地编码</strong>的意思。如果你是中文的操作系统，就会使GBK，如果是英文的就会是ISO-8859-1</p>
+<p>Java采用Unicode编码，写在java源代码中的汉字，在执行之后，都会变成JVM中的字符。<strong>ANSI</strong>这个不是ASCII的意思，而是采用<strong>本地编码</strong>的意思。如果是中文的操作系统，就会是GBK，如果是英文的就会是ISO-8859-1</p>
 <pre><code class="java">import java.io.UnsupportedEncodingException;
 
 String[] encodes = { &quot;BIG5&quot;, &quot;GBK&quot;, &quot;GB2312&quot;, &quot;UTF-8&quot;, &quot;UTF-16&quot;, &quot;UTF-32&quot; };
@@ -1510,6 +1510,104 @@ try (
 }
 </code></pre>
 <p>flush用于<strong>立即</strong>把数据写入到存储介质中（硬盘）</p>
+<hr>
+<h4 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h4><pre><code class="java">import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+private static void read() {
+  File f =new File(&quot;d:/lol.txt&quot;);
+  try (
+    FileInputStream fis  = new FileInputStream(f);
+    DataInputStream dis =new DataInputStream(fis);
+  ){
+    // 使用数据流进行数据的格式化顺序读
+    boolean b= dis.readBoolean();
+    int i = dis.readInt();
+    String str = dis.readUTF();
+    System.out.println(&quot;读取到布尔值:&quot;+b);
+    System.out.println(&quot;读取到整数:&quot;+i);
+    System.out.println(&quot;读取到字符串:&quot;+str);
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+
+private static void write() {
+  File f =new File(&quot;d:/lol.txt&quot;);
+  try (
+    FileOutputStream fos  = new FileOutputStream(f);
+    DataOutputStream dos =new DataOutputStream(fos);
+  ){
+    // 使用数据流进行数据的格式化顺序写
+    dos.writeBoolean(true);
+    dos.writeInt(300);
+    dos.writeUTF(&quot;123 this is gareen&quot;);
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+</code></pre>
+<p>要用DataInputStream读取一个文件，这个文件必须是由DataOutputStream写出的，否则会出现EOFException，因为DataOutputStream在写出的时候会做一些特殊标记，只有DataInputStream才能成功的读取</p>
+<hr>
+<h4 id="对象流"><a href="#对象流" class="headerlink" title="对象流"></a>对象流</h4><p>对象流指的是可以直接<strong>把一个对象以流的形式</strong>传输给其他的介质，比如硬盘。一个对象以流的形式进行传输，叫做序列化。该对象所对应的类，必须是实现Serializable接口</p>
+<pre><code class="java">import java.io.Serializable;
+ 
+public class Hero implements Serializable {
+//表示这个类当前的版本，如果有了变化，比如新设计了属性，就应该修改这个版本号
+private static final long serialVersionUID = 1L;
+}
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import charactor.Hero;
+
+Hero h = new Hero();
+//准备一个文件用于保存该对象
+File f =new File(&quot;d:/garen.lol&quot;);
+try(
+  //创建对象输出流
+  FileOutputStream fos = new FileOutputStream(f);
+  ObjectOutputStream oos =new ObjectOutputStream(fos);
+  //创建对象输入流              
+  FileInputStream fis = new FileInputStream(f);
+  ObjectInputStream ois =new ObjectInputStream(fis);
+) {
+  oos.writeObject(h);
+  Hero h2 = (Hero) ois.readObject();
+} catch (IOException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+} catch (ClassNotFoundException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+</code></pre>
+<hr>
+<h4 id="System-in"><a href="#System-in" class="headerlink" title="System.in"></a>System.in</h4><pre><code class="java">import java.io.InputStream;
+import java.util.Scanner;
+
+// 控制台输入
+try (InputStream is = System.in;) {
+  while (true) {
+    // 敲入a,然后敲回车可以看到
+    // 97 13 10
+    // 97是a的ASCII码
+    // 13 10分别对应回车换行
+    int i = is.read();
+    System.out.println(i);
+    // 使用Scanner就可以逐行读取了
+    Scanner s = new Scanner(System.in);     
+    while(true){
+      String line = s.nextLine();
+      System.out.println(line);
+      int a = s.nextInt();
+      System.out.println(&quot;读取一个整数：&quot;+a);
+    }
+  }
+} catch (IOException e) {
+  e.printStackTrace();
+}
+</code></pre>
 <hr>
 
           </div>
