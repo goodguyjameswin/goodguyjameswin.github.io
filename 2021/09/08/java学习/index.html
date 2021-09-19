@@ -1282,12 +1282,9 @@ private static void method2() throws FileNotFoundException {}
 <p>throws出现在方法声明上，而throw通常都出现在方法体内。throws表示出现异常的一种可能性，并不一定会发生这些异常；throw则是抛出了异常，执行throw则一定抛出了某个异常对象</p>
 <p>如果一个有返回值的方法中进行了try catch的异常处理，那么在try和catch中有return依然会执行finally中的代码，若finally有返回值，那么将会覆盖try或是catch中返回的代码</p>
 <ul>
-<li><p>可查异常：CheckedException，即<strong>必须进行处理的异常</strong></p>
-</li>
-<li><p>运行时异常RuntimeException，即<strong>不是必须进行try catch的异常</strong>，常见的运行时异常有：ArithmeticException（除数不能为零异常）、ArrayIndexOutOfBoundsException（下标越界异常）、NullPointerException（空指针异常），与可查异常不同之处在于，<strong>即便不进行try catch，没有用throws子句声明抛出它，也不会有编译错误</strong></p>
-</li>
-<li><p>错误Error，指的是<strong>系统级别的异常</strong>，通常是内存用光了，抛出<strong>OutOfMemoryError</strong>。在<strong>默认设置</strong>下，一般java程序启动的时候，最大可以使用16m的内存。与运行时异常一样，错误也是不要求强制捕捉的</p>
-</li>
+<li>可查异常：CheckedException，即<strong>必须进行处理的异常</strong></li>
+<li>运行时异常RuntimeException，即<strong>不是必须进行try catch的异常</strong>，常见的运行时异常有：ArithmeticException（除数不能为零异常）、ArrayIndexOutOfBoundsException（下标越界异常）、NullPointerException（空指针异常），与可查异常不同之处在于，<strong>即便不进行try catch，没有用throws子句声明抛出它，也不会有编译错误</strong></li>
+<li>错误Error，指的是<strong>系统级别的异常</strong>，通常是内存用光了，抛出<strong>OutOfMemoryError</strong>。在<strong>默认设置</strong>下，一般java程序启动的时候，最大可以使用16m的内存。与运行时异常一样，错误也是不要求强制捕捉的</li>
 </ul>
 <p>Throwable是类，Exception和Error都继承了该类。所以在捕捉的时候，也可以使用Throwable进行捕捉</p>
 <pre><code class="java">//自定义异常
@@ -1608,7 +1605,6 @@ try (InputStream is = System.in;) {
   e.printStackTrace();
 }
 </code></pre>
-<hr>
 <h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><hr>
 
           </div>
