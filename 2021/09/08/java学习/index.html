@@ -60,7 +60,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://api.flymc.cc/cover.php".split(",");
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/background.webp".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -1606,12 +1606,24 @@ try (InputStream is = System.in;) {
 }
 </code></pre>
 <h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><pre><code class="java">import java.util.ArrayList;
-//容器类ArrayList，用于存放对象
+// 容器类ArrayList，用于存放对象
 ArrayList heros = new ArrayList();
 heros.add(new Hero(&quot;盖伦&quot;));
 System.out.println(heros.size());
-//容器的容量&quot;capacity&quot;会随着对象的增加，自动增长
-//只需要不断往容器里增加对象即可，不用担心会出现数组的边界问题。
+// 容器的容量&quot;capacity&quot;会随着对象的增加，自动增长
+// 只需要不断往容器里增加对象即可，不用担心会出现数组的边界问题。
+// 在指定位置增加对象
+Hero specialHero = new Hero(&quot;special hero&quot;);
+heros.add(3, specialHero);
+// contains判断一个对象是否在容器中
+// 判断标准： 是否是同一个对象，而不是name是否相同
+System.out.println(heros.contains(new Hero(&quot;hero 1&quot;)));
+System.out.println(heros.contains(specialHero));
+// 获取指定位置的对象
+System.out.println(heros.get(5));
+// indexOf用于判断一个对象在ArrayList中所处的位置，判断标准与contains一样
+System.out.println(&quot;specialHero所处的位置:&quot;+heros.indexOf(specialHero));
+System.out.println(&quot;新的英雄，但是名字是\&quot;hero 1\&quot;所处的位置:&quot;+heros.indexOf(new Hero(&quot;hero 1&quot;)));
 </code></pre>
 <hr>
 
