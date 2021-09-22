@@ -1605,7 +1605,15 @@ try (InputStream is = System.in;) {
   e.printStackTrace();
 }
 </code></pre>
-<h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><hr>
+<h3 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h3><h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><pre><code class="java">import java.util.ArrayList;
+//容器类ArrayList，用于存放对象
+ArrayList heros = new ArrayList();
+heros.add(new Hero(&quot;盖伦&quot;));
+System.out.println(heros.size());
+//容器的容量&quot;capacity&quot;会随着对象的增加，自动增长
+//只需要不断往容器里增加对象即可，不用担心会出现数组的边界问题。
+</code></pre>
+<hr>
 
           </div>
           <!-- .entry-content -->
