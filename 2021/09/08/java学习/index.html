@@ -60,7 +60,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/14-1.webp".split(",");
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -569,7 +569,7 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><p>应该是场持久战，先做好记录。。<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png">，部分学习笔记摘录于<a href="https://how2j.cn/" target="_blank" rel="noopener">How2J</a></p>
+            <h2 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h2><p>应该是场持久战，先做好记录。。<img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png">，学习笔记摘录于<a href="https://how2j.cn/" target="_blank" rel="noopener">How2J</a></p>
 <h3 id="HelloWorld"><a href="#HelloWorld" class="headerlink" title="HelloWorld"></a>HelloWorld</h3><p>创建txt文件，写入代码实现打印”helloworld“，改后缀名变为java源文件，需要在命令行里用javac命令编译成class文件后运行</p>
 <pre><code class="bash">javac filename.java
 java classname
@@ -1612,20 +1612,332 @@ heros.add(new Hero(&quot;盖伦&quot;));
 System.out.println(heros.size());
 // 容器的容量&quot;capacity&quot;会随着对象的增加，自动增长
 // 只需要不断往容器里增加对象即可，不用担心会出现数组的边界问题。
-// 在指定位置增加对象
+// add用于在指定位置增加对象
 Hero specialHero = new Hero(&quot;special hero&quot;);
 heros.add(3, specialHero);
 // contains判断一个对象是否在容器中
 // 判断标准： 是否是同一个对象，而不是name是否相同
 System.out.println(heros.contains(new Hero(&quot;hero 1&quot;)));
 System.out.println(heros.contains(specialHero));
-// 获取指定位置的对象
+// get用于获取指定位置的对象
 System.out.println(heros.get(5));
 // indexOf用于判断一个对象在ArrayList中所处的位置，判断标准与contains一样
 System.out.println(&quot;specialHero所处的位置:&quot;+heros.indexOf(specialHero));
 System.out.println(&quot;新的英雄，但是名字是\&quot;hero 1\&quot;所处的位置:&quot;+heros.indexOf(new Hero(&quot;hero 1&quot;)));
+// remove可以根据下标删除ArrayList的元素
+heros.remove(2);
+// 也可以根据对象删除
+heros.remove(specialHero);
+// set用于替换指定位置的元素
+heros.set(5, new Hero(&quot;hero 5&quot;));
+// size用于获取ArrayList的大小
+System.out.println(heros.size());
+// toArray可以把一个ArrayList对象转换为数组
+// 如果要转换为一个Hero数组，那么需要传递一个Hero数组类型的对象给toArray()，这样toArray方法才知道，你希望转换为哪种类型的数组，否则只能转换为Object数组
+Hero hs[] = (Hero[])heros.toArray(new Hero[]{});
+// addAll把另一个容器里所有的元素（对象），都加入到当前容器里来
+ArrayList anotherHeros = new ArrayList();
+heros.addAll(anotherHeros);
+// clear清空一个ArrayList
+heros.clear();
+</code></pre>
+<p>ArrayList实现了接口List，常见的写法会把引用声明为接口List类型</p>
+<p>不指定泛型的容器，可以存放任何类型的元素。指定了泛型的容器，只能存放指定类型的元素以及其子类</p>
+<pre><code class="java">import java.util.List;
+// 接口引用指向子类对象（多态）
+List heros = new ArrayList();
+//对于不使用泛型的容器，可以往里面放英雄，也可以往里面放物品
+heros.add(new Hero(&quot;盖伦&quot;));
+//本来用于存放英雄的容器，现在也可以存放物品了
+heros.add(new Item(&quot;冰杖&quot;));
+//对象转型会出现问题
+Hero h1=  (Hero) heros.get(0);
+//尤其是在容器里放的对象太多的时候，就记不清楚哪个位置放的是哪种类型的对象了
+Hero h2=  (Hero) heros.get(1);
+//引入泛型Generic
+//声明容器的时候，就指定了这种容器，只能放Hero，放其他的就会出错
+List&lt;Hero&gt; genericheros = new ArrayList&lt;Hero&gt;();
+genericheros.add(new Hero(&quot;盖伦&quot;));
+//如果不是Hero类型，根本就放不进去
+//genericheros.add(new Item(&quot;冰杖&quot;));
+//除此之外，还能存放Hero的子类
+genericheros.add(new APHero());
+//并且在取出数据的时候，不需要再进行转型了，因为里面肯定是放的Hero或者其子类
+Hero h = genericheros.get(0);
+</code></pre>
+<pre><code class="java">List&lt;Hero&gt; genericheros = new ArrayList&lt;Hero&gt;();
+// JDK7提供了一个可以略微减少代码量的泛型简写方式
+List&lt;Hero&gt; genericheros2 = new ArrayList&lt;&gt;();
+// 后面的泛型可以用&lt;&gt;来代替
+</code></pre>
+<pre><code class="java">import java.util.Iterator;
+// 迭代器的while写法
+Iterator&lt;Hero&gt; it= heros.iterator();
+//从最开始的位置（首位的前一位，空位置）判断&quot;下一个&quot;位置是否有数据（hasNext()方法）
+//如果有就通过next()取出来，并且把指针向下移动
+//直到&quot;下一个&quot;位置没有数据
+while(it.hasNext()){
+    Hero h = it.next();
+    System.out.println(h);
+}
+//迭代器的for写法
+for (Iterator&lt;Hero&gt; iterator = heros.iterator(); iterator.hasNext();) {
+    Hero hero = (Hero) iterator.next();
+    System.out.println(hero);
+}
 </code></pre>
 <hr>
+<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><p>LinkedList实现了List接口，还实现了双向链表结构Deque和Queue接口（队列）</p>
+<pre><code class="java">import java.util.LinkedList;
+import java.util.Queue;
+//LinkedList是一个双向链表结构的list
+LinkedList&lt;Hero&gt; ll =new LinkedList&lt;Hero&gt;();
+//所以可以很方便的在头部和尾部插入数据
+//在最后插入新的英雄
+ll.addLast(new Hero(&quot;hero1&quot;));
+//在最前面插入新的英雄
+ll.addFirst(new Hero(&quot;heroX&quot;));
+//查看最前面的英雄
+System.out.println(ll.getFirst());
+//查看最后面的英雄
+System.out.println(ll.getLast());
+//查看不会导致英雄被删除
+//取出最前面的英雄
+System.out.println(ll.removeFirst());
+//取出最后面的英雄
+System.out.println(ll.removeLast());
+//取出会导致英雄被删除
+
+//和ArrayList一样，LinkedList也实现了List接口
+List ll =new LinkedList&lt;Hero&gt;();
+//所不同的是LinkedList还实现了Deque，进而又实现了Queue这个接口
+//Queue代表FIFO 先进先出的队列
+Queue&lt;Hero&gt; q= new LinkedList&lt;Hero&gt;();
+//加在队列的最后面
+q.offer(new Hero(&quot;Hero1&quot;));
+//取出第一个Hero，FIFO 先进先出
+Hero h = q.poll();
+//把第一个拿出来看一看，但是不取出来
+h=q.peek();
+</code></pre>
+<p>ArrayList插入，删除数据慢。LinkedList插入，删除数据快。ArrayList是顺序结构，定位很快。LinkedList是链表结构，定位慢</p>
+<hr>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><pre><code class="java">public class Node {
+// 左子节点
+public Node leftNode;
+// 右子节点
+public Node rightNode;
+// 值
+public Object value;
+// 插入 数据
+public void add(Object v) {
+  // 如果当前节点没有值，就把数据放在当前节点上
+  if (null == value)
+    value = v;
+  // 如果当前节点有值，就进行判断，新增的值与当前值的大小关系
+  else {
+    // 新增的值，比当前值小或者相同
+    if ((Integer) v -((Integer)value) &lt;= 0) {
+      if (null == leftNode)
+        leftNode = new Node();
+      leftNode.add(v);
+    }
+    // 新增的值，比当前值大
+    else {
+      if (null == rightNode)
+        rightNode = new Node();
+      rightNode.add(v);
+    }
+  }
+}
+// 中序遍历所有的节点（此时遍历后的结果是从小到大的）
+public List&lt;Object&gt; values() {
+  List&lt;Object&gt; values = new ArrayList&lt;&gt;();
+  // 左节点的遍历结果
+  if (null != leftNode)
+    values.addAll(leftNode.values());
+  // 当前节点
+  values.add(value);
+  // 右节点的遍历结果
+  if (null != rightNode)
+    values.addAll(rightNode.values());
+  return values;
+}
+public static void main(String[] args) {
+  int randoms[] = new int[] { 67, 7, 30, 73, 10, 0, 78, 81, 10, 74 };
+  Node roots = new Node();
+  for (int number : randoms) {
+    roots.add(number);
+  }
+  System.out.println(roots.values());
+}
+}
+</code></pre>
+<p>二叉树排序的第一个步骤是把数据插入到该二叉树中，<strong>小、相同的放左边，大的放右边</strong>，插入完之后，实际上就已经排好序了。二叉树的遍历分左序、中序和右序，<strong>左序</strong>即中间的数遍历后放在<strong>左边</strong>，<strong>中序</strong>即中间的数遍历后放在<strong>中间</strong>，<strong>右序</strong>即中间的数遍历后放在<strong>右边</strong></p>
+<hr>
+<h4 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h4><pre><code class="java">import java.util.HashMap;
+
+HashMap&lt;String, String&gt; dictionary = new HashMap&lt;&gt;();
+dictionary.put(&quot;adc&quot;, &quot;物理英雄&quot;);
+System.out.printIn(dictionary.get(&quot;t&quot;));
+// 清空map
+heroMap.clear();
+</code></pre>
+<p>对于HashMap而言，key是唯一的，不可以重复的。以相同的key把不同的value插入到Map中会导致旧元素被覆盖，只留下最后插入的元素。不过，同一对象可以作为值插入到map中，只要对应的key不一样</p>
+<pre><code class="java">import java.util.Hashtable;
+//HashMap和Hashtable都实现了Map接口，都是键值对保存数据的方式   
+HashMap&lt;String,String&gt; hashMap = new HashMap&lt;String,String&gt;();
+//HashMap可以用null作key,作value
+hashMap.put(null, &quot;123&quot;);
+hashMap.put(&quot;123&quot;, null);
+Hashtable&lt;String,String&gt; hashtable = new Hashtable&lt;String,String&gt;();
+//Hashtable不能用null作key，不能用null作value
+hashtable.put(null, &quot;123&quot;);
+hashtable.put(&quot;123&quot;, null);
+// Hashtable是线程安全的类，而HashMap不是
+</code></pre>
+<hr>
+<h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><pre><code class="java">import java.util.HashSet;
+
+HashSet&lt;String&gt; names = new HashSet&lt;String&gt;();
+names.add(&quot;gareen&quot;);
+// 第二次插入同样的数据，是插不进去的，容器中只会保留一个
+names.add(&quot;gareen&quot;);
+// Set不提供get方法来获取指定位置的元素
+// numbers.get(0)
+// 遍历Set可以采用迭代器iterator
+for (Iterator&lt;Integer&gt; iterator = numbers.iterator(); iterator.hasNext();) {
+  Integer i = (Integer) iterator.next();
+  System.out.println(i);
+}
+//或者采用增强型for循环
+for (Integer i : numbers) {
+  System.out.println(i);
+}
+</code></pre>
+<p>Set中的元素，没有按照元素的插入顺序排列。HashSet的具体顺序也不是按照hashcode的顺序。同样是插入相同元素到HashSet中，在JVM的不同版本中，看到的顺序都是不一样的。因此开发的时候，不能依赖于某种<strong>臆测的顺序</strong>，这个顺序本身是<strong>不稳定的</strong></p>
+<p>HashSet自身并没有独立的实现，而是在里面封装了一个Map，HashSet是作为Map而存在的，而value是一个命名为PRESENT的static的Object对象，因为是一个类属性，所以只会有一个</p>
+<p>Set中的数据不能够重复，判断标准是：先看hashcode是否相同，hashcode不同，则认为是不同数据。如果hashcode相同，再比较equals，如果equals相同，则是相同数据，否则是不同数据</p>
+<pre><code class="java">import java.util.AbstractSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+ 
+public class HashSet&lt;E&gt;
+  extends AbstractSet&lt;E&gt;
+  implements Set&lt;E&gt;, Cloneable, java.io.Serializable
+{
+  //HashSet里封装了一个HashMap
+  private  HashMap&lt;E,Object&gt; map;
+  private static final Object PRESENT = new Object();
+  //HashSet的构造方法初始化这个HashMap
+  public HashSet() {
+    map = new HashMap&lt;E,Object&gt;();
+  }
+  //向HashSet中增加元素，其实就是把该元素作为key，增加到Map中
+  //value是PRESENT，静态，final的对象，所有的HashSet都使用这么同一个对象
+  public boolean add(E e) {
+    return map.put(e, PRESENT)==null;
+  }
+  //HashSet的size就是map的size
+  public int size() {
+    return map.size();
+  }
+  //清空Set就是清空Map
+  public void clear() {
+    map.clear();
+  }  
+  //迭代Set,就是把Map的键拿出来迭代
+  public Iterator&lt;E&gt; iterator() {
+    return map.keySet().iterator();
+  }
+</code></pre>
+<p>HashSet是无序的，LinkedHashSet是按照插入顺序排序的，TreeSet中的元素是按照从小到大排序的</p>
+<pre><code class="java">import java.util.LinkedHashSet;
+import java.util.TreeSet;
+</code></pre>
+<hr>
+<h4 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h4><p>Collection是Set、List、Queue和Deque的接口，Collection和Map之间没有关系，Collection是放一个一个对象的，Map是放键值对的，Deque继承Queue，间接的继承了Collection</p>
+<p>Collections是一个类，容器的工具类，就如同Arrays是数组的工具类</p>
+<pre><code class="java">import java.util.Collections;
+// 初始化集合numbers
+List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
+// 使集合中的数据发生翻转
+Collections.reverse(numbers);
+// 打乱集合中数据的顺序
+Collections.shuffle(numbers);
+// 对集合中的数据进行排序
+Collections.sort(numbers);
+// 交换集合中两个不同索引位置的数据
+Collections.swap(numbers,0,5);
+// 将集合中的数据向右滚动指定单位的长度（闭环）
+Collections.rotate(numbers,2);
+// 把非线程安全的List转换为线程安全的List
+List&lt;Integer&gt; synchronizedNumbers = (List&lt;Integer&gt;) Collections.synchronizedList(numbers);
+</code></pre>
+<hr>
+<h4 id="HashCode"><a href="#HashCode" class="headerlink" title="HashCode"></a>HashCode</h4><p>所有的对象，都有一个对应的hashcode（散列值），<strong>不同对象可能有相同的hashcode</strong>，数组保存数据时，每个对象有一个hashcode类似于数组的索引，<strong>根据数组下标进行定位，是非常快速的</strong>，如果相同的hashcode上已经有一个对象了，那么就会创建一个链表，新对象接在旧对象的后面存放，通过hashcode定位后，再在链表里遍历比较，查询起来就非常快了，这是一种<strong>空间换时间</strong>的思维方式</p>
+<p>Java API提供的String的hashcode生成方法是：（其中s[0]表示第一位字符，n表示字符串的长度）</p>
+<pre><code class="txt">s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
+</code></pre>
+<hr>
+<h4 id="比较器"><a href="#比较器" class="headerlink" title="比较器"></a>比较器</h4><pre><code class="java">import java.util.Collections;
+import java.util.Comparator;
+import java.util.Random;
+
+Random r =new Random();
+List&lt;Hero&gt; heros = new ArrayList&lt;Hero&gt;();   
+for (int i = 0; i &lt; 10; i++) {
+  //通过随机值实例化hero的hp和damage
+  heros.add(new Hero(&quot;hero &quot;+ i, r.nextInt(100), r.nextInt(100)));
+}
+//直接调用sort会出现编译错误，因为Hero有各种属性
+//到底按照哪种属性进行比较，Collections也不知道，不确定，所以没法排
+//Collections.sort(heros);
+//引入Comparator，指定比较的算法
+Comparator&lt;Hero&gt; c = new Comparator&lt;Hero&gt;() {
+  @Override
+  public int compare(Hero h1, Hero h2) {
+    //按照hp进行排序
+    if(h1.hp&gt;=h2.hp)
+      return 1;  //正数表示按从左到右的顺序，h1应该排在h2的后面（右侧）
+    else
+      return -1;
+    // return (int) (h2.hp - h1.hp);
+  }
+};
+Collections.sort(heros,c);
+System.out.println(&quot;按照血量排序后的集合：&quot;);
+System.out.println(heros);
+
+// 使Hero类实现Comparable接口，在类里面提供比较算法，Collections.sort就有足够的信息进行排序了，也无需额外提供比较器Comparator（如果返回-1，就表示当前的更小，否则就是更大）
+public class Hero implements Comparable&lt;Hero&gt; {
+  public Hero() {}
+  @Override
+  public int compareTo(Hero anotherHero) {
+    if(damage &lt; anotherHero.damage)
+      return 1;
+    else
+      return -1;
+  }
+  public static void main(String[] args) {
+    //Hero类实现了接口Comparable，即自带比较信息。
+    //Collections直接进行排序，无需额外的Comparator
+    Collections.sort(heros);
+  }
+}
+
+// 聚合方式
+String name =heros
+  .stream()
+  .sorted((h1,h2)-&gt;h1.hp&gt;h2.hp?-1:1)
+  .skip(2)
+  .map(h-&gt;h.getName())
+  .findFirst()
+  .get();
+System.out.println(&quot;通过聚合操作找出来的hp第三高的英雄名称是:&quot; + name);
+</code></pre>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><hr>
 
           </div>
           <!-- .entry-content -->
@@ -1678,7 +1990,7 @@ System.out.println(&quot;新的英雄，但是名字是\&quot;hero 1\&quot;所�
             
               <a href="/2021/09/06/yolo_icdar/" rel="next">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/helloworld.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolo_icdar.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolo_icdar.webp">
                 </div>
                 <span class="label">
                 Next Post</span>

@@ -60,7 +60,7 @@
   /*End of Initial Variables*/
   </script>
   <script type="text/javascript">
-  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/14-1.webp".split(",");
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
   var bgindex = Math.floor(Math.random()*bg.length);
   if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
     alert('朋友，IE浏览器未适配哦~');
@@ -612,7 +612,9 @@
 <p> 因为内存读在流水线发生的比较晚，有时会产生<strong>加载/使用冒险</strong>，此时可用暂停来处理，称为<strong>加载互锁</strong>，可与转发技术结合起来处理所有可能类型的数据冒险，并且只有加载互锁会降低流水线的吞吐量</p>
 <p> 暂停和<strong>往流水线中插入气泡</strong>的技术可以动态调整流水线的流程，避免控制冒险</p>
 <p> 由流水线中最深的指令引起的异常，优先级最高</p>
-<h2 id="优化程序性能"><a href="#优化程序性能" class="headerlink" title="优化程序性能"></a>优化程序性能</h2><hr>
+<h2 id="优化程序性能"><a href="#优化程序性能" class="headerlink" title="优化程序性能"></a>优化程序性能</h2><p> 限制编译器只进行<strong>安全的优化</strong>。比如编译器必须假设不同的指针可能会指向内存中同一个位置，即<strong>内存别名使用</strong>，或者函数调用时修改了全局状态的一部分，改变调用它的次数会改变程序的行为。</p>
+<p> <strong>延迟界限</strong>（指一系列操作必须严格按照顺序执行）和<strong>吞吐量界限</strong>（刻画了处理器功能单元的原始能力）限制了程序的最大性能</p>
+<hr>
 
           </div>
           <!-- .entry-content -->
@@ -645,9 +647,9 @@
             
               <div class="post-nepre half previous">
             
-              <a href="/2021/09/15/形状模板匹配的开源工程调试记录/" rel="prev">
+              <a href="/2021/09/15/shape_based_matching/" rel="prev">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/resources.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/resources.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
                 </div>
                 <span class="label">
                 Previous Post</span>

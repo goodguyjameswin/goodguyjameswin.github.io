@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2021-09-22T11:57:01.650Z</updated>
+  <updated>2021-09-26T09:18:22.656Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>data-augtools</title>
+    <link href="http://goodguyjameswin.github.io/2021/09/26/data-augtools/"/>
+    <id>http://goodguyjameswin.github.io/2021/09/26/data-augtools/</id>
+    <published>2021-09-26T07:14:03.000Z</published>
+    <updated>2021-09-26T09:18:22.656Z</updated>
+    
+    <summary type="html">
+    
+      目标检测和分割的数据集增广工具
+    
+    </summary>
+    
+      <category term="技术" scheme="http://goodguyjameswin.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>text_generator</title>
@@ -40,18 +60,18 @@
   
   <entry>
     <title>shape_based_matching</title>
-    <link href="http://goodguyjameswin.github.io/2021/09/15/%E5%BD%A2%E7%8A%B6%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%E7%9A%84%E5%BC%80%E6%BA%90%E5%B7%A5%E7%A8%8B%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/"/>
-    <id>http://goodguyjameswin.github.io/2021/09/15/形状模板匹配的开源工程调试记录/</id>
+    <link href="http://goodguyjameswin.github.io/2021/09/15/shape_based_matching/"/>
+    <id>http://goodguyjameswin.github.io/2021/09/15/shape_based_matching/</id>
     <published>2021-09-15T02:13:12.000Z</published>
-    <updated>2021-09-22T05:36:11.755Z</updated>
+    <updated>2021-09-26T07:20:24.251Z</updated>
     
     <summary type="html">
     
-      基于形状的模板匹配算法的c++工程
+      基于形状的模板匹配算法的c++工程调试记录
     
     </summary>
     
-      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+      <category term="技术" scheme="http://goodguyjameswin.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
@@ -63,7 +83,7 @@
     <link href="http://goodguyjameswin.github.io/2021/09/10/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
     <id>http://goodguyjameswin.github.io/2021/09/10/深入理解计算机系统/</id>
     <published>2021-09-10T01:27:31.000Z</published>
-    <updated>2021-09-18T03:17:46.539Z</updated>
+    <updated>2021-09-25T01:41:14.015Z</updated>
     
     <summary type="html">
     
@@ -83,7 +103,7 @@
     <link href="http://goodguyjameswin.github.io/2021/09/08/java%E5%AD%A6%E4%B9%A0/"/>
     <id>http://goodguyjameswin.github.io/2021/09/08/java学习/</id>
     <published>2021-09-08T03:01:24.000Z</published>
-    <updated>2021-09-22T12:59:48.489Z</updated>
+    <updated>2021-09-25T04:31:22.947Z</updated>
     
     <summary type="html">
     
@@ -103,7 +123,7 @@
     <link href="http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/"/>
     <id>http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/</id>
     <published>2021-09-06T12:30:01.000Z</published>
-    <updated>2021-09-22T04:49:35.927Z</updated>
+    <updated>2021-09-26T07:20:07.806Z</updated>
     
     <summary type="html">
     
