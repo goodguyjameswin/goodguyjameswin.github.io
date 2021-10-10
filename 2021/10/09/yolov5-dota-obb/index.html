@@ -652,7 +652,8 @@ def nms_rotated_rect(dets, scores, thresh):
     ... 
 </code></pre>
 <p>修改完毕，用“纯净版”的YOLOv5_DOTA_OBB跑一下demo，发现模型可以正常预测，性能好像也没有损失</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/demo.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/demo.webp"></div>
+
 <p>然后开始制作自己的数据集，训练并测试，这里我用的是以前用过的标注工具<a href="https://github.com/chinakook/labelImg2" target="_blank" rel="noopener">labelimg2</a>，<del>不过说实话有时候莫名其妙闪退让我开始考虑换其他的标注工具了，虽然本来已经是白嫖，就不应该挑三拣四了</del> <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png"></p>
 <p>不过输出的格式是voc格式，所以我修改了下源码，让它能生成DOTA数据集格式的标签，在原工程的libs/labelFile.py里添加如下代码，会在当前目录下生成一个labels文件夹，里面存放对应标注图片的DOTA格式标签</p>
 <pre><code class="python">label_dir = os.path.join(imgFolderPath, &quot;labels&quot;)
@@ -668,7 +669,8 @@ with open(label_file, &#39;w&#39;) as l:
                               label]) + &#39;\n&#39;)
 </code></pre>
 <p><del>由于老师就给了我一张图片，但是他老人家又信仰深度学习</del>，没办法，只能，通过数据增强来扩充数据集，<del>欺骗自己，训练的数据量足够多</del>，这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/aug.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/aug.webp"></div>
+
 <p>接着根据原作者提供的<a href="https://github.com/hukaixuan19970627/DOTA_devkit_YOLO" target="_blank" rel="noopener">工具</a>，将带DOTA格式标签的数据转换为“长边表示法”格式的标签数据，对应的格式转换代码如下</p>
 <pre><code class="python">def dota2LongSideFormat(imgpath, txtpath, dstpath, extractclassname):
     if os.path.exists(dstpath):
@@ -787,15 +789,18 @@ def cvminAreaRect2longsideformat(x_c, y_c, width, height, theta):
 
     return x_c, y_c, longside, shortside, theta_longside
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp"></div>
+
 <p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
-<!-- ![](https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp) -->
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></div>
 
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></div>
+
 <p>忙活了半天，终于训练出来一个还不错的效果了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp"></div>
+
 <p>640*640的图片，gpu单张预测时间在0.1s左右，<del>还行ing</del></p>
 <hr>
 

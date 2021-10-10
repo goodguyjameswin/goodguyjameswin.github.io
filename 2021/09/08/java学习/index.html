@@ -783,17 +783,20 @@ public class HelloWorld {
 <h3 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h3><h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><p>如果一个变量的类型是 类类型，而非基本类型，那么该变量又叫做引用</p>
 <pre><code class="java">Hero h = new Hero();
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_1.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_1.webp"></div>
+
 <pre><code class="java">// 使用一个引用来指向这个对象
 Hero h1 = new Hero();
 Hero h2 = h1; // h2指向h1所指向的对象
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_2.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_2.webp"></div>
+
 <p>第一行，引用garen指向新创建的对象（对象1）；第二行，同一个引用garen指向新创建的对象（对象2）。这个时候，对象1，就没有任何引用指向了，换句话说，就没有任何手段控制和访问该对象，那么该对象就变得没有意义</p>
 <pre><code class="java">Hero garen =  new Hero();
 garen =  new Hero();
 </code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_3.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/yinyong_3.webp"></div>
+
 <hr>
 <h4 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h4><p>设计采用可变数量参数的方法，在方法里，使用操作数组的方式处理参数</p>
 <pre><code class="java">public void attack(Hero h1)
@@ -827,7 +830,8 @@ public Hero(String name,float hp){
 <h4 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h4><p>如果一个变量是基本类型，=符号就表示<strong>赋值</strong>的意思。如果一个变量是类类型，=符号则表示<strong>指向</strong>的意思</p>
 <p>当变量作为基本类型传递时，在方法内，无法修改方法外的基本类型参数。当变量为类类型传递时，实质传递的是该引用的地址，内部对形参修改影响的只是引用的地址新指向，除非修改<strong>对象.属性值</strong>，才能真正影响外部实参</p>
 <hr>
-<h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/fanwei_xiushi.webp"></p>
+<h4 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h4><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/fanwei_xiushi.webp"></div>
+
 <p>从作用域来看，public能够使用所有的情况</p>
 <ul>
 <li>属性通常使用private封装起来</li>
@@ -947,7 +951,8 @@ public class HelloWorld {
 </code></pre>
 <p>使用枚举，就能把常量season的取值范围限定在枚举类型Season的四个值当中</p>
 <h3 id="接口和继承"><a href="#接口和继承" class="headerlink" title="接口和继承"></a>接口和继承</h3><h4 id="对象转型"><a href="#对象转型" class="headerlink" title="对象转型"></a>对象转型</h4><p><strong>引用类型</strong>和<strong>对象类型</strong>不一致时，才需要进行类型转换。所有的<strong>子类转换为父类</strong>都是可以的，父类转子类必须进行<strong>强制转换</strong>（有时候会失败）。没有继承关系的两个类互相转换，一定会失败。<strong>实现了接口</strong>的类型可以转换成接口。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/leixing_zhuanhuan.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/leixing_zhuanhuan.webp"></div>
+
 <p>instanceof判断一个引用所指向的对象</p>
 <pre><code class="java">//判断引用h1指向的对象，是否是ADHero类型
 System.out.println(h1 instanceof ADHero);
@@ -1083,8 +1088,10 @@ public interface Mortal {
 <p>接口默认方法Override问题：如果是实现多个接口同时这些接口中都实现了同样的默认方法，那么实现的子类必须要实现这个默认方法（因为不知道要选择哪个方法）。而只要默认方法只有一个那么就可以不用实现（比如AP实现了默认方法，AD没实现，那么两个都实现的子类也不用实现），或者只实现了一个接口，那么子类也不用实现</p>
 <hr>
 <h4 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h4><p>UML图中，实线表示继承关系，虚线表示实现关系</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_lei.webp"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_jiekou.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_lei.webp"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/UML_jiekou.webp"></div>
+
 <h3 id="数字和字符串"><a href="#数字和字符串" class="headerlink" title="数字和字符串"></a>数字和字符串</h3><h4 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h4><p>所有的<strong>基本类型</strong>，都有对应的类类型，数字封装类有Byte、Short、Interger、Long、Float和Double，这些类都是抽象类Number的子类</p>
 <pre><code class="java">//把一个基本类型的变量,转换为Integer对象
 Integer it = new Integer(i);
@@ -1997,7 +2004,8 @@ generalList.add(new APHero()); //编译错误  因为?代表任意泛型，很�
 </code></pre>
 <p>因此，如果希望只取出，不插入，就是用? extends Hero，如果希望只插入，不取出，就是用? super Hero，如果希望，又能插入，又能取出，就不要用通配符?</p>
 <p>子类转父类是一定可以成功的，但是子类泛型<strong>不可以</strong>转换为父类泛型，父类泛型<strong>也不可以</strong>转换为子类泛型</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/generic.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/generic.webp"></div>
+
 <pre><code class="java">ArrayList&lt;ADHero&gt; adhs = new ArrayList&lt;&gt;();
 // 父类泛型转子类
 adhs = hs;

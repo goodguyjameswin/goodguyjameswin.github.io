@@ -573,26 +573,32 @@
 <p>模仿我喜欢的一个演员邹兆龙的一段反派戏里一句台词，“买了不吃是不是不给面子啊？”，引申一下，📕：“买了不看是不是不给面子啊？”</p>
 </blockquote>
 <p><del>哈哈毕竟这本书100多老贵了。。</del><img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/2233/wuyan.png"></p>
-<h2 id="计算机系统漫游"><a href="#计算机系统漫游" class="headerlink" title="计算机系统漫游"></a>计算机系统漫游</h2><p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/building_system.webp"></p>
+<h2 id="计算机系统漫游"><a href="#计算机系统漫游" class="headerlink" title="计算机系统漫游"></a>计算机系统漫游</h2><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/building_system.webp"></div>
+
 <p>预处理器根据#开头的命令，修改原始的C程序。比如</p>
 <pre><code class="c">#include &lt;stdio.h&gt;
 </code></pre>
 <p>告诉预处理器读取系统头文件stdio.h的内容，并把它<strong>直接</strong>插入到程序文本中，得到另一个C程序</p>
 <p>编译器将文件翻译成一个汇编语言程序，汇编器将文件翻译成机器语言指令，并打包成<strong>可重定位目标程序</strong></p>
 <p>每个C编译器都提供标准C库中的函数，它们存在于单独的预编译好了的目标文件中，这些文件必须以某种方式合并到我们的程序中，链接器就负责这种合并，最后得到一个<strong>可执行目标文件</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/computer_system.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/computer_system.webp"></div>
+
 <p>贯穿整个系统的是一组电子管道，<strong>总线</strong>，总线通常被设计成定长的字节块，也就是<strong>字</strong>。字中的字节数（即字长）是一个系统的基本参数，各个系统都不尽相同</p>
 <p>每个I/O设备都通过一个<strong>控制器</strong>或<strong>适配器</strong>与I/O总线相连，控制器是I/O设备本身或者系统的主印制电路板（通常叫主板）上的芯片组，而适配器则是一块插在主板插槽上的卡，它们的功能都是在I/O总线和I/O设备之间传递信息</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/ram_structure.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/ram_structure.webp"></div>
+
 <p>存储器是一个线性的字节数组，每个字节都有唯一的地址（数组索引），这些地址是从零开始的</p>
 <p>寄存器文件是一个小的存储设备，由一些单个字长的寄存器组成，每个寄存器都有唯一的名字</p>
 <p>CPU处理器的核心是一个大小为一个字的存储设备（或<strong>寄存器</strong>），称为程序计数器（PC），在任何时刻，PC都指向主存中的某条机器语言指令（即含有该条指令的地址）</p>
 <p><strong>指令集架构</strong>描述的是每条机器代码指令的效果；而<strong>微体系结构</strong>描述的是处理器实际上是如何实现的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/processing_address.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/processing_address.webp"></div>
+
 <p>从一个进程到另一个进程的转换是由操作系统内核（kernel）管理的，内核是操作系统代码常驻主存的部分。<strong>内核不是一个独立的进程</strong>，它是处理全部进程所用代码和数据结构的集合</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/multi_core.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/multi_core.webp"></div>
+
 <p>超线程，称为<strong>同时多线程</strong>，允许一个CPU执行多个控制流的技术，它涉及CPU某些硬件有多个备份，比如程序计数器和寄存器文件，而其他硬件部分只有一份，比如执行浮点算术运算的单元。超线程的处理器可以在单个周期的基础上决定要执行哪一个线程</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/computer_abstraction.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/computer_abstraction.webp"></div>
+
 <h2 id="信息的表示和处理"><a href="#信息的表示和处理" class="headerlink" title="信息的表示和处理"></a>信息的表示和处理</h2><p>大多数计算机使用<strong>8位的块</strong>，或者字节（byte），作为最小的可寻址的内存单位，而不是访问内存中单独的位，多字节对象都被存储为连续的字节序列，对象的地址为所使用字节中最小的地址</p>
 <p>由于表示的精度有限，浮点运算是不可结合的。整数的表示虽然只能编码一个相对较小的数值范围，但这种表示是精确的，浮点数虽然可以编码一个较大的数值范围，但这种表示只是近似的</p>
 <p>对于一个字长为w位的机器而言，虚拟地址的范围为0~2的w次方-1，程序最多访问2的w次方个字节</p>
@@ -605,7 +611,8 @@
 <h2 id="程序的机器级表示"><a href="#程序的机器级表示" class="headerlink" title="程序的机器级表示"></a>程序的机器级表示</h2><p>一个x86-64的中央处理单元（CPU）包含一组16个存储64位值的通用目的存储器</p>
 <p>处理器通过流水线来获得高性能，采用非常精密的<strong>分支预测逻辑</strong>来猜测每条跳转指令是否会执行，因此一般指令流水线里充满着指令。分支预测错误会极大地降低程序的性能，此时可用条件数据传送代替条件控制转移</p>
 <p>当x86-64过程需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间，称为过程的栈帧。在x86-64中，可以通过寄存器最多传递6个整型（整型和指针）参数，而过程只分配自己所需要的栈帧部分。寄存器组是唯一被所有过程共享的资源</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/zhanzhen.webp"></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/computerLaw/zhanzhen.webp"></div>
+
 <p>对抗缓冲区溢出攻击：栈随机化、栈破坏检测、限制可执行代码区域</p>
 <h2 id="处理器体系结构"><a href="#处理器体系结构" class="headerlink" title="处理器体系结构"></a>处理器体系结构</h2><p>流水线（取指、译指、执行、访存）提高了系统的吞吐量（单位时间内执行的指令数），但是会轻微增加延迟（从头到尾执行一条指令所需时长），是由于增加的流水线寄存器的时间开销</p>
 <p> <strong>冒险</strong>指的是一条指令的位置或操作数依赖于其他仍在流水线中的指令。<strong>暂停</strong>用于避免冒险，此时处理器会停止流水线中的一条或多条指令，直到冒险条件不再满足。将结果值直接从一个流水线阶段传到较早阶段的技术称为数据<strong>转发</strong></p>
