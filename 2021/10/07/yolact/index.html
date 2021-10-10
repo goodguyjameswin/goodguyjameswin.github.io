@@ -580,6 +580,7 @@
 <p>然后关键是，能否在c++端部署并成功预测，这里又有一个坑，如果是训练自己的数据集，得到的.pth权重文件在转换.onnx文件时，需要保证网络结构部分读取张量的尺寸能对齐（一般来说是图片尺寸通道数或者训练测试类别数的不一致会导致报错）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/result_3.webp"></p>
 <p>训练的模型也比较简单，看了下中间过程的mask图，这边生成的分割图还是不够准确，对模型的训练效果要求还是比较高，貌似效果和python那边预测的有点差距，初步估计是网络前向推理后的数据后处理部分还是有区别吧，留个坑，以后有时间再填~</p>
+<hr>
 
           </div>
           <!-- .entry-content -->
