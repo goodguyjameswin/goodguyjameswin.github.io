@@ -575,7 +575,178 @@
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/demo.webp"></div>
 
 <p>然后去踩yolact网络训练测试的坑，发现同样是opencv版本低带来的坑，读训练图片的时候会报错，升级一下opencv版本就好了</p>
-<p>训练完毕，现在python这边测试一下效果，<del>马马虎虎</del></p>
+<p>用<a href="https://github.com/wkentaro/labelme" target="_blank" rel="noopener">labelme</a>工具标注图片分割数据，产生的json格式标签，同样的用<a href="https://github.com/goodguyjameswin/mydata_augtools/blob/master/DataAugForObjectSegmentation/DataAugmentforLabelMe.py" target="_blank" rel="noopener">脚本</a>扩充一下数据集，验证一下标签转换是否正确</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/aug.webp"></div>
+
+<p>然后把标注并且增广后的数据及json格式标签，转换为COCO格式数据集</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/label.webp"></div>
+
+<pre><code class="python">def main():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(&quot;input_dir&quot;, help=&quot;input annotated directory&quot;)
+    parser.add_argument(&quot;output_dir&quot;, help=&quot;output dataset directory&quot;)
+    parser.add_argument(&quot;--labels&quot;, help=&quot;labels file&quot;, required=True)
+    parser.add_argument(
+        &quot;--noviz&quot;, help=&quot;no visualization&quot;, action=&quot;store_true&quot;
+    )
+    args = parser.parse_args()
+
+    if osp.exists(args.output_dir):
+        print(&quot;Output directory already exists:&quot;, args.output_dir)
+        sys.exit(1)
+    os.makedirs(args.output_dir)
+    os.makedirs(osp.join(args.output_dir, os.path.basename(args.input_dir) + &quot;_JPEGImages&quot;))
+    if not args.noviz:
+        os.makedirs(osp.join(args.output_dir, &quot;Visualization&quot;))
+    print(&quot;Creating dataset:&quot;, args.output_dir)
+
+    now = datetime.datetime.now()
+
+    data = dict(
+        info=dict(
+            description=None,
+            url=None,
+            version=None,
+            year=now.year,
+            contributor=None,
+            date_created=now.strftime(&quot;%Y-%m-%d %H:%M:%S.%f&quot;),
+        ),
+        licenses=[dict(url=None, id=0, name=None,)],
+        images=[
+            # license, url, file_name, height, width, date_captured, id
+        ],
+        type=&quot;instances&quot;,
+        annotations=[
+            # segmentation, area, iscrowd, image_id, bbox, category_id, id
+        ],
+        categories=[
+            # supercategory, id, name
+        ],
+    )
+
+    class_name_to_id = {}
+    for i, line in enumerate(open(args.labels).readlines()):
+        class_id = i - 1  # starts with -1
+        class_name = line.strip()
+        if class_id == -1:
+            assert class_name == &quot;__ignore__&quot;
+            continue
+        class_name_to_id[class_name] = class_id
+        data[&quot;categories&quot;].append(
+            dict(supercategory=None, id=class_id, name=class_name,)
+        )
+
+    out_ann_file = osp.join(args.output_dir, os.path.basename(args.input_dir) + &quot;.json&quot;)
+    label_files = glob.glob(osp.join(args.input_dir, &quot;*.json&quot;))
+    for image_id, filename in enumerate(label_files):
+        print(&quot;Generating dataset from:&quot;, filename)
+
+        label_file = labelme.LabelFile(filename=filename)
+
+        base = osp.splitext(osp.basename(filename))[0]
+        out_img_file = osp.join(args.output_dir, os.path.basename(args.input_dir) + &quot;_JPEGImages&quot;, base + &quot;.jpg&quot;)
+
+        img = labelme.utils.img_data_to_arr(label_file.imageData)
+        imgviz.io.imsave(out_img_file, img)
+        data[&quot;images&quot;].append(
+            dict(
+                license=0,
+                url=None,
+                file_name=osp.relpath(out_img_file, osp.dirname(out_ann_file)),
+                height=img.shape[0],
+                width=img.shape[1],
+                date_captured=None,
+                id=image_id,
+            )
+        )
+
+        masks = {}  # for area
+        segmentations = collections.defaultdict(list)  # for segmentation
+        for shape in label_file.shapes:
+            points = shape[&quot;points&quot;]
+            label = shape[&quot;label&quot;]
+            group_id = shape.get(&quot;group_id&quot;)
+            shape_type = shape.get(&quot;shape_type&quot;, &quot;polygon&quot;)
+            mask = labelme.utils.shape_to_mask(
+                img.shape[:2], points, shape_type
+            )
+
+            if group_id is None:
+                group_id = uuid.uuid1()
+
+            instance = (label, group_id)
+
+            if instance in masks:
+                masks[instance] = masks[instance] | mask
+            else:
+                masks[instance] = mask
+
+            if shape_type == &quot;rectangle&quot;:
+                (x1, y1), (x2, y2) = points
+                x1, x2 = sorted([x1, x2])
+                y1, y2 = sorted([y1, y2])
+                points = [x1, y1, x2, y1, x2, y2, x1, y2]
+            else:
+                points = np.asarray(points).flatten().tolist()
+
+            segmentations[instance].append(points)
+        segmentations = dict(segmentations)
+
+        for instance, mask in masks.items():
+            cls_name, group_id = instance
+            if cls_name not in class_name_to_id:
+                continue
+            cls_id = class_name_to_id[cls_name]
+
+            mask = np.asfortranarray(mask.astype(np.uint8))
+            mask = pycocotools.mask.encode(mask)
+            area = float(pycocotools.mask.area(mask))
+            bbox = pycocotools.mask.toBbox(mask).flatten().tolist()
+
+            data[&quot;annotations&quot;].append(
+                dict(
+                    id=len(data[&quot;annotations&quot;]),
+                    image_id=image_id,
+                    category_id=cls_id,
+                    segmentation=segmentations[instance],
+                    area=area,
+                    bbox=bbox,
+                    iscrowd=0,
+                )
+            )
+
+        if not args.noviz:
+            labels, captions, masks = zip(
+                *[
+                    (class_name_to_id[cnm], cnm, msk)
+                    for (cnm, gid), msk in masks.items()
+                    if cnm in class_name_to_id
+                ]
+            )
+            viz = imgviz.instances2rgb(
+                image=img,
+                labels=labels,
+                masks=masks,
+                captions=captions,
+                font_size=15,
+                line_width=2,
+            )
+            out_viz_file = osp.join(
+                args.output_dir, &quot;Visualization&quot;, base + &quot;.jpg&quot;
+            )
+            imgviz.io.imsave(out_viz_file, viz)
+
+    with open(out_ann_file, &quot;w&quot;) as f:
+        json.dump(data, f)
+</code></pre>
+<p>简单配置训练信息，开始训练！</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/my_dataset.webp"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/yolact_config.webp"></div>
+
+<p>训练完毕，先在python这边测试一下效果，<del>马马虎虎</del></p>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/result_1.webp"></div>
 
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolact/result_2.webp"></div>
