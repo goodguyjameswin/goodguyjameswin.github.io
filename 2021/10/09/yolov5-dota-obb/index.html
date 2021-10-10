@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">music | zt&#39;s blog</title>
+  <title itemprop="name">yolov5-dota-obb | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -492,89 +492,284 @@
   </div>
 </header>
 
-      <div class="pattern-center-blank"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
 <!-- 板块化 -->
 <div class="gather">
 <!-- 板块化 -->
 
-  <!-- <div class="pattern-center "> -->
-  <div class="pattern-center-sakura">
-    <div class="pattern-attachment-img">
-      <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/listening.webp" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolov5_dota_obb.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolov5_dota_obb.webp">
     </div>
-    <header class="pattern-header ">
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
       <h1 class="entry-title">
-      喜欢的音乐</h1>
+      yolov5-dota-obb</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2021-10-9
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
     </header>
   </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近出于项目需要，前段时间已经做了一个传统模板匹配的方案了，但是针对旋转目标检测的任务，老师坚持要做一个深度学习方案。<del>拗了几次拗不过他，无奈，只能给他老人家追梦</del>，逛了逛github，发现挺多相关论文的，也有一些源码，但是没几个实用的，<del>不像yolo的reademe写的那么善解人意</del>，没有办法，浏览过程中无意看到一个国内大佬，针对yolov5做了修改，引入了<strong>长边表示法</strong>对旋转矩形检测框的定义，感觉效果还不错，标签的格式也比较好懂，准备上手尝试</p>
+<p>好家伙，还是离不开<a href="https://github.com/CAPTAIN-WHU/DOTA_devkit" target="_blank" rel="noopener">DOTA_devkit</a>的编译，今年四月份左右想入这个坑，就被windows上各种第三方库的编译给劝退了，然后发现旋转目标检测，基本都离不开对这个工具包的编译，因为旋转目标检测网络目前基本都是用<a href="https://github.com/SJTU-Thinklab-Det/DOTA-DOAI" target="_blank" rel="noopener">DOTA数据集</a>作benchmark，这个工具包可以很好的处理DOTA数据集</p>
+<p><del>老师那边又反复催</del>，没办法，那就狠下心来读源码！</p>
+<p>后来发现其实编译这个工具包，目的是调用其中有关多边形（旋转矩形框）做NMS（非极大值抑制）的方法，好说，我记得python有个shapely的库，也可以做多边形的IOU（重叠面积占比）运算，多说无益，动手改源码！</p>
+<h2 id="挖坑踩坑"><a href="#挖坑踩坑" class="headerlink" title="挖坑踩坑"></a>挖坑踩坑</h2><p>这个工程，训练的时候跟原本的yolov5生态环境是一样的，方法调用不需要其他第三方库的支持，比如经典的mosaic数据增强，但是有几个坑</p>
+<p>比如原作者的长边表示法是针对opencv4.2以前的版本中minAreaRect这一函数所返回的旋转矩形框所定义的角度做的优化，在高版本的opencv（比如opencv4.5以上）就不支持了。还有就是高版本的pytorch需要针对错误“torch.nn.modules.module.ModuleAttributeError: ‘Hardswish’ object has no attribute ‘inplace’”，找到pytorch的源码部分并做修改</p>
+<pre><code class="python">def __init__(self, inplace : bool = False) -&gt; None:
+  super(Hardwish, self).__init__()
+  self.inplace = inplace
 
+def forward(self, input : Tensor) -&gt; Tensor:
+  # 源码如下：
+  # return F.hardwish(input, self.inplace)
+  # 修改如下：
+  return F.hardwish(input)
+</code></pre>
+<p>然后重点就是预测的时候，因为需要对经过网络前向推理后的结果（旋转矩形检测框）做NMS，这里需要调用DOTA_devkit工具包里编译好的iou_poly及poly_nms方法，用shapely库重写这一块</p>
+<pre><code class="python">from shapely.geometry import Polygon, MultiPoint
 
-<!--  -->
+def iou_rotated_rect(line1, line2):
+    a = np.array(line1).reshape(4, 2)
+    poly1 = Polygon(a).convex_hull
+    b = np.array(line2).reshape(4, 2)
+    poly2 = Polygon(b).convex_hull
+    union_poly = np.concatenate((a, b))
+    if not poly1.intersects(poly2):  # if there is no intersection between two polygons
+        iou = 0
+    else:
+        inter_area = poly1.intersection(poly2).area  # intersection area
+        print(inter_area)
+        union_area = MultiPoint(union_poly).convex_hull.area
+        print(union_area)
+        if union_area == 0:
+            iou = 0
+        iou = float(inter_area) / union_area
+    return iou
 
+def nms_rotated_rect(dets, scores, thresh):
+    obbs = dets[:, 0:-1]
+    x1 = np.min(obbs[:, 0::2], axis=1)
+    y1 = np.min(obbs[:, 1::2], axis=1)
+    x2 = np.max(obbs[:, 0::2], axis=1)
+    y2 = np.max(obbs[:, 1::2], axis=1)
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)
 
+    polys = []
+    for i in range(len(dets)):
+        tm_polygon = [dets[i][0], dets[i][1], dets[i][2], dets[i][3],
+                      dets[i][4], dets[i][5], dets[i][6], dets[i][7]]
+        polys.append(tm_polygon)
+    order = scores.argsort()[::-1]
 
+    keep = []
+    while order.size &gt; 0:
+        i = order[0]
+        keep.append(i)
+        xx1 = np.maximum(x1[i], x1[order[1:]])
+        yy1 = np.maximum(y1[i], y1[order[1:]])
+        xx2 = np.minimum(x2[i], x2[order[1:]])
+        yy2 = np.minimum(y2[i], y2[order[1:]])
+        w = np.maximum(0.0, xx2 - xx1)
+        h = np.maximum(0.0, yy2 - yy1)
+        hbb_inter = w * h
+        hbb_ovr = hbb_inter / (areas[i] + areas[order[1:]] - hbb_inter)
+        h_inds = np.where(hbb_ovr &gt; 0)[0]
+        tmp_order = order[h_inds + 1]
+        for j in range(tmp_order.size):
+            iou = iou_rotated_rect(polys[i], polys[tmp_order[j]])
+            hbb_ovr[h_inds[j]] = iou
+        inds = np.where(hbb_ovr &lt;= thresh)[0]
+        order = order[inds + 1]
+    return keep
+</code></pre>
+<p>然后去掉原工程下detect.py中数据后处理部分对DOTA_devkit工具包的依赖</p>
+<pre><code class="python">def rotate_non_max_suppression(...):
+    ...
+    # 源码如下：
+    # i = np.array(py_cpu_nms_poly_fast(np.array(rects), np.array(scores.cpu()), iou_thres))
+    # 修改如下：
+    i = np.array(nms_rotated_rect(np.array(rects), np.array(scores.cpu()), iou_thres))
+    ... 
+</code></pre>
+<p>修改完毕，用“纯净版”的YOLOv5_DOTA_OBB跑一下demo，发现模型可以正常预测，性能好像也没有损失</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/demo.webp"></p>
+<p>然后开始制作自己的数据集，训练并测试，这里我用的是以前用过的标注工具<a href="https://github.com/chinakook/labelImg2" target="_blank" rel="noopener">labelimg2</a>，<del>不过说实话有时候莫名其妙闪退让我开始考虑换其他的标注工具了，虽然本来已经是白嫖，就不应该挑三拣四了</del> <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png"></p>
+<p>不过输出的格式是voc格式，所以我修改了下源码，让它能生成DOTA数据集格式的标签，在原工程的libs/labelFile.py里添加如下代码，会在当前目录下生成一个labels文件夹，里面存放对应标注图片的DOTA格式标签</p>
+<pre><code class="python">label_dir = os.path.join(imgFolderPath, &quot;labels&quot;)
+if not os.path.exists(label_dir):
+    os.makedirs(label_dir)
+label_file = os.path.join(label_dir, os.path.splitext(imgFileName)[0] + &#39;.txt&#39;)
+with open(label_file, &#39;w&#39;) as l:
+    for shape in shapes:
+        points = shape[&#39;points&#39;]
+        label = shape[&#39;label&#39;]
+        l.write(&#39; &#39;.join([str(points[0][0]), str(points[0][1]), str(points[1][0]), str(points[1][1]),
+                              str(points[2][0]), str(points[2][1]), str(points[3][0]), str(points[3][1]),
+                              label]) + &#39;\n&#39;)
+</code></pre>
+<p><del>由于老师就给了我一张图片，但是他老人家又信仰深度学习</del>，没办法，只能，通过数据增强来扩充数据集，<del>欺骗自己，训练的数据量足够多</del>，这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
+<p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></p>
+<p>忙活了半天，终于训练出来一个还不错的效果了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp"></p>
+<p>640*640的图片，gpu单张预测时间在0.1s左右，<del>还行ing</del></p>
 
-<div id="content" class="site-content">
-  <article class="post-item post-301 page type-page status-publish has-post-thumbnail hentry">
-    
-<meting-js server="netease" type="playlist" id="5412493734" mutex="true">
-</meting-js>
-
-<!-- <meting-js
-  server="netease"
-  type="playlist"
-  id="419239189"
-  mutex="true">
-</meting-js> -->
-
-    <!-- .entry-content -->
-    <!-- 
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+          
+            
+              <div class="post-nepre full next">
+            
+              <a href="/2021/10/07/yolact/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolact.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolact.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  yolact</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
    -->
-    <!-- <div class="single-reward">
-      <div class="reward-open">赏
-        <div class="reward-main">
-          <ul class="reward-row">
-            <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
-            <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-    <footer class="post-footer">
-      <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-      <div class="post-tags">
-      </div>
-      <div class="post-share">
-        <div class="social-share sharehidden share-component"></div>
-        <i class="iconfont show-share icon-forward"></i>
-      </div>
-    </footer> -->
-    <!-- .entry-footer -->
-  </article>
-    <!-- #post-## -->
-    <!-- <section class="author-profile">
-      <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-        <a href="/about/" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="" height="70" width="70"></a>
-        <div class="meta">
-          <span class="title">Author</span>
-          <h3 itemprop="name">
-          <a href="https://www.sao-kirito.top" itemprop="url" rel="author"></a>
-          </h3>
-        </div>
-      </div>
-      <hr>
-      <p><i class="iconfont icon-write"></i>Everything that has a beginning has its end.</p>
-    </section> -->
-</div><!-- #primary -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i>技术宅</p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
 </div>
 <!-- 板块化 -->
 <div class="gather">
+  </div>
 <!-- 板块化 -->
-  
-  
-</div>
-<!-- </div> -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
