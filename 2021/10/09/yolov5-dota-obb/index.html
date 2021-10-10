@@ -668,8 +668,130 @@ with open(label_file, &#39;w&#39;) as l:
                               label]) + &#39;\n&#39;)
 </code></pre>
 <p><del>由于老师就给了我一张图片，但是他老人家又信仰深度学习</del>，没办法，只能，通过数据增强来扩充数据集，<del>欺骗自己，训练的数据量足够多</del>，这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/aug.webp"></p>
+<p>接着根据原作者提供的<a href="https://github.com/hukaixuan19970627/DOTA_devkit_YOLO" target="_blank" rel="noopener">工具</a>，将带DOTA格式标签的数据转换为“长边表示法”格式的标签数据，对应的格式转换代码如下</p>
+<pre><code class="python">def dota2LongSideFormat(imgpath, txtpath, dstpath, extractclassname):
+    if os.path.exists(dstpath):
+        shutil.rmtree(dstpath)  # delete output folder
+    os.makedirs(dstpath)  # make new output folder
+    filelist = GetFileFromThisRootDir(txtpath)  # fileist=[&#39;/.../P0005.txt&#39;, ..., /.../P000?.txt]
+    for fullname in filelist:  # fullname=&#39;/.../P000?.txt&#39;
+        objects = parse_dota_poly(fullname)
+        name = os.path.splitext(os.path.basename(fullname))[0]  # name=&#39;P000?&#39;
+        img_fullname = os.path.join(imgpath, name + &#39;.jpg&#39;)  # img_fullname=&#39;/.../P000?.png&#39;
+        img = Image.open(img_fullname)
+        img_w, img_h = img.size
+        # print img_w,img_h
+        with open(os.path.join(dstpath, name + &#39;.txt&#39;), &#39;w&#39;) as f_out:
+            num_gt = 0
+            for i, obj in enumerate(objects):
+                num_gt = num_gt + 1  # 为当前有效gt计数
+                poly = obj[&#39;poly&#39;]  # poly=[(x1,y1),(x2,y2),(x3,y3),(x4,y4)]
+                poly = np.float32(np.array(poly))
+                # 四点坐标归一化
+                poly[:, 0] = poly[:, 0] / img_w
+                poly[:, 1] = poly[:, 1] / img_h
+
+                rect = cv2.minAreaRect(poly)  # 得到最小外接矩形的（中心(x,y), (宽,高), 旋转角度）
+
+                c_x = rect[0][0]
+                c_y = rect[0][1]
+                w = rect[1][0]
+                h = rect[1][1]
+                theta = rect[-1]  # Range for angle is [-90，0)
+
+                trans_data = cvminAreaRect2longsideformat(c_x, c_y, w, h, theta)
+                if not trans_data:
+                    if theta != 90:  # Θ=90说明wh中有为0的元素，即gt信息不完整，无需提示异常，直接删除
+                        print(&#39;opencv表示法转长边表示法出现异常,已将第%d个box排除,问题出现在该图片中:%s&#39; % (i, img_fullname))
+                    num_gt = num_gt - 1
+                    continue
+                else:
+                    # range:[-180，0)
+                    c_x, c_y, longside, shortside, theta_longside = trans_data
+
+                bbox = np.array((c_x, c_y, longside, shortside))
+
+                if (sum(bbox &lt;= 0) + sum(bbox[:2] &gt;= 1)) &gt;= 1:  # 0&lt;xy&lt;1, 0&lt;side&lt;=1
+                    print(&#39;bbox[:2]中有&gt;= 1的元素,bbox中有&lt;= 0的元素,已将第%d个box排除,问题出现在该图片中:%s&#39; % (i, img_fullname))
+                    print(&#39;出问题的longside形式数据:[%.16f, %.16f, %.16f, %.16f, %.1f]&#39; % (
+                        c_x, c_y, longside, shortside, theta_longside))
+                    num_gt = num_gt - 1
+                    continue
+                if (obj[&#39;name&#39;] in extractclassname):
+                    id = extractclassname.index(obj[&#39;name&#39;])  # id=类名的索引 比如&#39;plane&#39;对应id=0
+                else:
+                    print(&#39;预定类别中没有类别:%s;已将该box排除,问题出现在该图片中:%s&#39; % (obj[&#39;name&#39;], fullname))
+                    num_gt = num_gt - 1
+                    continue
+                theta_label = int(theta_longside + 180.5)  # range int[0,180] 四舍五入
+                if theta_label == 180:  # range int[0,179]
+                    theta_label = 179
+                # outline=&#39;id x y longside shortside Θ&#39;
+
+                # final check
+                if id &gt; 15 or id &lt; 0:
+                    print(&#39;id problems,问题出现在该图片中:%s&#39; % (i, img_fullname))
+                    print(&#39;出问题的longside形式数据:[%.16f, %.16f, %.16f, %.16f, %.1f]&#39; % (
+                        c_x, c_y, longside, shortside, theta_longside))
+                if theta_label &lt; 0 or theta_label &gt; 179:
+                    print(&#39;id problems,问题出现在该图片中:%s&#39; % (i, img_fullname))
+                    print(&#39;出问题的longside形式数据:[%.16f, %.16f, %.16f, %.16f, %.1f]&#39; % (
+                        c_x, c_y, longside, shortside, theta_longside))
+                outline = str(id) + &#39; &#39; + &#39; &#39;.join(list(map(str, bbox))) + &#39; &#39; + str(theta_label)
+                f_out.write(outline + &#39;\n&#39;)  # 写入txt文件中并加上换行符号 \n
+
+        if num_gt == 0:
+            os.remove(os.path.join(dstpath, name + &#39;.txt&#39;))  #
+            os.remove(img_fullname)
+            os.remove(fullname)
+            print(&#39;%s 图片对应的txt不存在有效目标,已删除对应图片与txt&#39; % img_fullname)
+    print(&#39;已完成文件夹内DOTA数据形式到长边表示法的转换&#39;)
+
+
+def cvminAreaRect2longsideformat(x_c, y_c, width, height, theta):
+    if theta == 0:
+        theta = -90
+        buffer_width = width
+        width = height
+        height = buffer_width
+
+    if theta &gt; 0:
+        if theta != 90:  # Θ=90说明wh中有为0的元素，即gt信息不完整，无需提示异常，直接删除
+            print(&#39;θ计算出现异常，当前数据为：%.16f, %.16f, %.16f, %.16f, %.1f;超出opencv表示法的范围：[-90,0)&#39; % (
+                x_c, y_c, width, height, theta))
+        return False
+
+    if theta &lt; -90:
+        print(
+            &#39;θ计算出现异常，当前数据为：%.16f, %.16f, %.16f, %.16f, %.1f;超出opencv表示法的范围：[-90,0)&#39; % (x_c, y_c, width, height, theta))
+        return False
+
+    if width != max(width, height):  # 若width不是最长边
+        longside = height
+        shortside = width
+        theta_longside = theta - 90
+    else:  # 若width是最长边(包括正方形的情况)
+        longside = width
+        shortside = height
+        theta_longside = theta
+
+    if longside &lt; shortside:
+        print(&#39;旋转框转换表示形式后出现问题：最长边小于短边;[%.16f, %.16f, %.16f, %.16f, %.1f]&#39; % (
+            x_c, y_c, longside, shortside, theta_longside))
+        return False
+    if (theta_longside &lt; -180 or theta_longside &gt;= 0):
+        print(&#39;旋转框转换表示形式时出现问题:θ超出长边表示法的范围：[-180,0);[%.16f, %.16f, %.16f, %.16f, %.1f]&#39; % (
+            x_c, y_c, longside, shortside, theta_longside))
+        return False
+
+    return x_c, y_c, longside, shortside, theta_longside
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp"></p>
 <p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
-<p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></p>
+<!-- ![](https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp) -->
+<a href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp" data-fancybox="images" data-caption="hyps" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></a>
+
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></p>
 <p>忙活了半天，终于训练出来一个还不错的效果了</p>
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp"></p>
