@@ -790,7 +790,7 @@ def cvminAreaRect2longsideformat(x_c, y_c, width, height, theta):
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp"></p>
 <p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
 <!-- ![](https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp) -->
-<a href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp" data-fancybox="images" data-caption="hyps" target="_blank" rel="noopener"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></a>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></div>
 
 <p><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></p>
 <p>忙活了半天，终于训练出来一个还不错的效果了</p>
