@@ -794,6 +794,11 @@ def cvminAreaRect2longsideformat(x_c, y_c, width, height, theta):
 <p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></div>
 
+<p><del>接下来划重点</del></p>
+<ul>
+<li>由于原作者使用“长边表示法”表示旋转矩形框的算法具有局限性，标签在高版本opencv上无法成功从DOTA格式转换为longsideformat格式，<strong>宽高不等的图片无法作为数据正常送入网络进行训练，这是由于作者是先对图像宽高进行归一化之后再转换标签格式，然后在longsideformat格式下进行图片像素坐标的去归一化（会导致标签由旋转矩形框变成类平行四边形框）</strong>，有一个好的解决方案是<strong>对图片归一化时，宽高都针对两者中的较大值作为归一化的分母做归一化，这样转换标签格式后，图片像素坐标去归一化的分母还是一样的，不会产生标签偏移</strong>，最好的解决办法是<strong>修改标签转换部分代码以及整个深度学习工程的像素坐标归一化与去归一化过程</strong>，但是这样修改起来工作量较大，且可行性得不到验证，因此目前仍<strong>建议采用宽高相等的图片作为训练数据</strong></li>
+<li>如果数据增强的时候，开启了多种增强方式（如旋转，平移，裁剪），<strong>建议训练的时候，将角度、box和置信度的loss权重调高，若不是做多分类，分类部分的loss权重可以调低</strong>，生成的训练数据集比较复杂的情况下，mosaic和mixup数据增强方式的启用概率可以适当调低，并且为了保证网络收敛，<strong>建议调高epochs，并且采用Adam优化算法</strong></li>
+</ul>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></div>
 
 <p>忙活了半天，终于训练出来一个还不错的效果了</p>
