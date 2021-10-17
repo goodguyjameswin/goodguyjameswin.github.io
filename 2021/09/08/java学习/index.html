@@ -2137,9 +2137,1156 @@ heros
   .findFirst(); // 第一个元素
   .get();
 </code></pre>
-<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><h4 id="建立与数据库的连接"><a href="#建立与数据库的连接" class="headerlink" title="建立与数据库的连接"></a>建立与数据库的连接</h4><pre><code class="java">
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><h4 id="创建多线程"><a href="#创建多线程" class="headerlink" title="创建多线程"></a>创建多线程</h4><ul>
+<li>通过设计一个线程类继承Thread，并且重写run方法。然后通过实例化对应的线程类对象，并且调用其start方法来启动线程办法</li>
+<li>创建一个类，实现Runnable接口，启动的时候，首先创建一个对应类的对象，然后根据该对象创建一个线程对象，并启动。因为该类对象实现了Runnable接口，所以会有run方法，但是直接调用run方法，并不会启动一个新的线程。必须借助一个线程对象的start()方法，才会启动一个新的线程。因此需要创建一个Thread对象，并把该类对象作为构造方法的参数传递进去，这个线程启动的时候，就会去执行类对象里定义的run()方法了</li>
+<li>使用匿名类，继承Thread，重写run方法，直接在run方法中写业务代码</li>
+</ul>
+<pre><code class="java">//匿名类
+Thread t1= new Thread(){
+  public void run(){
+    //匿名类的一个好处是可以很方便地访问外部的局部变量
+    //匿名类中用到外部的局部变量，必须将其声明为final
+    //但是在JDK7以后，就不是必须加final的了
+    while(!teemo.isDead()){
+        gareen.attackHero(teemo);
+    }              
+  }
+};
+t1.start();
 </code></pre>
 <hr>
+<h4 id="线程方法"><a href="#线程方法" class="headerlink" title="线程方法"></a>线程方法</h4><pre><code class="java">try {
+  //Thread.sleep(1000);表示当前线程暂停1000毫秒，其他线程不受影响
+  Thread.sleep(1000);
+//Thread.sleep(1000);会抛出InterruptedException中断异常，因为当前线程sleep的时候，有可能被停止，这时就会抛出InterruptedException
+} catch (InterruptedException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+</code></pre>
+<p>所有进程，至少会有一个线程即主线程，即main方法开始执行，就会有一个<strong>看不见</strong>的主线程存在</p>
+<pre><code class="java">Thread t1= new Thread(){
+  public void run(){
+    while(!teemo.isDead()){
+      gareen.attackHero(teemo);
+    }              
+  }
+};
+//守护进程指的是，当一个进程里，所有的进程都是守护线程的时候，结束当前进程。守护线程通常会被用来做日志，性能统计等工作
+t1.setDaemon(true);
+t1.start();
+//代码执行到这里，一直是main线程在运行
+try {
+  //t1线程加入到main线程中来，只有t1线程运行结束，才会继续往下走
+  t1.join();
+} catch (InterruptedException e) {
+  // TODO Auto-generated catch block
+  e.printStackTrace();
+}
+Thread t2= new Thread(){
+  public void run(){
+    while(!leesin.isDead()){
+      bh.attackHero(leesin);
+    }              
+  }
+};
+//会观察到t1线程运行完后，主线程运行到这里，才运行t2线程
+t2.start();
+</code></pre>
+<p>当线程处于竞争关系的时候，优先级高的线程会有更大的几率获得CPU资源</p>
+<pre><code class="java">t1.setPriority(Thread.MAX_PRIORITY);
+t2.setPriority(5);
+t1.start();
+t2.start();
+</code></pre>
+<p>当前线程，临时暂停，使得其他线程可以有更多机会占用CPU资源</p>
+<pre><code class="java">Thread t2= new Thread(){
+  public void run(){
+    while(!leesin.isDead()){
+      //临时暂停，使得t1可以占用CPU资源
+      Thread.yield();
+      bh.attackHero(leesin);
+    }              
+  }
+};
+</code></pre>
+<hr>
+<h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><p>多线程的同步问题指的是多个线程同时修改一个数据的时候，可能导致的问题，又叫<strong>Concurrency</strong>问题</p>
+<p><strong>synchronized表示当前线程，独占对象someObject</strong>，当前线程独占了对象someObject，如果有<strong>其他线程试图占有对象</strong>someObject，<strong>就会等待</strong>，直到当前线程释放对someObject的占用。为了达到同步的效果，必须使用同一个同步对象</p>
+<p><strong>释放同步对象</strong>的方式：synchronized块自然结束，或者有异常抛出。</p>
+<p>既然任意对象都可以用来作为同步对象，那么可以将所有线程访问的同一个对象作为同步对象，也可以进一步在类的方法体内加上synchronized(this){}表示当前对象为同步对象，或者直接在方法前加上修饰符synchronized，其所对应的同步对象，就是this</p>
+<pre><code class="java">Object someObject = new Object();
+synchronized(someObject){
+  //此处的代码只有占有了someObject后才可以执行
+}
+</code></pre>
+<p>如果一个类，其<strong>方法都是有synchronized修饰的</strong>，那么该类就是<strong>线程安全的类</strong>，同一时间，只有一个线程能够进入<strong>这种类的一个实例</strong>去修改数据，进而保证了这个实例中的数据的安全（不会同时被多线程修改而变成脏数据），比如StringBuffer的方法都是由synchronized修饰的，而StringBuilder就不是线程安全的类。<strong>但是非线程安全的类会比线程安全的类的实例操作起来快，是因为不需要同步，节省了时间，因此，单线程的话可以采用非线程安全的类</strong></p>
+<p>ArrayList和Vector类的区别也只在于，后者是线程安全的类，而前者不是</p>
+<pre><code class="java">List&lt;Integer&gt; list1 = new ArrayList&lt;&gt;();
+//借助Collections.synchronizedList，可以把ArrayList转换成线程安全的List，与此类似的，还有HashSet,LinkedList,HashMap等等非线程安全的类，都可以通过工具类Collections转换为线程安全的
+List&lt;Integer&gt; list2 = Collections.synchronizedList(list1);
+</code></pre>
+<hr>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><ul>
+<li>线程1首先占有对象1，接着试图占用对象2</li>
+<li>线程2首先占有对象2，接着试图占有对象1</li>
+<li>线程1等待线程2释放对象2</li>
+<li>与此同时，线程2等待线程1释放对象1<br>就会，一直等待下去…</li>
+</ul>
+<pre><code class="java">Thread t1 = new Thread(){
+  public void run(){
+    //占有九尾妖狐
+    synchronized (ahri) {
+      System.out.println(&quot;t1 已占有九尾妖狐&quot;);
+      try {
+        //停顿1000毫秒，另一个线程有足够的时间占有安妮
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      System.out.println(&quot;t1 试图占有安妮&quot;);
+      System.out.println(&quot;t1 等待中 。。。。&quot;);
+      synchronized (annie) {
+        System.out.println(&quot;do something&quot;);
+      }
+    }
+  }
+};
+t1.start();
+Thread t2 = new Thread(){
+  public void run(){
+    //占有安妮
+    synchronized (annie) {
+      System.out.println(&quot;t2 已占有安妮&quot;);
+      try { 
+        //停顿1000毫秒，另一个线程有足够的时间占有暂用九尾妖狐
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      System.out.println(&quot;t2 试图占有九尾妖狐&quot;);
+      System.out.println(&quot;t2 等待中 。。。。&quot;);
+      synchronized (ahri) {
+        System.out.println(&quot;do something&quot;);
+      }
+    }
+  }
+</code></pre>
+<hr>
+<h4 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h4><p>使用循环的方式来解决线程间交互的问题，不是个好方法，因为会大量占用CPU，拖慢性能</p>
+<pre><code class="java">public synchronized void recover() {
+  hp = hp + 1;
+  System.out.printf(&quot;%s 回血1点,增加血后，%s的血量是%.0f%n&quot;, name, name, hp);
+  // 通知那些等待在this对象上的线程，可以醒过来了，如等待着的减血线程，苏醒过来
+  this.notify();
+}
+
+public synchronized void hurt() {
+  if (hp == 1) {
+    try {
+      // 让占有this的减血线程，暂时释放对this的占有，并等待
+      this.wait();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+}
+</code></pre>
+<p>wait方法和notify方法，并<strong>不是Thread线程上的方法</strong>，它们<strong>是Object上的方法</strong>。wait()让占用了这个同步对象的<strong>线程</strong>，临时释放当前的占用，并且等待。所以调用wait是有前提条件的，一定是在synchronized块里，否则就会出错。notify()通知<strong>一个</strong>等待在这个同步对象上的线程，<strong>你</strong>可以苏醒过来了，有机会重新占用当前对象了。notifyAll()通知<strong>所有</strong>等待在这个同步对象上的线程，<strong>你们</strong>可以苏醒过来了，有机会重新占用当前对象了</p>
+<hr>
+<h4 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h4><p>每一个线程的启动和结束都是比较耗费时间和占用资源的，如果在系统中用到了很多的线程，大量的启动和结束动作会导致系统的性能变卡，响应变慢，因此可以引入线程池：</p>
+<ul>
+<li>准备一个任务容器</li>
+<li>一次性启动10个 消费者线程</li>
+<li>刚开始任务容器是空的，所以线程都wait在上面。</li>
+<li>直到一个外部线程往这个任务容器中扔了一个“任务”，就会有一个消费者线程被唤醒notify</li>
+<li>这个消费者线程取出“任务”，并且执行这个任务，执行完毕后，继续等待下一次任务的到来。</li>
+<li>如果短时间内，有较多的任务加入，那么就会有多个线程被唤醒，去执行这些任务。</li>
+</ul>
+<p>在整个过程中，都不需要创建新的线程，而是循环使用这些已经存在的线程</p>
+<pre><code class="java">public class ThreadPool {
+// 线程池大小
+int threadPoolSize;
+// 任务容器
+LinkedList&lt;Runnable&gt; tasks = new LinkedList&lt;Runnable&gt;();
+// 试图消费任务的线程
+public ThreadPool() {
+  threadPoolSize = 10;
+  // 启动10个任务消费者线程
+  synchronized (tasks) {
+    for (int i = 0; i &lt; threadPoolSize; i++) {
+      new TaskConsumeThread(&quot;任务消费者线程 &quot; + i).start();
+    }
+  }
+}
+public void add(Runnable r) {
+  synchronized (tasks) {
+    tasks.add(r);
+    // 唤醒等待的任务消费者线程
+    tasks.notifyAll();
+  }
+}
+class TaskConsumeThread extends Thread {
+  public TaskConsumeThread(String name) {
+    super(name);
+  }
+  Runnable task;
+  public void run() {
+    System.out.println(&quot;启动： &quot; + this.getName());
+    while (true) {
+      synchronized (tasks) {
+        while (tasks.isEmpty()) { //wait()方法暂停后，之后苏醒时，接着wait()后面的语句继续运行？
+          try {
+            tasks.wait();
+          } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
+        task = tasks.removeLast();
+        // 允许添加任务的线程可以继续添加任务
+        tasks.notifyAll();
+      }
+      System.out.println(this.getName() + &quot; 获取到任务，并执行&quot;);
+      task.run();
+    }
+  }
+  public static void main(String[] args) {
+    ThreadPool pool = new ThreadPool();
+    for (int i = 0; i &lt; 5; i++) {
+      Runnable task = new Runnable() {
+        @Override
+        public void run() {
+          //System.out.println(&quot;执行任务&quot;);
+          //任务可能是打印一句话
+          //可能是访问文件
+          //可能是做排序
+        }
+      }; 
+      pool.add(task);          
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+  }
+}
+</code></pre>
+<p>java自带的线程池类ThreadPoolExecutor在包java.util.concurrent下</p>
+<pre><code class="java">import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+public static void main(String[] args) throws InterruptedException {      
+  ThreadPoolExecutor threadPool= new ThreadPoolExecutor(10, 15, 60, TimeUnit.SECONDS, new LinkedBlockingQueue&lt;Runnable&gt;());
+  //第一个参数10表示这个线程池初始化了10个线程在里面工作
+  //第二个参数15表示如果10个线程不够用了，就会自动增加到最多15个线程
+  //第三个参数60结合第四个参数TimeUnit.SECONDS，表示经过60秒，多出来的线程还没有接到任务，就会被回收，最后保持线程池里只有10个线程
+  //第五个参数new LinkedBlockingQueue()是用来存放任务的集合  
+  threadPool.execute(new Runnable(){
+    //execute方法用于添加新的任务
+    @Override
+    public void run() {
+      // TODO Auto-generated method stub
+      System.out.println(&quot;任务1&quot;);
+    }    
+  });
+}
+</code></pre>
+<hr>
+<h4 id="Lock对象"><a href="#Lock对象" class="headerlink" title="Lock对象"></a>Lock对象</h4><p>与synchronized(someObject)类似，lock()方法，表示当前线程占用lock对象，一旦占用，其他线程就不能占用了。与synchronized不同的是，一旦synchronized块结束，就会自动释放对someObject的占用。<strong>lock却必须调用unlock方法进行手动释放</strong>，为了保证释放的执行，往往会把unlock()放在finally中进行</p>
+<p>synchronized是<strong>不占用到手不罢休</strong>的，会一直试图占用下去。与synchronized的<strong>钻牛角尖</strong>不一样，Lock接口还提供了一个trylock方法。trylock会在指定时间范围内<strong>试图占用</strong>，占用成功了，就执行业务。如果时间到了，还没成功占用，就放弃了（因为使用trylock有可能占用成功，也有可能失败，所以后面unlock释放的时候，需要判断是否占用成功了，如果没占用成功也调用unlock()，就会抛出异常）</p>
+<p>类似于synchronized方式进行线程交互，用到的是同步对象的wait、notify和notifyAll方法。Lock也提供了类似的解决方法，首先通过lock对象得到一个Condition对象，然后分别调用这个Condition对象的：<strong>await、signal和signalAll</strong>方法（不是Condition对象的wait、notify和notifyAll方法）</p>
+<pre><code class="java">import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.Condition;
+
+public static String now() {
+  return new SimpleDateFormat(&quot;HH:mm:ss&quot;).format(new Date());
+}
+public static void log(String msg) {
+  System.out.printf(&quot;%s %s %s %n&quot;, now() , Thread.currentThread().getName() , msg);
+}
+public static void main(String[] args) {
+  Lock lock = new ReentrantLock();
+  Condition condition = lock.newCondition();
+  Thread t1 = new Thread() {
+    public void run() {
+      try {
+        log(&quot;线程启动&quot;);
+        log(&quot;试图占有对象：lock&quot;);
+        lock.lock();
+        log(&quot;占有对象：lock&quot;);
+        log(&quot;进行5秒的业务操作&quot;);
+        Thread.sleep(5000);
+        // log(&quot;临时释放对象 lock， 并等待&quot;);
+        // condition.await();
+        // log(&quot;重新占有对象 lock，并进行5秒的业务操作&quot;);
+        // Thread.sleep(5000);
+
+        // locked = lock.tryLock(1,TimeUnit.SECONDS);
+        // if(locked){
+        //     log(&quot;占有对象：lock&quot;);
+        //     log(&quot;进行5秒的业务操作&quot;);
+        //     Thread.sleep(5000);
+        // }
+        // else{
+        //     log(&quot;经过1秒钟的努力，还没有占有对象，放弃占有&quot;);
+        // }
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } finally {
+        log(&quot;释放对象：lock&quot;);
+        lock.unlock();
+        // if(locked){
+        //     log(&quot;释放对象：lock&quot;);
+        //     lock.unlock();
+        // }
+      }
+      log(&quot;线程结束&quot;);
+    }
+  };
+  t1.setName(&quot;t1&quot;);
+  t1.start();
+  try {
+    //先让t1飞2秒
+    Thread.sleep(2000);
+  } catch (InterruptedException e1) {
+    // TODO Auto-generated catch block
+    e1.printStackTrace();
+  }
+  Thread t2 = new Thread() {
+    public void run() {
+      try {
+        log(&quot;线程启动&quot;);
+        log(&quot;试图占有对象：lock&quot;);
+        lock.lock();
+        log(&quot;占有对象：lock&quot;);
+        log(&quot;进行5秒的业务操作&quot;);
+        Thread.sleep(5000);
+        // log(&quot;唤醒等待中的线程&quot;);
+        // condition.signal();
+
+        // locked = lock.tryLock(1,TimeUnit.SECONDS);
+        // if(locked){
+        //     log(&quot;占有对象：lock&quot;);
+        //     log(&quot;进行5秒的业务操作&quot;);
+        //     Thread.sleep(5000);
+        // }
+        // else{
+        //     log(&quot;经过1秒钟的努力，还没有占有对象，放弃占有&quot;);
+        // }
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } finally {
+        log(&quot;释放对象：lock&quot;);
+        lock.unlock();
+        // if(locked){
+        //     log(&quot;释放对象：lock&quot;);
+        //     lock.unlock();
+        // }
+      }
+      log(&quot;线程结束&quot;);
+    }
+  };
+  t2.setName(&quot;t2&quot;);
+  t2.start();
+}
+</code></pre>
+<ul>
+<li>Lock是一个接口，而synchronized是Java中的关键字，synchronized是内置的语言实现，Lock是代码层面的实现</li>
+<li>Lock可以选择性的获取锁，如果一段时间获取不到，可以放弃。synchronized不行，会一根筋一直获取下去。借助Lock的这个特性，就能够规避死锁，synchronized必须通过谨慎和良好的设计，才能减少死锁的发生</li>
+<li>synchronized在发生异常和同步块结束的时候，会自动释放锁。而Lock必须手动释放，所以如果忘记了释放锁，一样会造成死锁</li>
+</ul>
+<hr>
+<h4 id="原子访问"><a href="#原子访问" class="headerlink" title="原子访问"></a>原子访问</h4><p><strong>原子性操作即不可中断的操作</strong>，比如赋值操作。<strong>原子性操作本身是线程安全的</strong>。比如“i++”事实上由三个原子性操作组成，分别是取i的值、“i+1”和把新的值赋予i。但是合在一起“i++”就不是原子操作，就<strong>不是线程安全的</strong>，因为可能一个线程在执行完步骤1之后，还没来得及执行步骤2，另一个线程就开始执行步骤3了，也就是会出现<strong>同步</strong>问题</p>
+<p>JDK6以后，新增加了一个<strong>包java.util.concurrent.atomic，里面有各种原子类</strong>，比如AtomicInteger。而AtomicInteger提供了各种自增，自减等方法，这些方法都是原子性的。换句话说，<strong>自增方法incrementAndGet是线程安全的</strong>，同一个时间，只有一个线程可以调用这个方法（int基本类型对应的是AtomicInteger，但是float基本类型没有对应的AtomicFloat）</p>
+<pre><code class="java">import java.util.concurrent.atomic.AtomicInteger;
+
+public static void main(String[] args) throws InterruptedException {
+  AtomicInteger atomicI =new AtomicInteger();//类似于int变量初始化，值为0
+  int i = atomicI.decrementAndGet();//自减运算
+  int j = atomicI.incrementAndGet();//自增运算
+  int k = atomicI.addAndGet(3);//加法赋值运算（参数为负时即相当于减法赋值运算）
+  System.out.println(aomicI.intValue());//类似于打印int变量的值
+}
+</code></pre>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><p>JDBC（Java Data Base Connection）是指通过JAVA访问数据库</p>
+<h4 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h4><p>访问MySQL数据库需要用到第三方的类，因此需要为项目导入mysql的专用Jar包，通常项目用到的jar包统一放在项目的lib目录下，然后…（如果是IDEA下，可以通过右键lib目录-&gt;Add as Library…的方式添加jar到路径）</p>
+<pre><code class="java">import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+public static void main(String[] args) {
+  Connection c = null;
+  Statement s = null;
+  try {
+    //Class.forName(&quot;class&quot;)是把这个类class加载到JVM中，加载的时候，就会执行其中的静态初始化块，完成驱动的初始化的相关工作
+    //如果没有导入包含这个类的包，就会抛出ClassNotFoundException
+    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+    // 建立与数据库的Connection连接
+    // 这里需要提供：
+    // 数据库所处于的ip:127.0.0.1（本机）
+    // 数据库的端口号：3306（mysql专用端口号）
+    // 数据库名称 how2java
+    // 编码方式 UTF-8
+    // 账号 root
+    // 密码 admin
+    c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+    //Statement用于执行SQL语句
+    s = c.createStatement();
+    String sql = &quot;insert into hero values(null,&quot; + &quot;&#39;提莫&#39;&quot; + &quot;,&quot; + 313.0f + &quot;,&quot; + 50 + &quot;)&quot;;
+    //s.execute执行sql语句
+    s.execute(sql);
+  } catch (ClassNotFoundException e) {
+    e.printStackTrace();
+  } catch (SQLException e) {
+    e.printStackTrace();
+  } finally {
+    //数据库的连接是有限资源，相关操作结束后，需要关闭数据库
+    if(s != null) {
+      try {
+        s.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    if(c != null) {
+      try {
+        c.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  //可以使用try-with-resource的方式自动关闭连接，因为Connection和Statement都实现了AutoCloseable接口
+  try (
+    Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?characterEncoding=UTF-8&quot;,
+        &quot;root&quot;, &quot;admin&quot;);
+    Statement s = c.createStatement();             
+  )
+  {
+    // String sql = &quot;insert into hero values(null,&quot; + &quot;&#39;提莫&#39;&quot; + &quot;,&quot; + 313.0f + &quot;,&quot; + 50 + &quot;)&quot;; //增
+    // String sql = &quot;delete from hero where id = 5&quot;; //删
+    // String sql = &quot;update hero set name = &#39;name 5&#39; where id = 3&quot;; //改
+    // s.execute(sql);
+    String sql = &quot;select * from hero&quot;;
+    // 执行查询语句，并把结果集返回给ResultSet
+    ResultSet rs = s.executeQuery(sql);
+    // 查询操作是基1的，即2就代表第二个
+    while(rs.next()) {
+      int id = rs.getInt(&quot;id&quot;);//可以使用字段名
+      String name = rs.getString(2);//也可以使用字段的顺序
+      float hp = rs.getFloat(&quot;hp&quot;);
+      int damage = rs.getInt(4);
+      System.out.printf(&quot;%d\t%s\t%f\t%d%n&quot;, id, name, hp, damage);
+    }
+    // 不一定要在这里关闭ResultSet，因为Statement关闭的时候，会自动关闭ResultSet
+    // rs.close();
+    
+    // 查询数据库时，应当是根据提供的数据到表里去找数据（调用SQL查询语句），而不是把数据库表中所有数据全部查到内存里，挨个进行比较，如果列表数据庞大，可能内存都不够用
+    // String name = &quot;dashen&quot;;
+    // //正确的密码是：thisispassword
+    // String password = &quot;thisispassword1&quot;;
+    // String sql = &quot;select * from user where name = &#39;&quot; + name +&quot;&#39; and password = &#39;&quot; + password+&quot;&#39;&quot;;
+    // // 执行查询语句，并把结果集返回给ResultSet
+    // ResultSet rs = s.executeQuery(sql);
+    // if(rs.next())
+    //     System.out.println(&quot;账号密码正确&quot;);
+    // else
+    //     System.out.println(&quot;账号密码错误&quot;);
+    
+    // 获取列表数据总量
+    // String sql = &quot;select count(*) from hero&quot;;
+    // ResultSet rs = s.executeQuery(sql);
+    // int total = 0;
+    // while (rs.next()) {
+    //     total = rs.getInt(1);
+    // }
+    // System.out.println(&quot;表Hero中总共有:&quot; + total+&quot; 条数据&quot;);
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+}
+</code></pre>
+<hr>
+<h4 id="预编译Statement"><a href="#预编译Statement" class="headerlink" title="预编译Statement"></a>预编译Statement</h4><pre><code class="java">import java.sql.PreparedStatement;
+
+public static void main(String[] args) {
+  String sql = &quot;insert into hero values(null,?,?,?)&quot;;
+  try(Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+  //根据sql语句创建PreparedStatement，PreparedStatement使用参数设置，可读性好，不易犯错
+  PreparedStatement ps = c.prepareStatement(sql);) {
+    //设置参数
+    ps.setString(1, &quot;提莫&quot;);
+    ps.setFloat(2, 313.0f);
+    ps.setInt(3, 50);
+    //执行
+    ps.execute();
+    //Statement执行多次，需要多次把SQL语句传输到数据库端
+    //数据库要对每一次来的SQL语句进行编译处理
+    //PreparedStatement执行多次，只需要1次把SQL语句传输到数据库端
+    //数据库对带?的SQL进行预编译
+    //每次执行，只需要传输参数到数据库端
+    //1. 网络传输量比Statement更小
+    //2. 数据库不需要再进行编译，响应更快
+
+    //且使用Statement就需要进行字符串拼接，容易导致SQL注入式攻击（比如一条SQL查询语句将数据库表中的数据全部查出来，会让数据库负载变高，CPU100%，内存消耗光，响应变得极其缓慢），而PreParedStatement使用的是参数设置，是预编译Statement，可以杜绝SQL注入
+    // String sql = &quot;select * from hero where name = ?&quot;;
+    // try (Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+    // PreparedStatement rs = c.prepareStatement(sql)) {
+    //   String name = &quot;&#39;盖伦&#39; OR 1=1&quot;;
+    //   ps.setString(1, name);
+    //   ResultSet rs = ps.executeQuery();
+    //   //查不出数据来
+    //   while (rs.next()) {
+    //     String heroName = rs.getString(&quot;name&quot;);
+    //     System.out.println(heroName);
+    //   }
+    // } catch (SQLException e) {
+    //   e.printStackTrace();
+    // }
+  } catch (SQLException e) {
+    e.printStackTrace();
+  }
+}
+</code></pre>
+<hr>
+<h4 id="executeUpdate"><a href="#executeUpdate" class="headerlink" title="executeUpdate"></a>executeUpdate</h4><p>executeUpdate和execute相同点是：都可以执行增、删、改</p>
+<pre><code class="java">//不同1：execute可以执行查询语句
+//然后通过getResultSet，把结果集取出来
+String sqlSelect = &quot;select * from hero&quot;;
+s.execute(sqlSelect);
+ResultSet rs = s.getResultSet();
+//executeUpdate不能执行查询语句
+//s.executeUpdate(sqlSelect);
+
+//不同2：execute返回boolean类型，true表示执行的是查询语句，false表示执行的是insert，delete，update等等
+boolean isSelect = s.execute(sqlSelect);
+//executeUpdate返回的是int，表示有多少条数据受到了影响
+String sqlUpdate = &quot;update hero set hp = 300 where id &lt; 100&quot;;
+int number = s.executeUpdate(sqlUpdate);
+</code></pre>
+<p>有时候MySQL会为新插入的数据分配一个自增长id，（前提是这个表的id设置为了自增长，MySQL创建表时，AUTO_INCREMENT就表示自增长）。有时候需要在定义PreparedStatement的时候，后面加上Statement.RETURN_GENERATED_KEYS参数，以确保会返回自增长ID</p>
+<pre><code class="java">try(Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+Statement s = c.createStatement();) {
+  //在执行完插入语句后，MySQL会为新插入的数据分配一个自增长id
+  //JDBC通过getGeneratedKeys获取该id
+  ResultSet rs = ps.getGeneratedKeys();
+  if (rs.next()) {
+    int id = rs.getInt(1);
+    //通过自增长id删除数据库列表中某条数据的上一条数据（他们的id可能不是连续的）
+    while (true) {
+      s.execute(&quot;select * from hero where id =&quot; + (--id));
+      ResultSet r = s.getResultSet();
+      if (r.next()) {
+        s.execute(&quot;delete from hero where id = &quot; + id);
+        break;
+      }
+    }
+  }
+} catch (SQLException e) {
+  e.printStackTrace();
+}
+</code></pre>
+<p>元数据概念：和数据库服务器相关的数据，比如数据库版本，有哪些表，表有哪些字段，字段类型是什么等等</p>
+<pre><code class="java">import java.sql.DatabaseMetaData;
+
+try (Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?characterEncoding=UTF-8&quot;,&quot;root&quot;, &quot;admin&quot;);) {
+  // 查看数据库层面的元数据
+  // 即数据库服务器版本，驱动版本，都有哪些数据库等等
+  DatabaseMetaData dbmd = c.getMetaData();
+  // 获取数据库服务器产品名称
+  System.out.println(&quot;数据库产品名称:\t&quot;+dbmd.getDatabaseProductName());
+  // 获取数据库服务器产品版本号
+  System.out.println(&quot;数据库产品版本:\t&quot;+dbmd.getDatabaseProductVersion());
+  // 获取数据库服务器用作类别和表名之间的分隔符 如test.user
+  System.out.println(&quot;数据库和表分隔符:\t&quot;+dbmd.getCatalogSeparator());
+  // 获取驱动版本
+  System.out.println(&quot;驱动版本:\t&quot;+dbmd.getDriverVersion());
+
+  System.out.println(&quot;可用的数据库列表：&quot;);
+  // 获取数据库名称
+  ResultSet rs = dbmd.getCatalogs();
+  while (rs.next()) {
+      System.out.println(&quot;数据库名称:\t&quot;+rs.getString(1));
+  }
+} catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+</code></pre>
+<hr>
+<h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><pre><code class="java">try (Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?characterEncoding=UTF-8&quot;,&quot;root&quot;, &quot;admin&quot;);
+  Statement s = c.createStatement();) {
+  // 有事务的前提下
+  // 在事务中的多个操作，要么都成功，要么都失败
+  c.setAutoCommit(false);
+  // 加血的SQL
+  String sql1 = &quot;update hero set hp = hp +1 where id = 22&quot;;
+  s.execute(sql1);
+  // 减血的SQL
+  // 不小心写错写成了 updata(而非update)
+  String sql2 = &quot;updata hero set hp = hp -1 where id = 22&quot;;
+  s.execute(sql2);
+  // 手动提交
+  c.commit();
+} catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+</code></pre>
+<p>在Mysql中，只有当表的类型是INNODB的时候，才支持事务，所有需要把表的类型设置为INNODB，否则无法观察到事务</p>
+<p>修改表的类型为INNODB的SQL：</p>
+<pre><code class="sql">alter table hero ENGINE = innodb;
+</code></pre>
+<p>查看表的类型的SQL：</p>
+<pre><code class="sql">show table status from how2java;
+</code></pre>
+<p>不过有个前提是，当前的MYSQL服务器本身要支持INNODB，如果不支持，需要先开启MYSQL INNODB</p>
+<hr>
+<h4 id="ORM-amp-DAO"><a href="#ORM-amp-DAO" class="headerlink" title="ORM &amp; DAO"></a>ORM &amp; DAO</h4><p>ORM（Object Relationship Database Mapping）是指对象和关系数据库的映射，简单说就是，<strong>一个对象，对应数据库里的一条记录</strong></p>
+<pre><code class="java">public class Hero {
+  //增加id属性
+  public int id;
+  ...
+
+  public static Hero get(int id) {
+    Hero hero = null;
+    try {
+      Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    try (Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+    Statement s = c.createStatement();) {
+      String sql = &quot;select * from hero where id = &quot; + id;
+      ResultSet rs = s.executeQuery(sql);
+      //因为id是唯一的，ResultSet最多只能有一条记录
+      //所以使用if代替while
+      if (rs.next()) {
+        hero = new Hero();
+        String name = rs.getString(2);
+        float hp = rs.getFloat(&quot;hp&quot;);
+        int damage = rs.getInt(4);
+        hero.name = name;
+        hero.hp = hp;
+        hero.damage = damage;
+        hero.id = id;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return hero;
+  }
+}
+</code></pre>
+<p>DAO（Data Access Object）数据访问对象</p>
+<pre><code class="java">public interface DAO{
+    //增加
+    public void add(Hero hero);
+    //修改
+    public void update(Hero hero);
+    //删除
+    public void delete(int id);
+    //获取
+    public Hero get(int id);
+    //查询
+    public List&lt;Hero&gt; list();
+    //分页查询
+    public List&lt;Hero&gt; list(int start, int count);
+}
+
+public class HeroDAO implements DAO{
+  //通常驱动初始化只需要执行一次，所以可以放在构造函数里
+  public HeroDAO() {
+    try {
+      Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+  //所有的数据库操作都需要事先拿到一个数据库连接Connection，因此可以提供一个getConnection方法返回连接
+  public Connection getConnection() throws SQLException {
+    return DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?character=utf8&quot;, &quot;root&quot;, &quot;admin&quot;);
+  }
+}
+</code></pre>
+<hr>
+<h4 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h4><p>当有多个线程，每个线程都需要连接数据库执行SQL语句的话，那么每个线程都会创建一个连接，并且在使用完毕后，关闭连接。创建连接和关闭连接的过程也是比较耗时的，当多线程并发的时候，系统就会变得很卡顿。同时，一个数据库同时支持的连接总数也是有限的，如果多线程并发量很大，那么数据库连接的总数就会被消耗光，后续线程发起的数据库连接就会失败</p>
+<p>连接池在使用之前，就会创建好一定数量的连接。如果有任何线程需要使用连接，那么就从连接池里面<strong>借用，而不是自己重新创建</strong>，使用完毕后，又把这个连接<strong>归还</strong>给连接池供下一次或者其他线程使用。倘若发生多线程并发情况，连接池里的连接被借用光了，那么其他线程就会临时等待，直到有连接被归还回来，再继续使用。整个过程，这些连接都<strong>不会被关闭</strong>，而是不断地被循环使用，从而节约了启动和关闭连接的时间</p>
+<pre><code class="java">public class ConnectionPool {
+  List&lt;Connection&gt; cs = new ArrayList&lt;&gt;();
+  int size;
+  public ConnectionPool(int size) {
+    this.size = size;
+    init();
+  }
+  public void init() {
+    //这里恰恰不能使用try-with-resource的方式，因为这些连接都需要是“活”的，不要被自动关闭了
+    try {
+      Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+      for (int i = 0; i &lt; size; i++) {
+        Connection c = DriverManager.getConnection(&quot;jdbc:mysql://127.0.0.1:3306/how2java?characterEncoding=UTF-8&quot;, &quot;root&quot;, &quot;admin&quot;);
+        cs.add(c);
+      }
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+  public synchronized Connection getConnection() {
+    while(cs.isEmpty()) {
+      try {
+        this.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    Connection c = cs.remove(0);
+    return c;
+  }
+  public synchronized void returnConnection(Connection c) {
+    cs.add(c);
+    this.notifyAll();
+  }
+}
+//初始化一个有3条连接的数据库连接池
+//创建100个线程，每个线程都会从连接池中借用连接，并且在借用之后，归还连接。拿到连接之后，执行一个耗时1秒的SQL语句
+class WorkingThread extends Thread {
+  private ConnectionPool cp;
+  public WorkingThread(String name, ConnectionPool cp) {
+    super(name);
+    this.cp = cp;
+  }
+  public void run() {
+    Connection c = cp.getConnection();
+    System.out.println(this.getName() + &quot;:\t 获取了一条连接，并开始工作&quot;);
+    try (Statement st = c.createStatement()) {
+      Thread.sleep(1000);
+      st.execute(&quot;select * from hero&quot;);
+    } catch (SQLException e | InterruptedException e) {
+      e.printStackTrace();
+    }
+    cp.returnConnection(c);
+  }
+}
+</code></pre>
+<h3 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h3><h4 id="IP地址和端口"><a href="#IP地址和端口" class="headerlink" title="IP地址和端口"></a>IP地址和端口</h4><pre><code class="java">import java.net.InetAddress;
+import java.net.UnKnownHostException;
+
+public static void main(String[] args) throws UnknownHostException, IOException {
+  InetAddress host = InetAddress.getLocalHost();
+  String ip = host.getHostAddress();
+  System.out.println(&quot;本机ip地址：&quot; + ip);
+  //ping不是java的api，是windows中的一个小工具，用于判断一个地址的响应时间
+  //ping可以返回这个地址的响应时间 time&lt;1ms 表示很快，局域网一般就是这个响应时间
+  //ping返回 Request timed out 表示时间较久都没有响应返回，基本判断这个地址不可用
+  //借助 Runtime.getRuntime().exec() 可以运行一个windows的exe程序
+  Process p = Runtime.getRuntime().exec(&quot;ping&quot; + &quot;192.168.2.106&quot;);
+  BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+  String line = null;
+  StringBuilder sb = new StringBuilder();
+  while ((line = br.readLine()) != null) {
+    if (line.length() != 0) {
+      sb.append(line + &quot;\r\n&quot;);
+    }
+    System.out.println(sb.toString());
+  }
+}
+</code></pre>
+<hr>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>服务端开启某一端口，并监听着，时刻等待着客户端的连接请求。客户端知道服务端的ip地址和监听端口号，发出请求到服务端（客户端的端口地址是系统分配的，通常都会大于1024），一旦建立了连接，服务端就会得到一个新的Socket对象，该对象负责与客户端进行通信（在开发调试的过程中，如果修改过了服务器的Server代码，要关闭启动的Server，否则新的Server不能启动，因为之前的端口被占用了）</p>
+<pre><code class="java">import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnkownHostException;
+
+public class Server {
+  public static void main(String[] args) {
+    try {
+      ServerSocket ss = new ServerSocket(8888);
+      System.out.println(&quot;监听在端口号:8888&quot;);
+      Socket s = ss.accept();
+      InputStream is = s.getInputStream();
+      //把输入流封装在DataInputStream
+      DataInputStream dis = new DataInputStream(is);
+      //使用readUTF读取字符串
+      String msg = dis.readUTF();
+      System.out.println(msg);
+      dis.close();
+      s.close();
+      ss.close();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+}
+public class Client {
+  public static void main(String[] args) {
+    try {
+      Socket s = new Socket(&quot;127.0.0.1&quot;, 8888);
+      OutputStream os = s.getOutputStream();
+      DataOutputStream dos = new DataOutputStream(os);
+      //使用Scanner读取控制台的输入，并发送到服务端
+      Scanner sc = new Scanner(System.in);        
+      String str = sc.next();
+      dos.writeUTF(str);        
+      dos.close();
+      s.close();
+    } catch (UnknownHostException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+}
+</code></pre>
+<h2 id="java高级"><a href="#java高级" class="headerlink" title="java高级"></a>java高级</h2><h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h3><h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><p><strong>类对象</strong>，就是用于描述这种类，都有什么属性，什么方法的。获取类对象有几种方式：</p>
+<ul>
+<li>Class.forName</li>
+<li>Hero.class</li>
+<li>new Hero().getClass()</li>
+</ul>
+<p>在一个JVM中，一种类，只会有一个类对象存在，所以几种方式取出来的类对象，都是一样的（准确的讲是一个ClassLoader下，一种类，只会有一个类对象存在。通常一个JVM下，只会有一个ClassLoader）</p>
+<p>可以为类增加一个静态属性，并且在静态初始化块里进行初始化。无论以什么途径获取类对象，都会导致静态属性被初始化，并且只会执行一次（除了直接使用 Class c = Hero.class 的方式，这种方式不会导致静态属性被初始化）</p>
+<p>如果在<strong>类方法</strong>前，加上修饰符synchronized，同步对象是<strong>类对象</strong></p>
+<pre><code class="java">import java.lang.reflect.Constructor;
+
+public static void main(String[] args) {
+  try {
+    //使用反射的方式创建对象
+    //反射机制，会先拿到Hero的“类对象”，然后通过类对象获取“构造器对象”，再通过构造器对象创建一个对象
+    String className = &quot;charactor.Hero&quot;;
+    //类对象
+    Class pClass = Class.forName(className);
+    //构造器
+    Constructor c = pClass.getConstructor();
+    //通过构造器实例化
+    Hero h2 = (Hero) c.newInstance();
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+</code></pre>
+<hr>
+<h4 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a>访问属性</h4><pre><code class="java">import java.lang.reflect.Field;
+
+public static void main(String[] args) {
+  Hero h = new Hero();
+  //使用传统方式修改name的值为garen
+  h.name = &quot;garen&quot;;
+  try {
+    //获取类Hero的名字叫做name的字段
+    Field f1 = h.getClass().getDeclaredField(&quot;name&quot;);
+    //修改这个字段的值
+    f1.set(h, &quot;teemo&quot;);
+    //例如修改private属性id
+    //f1.setAccessible(true);
+    //f1.set(h, 2);
+  } catch (Exception e) {
+    e.printStackTrace();
+  }
+}
+</code></pre>
+<p>getField和getDeclaredField都是用于获取字段，但是getField只能获取<strong>public的，包括从父类继承</strong>来的字段。而getDeclaredField可以获取本类所有的字段，包括<strong>private的，但是不能获取继承</strong>来的字段（这里只能<strong>获取</strong>到<strong>private</strong>的<strong>字段</strong>，对于private修饰的成员，需要使用setAccessible(true)才能访问和修改）</p>
+<hr>
+<h4 id="调用方法"><a href="#调用方法" class="headerlink" title="调用方法"></a>调用方法</h4><pre><code class="java">import java.lang.reflect.Method;
+
+public static void main(String[] args) {
+  Hero h = new hero();
+  try {
+    //获取这个名字叫做setName，参数类型是String的方法
+    Method m = h.getClass().getMethod(&quot;setName&quot;, String.class);
+    //对h对象，调用这个方法
+    m.invoke(h, &quot;盖伦&quot;);
+  }
+}
+</code></pre>
+<hr>
+<h4 id="反射的应用"><a href="#反射的应用" class="headerlink" title="反射的应用"></a>反射的应用</h4><p>使用反射方式，准备一个配置文件，里面存放内容是类的名称，和调用的方法名，可以通过配置文件取出类名称和方法名，然后通过反射去调用这个方法，当需要从调用某个类的某个类的某个方法切换到调用到另一个类的某个方法时，不需要修改一行代码，也不需要重新编译，只需要修改配置文件，再运行即可</p>
+<pre><code class="java">import java.util.Properties;
+
+@SuppressWarning({ &quot;rawtypes&quot;, &quot;unchecked&quot; })
+public static void main(String[] args) throws Exception {
+  File springConfigFile = new File(&quot;..&quot;);
+  Properties springConfig = new Properties();
+  springConfig.load(new FileInputStream(springConfigFile));
+  String className = (String) springConfig.get(&quot;class&quot;);
+  String methodName = (String) springConfig.get(&quot;method&quot;);
+  //根据类名称获取类对象
+  Class clazz = Class.forName(className);
+  //根据方法名称，获取方法对象
+  Method m = clazz.getMethod(methodName);
+  //获取构造器
+  Constructor c = clazz.getConstructor();
+  //根据构造器，实例化出对象
+  Object service = c.newInstance();
+  //调用对象的指定方法
+  m.invoke(service);
+}
+</code></pre>
+<h2 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h2><h3 id="html-DOM"><a href="#html-DOM" class="headerlink" title="html DOM"></a>html DOM</h3><p>DOM把所有的html都转换成节点，<strong>整个文档</strong>是个节点，<strong>元素</strong>是节点，<strong>元素属性</strong>是节点，<strong>元素内容</strong>是节点，<strong>注释</strong>也是节点</p>
+<h4 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h4><pre><code class="html">&lt;html&gt;
+  &lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;
+  &lt;script&gt;
+    // 获取某个元素对应的元素节点对象
+    var div1 = document.getElementById(&quot;d1&quot;);
+    document.write(div1)
+    // 根据标签名称获取一个元素数组
+    var divs = document.getElementsByTagName(&quot;div&quot;);
+    for(i=0;i&lt;divs.length;i++){
+      document.write(divs[i]);
+      document.write(&quot;&lt;br&gt;&quot;);
+    }
+    // 根据class返回一个节点数组
+    var elements = document.getElementsByClassName(&quot;d&quot;);
+    // 根据name属性的值，获取元素节点
+    var elements = document.getElementsByName(&quot;userName&quot;);
+    // 如果div标签还没有加载，则无法获取该元素节点，因为javascript是解释语言，是顺序执行的
+  &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+<p>通过元素节点的attributes获取其下所有的<strong>属性节点</strong>，属性节点以数组的形式返回出来</p>
+<pre><code class="html">&lt;html&gt;
+  &lt;div id=&quot;d1&quot; align=&quot;center&quot; class=&quot;abc&quot;&gt;hello HTML DOM&lt;/div&gt;
+  &lt;script&gt;
+    var div1 = document.getElementById(&quot;d1&quot;);
+    var as = div1.attributes;
+    document.write(&quot;div总共有&quot;+as.length +&quot; 个属性&quot;);
+    document.write(&quot;分别是:&quot;);
+    for(i = 0; i&lt; as.length; i++){
+    document.write(&quot;&lt;br&gt;&quot;);
+    document.write(as[i].nodeName);
+    document.write(&quot;:&quot;);
+    document.write(as[i].nodeValue);
+    }
+    document.write(&quot;&lt;br&gt;&quot;);
+    document.write(&quot;div的id属性值是：&quot;+ as[&quot;id&quot;].nodeValue);
+  &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+<p>通过元素节点的childNodes获取其所有的子节点。<strong>其中第一个子节点，就是其内容节点</strong></p>
+<pre><code class="html">&lt;html&gt;
+  &lt;div id=&quot;d1&quot; align=&quot;center&quot; class=&quot;abc&quot;&gt;hello HTML DOM&lt;/div&gt;
+  &lt;script&gt;
+    var  div1 = document.getElementById(&quot;d1&quot;);
+    var content = div1.childNodes[0];
+    document.write(&quot;div的内容节点名是:&quot;+content.nodeName);
+    document.write(&quot;&lt;br&gt;&quot;);
+    document.write(&quot;div的内容节点值是:&quot;+content.nodeValue);
+  &lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+<hr>
+<h4 id="节点的属性"><a href="#节点的属性" class="headerlink" title="节点的属性"></a>节点的属性</h4><p>nodeName表示一个节点的名字。document.nodeName（文档的节点名，是<strong>固定的#document</strong>），div1.nodeName（元素的节点名，是<strong>对应的标签名</strong>div），div1.attributes[0].nodeName（属性的节点名，是<strong>对应的属性名</strong>id），div1.childNodes[0].nodeName（内容的节点名，是<strong>固定的#text</strong>）</p>
+<p>nodeValue表示一个节点的值。document.nodeValue（文档的节点值，是<strong>null</strong>），div1.nodeValue（元素的节点值，是<strong>null</strong>），div1.attributes[0].nodeValue（属性的节点值，是对应的<strong>属性值</strong>d1），div1.childNodes[0].nodeValue（内容的节点值，是<strong>内容</strong>）</p>
+<p>nodeType表示一个节点的类型，不同的节点类型，对应的节点类型值是不一样的</p>
+<div align="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">元素类型</th>
+<th align="center">NodeType</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">元素</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">属性</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">文本</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">注释</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">文档</td>
+<td align="center">9</td>
+</tr>
+</tbody></table>
+</div>
+
+<p>修改和获取内容的值可以通过<strong>childNodes[0].nodeValue</strong>进行，也可以通过<strong>innerHTML</strong>进行。</p>
+<p>元素上的属性，比如id，value可以通过 . 直接访问，如果是自定义属性，可以通过<strong>getAttributes(“test”)、attributes[“test”].nodeValue</strong>获取</p>
+<pre><code class="html">&lt;html&gt;
+  &lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;
+  &lt;script&gt;
+    function get(){
+      var input1 = document.getElementById(&quot;input1&quot;);
+      var s = &quot;id=&quot;+input1.id + &quot;&lt;br&gt;&quot;;
+      s += &quot;value=&quot;+input1.value + &quot;&lt;br&gt;&quot;;
+      s += &quot;class=&quot;+input1.className + &quot;&lt;br&gt;&quot;;
+      s += &quot;test=&quot;+input1.getAttribute(&quot;test&quot;)+ &quot;&lt;br&gt;&quot;;
+      s += &quot;test=&quot;+input1.attributes[&quot;test&quot;].nodeValue+ &quot;&lt;br&gt;&quot;;
+      document.getElementById(&quot;d1&quot;).innerHTML= s;
+    }
+  &lt;/script&gt;
+  &lt;input id=&quot;input1&quot; class=&quot;class1 class2&quot; test=&quot;t1&quot; value=&quot;这是一个输入框&quot;&gt;
+  &lt;br&gt;
+  &lt;button onclick=&quot;get()&quot;&gt;获取input的属性&lt;/button&gt;
+  &lt;div style=&quot;height:30px&quot;&gt;&lt;/div&gt;
+&lt;/html&gt;
+</code></pre>
+<p>一个元素节点的style属性即对应的css</p>
+<hr>
+<h4 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h4><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/html_node.webp"></div>
+
+<p>DIV[id=d1]-&gt;DIV[id=parentDiv]-&gt;body-&gt;html-&gt;documen（递归获取子节点的父节点）</p>
+<p>通过<strong>parentNode</strong>获取父节点，通过<strong>previousSibling</strong>和<strong>nextSibling</strong>属性获取前一个，以及后一个同胞节点。如果两个同胞节点<strong>不是紧挨着的</strong>，标签之间有任何<strong>字符、空白、换行</strong>都会产生文本元素，此时获取到的节点是#text</p>
+<p><strong>firstChild</strong>、<strong>lastChild</strong>和<strong>childNodes</strong>分别用于获取第一个子节点、最后一个子节点和所有子节点，firstNode如果父节点的开始标签和第一个元素的开始标签之间有<strong>文本、空格、换行</strong>，那么firstChild第一个子节点将会是<strong>文本节点</strong>，而不会是第一个元素节点，lastChild同理</p>
+<p><strong>childNodes</strong>和<strong>children</strong>都可以获取一个元素节点的子节点，但是childNodes会<strong>包含</strong>文本节点，chidren会<strong>排除</strong>文本节点</p>
+<hr>
+<h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><pre><code class="html">&lt;html&gt;
+  &lt;div id=&quot;d&quot;&gt;Hello HTML DOM&lt;/div&gt;
+  &lt;script&gt;
+    function add(){
+      // 通过 createElement 创建一个新的元素节点
+      // 接着吧该元素节点，通过 appendChild 加入到另一个元素节点div1中
+      var hr=document.createElement(&quot;hr&quot;);
+      var div1 = document.getElementById(&quot;d&quot;);
+      div1.appendChild(hr);
+      // 通过 createTextNode 创建一个内容节点 text
+      // 然后 text 加入到 p，再把 p 加入到 div
+      var p=document.createElement(&quot;p&quot;);
+      var text = document.createTextNode(&quot;这是通过DOM创建出来的&lt;p&gt;&quot;);
+      p.appendChild(text);
+      var div1 = document.getElementById(&quot;d&quot;);
+      div1.appendChild(p);
+      // 通过 createAttribute 创建一个属性节点 href ，然后设置 href 的值，接着通过 setAttributeNode 把该属性设置到元素节点 a 上
+      var a=document.createElement(&quot;a&quot;);
+      var content = document.createTextNode(&quot;http://12306.com&quot;);
+      a.appendChild(content);
+      var href = document.createAttribute(&quot;href&quot;);
+      href.nodeValue=&quot;http://12306.com&quot;;
+      a.setAttributeNode(href);
+      var div1 = document.getElementById(&quot;d&quot;);
+      div1.appendChild(a);
+    }
+  &lt;/script&gt;
+  &lt;button onclick=&quot;add()&quot;&gt;在div中追加一个hr元素&lt;/button&gt;
+&lt;/html&gt;
+</code></pre>
+<hr>
+<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><pre><code class="html">&lt;script&gt;
+  function removeDiv(){
+    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    var div2= document.getElementById(&quot;div2&quot;);
+    // 删除某个元素节点：首先获取该元素的父节点，然后通过父节点，调用removeChild删除该节点
+    parentDiv.removeChild(div2);
+    // 删除某个属性节点：首先获取该元素节点，元素节点调用 removeAttribute 删除指定属性节点
+    parentDiv.removeAttribute(&quot;id&quot;)
+  }
+  // 删除文本节点：可以通过 childNodes[0] 获取文本节点，然后通过removeChild删除该文本节点，但是这种方式比较麻烦，一般都是直接通过 innerHTML 设置为空即可，也可以通过 innerHTML=&quot;&quot;的方式，同样会导致文本子节点被删除
+  function removeDiv1(){
+    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    var textNode = parentDiv.childNodes[0];
+    parentDiv.removeChild(textNode);
+  }
+  function removeDiv2(){
+    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    parentDiv.innerHTML=&quot;&quot;;
+  }
+  function recover(){
+    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    parentDiv.innerHTML=&quot;这里是文本 &quot;;
+  }
+&lt;/script&gt;
+&lt;div id=&quot;parentDiv&quot;&gt;
+  &lt;div id=&quot;div1&quot;&gt;安全的div&lt;/div&gt;
+  &lt;div id=&quot;div2&quot;&gt;即将被删除的div&lt;/div&gt;
+&lt;/div&gt;
+&lt;button onclick=&quot;removeDiv()&quot;&gt;删除第二个div&lt;/button&gt;
+</code></pre>
+<hr>
+<h4 id="替换和插入节点"><a href="#替换和插入节点" class="headerlink" title="替换和插入节点"></a>替换和插入节点</h4><pre><code class="html">&lt;div id=&quot;parentDiv&quot;&gt;
+ &lt;div id=&quot;d1&quot;&gt;第一个div&lt;/div&gt;
+ &lt;div id=&quot;d2&quot;&gt;第二个div&lt;/div&gt;
+ &lt;div id=&quot;d3&quot;&gt;第三个div&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  function replaceDiv(){
+    var d4=  document.createElement(&quot;div&quot;);
+    var text = document.createTextNode(&quot;第四个div&quot;);
+    d4.appendChild(text);
+    var d3 = document.getElementById(&quot;d3&quot;);
+    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    // 替换节点也需要先获取父节点，然后通过父节点替换子节点。replaceChild 的第一个参数是保留的节点，第二个参数被替换的节点                                             
+    parentDiv.replaceChild(d4,d3);
+    // 在指定位置插入节点，而不只是追加在后面
+    var d25 = document.createElement(&quot;div&quot;);
+    var text = document.createTextNode(&quot;第二点五个div&quot;);
+    d25.appendChild(text);
+    // insertBefore 的第一个参数是新元素，第二个参数是插入位置（元素节点d3之前）
+    parentDiv.insertBefore(d25, d3);
+  }
+&lt;/script&gt;
+&lt;button onclick=&quot;replaceDiv()&quot;&gt;替换第3个div&lt;/button&gt;
+</code></pre>
+<hr>
+<h4 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h4><p>如果不使用AJAX，传统的方法需要通过提交数据<strong>刷新页面</strong>来获知用户名是否存在</p>
+<p>使用method=”get”提交数据是常用的提交数据的方式，如果form元素没有提供method属性，<strong>默认就是get方式提交数据</strong>，get方式的特点是<strong>提交数据会在浏览器显示出来</strong>，<strong>不可以用于提交二进制数据</strong>，比如上传文件（如果通过一个超链访问某个地址，是get方式；如果在地址栏直接输入某个地址，是get方式）。</p>
+<p>使用method=”post”也可以提交数据，<strong>post不会在地址栏显示提交的参数</strong>，如果要提交二进制数据，比如<strong>上传文件，必须采用post方式</strong></p>
+<pre><code class="html">&lt;form action=&quot;https://how2j.cn/study/checkName.jsp&quot;&gt;
+  输入账号 &lt;input name=&quot;name&quot; type=&quot;text&quot; value=&quot;abc&quot;&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;验证账号是否存在&quot;&gt;
+&lt;/form&gt;
+</code></pre>
+<p>AJAX指的是网页中提交一个数据，但是页面不刷新</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/ajax.webp"></div>
+
+<pre><code class="html">&lt;span&gt;输入账号：&lt;/span&gt;
+&lt;input id=&quot;name&quot; name=&quot;name&quot; onkeyup=&quot;check()&quot; type=&quot;text&quot;&gt;
+&lt;span id=&quot;checkResult&quot;&gt;&lt;/span&gt;
+&lt;script&gt;
+  var xmlhttp;
+  function check() {
+    var name = document.getElementById(&quot;name&quot;).value;
+    var url = &quot;https://how2j.cn/study/checkName.jsp?name=&quot;+name;
+    // 创建XHR（XML Http Request）对象，它是一个javascript对象，可以在用户没有感觉的情况下，就像背后运行的一根小线程一般，悄悄地和服务器进行数据交互
+    xmlhttp = new XMLHttpRequest();
+    // XHR对象的作用是和服务器进行交互，所以既会发消息给服务器，也能接受服务器返回的响应
+    xmlhttp.onreadystatechange = checkResult; //设置响应函数
+    // 通过open函数设置背后的这个小线程，将要访问的页面url作为参数传递
+    xmlhttp.open(&quot;GET&quot;, url, true); //设置可以访问的页面
+    // 使用send函数进行实际的访问，null表示没有参数，因为参数已经通过“GET”方式，放在url里了，只有在用“POST”，并且需要发送参数的时候，才会使用到send，类似这样：xmlhttp.send(&quot;user=&quot;+username+&quot;&amp;password=&quot;+password)
+    xmlhttp.send(null); //执行访问
+  }
+  // 在checkResult函数中处理响应
+  function checkResult() {
+    // xmlhttp.readyState 4 表示请求已完成
+    // xmlhttp.status 200 表示响应成功
+    // xmlhttp.responseText 用于获取服务端传回来的文本
+    if (xmlhttp.readyState == 4 &amp;&amp; xmlhttp.status == 200)
+      document.getElementById(&quot;checkResult&quot;).innerHTML = xmlhttp.responseText;
+  }
+&lt;/script&gt;
+</code></pre>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/XHR.webp"></div>
+
+<h3 id="J2EE"><a href="#J2EE" class="headerlink" title="J2EE"></a>J2EE</h3><h4 id="ServeLet"><a href="#ServeLet" class="headerlink" title="ServeLet"></a>ServeLet</h4><hr>
 
           </div>
           <!-- .entry-content -->
