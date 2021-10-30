@@ -3041,212 +3041,228 @@ public static void main(String[] args) throws Exception {
   m.invoke(service);
 }
 </code></pre>
-<h2 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h2><h3 id="html-DOM"><a href="#html-DOM" class="headerlink" title="html DOM"></a>html DOM</h3><p>DOM把所有的html都转换成节点，<strong>整个文档</strong>是个节点，<strong>元素</strong>是节点，<strong>元素属性</strong>是节点，<strong>元素内容</strong>是节点，<strong>注释</strong>也是节点</p>
-<h4 id="获取节点"><a href="#获取节点" class="headerlink" title="获取节点"></a>获取节点</h4><pre><code class="html">&lt;html&gt;
-  &lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;
-  &lt;script&gt;
+<!--
+### html DOM
+
+DOM把所有的html都转换成节点，**整个文档**是个节点，**元素**是节点，**元素属性**是节点，**元素内容**是节点，**注释**也是节点
+
+#### 获取节点
+
+``` html
+<html>
+  <div id="d1">hello HTML DOM</div>
+  <script>
     // 获取某个元素对应的元素节点对象
-    var div1 = document.getElementById(&quot;d1&quot;);
+    var div1 = document.getElementById("d1");
     document.write(div1)
     // 根据标签名称获取一个元素数组
-    var divs = document.getElementsByTagName(&quot;div&quot;);
-    for(i=0;i&lt;divs.length;i++){
+    var divs = document.getElementsByTagName("div");
+    for(i=0;i<divs.length;i++){
       document.write(divs[i]);
-      document.write(&quot;&lt;br&gt;&quot;);
+      document.write("<br>");
     }
     // 根据class返回一个节点数组
-    var elements = document.getElementsByClassName(&quot;d&quot;);
+    var elements = document.getElementsByClassName("d");
     // 根据name属性的值，获取元素节点
-    var elements = document.getElementsByName(&quot;userName&quot;);
+    var elements = document.getElementsByName("userName");
     // 如果div标签还没有加载，则无法获取该元素节点，因为javascript是解释语言，是顺序执行的
-  &lt;/script&gt;
-&lt;/html&gt;
-</code></pre>
-<p>通过元素节点的attributes获取其下所有的<strong>属性节点</strong>，属性节点以数组的形式返回出来</p>
-<pre><code class="html">&lt;html&gt;
-  &lt;div id=&quot;d1&quot; align=&quot;center&quot; class=&quot;abc&quot;&gt;hello HTML DOM&lt;/div&gt;
-  &lt;script&gt;
-    var div1 = document.getElementById(&quot;d1&quot;);
+  </script>
+</html>
+```
+通过元素节点的attributes获取其下所有的**属性节点**，属性节点以数组的形式返回出来
+
+``` html
+<html>
+  <div id="d1" align="center" class="abc">hello HTML DOM</div>
+  <script>
+    var div1 = document.getElementById("d1");
     var as = div1.attributes;
-    document.write(&quot;div总共有&quot;+as.length +&quot; 个属性&quot;);
-    document.write(&quot;分别是:&quot;);
-    for(i = 0; i&lt; as.length; i++){
-    document.write(&quot;&lt;br&gt;&quot;);
+    document.write("div总共有"+as.length +" 个属性");
+    document.write("分别是:");
+    for(i = 0; i< as.length; i++){
+    document.write("<br>");
     document.write(as[i].nodeName);
-    document.write(&quot;:&quot;);
+    document.write(":");
     document.write(as[i].nodeValue);
     }
-    document.write(&quot;&lt;br&gt;&quot;);
-    document.write(&quot;div的id属性值是：&quot;+ as[&quot;id&quot;].nodeValue);
-  &lt;/script&gt;
-&lt;/html&gt;
-</code></pre>
-<p>通过元素节点的childNodes获取其所有的子节点。<strong>其中第一个子节点，就是其内容节点</strong></p>
-<pre><code class="html">&lt;html&gt;
-  &lt;div id=&quot;d1&quot; align=&quot;center&quot; class=&quot;abc&quot;&gt;hello HTML DOM&lt;/div&gt;
-  &lt;script&gt;
-    var  div1 = document.getElementById(&quot;d1&quot;);
+    document.write("<br>");
+    document.write("div的id属性值是："+ as["id"].nodeValue);
+  </script>
+</html>
+```
+通过元素节点的childNodes获取其所有的子节点。**其中第一个子节点，就是其内容节点**
+
+``` html
+<html>
+  <div id="d1" align="center" class="abc">hello HTML DOM</div>
+  <script>
+    var  div1 = document.getElementById("d1");
     var content = div1.childNodes[0];
-    document.write(&quot;div的内容节点名是:&quot;+content.nodeName);
-    document.write(&quot;&lt;br&gt;&quot;);
-    document.write(&quot;div的内容节点值是:&quot;+content.nodeValue);
-  &lt;/script&gt;
-&lt;/html&gt;
-</code></pre>
-<hr>
-<h4 id="节点的属性"><a href="#节点的属性" class="headerlink" title="节点的属性"></a>节点的属性</h4><p>nodeName表示一个节点的名字。document.nodeName（文档的节点名，是<strong>固定的#document</strong>），div1.nodeName（元素的节点名，是<strong>对应的标签名</strong>div），div1.attributes[0].nodeName（属性的节点名，是<strong>对应的属性名</strong>id），div1.childNodes[0].nodeName（内容的节点名，是<strong>固定的#text</strong>）</p>
-<p>nodeValue表示一个节点的值。document.nodeValue（文档的节点值，是<strong>null</strong>），div1.nodeValue（元素的节点值，是<strong>null</strong>），div1.attributes[0].nodeValue（属性的节点值，是对应的<strong>属性值</strong>d1），div1.childNodes[0].nodeValue（内容的节点值，是<strong>内容</strong>）</p>
-<p>nodeType表示一个节点的类型，不同的节点类型，对应的节点类型值是不一样的</p>
+    document.write("div的内容节点名是:"+content.nodeName);
+    document.write("<br>");
+    document.write("div的内容节点值是:"+content.nodeValue);
+  </script>
+</html>
+```
+---
+#### 节点的属性
+
+nodeName表示一个节点的名字。document.nodeName（文档的节点名，是**固定的#document**），div1.nodeName（元素的节点名，是**对应的标签名**div），div1.attributes[0].nodeName（属性的节点名，是**对应的属性名**id），div1.childNodes[0].nodeName（内容的节点名，是**固定的#text**）
+
+nodeValue表示一个节点的值。document.nodeValue（文档的节点值，是**null**），div1.nodeValue（元素的节点值，是**null**），div1.attributes[0].nodeValue（属性的节点值，是对应的**属性值**d1），div1.childNodes[0].nodeValue（内容的节点值，是**内容**）
+
+nodeType表示一个节点的类型，不同的节点类型，对应的节点类型值是不一样的
+
 <div align="center">
 
-<table>
-<thead>
-<tr>
-<th align="center">元素类型</th>
-<th align="center">NodeType</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">元素</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">属性</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">文本</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">注释</td>
-<td align="center">8</td>
-</tr>
-<tr>
-<td align="center">文档</td>
-<td align="center">9</td>
-</tr>
-</tbody></table>
+| 元素类型 | NodeType |
+| :-----: | :------: |
+| 元素 | 1 |
+| 属性 | 2 |
+| 文本 | 3 |
+| 注释 | 8 |
+| 文档 | 9 |
+
 </div>
 
-<p>修改和获取内容的值可以通过<strong>childNodes[0].nodeValue</strong>进行，也可以通过<strong>innerHTML</strong>进行。</p>
-<p>元素上的属性，比如id，value可以通过 . 直接访问，如果是自定义属性，可以通过<strong>getAttributes(“test”)、attributes[“test”].nodeValue</strong>获取</p>
-<pre><code class="html">&lt;html&gt;
-  &lt;div id=&quot;d1&quot;&gt;hello HTML DOM&lt;/div&gt;
-  &lt;script&gt;
-    function get(){
-      var input1 = document.getElementById(&quot;input1&quot;);
-      var s = &quot;id=&quot;+input1.id + &quot;&lt;br&gt;&quot;;
-      s += &quot;value=&quot;+input1.value + &quot;&lt;br&gt;&quot;;
-      s += &quot;class=&quot;+input1.className + &quot;&lt;br&gt;&quot;;
-      s += &quot;test=&quot;+input1.getAttribute(&quot;test&quot;)+ &quot;&lt;br&gt;&quot;;
-      s += &quot;test=&quot;+input1.attributes[&quot;test&quot;].nodeValue+ &quot;&lt;br&gt;&quot;;
-      document.getElementById(&quot;d1&quot;).innerHTML= s;
-    }
-  &lt;/script&gt;
-  &lt;input id=&quot;input1&quot; class=&quot;class1 class2&quot; test=&quot;t1&quot; value=&quot;这是一个输入框&quot;&gt;
-  &lt;br&gt;
-  &lt;button onclick=&quot;get()&quot;&gt;获取input的属性&lt;/button&gt;
-  &lt;div style=&quot;height:30px&quot;&gt;&lt;/div&gt;
-&lt;/html&gt;
-</code></pre>
-<p>一个元素节点的style属性即对应的css</p>
-<hr>
-<h4 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h4><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/html_node.webp"></div>
+修改和获取内容的值可以通过**childNodes[0].nodeValue**进行，也可以通过**innerHTML**进行。
 
-<p>DIV[id=d1]-&gt;DIV[id=parentDiv]-&gt;body-&gt;html-&gt;documen（递归获取子节点的父节点）</p>
-<p>通过<strong>parentNode</strong>获取父节点，通过<strong>previousSibling</strong>和<strong>nextSibling</strong>属性获取前一个，以及后一个同胞节点。如果两个同胞节点<strong>不是紧挨着的</strong>，标签之间有任何<strong>字符、空白、换行</strong>都会产生文本元素，此时获取到的节点是#text</p>
-<p><strong>firstChild</strong>、<strong>lastChild</strong>和<strong>childNodes</strong>分别用于获取第一个子节点、最后一个子节点和所有子节点，firstNode如果父节点的开始标签和第一个元素的开始标签之间有<strong>文本、空格、换行</strong>，那么firstChild第一个子节点将会是<strong>文本节点</strong>，而不会是第一个元素节点，lastChild同理</p>
-<p><strong>childNodes</strong>和<strong>children</strong>都可以获取一个元素节点的子节点，但是childNodes会<strong>包含</strong>文本节点，chidren会<strong>排除</strong>文本节点</p>
-<hr>
-<h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><pre><code class="html">&lt;html&gt;
-  &lt;div id=&quot;d&quot;&gt;Hello HTML DOM&lt;/div&gt;
-  &lt;script&gt;
+元素上的属性，比如id，value可以通过 . 直接访问，如果是自定义属性，可以通过**getAttributes("test")、attributes["test"].nodeValue**获取
+
+``` html
+<html>
+  <div id="d1">hello HTML DOM</div>
+  <script>
+    function get(){
+      var input1 = document.getElementById("input1");
+      var s = "id="+input1.id + "<br>";
+      s += "value="+input1.value + "<br>";
+      s += "class="+input1.className + "<br>";
+      s += "test="+input1.getAttribute("test")+ "<br>";
+      s += "test="+input1.attributes["test"].nodeValue+ "<br>";
+      document.getElementById("d1").innerHTML= s;
+    }
+  </script>
+  <input id="input1" class="class1 class2" test="t1" value="这是一个输入框">
+  <br>
+  <button onclick="get()">获取input的属性</button>
+  <div style="height:30px"></div>
+</html>
+```
+一个元素节点的style属性即对应的css
+
+---
+#### 节点关系
+
+<div align=center><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/javaLearn/html_node.webp"></div>
+
+DIV[id=d1]->DIV[id=parentDiv]->body->html->documen（递归获取子节点的父节点）
+
+通过**parentNode**获取父节点，通过**previousSibling**和**nextSibling**属性获取前一个，以及后一个同胞节点。如果两个同胞节点**不是紧挨着的**，标签之间有任何**字符、空白、换行**都会产生文本元素，此时获取到的节点是#text
+
+**firstChild**、**lastChild**和**childNodes**分别用于获取第一个子节点、最后一个子节点和所有子节点，firstNode如果父节点的开始标签和第一个元素的开始标签之间有**文本、空格、换行**，那么firstChild第一个子节点将会是**文本节点**，而不会是第一个元素节点，lastChild同理
+
+**childNodes**和**children**都可以获取一个元素节点的子节点，但是childNodes会**包含**文本节点，chidren会**排除**文本节点
+
+---
+#### 创建节点
+
+``` html
+<html>
+  <div id="d">Hello HTML DOM</div>
+  <script>
     function add(){
       // 通过 createElement 创建一个新的元素节点
       // 接着吧该元素节点，通过 appendChild 加入到另一个元素节点div1中
-      var hr=document.createElement(&quot;hr&quot;);
-      var div1 = document.getElementById(&quot;d&quot;);
+      var hr=document.createElement("hr");
+      var div1 = document.getElementById("d");
       div1.appendChild(hr);
       // 通过 createTextNode 创建一个内容节点 text
       // 然后 text 加入到 p，再把 p 加入到 div
-      var p=document.createElement(&quot;p&quot;);
-      var text = document.createTextNode(&quot;这是通过DOM创建出来的&lt;p&gt;&quot;);
+      var p=document.createElement("p");
+      var text = document.createTextNode("这是通过DOM创建出来的<p>");
       p.appendChild(text);
-      var div1 = document.getElementById(&quot;d&quot;);
+      var div1 = document.getElementById("d");
       div1.appendChild(p);
       // 通过 createAttribute 创建一个属性节点 href ，然后设置 href 的值，接着通过 setAttributeNode 把该属性设置到元素节点 a 上
-      var a=document.createElement(&quot;a&quot;);
-      var content = document.createTextNode(&quot;http://12306.com&quot;);
+      var a=document.createElement("a");
+      var content = document.createTextNode("http://12306.com");
       a.appendChild(content);
-      var href = document.createAttribute(&quot;href&quot;);
-      href.nodeValue=&quot;http://12306.com&quot;;
+      var href = document.createAttribute("href");
+      href.nodeValue="http://12306.com";
       a.setAttributeNode(href);
-      var div1 = document.getElementById(&quot;d&quot;);
+      var div1 = document.getElementById("d");
       div1.appendChild(a);
     }
-  &lt;/script&gt;
-  &lt;button onclick=&quot;add()&quot;&gt;在div中追加一个hr元素&lt;/button&gt;
-&lt;/html&gt;
-</code></pre>
-<hr>
-<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><pre><code class="html">&lt;script&gt;
+  </script>
+  <button onclick="add()">在div中追加一个hr元素</button>
+</html>
+```
+---
+#### 删除节点
+
+``` html
+<script>
   function removeDiv(){
-    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
-    var div2= document.getElementById(&quot;div2&quot;);
+    var parentDiv = document.getElementById("parentDiv");
+    var div2= document.getElementById("div2");
     // 删除某个元素节点：首先获取该元素的父节点，然后通过父节点，调用removeChild删除该节点
     parentDiv.removeChild(div2);
     // 删除某个属性节点：首先获取该元素节点，元素节点调用 removeAttribute 删除指定属性节点
-    parentDiv.removeAttribute(&quot;id&quot;)
+    parentDiv.removeAttribute("id")
   }
-  // 删除文本节点：可以通过 childNodes[0] 获取文本节点，然后通过removeChild删除该文本节点，但是这种方式比较麻烦，一般都是直接通过 innerHTML 设置为空即可，也可以通过 innerHTML=&quot;&quot;的方式，同样会导致文本子节点被删除
+  // 删除文本节点：可以通过 childNodes[0] 获取文本节点，然后通过removeChild删除该文本节点，但是这种方式比较麻烦，一般都是直接通过 innerHTML 设置为空即可，也可以通过 innerHTML=""的方式，同样会导致文本子节点被删除
   function removeDiv1(){
-    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    var parentDiv = document.getElementById("parentDiv");
     var textNode = parentDiv.childNodes[0];
     parentDiv.removeChild(textNode);
   }
   function removeDiv2(){
-    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
-    parentDiv.innerHTML=&quot;&quot;;
+    var parentDiv = document.getElementById("parentDiv");
+    parentDiv.innerHTML="";
   }
   function recover(){
-    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
-    parentDiv.innerHTML=&quot;这里是文本 &quot;;
+    var parentDiv = document.getElementById("parentDiv");
+    parentDiv.innerHTML="这里是文本 ";
   }
-&lt;/script&gt;
-&lt;div id=&quot;parentDiv&quot;&gt;
-  &lt;div id=&quot;div1&quot;&gt;安全的div&lt;/div&gt;
-  &lt;div id=&quot;div2&quot;&gt;即将被删除的div&lt;/div&gt;
-&lt;/div&gt;
-&lt;button onclick=&quot;removeDiv()&quot;&gt;删除第二个div&lt;/button&gt;
-</code></pre>
-<hr>
-<h4 id="替换和插入节点"><a href="#替换和插入节点" class="headerlink" title="替换和插入节点"></a>替换和插入节点</h4><pre><code class="html">&lt;div id=&quot;parentDiv&quot;&gt;
- &lt;div id=&quot;d1&quot;&gt;第一个div&lt;/div&gt;
- &lt;div id=&quot;d2&quot;&gt;第二个div&lt;/div&gt;
- &lt;div id=&quot;d3&quot;&gt;第三个div&lt;/div&gt;
-&lt;/div&gt;
-&lt;script&gt;
+</script>
+<div id="parentDiv">
+  <div id="div1">安全的div</div>
+  <div id="div2">即将被删除的div</div>
+</div>
+<button onclick="removeDiv()">删除第二个div</button>
+```
+
+---
+#### 替换和插入节点
+
+``` html
+<div id="parentDiv">
+ <div id="d1">第一个div</div>
+ <div id="d2">第二个div</div>
+ <div id="d3">第三个div</div>
+</div>
+<script>
   function replaceDiv(){
-    var d4=  document.createElement(&quot;div&quot;);
-    var text = document.createTextNode(&quot;第四个div&quot;);
+    var d4=  document.createElement("div");
+    var text = document.createTextNode("第四个div");
     d4.appendChild(text);
-    var d3 = document.getElementById(&quot;d3&quot;);
-    var parentDiv = document.getElementById(&quot;parentDiv&quot;);
+    var d3 = document.getElementById("d3");
+    var parentDiv = document.getElementById("parentDiv");
     // 替换节点也需要先获取父节点，然后通过父节点替换子节点。replaceChild 的第一个参数是保留的节点，第二个参数被替换的节点                                             
     parentDiv.replaceChild(d4,d3);
     // 在指定位置插入节点，而不只是追加在后面
-    var d25 = document.createElement(&quot;div&quot;);
-    var text = document.createTextNode(&quot;第二点五个div&quot;);
+    var d25 = document.createElement("div");
+    var text = document.createTextNode("第二点五个div");
     d25.appendChild(text);
     // insertBefore 的第一个参数是新元素，第二个参数是插入位置（元素节点d3之前）
     parentDiv.insertBefore(d25, d3);
   }
-&lt;/script&gt;
-&lt;button onclick=&quot;replaceDiv()&quot;&gt;替换第3个div&lt;/button&gt;
-</code></pre>
-<hr>
-<h4 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h4><p>如果不使用AJAX，传统的方法需要通过提交数据<strong>刷新页面</strong>来获知用户名是否存在</p>
+</script>
+<button onclick="replaceDiv()">替换第3个div</button>
+``` -->
+
+<h2 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h2><h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><p>如果不使用AJAX，传统的方法需要通过提交数据<strong>刷新页面</strong>来获知用户名是否存在</p>
 <p>使用method=”get”提交数据是常用的提交数据的方式，如果form元素没有提供method属性，<strong>默认就是get方式提交数据</strong>，get方式的特点是<strong>提交数据会在浏览器显示出来</strong>，<strong>不可以用于提交二进制数据</strong>，比如上传文件（如果通过一个超链访问某个地址，是get方式；如果在地址栏直接输入某个地址，是get方式）。</p>
 <p>使用method=”post”也可以提交数据，<strong>post不会在地址栏显示提交的参数</strong>，如果要提交二进制数据，比如<strong>上传文件，必须采用post方式</strong></p>
 <pre><code class="html">&lt;form action=&quot;https://how2j.cn/study/checkName.jsp&quot;&gt;
@@ -3320,15 +3336,15 @@ public static void main(String[] args) throws Exception {
             
               <div class="post-nepre half previous">
             
-              <a href="/2021/09/10/深入理解计算机系统/" rel="prev">
+              <a href="/2021/09/15/shape_based_matching/" rel="prev">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/researching.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/researching.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
                 </div>
                 <span class="label">
                 Previous Post</span>
                 <div class="info">
                   <h3>
-                  深入理解计算机系统</h3>
+                  shape_based_matching</h3>
                   <!-- <hr> -->
                 </div>
               </a>
