@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2021-10-28T01:50:37.592Z</updated>
+  <updated>2022-06-03T08:11:53.465Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -17,11 +17,71 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>springmvc学习</title>
+    <link href="http://goodguyjameswin.github.io/2022/05/24/springmvc%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2022/05/24/springmvc学习/</id>
+    <published>2022-05-24T03:35:02.000Z</published>
+    <updated>2022-06-03T08:11:53.465Z</updated>
+    
+    <summary type="html">
+    
+      SpringMVC的简单搭建
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spring学习</title>
+    <link href="http://goodguyjameswin.github.io/2022/05/22/spring%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2022/05/22/spring学习/</id>
+    <published>2022-05-22T06:53:05.000Z</published>
+    <updated>2022-06-03T08:11:52.641Z</updated>
+    
+    <summary type="html">
+    
+      Spring的简单搭建
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mybatis学习</title>
+    <link href="http://goodguyjameswin.github.io/2022/05/22/mybatis%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2022/05/22/mybatis学习/</id>
+    <published>2022-05-22T01:50:37.000Z</published>
+    <updated>2022-06-03T08:11:51.431Z</updated>
+    
+    <summary type="html">
+    
+      Mybatis的简单搭建
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>rotated_data_maker</title>
     <link href="http://goodguyjameswin.github.io/2021/10/27/rotated-data-maker/"/>
     <id>http://goodguyjameswin.github.io/2021/10/27/rotated-data-maker/</id>
     <published>2021-10-27T13:30:45.000Z</published>
-    <updated>2021-10-28T01:50:37.592Z</updated>
+    <updated>2022-06-03T08:11:08.080Z</updated>
     
     <summary type="html">
     
@@ -41,7 +101,7 @@
     <link href="http://goodguyjameswin.github.io/2021/10/09/yolov5-dota-obb/"/>
     <id>http://goodguyjameswin.github.io/2021/10/09/yolov5-dota-obb/</id>
     <published>2021-10-09T02:19:20.000Z</published>
-    <updated>2021-10-10T13:04:37.648Z</updated>
+    <updated>2022-06-03T08:00:38.192Z</updated>
     
     <summary type="html">
     
@@ -78,10 +138,10 @@
   
   <entry>
     <title>PaddleOCR</title>
-    <link href="http://goodguyjameswin.github.io/2021/10/07/PaddleOcr%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/"/>
-    <id>http://goodguyjameswin.github.io/2021/10/07/PaddleOcr调试记录/</id>
+    <link href="http://goodguyjameswin.github.io/2021/10/07/PaddleOcr/"/>
+    <id>http://goodguyjameswin.github.io/2021/10/07/PaddleOcr/</id>
     <published>2021-10-07T02:20:57.000Z</published>
-    <updated>2021-10-10T12:32:00.664Z</updated>
+    <updated>2022-05-22T01:47:49.440Z</updated>
     
     <summary type="html">
     
@@ -161,33 +221,11 @@
   </entry>
   
   <entry>
-    <title>java学习</title>
-    <link href="http://goodguyjameswin.github.io/2021/09/08/java%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://goodguyjameswin.github.io/2021/09/08/java学习/</id>
-    <published>2021-09-08T03:01:24.000Z</published>
-    <updated>2021-10-31T10:53:34.847Z</updated>
-    
-    <summary type="html">
-    
-      小白想找个java后端开发岗
-    
-    </summary>
-    
-      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="private" scheme="http://goodguyjameswin.github.io/tags/private/"/>
-    
-      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>yolo格式的数据标签转icdar格式</title>
+    <title>yolo_icdar</title>
     <link href="http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/"/>
     <id>http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/</id>
     <published>2021-09-06T12:30:01.000Z</published>
-    <updated>2021-10-10T12:40:20.848Z</updated>
+    <updated>2022-06-03T08:01:16.800Z</updated>
     
     <summary type="html">
     

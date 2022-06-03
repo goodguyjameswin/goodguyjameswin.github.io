@@ -569,10 +569,9 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近出于项目需要，前段时间已经做了一个传统模板匹配的方案了，但是针对旋转目标检测的任务，老师坚持要做一个深度学习方案。<del>拗了几次拗不过他，无奈，只能给他老人家追梦</del>，逛了逛github，发现挺多相关论文的，也有一些源码，但是没几个实用的，<del>不像yolo的reademe写的那么善解人意</del>，没有办法，浏览过程中无意看到一个国内大佬，针对yolov5做了修改，引入了<strong>长边表示法</strong>对旋转矩形检测框的定义，感觉效果还不错，标签的格式也比较好懂，准备上手尝试</p>
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近出于项目需要，针对旋转目标检测的任务，做一个深度学习方案。浏览过程中看到一个国内大佬，针对yolov5做了修改，引入了<strong>长边表示法</strong>对旋转矩形检测框的定义，感觉效果还不错，标签的格式也比较好懂，准备上手尝试</p>
 <p>好家伙，还是离不开<a href="https://github.com/CAPTAIN-WHU/DOTA_devkit" target="_blank" rel="noopener">DOTA_devkit</a>的编译，今年四月份左右想入这个坑，就被windows上各种第三方库的编译给劝退了，然后发现旋转目标检测，基本都离不开对这个工具包的编译，因为旋转目标检测网络目前基本都是用<a href="https://github.com/SJTU-Thinklab-Det/DOTA-DOAI" target="_blank" rel="noopener">DOTA数据集</a>作benchmark，这个工具包可以很好的处理DOTA数据集</p>
-<p><del>老师那边又反复催</del>，没办法，那就狠下心来读源码！</p>
-<p>后来发现其实编译这个工具包，目的是调用其中有关多边形（旋转矩形框）做NMS（非极大值抑制）的方法，好说，我记得python有个shapely的库，也可以做多边形的IOU（重叠面积占比）运算，多说无益，动手改源码！</p>
+<p>后来发现其实编译这个工具包，目的是调用其中有关多边形（旋转矩形框）做NMS（非极大值抑制）的方法，好说，我记得python有个shapely的库，也可以做多边形的IOU（重叠面积占比）运算。</p>
 <h2 id="挖坑踩坑"><a href="#挖坑踩坑" class="headerlink" title="挖坑踩坑"></a>挖坑踩坑</h2><p>这个工程，训练的时候跟原本的yolov5生态环境是一样的，方法调用不需要其他第三方库的支持，比如经典的mosaic数据增强，但是有几个坑</p>
 <p>比如原作者的长边表示法是针对opencv4.2以前的版本中minAreaRect这一函数所返回的旋转矩形框所定义的角度做的优化，在高版本的opencv（比如opencv4.5以上）就不支持了。还有就是高版本的pytorch需要针对错误“torch.nn.modules.module.ModuleAttributeError: ‘Hardswish’ object has no attribute ‘inplace’”，找到pytorch的源码部分并做修改</p>
 <pre><code class="python">def __init__(self, inplace : bool = False) -&gt; None:
@@ -654,7 +653,7 @@ def nms_rotated_rect(dets, scores, thresh):
 <p>修改完毕，用“纯净版”的YOLOv5_DOTA_OBB跑一下demo，发现模型可以正常预测，性能好像也没有损失</p>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/demo.webp"></div>
 
-<p>然后开始制作自己的数据集，训练并测试，这里我用的是以前用过的标注工具<a href="https://github.com/chinakook/labelImg2" target="_blank" rel="noopener">labelimg2</a>，<del>不过说实话有时候莫名其妙闪退让我开始考虑换其他的标注工具了，虽然本来已经是白嫖，就不应该挑三拣四了</del> <img class="emoji-coda" src="https://cdn.jsdelivr.net/gh/TomoriCoda/hexo-tag-emojis-bycoda/emojis/xiaodianshi/haixiu.png"></p>
+<p>然后开始制作自己的数据集，训练并测试，这里我用的是以前用过的标注工具<a href="https://github.com/chinakook/labelImg2" target="_blank" rel="noopener">labelimg2</a></p>
 <p>不过输出的格式是voc格式，所以我修改了下源码，让它能生成DOTA数据集格式的标签，在原工程的libs/labelFile.py里添加如下代码，会在当前目录下生成一个labels文件夹，里面存放对应标注图片的DOTA格式标签</p>
 <pre><code class="python">label_dir = os.path.join(imgFolderPath, &quot;labels&quot;)
 if not os.path.exists(label_dir):
@@ -668,7 +667,7 @@ with open(label_file, &#39;w&#39;) as l:
                               str(points[2][0]), str(points[2][1]), str(points[3][0]), str(points[3][1]),
                               label]) + &#39;\n&#39;)
 </code></pre>
-<p><del>由于老师就给了我一张图片，但是他老人家又信仰深度学习</del>，没办法，只能，通过数据增强来扩充数据集，<del>欺骗自己，训练的数据量足够多</del>，这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
+<p>这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/aug.webp"></div>
 
 <p>接着根据原作者提供的<a href="https://github.com/hukaixuan19970627/DOTA_devkit_YOLO" target="_blank" rel="noopener">工具</a>，将带DOTA格式标签的数据转换为“长边表示法”格式的标签数据，对应的格式转换代码如下</p>
@@ -791,22 +790,21 @@ def cvminAreaRect2longsideformat(x_c, y_c, width, height, theta):
 </code></pre>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp"></div>
 
-<p>有了数据集，接下来就是训练调参了，<del>经典踩坑</del>，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率（<del>虽说见过很多次了，但还是觉得提出这个数据增强方式的人真的强</del>），然后象征性地打开了mixup数据增强</p>
+<p>有了数据集，接下来就是训练调参了，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率，然后象征性地打开了mixup数据增强</p>
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></div>
 
-<p><del>接下来划重点</del></p>
 <ul>
 <li>由于原作者使用“长边表示法”表示旋转矩形框的算法具有局限性，标签在高版本opencv上无法成功从DOTA格式转换为longsideformat格式，<strong>宽高不等的图片无法作为数据正常送入网络进行训练，这是由于作者是先对图像宽高进行归一化之后再转换标签格式，然后在longsideformat格式下进行图片像素坐标的去归一化（会导致标签由旋转矩形框变成类平行四边形框）</strong>，有一个好的解决方案是<strong>对图片归一化时，宽高都针对两者中的较大值作为归一化的分母做归一化，这样转换标签格式后，图片像素坐标去归一化的分母还是一样的，不会产生标签偏移</strong>，最好的解决办法是<strong>修改标签转换部分代码以及整个深度学习工程的像素坐标归一化与去归一化过程</strong>，但是这样修改起来工作量较大，且可行性得不到验证，因此目前仍<strong>建议采用宽高相等的图片作为训练数据</strong></li>
 <li>如果数据增强的时候，开启了多种增强方式（如旋转，平移，裁剪），<strong>建议训练的时候，将角度、box和置信度的loss权重调高，若不是做多分类，分类部分的loss权重可以调低</strong>，生成的训练数据集比较复杂的情况下，mosaic和mixup数据增强方式的启用概率可以适当调低，并且为了保证网络收敛，<strong>建议调高epochs，并且采用Adam优化算法</strong></li>
 </ul>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp"></div>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp" width="400"></div>
 
 <p>忙活了半天，终于训练出来一个还不错的效果了</p>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp"></div>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp" width="400"></div>
 
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp"></div>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp" width="400"></div>
 
-<p>640*640的图片，gpu单张预测时间在0.1s左右，<del>还行ing</del></p>
+<p>640*640的图片，gpu单张预测时间在0.1s左右</p>
 <hr>
 
           </div>
@@ -952,7 +950,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2021 Terry Joe<br>
+      &copy; 2022 Terry Joe<br>
       powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

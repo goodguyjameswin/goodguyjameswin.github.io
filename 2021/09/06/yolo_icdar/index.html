@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">yolo格式的数据标签转icdar格式 | zt&#39;s blog</title>
+  <title itemprop="name">yolo_icdar | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -508,7 +508,7 @@
     <!-- <header class="pattern-header single-header"> -->
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
       <h1 class="entry-title">
-      yolo格式的数据标签转icdar格式</h1>
+      yolo_icdar</h1>
       <p class="entry-census">
         <span>
           <a href="https://github.com/goodguyjameswin">
@@ -570,7 +570,7 @@
           
           <div class="entry-content">
             <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>第一篇文章（水文）！研一参与的第一个项目，用yolo来检测（识别）图片中的喷码字符（<del>生产日期</del>），<del>然后很长一段时间都在给数据打标签</del></p>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yoloIcdar/ean_src.webp" width="400"></div>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yoloIcdar/ean_src.webp" width="300"></div>
 
 <p>问题在于用yolo去做逐字符的检测，输出的框顺序并不像我们所认知的那样，分行排列，从上至下，从左至右</p>
 <h3 id="yolo格式标签"><a href="#yolo格式标签" class="headerlink" title="yolo格式标签"></a>yolo格式标签</h3><pre><code class="txt">&lt;object-class&gt; &lt;x&gt; &lt;y&gt; &lt;width&gt; &lt;height&gt;
@@ -599,7 +599,7 @@ e = kde.score_samples(s.reshape(-1, 1))  # 在特定数据上用核函数拟合
 <p>观察了下拟合出来的曲线，确实求个极值就可以找到断点了</p>
 <pre><code class="py">mi, ma = argrelextrema(e, np.less)[0], argrelextrema(e, np.greater)[0]  # 计算数组指定轴的相对极值
 </code></pre>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yoloIcdar/ziran_2.webp"></div>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yoloIcdar/ziran_2.webp" width="400"></div>
 
 <pre><code class="txt">Minima: [25.71428571 54.28571429 85.71428571 122.85714286]
 Maxima: [8.57142857 37.14285714 71.42857143 100. 134.28571429]
@@ -651,15 +651,15 @@ Maxima: [8.57142857 37.14285714 71.42857143 100. 134.28571429]
             
               <div class="post-nepre full previous">
             
-              <a href="/2021/09/08/java学习/" rel="prev">
+              <a href="/2021/09/15/shape_based_matching/" rel="prev">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/java_learning.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
                 </div>
                 <span class="label">
                 Previous Post</span>
                 <div class="info">
                   <h3>
-                  java学习</h3>
+                  shape_based_matching</h3>
                   <!-- <hr> -->
                 </div>
               </a>
@@ -746,7 +746,7 @@ spoiler[i].onclick=function(){this.classList.toggle("revealed");};
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2021 Terry Joe<br>
+      &copy; 2022 Terry Joe<br>
       powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
