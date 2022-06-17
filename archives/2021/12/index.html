@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">text_generator | zt&#39;s blog</title>
+  <title itemprop="name">归档: 2021/12 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -492,239 +492,315 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
-<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
-<div class="pattern-center-blank"></div>
-<!-- 板块化 -->
-<div class="gather">
-<!-- 板块化 -->
-
-  <!-- <div class="pattern-center single-center"> -->
-  <div class="pattern-center-sakura single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp">
-    </div>
-    <!-- <header class="pattern-header single-header"> -->
-    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
-      <h1 class="entry-title">
-      text_generator</h1>
-      <p class="entry-census">
-        <span>
-          <a href="https://github.com/goodguyjameswin">
-            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
-          </a>
-        </span>
-        <span>
-          <a href="https://github.com/goodguyjameswin">terryjoe</a>
-        </span>
-        <span class="bull">
-          <i class="fa fa-calendar" aria-hidden="true"></i>
-        </span>
-        2021-9-22
-        <!-- 给文章 -->
-        <span class="bull"></span>
-        
-          <span><i class="fa fa-archive"></i> 分类于  
-            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
-          
-        </span>
-        
-        <!-- 加分类 -->
-        <span class="bull">
-          <i class="fa fa-eye" aria-hidden="true"></i>
-        </span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
-      <!-- 给文章 -->
-      
-      
-      <div>
-            <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
-            </ul>
-          </div>
-          <script>
-              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
-              function paintTags(){
-                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
-                  for(var i = 0 ; i < tags.length ; ++i){
-                      if(!tagColors.length)colorInit(tagColors,colorNumber);
-                      var j=Math.floor(Math.random()*tagColors.length);
-                      tags[i].classList.add("spfk-color"+tagColors[j]);
-                      tagColors.splice(j,1);
-          }
-              }
-              paintTags()
-          </script>
-      
-      <!-- 打标签 -->
-    </header>
-  </div>
-  
-  <div id="content" class="site-content">
-    <div id="primary" class="content-area">
-      <main id="main" class="site-main" role="main">
-        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
-          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-          
-          <div class="entry-content">
-            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>用pillow的ImageFont模块去生成可供ocr模型训练的文本检测和识别训练数据，<a href="https://github.com/goodguyjameswin/ocr_data_generator" target="_blank" rel="noopener">原项目</a>暂时没找到。。</p>
-<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="引入背景roi"><a href="#引入背景roi" class="headerlink" title="引入背景roi"></a>引入背景roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/bg.webp"></div>
-
-<p>就像上面这张图，有时候场景文本检测和识别任务中，文字只会出现在场景图片特定的语义区域中。因此在制作文本数据时，就需要限定文本出现的范围</p>
-<p>调用opencv-python里的api：</p>
-<pre><code class="python">import cv2
-
-class UseCv:
-  def __init__(self):
-    self.path = &#39;bg.jpg&#39;
-  def cut(self):
-    img = cv2.imread(self.path, flags=cv2.IMREAD_COLOR)
-    bbox = cv2.selectROI(img, False)
-    cut = img[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2]]
-    cv2.imwrite(&#39;bg_cut.jpg&#39;, cut)
-</code></pre>
-<p>更改：</p>
-<pre><code class="python">self.roi = cv2.selectROI(cv2.imread(self.bg, 1), False)
-</code></pre>
-<pre><code class="python">if x + w &gt; (self.roi[0] + self.roi[2] - 10) or y + h &gt; (self.roi[1]+ self.roi[3] - 10):
-  return draw, (w, h), False
-</code></pre>
-<pre><code class="python">tl_x = random.randrange(self.roi[0], self.roi[0] + self.roi[2])  # 字体位置
-tl_y = random.randrange(self.roi[1], self.roi[1] + self.roi[3])
-</code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="命令行调用"><a href="#命令行调用" class="headerlink" title="命令行调用"></a>命令行调用</h3><p>生成语料：</p>
-<pre><code class="txt">9CHCAV1
-6TXYQ
-WNVKWX
-9OMKKCM5Y
-X4EPT1J-
-9ZG4GB
-HUTTQRF
-KDB6TFFP
-1ZNKT45E
-ULR26VPJE
-</code></pre>
-<h3 id="选择roi"><a href="#选择roi" class="headerlink" title="选择roi"></a>选择roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/roi.webp"></div>
-
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/print.webp"></div>
-
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/result.webp"></div>
-
-<hr>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
-          </div>
-          <!-- .entry-content -->
-          <!-- <div class="single-reward">
-            <div class="reward-open">赏
-              <div class="reward-main">
-                <ul class="reward-row">
-                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
-                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-          <footer class="post-footer">
-            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-            <div class="post-tags">
-            </div>
-            <div class="post-share">
-              <div class="social-share sharehidden share-component"></div>
-              <i class="iconfont show-share icon-forward"></i>
-            </div>
-          </footer> -->
-          <!-- .entry-footer -->
-        </article>
-        <!-- #post-## -->
-        <!-- <div class="toc" style="background: none;"></div> -->
-        <section class="post-squares nextprev">
-          
-            
-              <div class="post-nepre half previous">
-            
-              <a href="/2021/09/26/data-augtools/" rel="prev">
-                <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp">
-                </div>
-                <span class="label">
-                Previous Post</span>
-                <div class="info">
-                  <h3>
-                  data-augtools</h3>
-                  <!-- <hr> -->
-                </div>
-              </a>
-            </div>
-          
-          
-            
-              <div class="post-nepre half next">
-            
-              <a href="/2021/09/15/shape_based_matching/" rel="next">
-                <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
-                </div>
-                <span class="label">
-                Next Post</span>
-                <div class="info">
-                  <h3>
-                  shape_based_matching</h3>
-                  <!-- <hr> -->
-                </div>
-              </a>
-            </div>
-          
-        </section>
-        <!-- 
-   -->
-        <!-- <section class="author-profile">
-          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
-            <div class="meta">
-              <span class="title">Author</span>
-              <h3 itemprop="name">
-              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
-              </h3>
-            </div>
-          </div>
-          <hr>
-          <p><i class="iconfont icon-write"></i>技术宅</p>
-        </section> -->
-      </main><!-- #main -->
-    </div><!-- #primary -->
-  </div>
+      <!-- <div class="blank" style="padding-top: 75px;">
+</div> -->
+<div class="pattern-center-blank" style="padding-top: 75px;">
 </div>
 <!-- 板块化 -->
 <div class="gather">
-  </div>
 <!-- 板块化 -->
 
+    <div class="pattern-center-sakura">
+      <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/archiving.webp" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+      <header class="pattern-header ">
+        <h1 class="entry-title">
+        归档</h1>
+      </header>
+    </div>
+  
+<div id="content" class="site-content">
+  <div id="main">
+    <!-- <header class="page-header">
+      <h1 class="cat-title">
+      归档</h1>
+      <span class="cat-des">
+        <p>
+        Archives</p>
+      </span> 
+    </header> -->
+    <div id="main-part">
+      <article class="art">
+        <div class="art-main">
+          <div class="art-content">
+            <div id="archives">
+              <!-- <p style="text-align:right;">
+                [<span id="al_expand_collapse" style="cursor: s-resize;">
+                全部展开/收缩</span>
+              ]</p> -->
+              <p style="text-align:left;">
+                <button id="al_expand_collapse">
+                  <style>
+                  button#al_expand_collapse {
+                      color: white;
+                      border-radius: 16px;
+                      font-weight: bold;
+                      font-size: 15px;
+                      background-color: #ff9100;
+                      transition-duration: 0.3s;
+                      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.11), 0 3px 8px 0 rgba(0,0,0,0.11);
+                      outline: none;
+                  }
+                  button#al_expand_collapse:hover {
+                      transition: all 0.2s linear 0s;
+                      background-color: #ff5900; 
+                  }
+                  </style>
+                  <i class="fa fa-bars" aria-hidden="true"></i> 全部展开/收缩
+              </button>
+              </p>              
+              
+              
+              
+              
+              
+                
+                <h3 class="al_year">2022年</h3>
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      04月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2022/04/08/mybatis-plus学习/">
+                          <span style="color:#0bf;">
+                          08日16:16:21</span>
+                          mybatis-plus学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+                
+                <h3 class="al_year">2021年</h3>
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      12月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/12/10/springboot学习/">
+                          <span style="color:#0bf;">
+                          10日16:26:45</span>
+                          springboot学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      11月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/11/15/springmvc学习/">
+                          <span style="color:#0bf;">
+                          15日11:35:02</span>
+                          springmvc学习
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/11/05/spring学习/">
+                          <span style="color:#0bf;">
+                          05日14:53:05</span>
+                          spring学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      10月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/10/27/rotated-data-maker/">
+                          <span style="color:#0bf;">
+                          27日21:30:45</span>
+                          rotated_data_maker
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/25/mybatis学习/">
+                          <span style="color:#0bf;">
+                          25日09:50:37</span>
+                          mybatis学习
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/09/yolov5-dota-obb/">
+                          <span style="color:#0bf;">
+                          09日10:19:20</span>
+                          yolov5-dota-obb
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/07/yolact/">
+                          <span style="color:#0bf;">
+                          07日11:34:57</span>
+                          yolact
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/07/PaddleOcr/">
+                          <span style="color:#0bf;">
+                          07日10:20:57</span>
+                          PaddleOCR
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      09月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/09/26/data-augtools/">
+                          <span style="color:#0bf;">
+                          26日15:14:03</span>
+                          data-augtools
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/22/text-generator/">
+                          <span style="color:#0bf;">
+                          22日12:37:14</span>
+                          text_generator
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/15/shape_based_matching/">
+                          <span style="color:#0bf;">
+                          15日10:13:12</span>
+                          shape_based_matching
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/06/yolo_icdar/">
+                          <span style="color:#0bf;">
+                          06日20:30:01</span>
+                          yolo_icdar
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
 
-
-<script>
-function imgInit(){
-    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
-    for(var i=0;i<imgs.length;++i){
-        var element = document.createElement("a"),record=imgs[i];
-        element.setAttribute("data-fancybox","gallery");
-        element.setAttribute("href",dsrc||imgs[i].src);
-        imgs[i].parentNode.appendChild(element);
-        imgs[i].parentNode.removeChild(imgs[i]);
-        element.appendChild(record);
-    }
-}
-imgInit();
-</script>
-
-<!-- <script>
-var spoiler=document.getElementsByClassName('spoiler');
-for(var i=0;i<spoiler.length;++i)
-spoiler[i].onclick=function(){this.classList.toggle("revealed");};
-</script> -->
-
+</div>
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>

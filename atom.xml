@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goodguyjameswin.github.io/"/>
-  <updated>2022-06-03T08:11:53.465Z</updated>
+  <updated>2022-06-17T05:35:55.868Z</updated>
   <id>http://goodguyjameswin.github.io/</id>
   
   <author>
@@ -17,11 +17,57 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>mybatis-plus学习</title>
+    <link href="http://goodguyjameswin.github.io/2022/04/08/mybatis-plus%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2022/04/08/mybatis-plus学习/</id>
+    <published>2022-04-08T08:16:21.000Z</published>
+    <updated>2022-06-17T05:35:55.868Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>springboot学习</title>
+    <link href="http://goodguyjameswin.github.io/2021/12/10/springboot%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2021/12/10/springboot学习/</id>
+    <published>2021-12-10T08:26:45.000Z</published>
+    <updated>2022-06-17T05:36:07.357Z</updated>
+    
+    <summary type="html">
+    
+      Springboot的简单搭建
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>springmvc学习</title>
-    <link href="http://goodguyjameswin.github.io/2022/05/24/springmvc%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://goodguyjameswin.github.io/2022/05/24/springmvc学习/</id>
-    <published>2022-05-24T03:35:02.000Z</published>
-    <updated>2022-06-03T08:11:53.465Z</updated>
+    <link href="http://goodguyjameswin.github.io/2021/11/15/springmvc%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2021/11/15/springmvc学习/</id>
+    <published>2021-11-15T03:35:02.000Z</published>
+    <updated>2022-06-17T05:34:37.254Z</updated>
     
     <summary type="html">
     
@@ -38,34 +84,14 @@
   
   <entry>
     <title>spring学习</title>
-    <link href="http://goodguyjameswin.github.io/2022/05/22/spring%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://goodguyjameswin.github.io/2022/05/22/spring学习/</id>
-    <published>2022-05-22T06:53:05.000Z</published>
-    <updated>2022-06-03T08:11:52.641Z</updated>
+    <link href="http://goodguyjameswin.github.io/2021/11/05/spring%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2021/11/05/spring学习/</id>
+    <published>2021-11-05T06:53:05.000Z</published>
+    <updated>2022-06-17T05:34:19.165Z</updated>
     
     <summary type="html">
     
       Spring的简单搭建
-    
-    </summary>
-    
-      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mybatis学习</title>
-    <link href="http://goodguyjameswin.github.io/2022/05/22/mybatis%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://goodguyjameswin.github.io/2022/05/22/mybatis学习/</id>
-    <published>2022-05-22T01:50:37.000Z</published>
-    <updated>2022-06-03T08:11:51.431Z</updated>
-    
-    <summary type="html">
-    
-      Mybatis的简单搭建
     
     </summary>
     
@@ -93,6 +119,26 @@
     
     
       <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mybatis学习</title>
+    <link href="http://goodguyjameswin.github.io/2021/10/25/mybatis%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://goodguyjameswin.github.io/2021/10/25/mybatis学习/</id>
+    <published>2021-10-25T01:50:37.000Z</published>
+    <updated>2022-06-17T05:33:54.928Z</updated>
+    
+    <summary type="html">
+    
+      Mybatis的简单搭建
+    
+    </summary>
+    
+      <category term="生活" scheme="http://goodguyjameswin.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="学习笔记" scheme="http://goodguyjameswin.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -141,7 +187,7 @@
     <link href="http://goodguyjameswin.github.io/2021/10/07/PaddleOcr/"/>
     <id>http://goodguyjameswin.github.io/2021/10/07/PaddleOcr/</id>
     <published>2021-10-07T02:20:57.000Z</published>
-    <updated>2022-05-22T01:47:49.440Z</updated>
+    <updated>2022-06-04T13:45:14.262Z</updated>
     
     <summary type="html">
     
@@ -153,8 +199,6 @@
     
     
       <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
-    
-      <category term="ocr" scheme="http://goodguyjameswin.github.io/tags/ocr/"/>
     
   </entry>
   
@@ -183,7 +227,7 @@
     <link href="http://goodguyjameswin.github.io/2021/09/22/text-generator/"/>
     <id>http://goodguyjameswin.github.io/2021/09/22/text-generator/</id>
     <published>2021-09-22T04:37:14.000Z</published>
-    <updated>2021-10-10T12:30:18.520Z</updated>
+    <updated>2022-06-04T13:45:12.820Z</updated>
     
     <summary type="html">
     
@@ -195,8 +239,6 @@
     
     
       <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
-    
-      <category term="ocr" scheme="http://goodguyjameswin.github.io/tags/ocr/"/>
     
   </entry>
   
@@ -225,7 +267,7 @@
     <link href="http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/"/>
     <id>http://goodguyjameswin.github.io/2021/09/06/yolo_icdar/</id>
     <published>2021-09-06T12:30:01.000Z</published>
-    <updated>2022-06-03T08:01:16.800Z</updated>
+    <updated>2022-06-04T13:45:11.056Z</updated>
     
     <summary type="html">
     
@@ -237,8 +279,6 @@
     
     
       <category term="开源项目" scheme="http://goodguyjameswin.github.io/tags/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
-    
-      <category term="ocr" scheme="http://goodguyjameswin.github.io/tags/ocr/"/>
     
   </entry>
   

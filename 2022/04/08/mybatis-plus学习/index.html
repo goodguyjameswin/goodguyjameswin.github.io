@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">text_generator | zt&#39;s blog</title>
+  <title itemprop="name">mybatis-plus学习 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -503,12 +503,12 @@
   <!-- <div class="pattern-center single-center"> -->
   <div class="pattern-center-sakura single-center">
     <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp">
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/mybatis-plus.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/mybatis-plus.webp">
     </div>
     <!-- <header class="pattern-header single-header"> -->
     <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
       <h1 class="entry-title">
-      text_generator</h1>
+      mybatis-plus学习</h1>
       <p class="entry-census">
         <span>
           <a href="https://github.com/goodguyjameswin">
@@ -521,12 +521,12 @@
         <span class="bull">
           <i class="fa fa-calendar" aria-hidden="true"></i>
         </span>
-        2021-9-22
+        2022-4-8
         <!-- 给文章 -->
         <span class="bull"></span>
         
           <span><i class="fa fa-archive"></i> 分类于  
-            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
           
         </span>
         
@@ -540,7 +540,7 @@
       
       <div>
             <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
             </ul>
           </div>
           <script>
@@ -569,49 +569,204 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>用pillow的ImageFont模块去生成可供ocr模型训练的文本检测和识别训练数据，<a href="https://github.com/goodguyjameswin/ocr_data_generator" target="_blank" rel="noopener">原项目</a>暂时没找到。。</p>
-<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="引入背景roi"><a href="#引入背景roi" class="headerlink" title="引入背景roi"></a>引入背景roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/bg.webp"></div>
-
-<p>就像上面这张图，有时候场景文本检测和识别任务中，文字只会出现在场景图片特定的语义区域中。因此在制作文本数据时，就需要限定文本出现的范围</p>
-<p>调用opencv-python里的api：</p>
-<pre><code class="python">import cv2
-
-class UseCv:
-  def __init__(self):
-    self.path = &#39;bg.jpg&#39;
-  def cut(self):
-    img = cv2.imread(self.path, flags=cv2.IMREAD_COLOR)
-    bbox = cv2.selectROI(img, False)
-    cut = img[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2]]
-    cv2.imwrite(&#39;bg_cut.jpg&#39;, cut)
+            <h2 id="构建工程"><a href="#构建工程" class="headerlink" title="构建工程"></a>构建工程</h2><p><a href="https://baomidou.com/" target="_blank" rel="noopener">Mybatis-Plus中文文档</a></p>
+<h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><p>新建Maven父工程，导入依赖：</p>
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;version&gt;1.18.24&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
+        &lt;version&gt;3.5.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+        &lt;artifactId&gt;h2&lt;/artifactId&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
 </code></pre>
-<p>更改：</p>
-<pre><code class="python">self.roi = cv2.selectROI(cv2.imread(self.bg, 1), False)
+<p>resources目录下新建application.yml配置文件中添加H2数据库的相关配置：</p>
+<pre><code class="yml"># DataSource Config
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:db/schema=h2.sql
+    data: classpath:db/data-h2.sql
+    url: jdbc:h2:mem:test
+    username: root
+    password: test
 </code></pre>
-<pre><code class="python">if x + w &gt; (self.roi[0] + self.roi[2] - 10) or y + h &gt; (self.roi[1]+ self.roi[3] - 10):
-  return draw, (w, h), False
+<p>在 Spring Boot 启动类中添加 @MapperScan 注解，扫描 Mapper 文件夹：</p>
+<pre><code class="java">@SpringBootApplication
+@MapperScan(&quot;scan.your.mapper.package&quot;)
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
 </code></pre>
-<pre><code class="python">tl_x = random.randrange(self.roi[0], self.roi[0] + self.roi[2])  # 字体位置
-tl_y = random.randrange(self.roi[1], self.roi[1] + self.roi[3])
+<p>Mapper包下的UserMapper接口只需要继承<code>BaseMapper&lt;T&gt;</code>类即可（泛型指定封装数据类型）</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><pre><code class="yml">mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 </code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="命令行调用"><a href="#命令行调用" class="headerlink" title="命令行调用"></a>命令行调用</h3><p>生成语料：</p>
-<pre><code class="txt">9CHCAV1
-6TXYQ
-WNVKWX
-9OMKKCM5Y
-X4EPT1J-
-9ZG4GB
-HUTTQRF
-KDB6TFFP
-1ZNKT45E
-ULR26VPJE
-</code></pre>
-<h3 id="选择roi"><a href="#选择roi" class="headerlink" title="选择roi"></a>选择roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/roi.webp"></div>
+<h4 id="主键策略"><a href="#主键策略" class="headerlink" title="主键策略"></a>主键策略</h4><p>主键注解<code>@TableId(&quot;AUTO&quot;)</code>，设置数据库ID自增，用在实体类的主键字段，数据库对应列也应当设置为自增</p>
+<h4 id="自动填充功能"><a href="#自动填充功能" class="headerlink" title="自动填充功能"></a>自动填充功能</h4><p>注解填充字段 <code>@TableField(.. fill = FieldFill.INSERT)</code></p>
+<pre><code class="java">public class User {
+  @TableField(fill = FieldFill.INSERT)
+  private String createTime;
 
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/print.webp"></div>
-
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/result.webp"></div>
-
+  @TableField(fill = FieldFill.INSERT_UPDATE)
+  private String updateTime;
+  ...
+}
+</code></pre>
+<p>实现元对象处理器接口：<code>com.baomidou.mybatisplus.core.handlers.MetaObjectHandler</code></p>
+<pre><code class="java">@Slf4j
+@Component
+public class MyMetaObjectHandler implements MetaObjectHandler {
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        log.info(&quot;start insert fill ....&quot;);
+        this.setFieldValByName(&quot;createTime&quot;, new Date(), metaObject);
+        this.setFieldValByName(&quot;updateTime&quot;, new Date(), metaObject)
+    }
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        log.info(&quot;start update fill ....&quot;);
+        this.setFieldValByName(&quot;updateTime&quot;, new Date(), metaObject)
+    }
+}
+</code></pre>
+<h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><p>当要更新一条记录时，希望这条记录没有被别人更新，实现方式为：</p>
+<ul>
+<li>去除记录时，获取当前version</li>
+<li>更新时，带上这个 version</li>
+<li>执行更新时， set version = newVersion where version = oldVersion</li>
+<li>如果 version 不对，就更新失败</li>
+</ul>
+<pre><code class="java">@Configuration
+@MapperScan(&quot;scan.your.mapper.package&quot;)
+public class MybatisPlusConfig {
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        return mybatisPlusInterceptor;
+    }
+}
+</code></pre>
+<p>在对应的实体类字段上加上<code>@Version</code>注解即可</p>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>配置拦截器</p>
+<pre><code class="java">@Configuration
+@MapperScan(&quot;scan.your.mapper.package&quot;)
+public class MybatisPlusConfig {
+    /**
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题
+     */
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        return interceptor;
+    }
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -&gt; configuration.setUseDeprecatedExecutor(false);
+    }
+}
+</code></pre>
+<p>直接使用<code>Page</code>对象即可</p>
+<h4 id="逻辑删除"><a href="#逻辑删除" class="headerlink" title="逻辑删除"></a>逻辑删除</h4><p>增加一个字段，标记用户对数据库中数据的删除操作，实际上数据库中的数据未被删除（实际上进行的是更新操作），类似于回收站，后续管理员可根据需要进行数据库的清理</p>
+<p>配置application.yml或者编写配置类</p>
+<pre><code class="yml">mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: flag # 全局逻辑删除的实体字段名(配置后可以忽略配置类)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+</code></pre>
+<pre><code class="java">@Configuration
+@MapperScan(&quot;scan.your.mapper.package&quot;)
+public class MybatisPlusConfig {
+    @Bean
+    public ISqlInjector sqlInjector() {
+        return new LogicSqlInjector();
+    }
+}
+</code></pre>
+<p>对应实体类字段上加上<code>@TableLogic</code>注解即可</p>
+<h4 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h4><p>SQL执行效率插件</p>
+<pre><code class="java">@Configuration
+@MapperScan(&quot;scan.your.mapper.package&quot;)
+public class MybatisPlusConfig {
+    @Bean
+    @Profile({&quot;dev&quot;, &quot;test&quot;}) // 设置 dev test 环境开启，保证效率，注意在 SpringBoot 环境中配置 spring.profiles.active=dev/test
+    public PerformanceInterceptor performanceInterceptor() {
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+        performanceInterceptor.setMaxTime(100); // ms 设置sql执行的最大时间，如果超过了则不执行
+        performanceInterceptor.setFormat(true); // 是否格式化代码
+        return performanceInterceptor;
+    }
+}
+</code></pre>
+<h3 id="条件构造器"><a href="#条件构造器" class="headerlink" title="条件构造器"></a>条件构造器</h3><pre><code class="java">@Test
+void contextLoads() {
+    QueryWrapper&lt;User&gt; wrapper = new QueryWrapper&lt;&gt;();
+    // 链式编程
+    wrapper
+        .isNotNull(&quot;name&quot;) // name 不为空
+        .isNotNull(&quot;email&quot;) // 邮箱不为空
+        .ge(&quot;age&quot;, 12); // 年龄大于等于12
+    // wrapper // 模糊查询
+    //     .notLike(&quot;name&quot;, &quot;e&quot;); // name NOT LIKE &#39;%e%&#39;
+    //     .likeRight(&quot;email&quot;, &quot;t&quot;); // email LIKE &#39;t%&#39;
+    // wrapper
+    //     .inSql(&quot;id&quot;, &quot;select id from user where id &lt; 3&quot;) // 子查询
+    //     .orderByDsc(&quot;id&quot;); // 根据 id 进行降序排序
+    userMapper.selectList(wrapper).forEach(System.out::println);
+}
+</code></pre>
+<h3 id="代码生成器"><a href="#代码生成器" class="headerlink" title="代码生成器"></a>代码生成器</h3><p>导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-plus-generator&lt;/artifactId&gt;
+    &lt;version&gt;最新版本&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="java">FastAutoGenerator.create(&quot;url&quot;, &quot;username&quot;, &quot;password&quot;)
+    .globalConfig(builder -&gt; {
+        builder.author(&quot;baomidou&quot;) // 设置作者
+            .enableSwagger() // 开启 swagger 模式
+            .fileOverride() // 覆盖已生成文件
+            .outputDir(&quot;/src/main/java&quot;); // 指定输出目录
+    })
+    .packageConfig(builder -&gt; {
+        builder.parent(&quot;com.baomidou.mybatisplus.samples.generator&quot;) // 设置父包名
+            .moduleName(&quot;system&quot;) // 设置父包模块名
+            .pathInfo(Collections.singletonMap(OutputFile.xml, &quot;D://&quot;)); // 设置mapperXml生成路径
+    })
+    .strategyConfig(builder -&gt; {
+        builder.addInclude(&quot;user&quot;) // 设置需要生成的表名
+            .addTablePrefix(&quot;t_&quot;, &quot;c_&quot;); // 设置过滤表前缀
+    })
+    .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+    .execute();
+</code></pre>
 <hr>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
@@ -642,36 +797,19 @@ ULR26VPJE
         <!-- <div class="toc" style="background: none;"></div> -->
         <section class="post-squares nextprev">
           
-            
-              <div class="post-nepre half previous">
-            
-              <a href="/2021/09/26/data-augtools/" rel="prev">
-                <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp">
-                </div>
-                <span class="label">
-                Previous Post</span>
-                <div class="info">
-                  <h3>
-                  data-augtools</h3>
-                  <!-- <hr> -->
-                </div>
-              </a>
-            </div>
-          
           
             
-              <div class="post-nepre half next">
+              <div class="post-nepre full next">
             
-              <a href="/2021/09/15/shape_based_matching/" rel="next">
+              <a href="/2021/12/10/springboot学习/" rel="next">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp">
                 </div>
                 <span class="label">
                 Next Post</span>
                 <div class="info">
                   <h3>
-                  shape_based_matching</h3>
+                  springboot学习</h3>
                   <!-- <hr> -->
                 </div>
               </a>
@@ -691,7 +829,7 @@ ULR26VPJE
             </div>
           </div>
           <hr>
-          <p><i class="iconfont icon-write"></i>技术宅</p>
+          <p><i class="iconfont icon-write"></i></p>
         </section> -->
       </main><!-- #main -->
     </div><!-- #primary -->

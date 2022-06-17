@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">text_generator | zt&#39;s blog</title>
+  <title itemprop="name">二分查找 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -500,67 +500,6 @@
 <div class="gather">
 <!-- 板块化 -->
 
-  <!-- <div class="pattern-center single-center"> -->
-  <div class="pattern-center-sakura single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/ocr_datamaker.webp">
-    </div>
-    <!-- <header class="pattern-header single-header"> -->
-    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
-      <h1 class="entry-title">
-      text_generator</h1>
-      <p class="entry-census">
-        <span>
-          <a href="https://github.com/goodguyjameswin">
-            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
-          </a>
-        </span>
-        <span>
-          <a href="https://github.com/goodguyjameswin">terryjoe</a>
-        </span>
-        <span class="bull">
-          <i class="fa fa-calendar" aria-hidden="true"></i>
-        </span>
-        2021-9-22
-        <!-- 给文章 -->
-        <span class="bull"></span>
-        
-          <span><i class="fa fa-archive"></i> 分类于  
-            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
-          
-        </span>
-        
-        <!-- 加分类 -->
-        <span class="bull">
-          <i class="fa fa-eye" aria-hidden="true"></i>
-        </span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
-      <!-- 给文章 -->
-      
-      
-      <div>
-            <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
-            </ul>
-          </div>
-          <script>
-              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
-              function paintTags(){
-                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
-                  for(var i = 0 ; i < tags.length ; ++i){
-                      if(!tagColors.length)colorInit(tagColors,colorNumber);
-                      var j=Math.floor(Math.random()*tagColors.length);
-                      tags[i].classList.add("spfk-color"+tagColors[j]);
-                      tagColors.splice(j,1);
-          }
-              }
-              paintTags()
-          </script>
-      
-      <!-- 打标签 -->
-    </header>
-  </div>
-  
   <div id="content" class="site-content">
     <div id="primary" class="content-area">
       <main id="main" class="site-main" role="main">
@@ -568,52 +507,15 @@
           <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
+            <header class="entry-header">
+              <h1 class="entry-title">二分查找</h1>
+              <p class="entry-census">terryjoe&nbsp;·&nbsp;2022-6-4&nbsp;·&nbsp;<span id="busuanzi_value_page_pv"></span>次阅读</p></p>
+
+              <hr>
+            </header>
+          
           <div class="entry-content">
-            <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>用pillow的ImageFont模块去生成可供ocr模型训练的文本检测和识别训练数据，<a href="https://github.com/goodguyjameswin/ocr_data_generator" target="_blank" rel="noopener">原项目</a>暂时没找到。。</p>
-<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="引入背景roi"><a href="#引入背景roi" class="headerlink" title="引入背景roi"></a>引入背景roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/bg.webp"></div>
-
-<p>就像上面这张图，有时候场景文本检测和识别任务中，文字只会出现在场景图片特定的语义区域中。因此在制作文本数据时，就需要限定文本出现的范围</p>
-<p>调用opencv-python里的api：</p>
-<pre><code class="python">import cv2
-
-class UseCv:
-  def __init__(self):
-    self.path = &#39;bg.jpg&#39;
-  def cut(self):
-    img = cv2.imread(self.path, flags=cv2.IMREAD_COLOR)
-    bbox = cv2.selectROI(img, False)
-    cut = img[bbox[1]:bbox[1] + bbox[3], bbox[0]:bbox[0] + bbox[2]]
-    cv2.imwrite(&#39;bg_cut.jpg&#39;, cut)
-</code></pre>
-<p>更改：</p>
-<pre><code class="python">self.roi = cv2.selectROI(cv2.imread(self.bg, 1), False)
-</code></pre>
-<pre><code class="python">if x + w &gt; (self.roi[0] + self.roi[2] - 10) or y + h &gt; (self.roi[1]+ self.roi[3] - 10):
-  return draw, (w, h), False
-</code></pre>
-<pre><code class="python">tl_x = random.randrange(self.roi[0], self.roi[0] + self.roi[2])  # 字体位置
-tl_y = random.randrange(self.roi[1], self.roi[1] + self.roi[3])
-</code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="命令行调用"><a href="#命令行调用" class="headerlink" title="命令行调用"></a>命令行调用</h3><p>生成语料：</p>
-<pre><code class="txt">9CHCAV1
-6TXYQ
-WNVKWX
-9OMKKCM5Y
-X4EPT1J-
-9ZG4GB
-HUTTQRF
-KDB6TFFP
-1ZNKT45E
-ULR26VPJE
-</code></pre>
-<h3 id="选择roi"><a href="#选择roi" class="headerlink" title="选择roi"></a>选择roi</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/roi.webp"></div>
-
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/print.webp"></div>
-
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/dataMaker/result.webp"></div>
-
-<hr>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
           <!-- .entry-content -->
           <!-- <div class="single-reward">
@@ -642,36 +544,19 @@ ULR26VPJE
         <!-- <div class="toc" style="background: none;"></div> -->
         <section class="post-squares nextprev">
           
-            
-              <div class="post-nepre half previous">
-            
-              <a href="/2021/09/26/data-augtools/" rel="prev">
-                <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp">
-                </div>
-                <span class="label">
-                Previous Post</span>
-                <div class="info">
-                  <h3>
-                  data-augtools</h3>
-                  <!-- <hr> -->
-                </div>
-              </a>
-            </div>
-          
           
             
-              <div class="post-nepre half next">
+              <div class="post-nepre full next">
             
-              <a href="/2021/09/15/shape_based_matching/" rel="next">
+              <a href="/2022/06/03/springboot学习/" rel="next">
                 <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/shape_based.webp">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp">
                 </div>
                 <span class="label">
                 Next Post</span>
                 <div class="info">
                   <h3>
-                  shape_based_matching</h3>
+                  springboot学习</h3>
                   <!-- <hr> -->
                 </div>
               </a>
@@ -691,7 +576,7 @@ ULR26VPJE
             </div>
           </div>
           <hr>
-          <p><i class="iconfont icon-write"></i>技术宅</p>
+          <p><i class="iconfont icon-write"></i></p>
         </section> -->
       </main><!-- #main -->
     </div><!-- #primary -->

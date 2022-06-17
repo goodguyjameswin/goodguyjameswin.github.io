@@ -30,7 +30,7 @@ function bot_ui_ini() {
         }).then(function () {
             botui.message.add({
                 delay: 1100,
-                content: "just a gamer"
+                content: "just a student"
             }).then(function () {
                 botui.action.button({
                     delay: 1600,
@@ -38,7 +38,7 @@ function bot_ui_ini() {
                         text: "然后呢？ 😃",
                         value: "sure"
                     }, {
-                        text: "少废话！ 🙄",
+                        text: "没兴趣！ 🙄",
                         value: "skip"
                     }]
                 }).then(function (a) {
@@ -51,7 +51,7 @@ function bot_ui_ini() {
     var sure = function () {
             botui.message.add({
                 delay: 600,
-                content: "😘"
+                content: "😁"
             }).then(function () {
                 secondpart()
             })
@@ -65,32 +65,32 @@ function bot_ui_ini() {
         secondpart = function () {
             botui.message.add({
                 delay: 1500,
-                content: "目前就读于武汉理工大学"
+                content: "某984.5高校在读研究生"
             }).then(function () {
                 botui.message.add({
                     delay: 1500,
-                    content: "向往摸鱼却误入CS行业，但后来喜欢上了编程…"
+                    content: "实验室做的多是视觉和机器学习的项目"
                 }).then(function () {
                     botui.message.add({
                         delay: 1200,
-                        content: "因为数据分析也需要Coder嘛"
+                        content: "但其实老师和学长们也教不了多少东西，大家基本都各自负责一块"
                     }).then(function () {
                         botui.message.add({
                             delay: 1500,
-                            content: "主攻 java 语言和 Python，略懂 C++，偶尔也折腾 HTML/CSS/JavaScript"
+                            content: "学习 java 和 Python（毕业需要），写了半年 C++（实验室项目需要），偶尔也折腾 HTML/CSS/JavaScript（美化个人网站）"
                         }).then(function () {
                             botui.message.add({
                                 delay: 1500,
-                                content: "研究的领域，是机器视觉方向的数据分析（data science）以及机器学习（machine learning）"
+                                content: "目前研究的，主要是机器视觉和深度学习结合的目标检测方向"
                             }).then(function () {
                                 botui.message.add({
                                     delay: 1800,
-                                    content: "比较宅，偶尔整点活，希望有一天能够被称为技术宅"
+                                    content: "我这个人没什么特点，坐得住可能是我最大的优点😀"
                                 }).then(function () {
                                     botui.action.button({
                                         delay: 1100,
                                         action: [{
-                                            text: "为什么叫TerryJoe呢？ 🤔",
+                                            text: "为什么叫TerryJoe呢？",
                                             value: "why-mashiro"
                                         }]
                                     }).then(function (a) {
@@ -111,7 +111,7 @@ function bot_ui_ini() {
                 botui.action.button({
                     delay: 1500,
                     action: [{
-                        text: "为什么是技术宅（宅）呢？ 🤔",
+                        text: "为什么学编程呢？ 🤔",
                         value: "why-cat"
                     }]
                 }).then(function (a) {
@@ -122,11 +122,11 @@ function bot_ui_ini() {
         fourthpart = function () {
             botui.message.add({
                 delay: 1E3,
-                content: "因为对ACG文化有种执念… "
+                content: "因为感觉自己跟电脑这个东西真的是孽缘不浅"
             }).then(function () {
                 botui.message.add({
                     delay: 1100,
-                    content: "而且我真的是社恐！"
+                    content: "而且我也有点宅😀"
                 }).then(function () {
                     botui.action.button({
                         delay: 1500,
@@ -143,11 +143,11 @@ function bot_ui_ini() {
         fifthpart = function () {
             botui.message.add({
                 delay: 1E3,
-                content: "emmmm，大概是所有刀剑厨的理想？（雾）。。"
+                content: "可能因为我是一个假的刀剑厨😂"
             }).then(function () {
                 botui.message.add({
                     delay: 1600,
-                    content: "那么，仔细看看我的博客吧？ ^_^"
+                    content: "那么，仔细看看我的博客吧！ ^_^"
                 })
             })
         } 

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">springmvc学习 | zt&#39;s blog</title>
+  <title itemprop="name">归档: 2021 | zt&#39;s blog</title>
   
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
   
@@ -492,462 +492,315 @@
   </div>
 </header>
 
-      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
-<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
-<div class="pattern-center-blank"></div>
-<!-- 板块化 -->
-<div class="gather">
-<!-- 板块化 -->
-
-  <!-- <div class="pattern-center single-center"> -->
-  <div class="pattern-center-sakura single-center">
-    <!-- 有配图默认渲染第一张 -->
-    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp">
-    </div>
-    <!-- <header class="pattern-header single-header"> -->
-    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
-      <h1 class="entry-title">
-      springmvc学习</h1>
-      <p class="entry-census">
-        <span>
-          <a href="https://github.com/goodguyjameswin">
-            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
-          </a>
-        </span>
-        <span>
-          <a href="https://github.com/goodguyjameswin">terryjoe</a>
-        </span>
-        <span class="bull">
-          <i class="fa fa-calendar" aria-hidden="true"></i>
-        </span>
-        2022-5-24
-        <!-- 给文章 -->
-        <span class="bull"></span>
-        
-          <span><i class="fa fa-archive"></i> 分类于  
-            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
-          
-        </span>
-        
-        <!-- 加分类 -->
-        <span class="bull">
-          <i class="fa fa-eye" aria-hidden="true"></i>
-        </span>
-      <span id="busuanzi_value_page_pv"></span>次阅读</p>
-      <!-- 给文章 -->
-      
-      
-      <div>
-            <ul class="spfk-ul">
-              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
-            </ul>
-          </div>
-          <script>
-              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
-              function paintTags(){
-                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
-                  for(var i = 0 ; i < tags.length ; ++i){
-                      if(!tagColors.length)colorInit(tagColors,colorNumber);
-                      var j=Math.floor(Math.random()*tagColors.length);
-                      tags[i].classList.add("spfk-color"+tagColors[j]);
-                      tagColors.splice(j,1);
-          }
-              }
-              paintTags()
-          </script>
-      
-      <!-- 打标签 -->
-    </header>
-  </div>
-  
-  <div id="content" class="site-content">
-    <div id="primary" class="content-area">
-      <main id="main" class="site-main" role="main">
-        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
-          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
-          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
-          
-          <div class="entry-content">
-            <h2 id="构建工程"><a href="#构建工程" class="headerlink" title="构建工程"></a>构建工程</h2><h3 id="xml配置方式开发"><a href="#xml配置方式开发" class="headerlink" title="xml配置方式开发"></a>xml配置方式开发</h3><p>新建Maven父工程，导入SpringMVC依赖：</p>
-<pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-    &lt;version&gt;5.3.20&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
-    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
-    &lt;version&gt;4.0.1&lt;/version&gt;
-    &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
-    &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;
-    &lt;version&gt;2.3.3&lt;/version&gt;
-    &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;javax.servlet.jsp.jstl&lt;/groupId&gt;
-    &lt;artifactId&gt;jstl&lt;/artifactId&gt;
-    &lt;version&gt;1.2&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>新建一个Module，添加web的支持：</p>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/springmvc/01.webp"></div>
-
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/springmvc/02.webp"></div>
-
-<p>确保附加库可被打包进web工程：</p>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/springmvc/03.webp"></div>
-
-<p>配置Tomcat：</p>
-<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/springmvc/04.webp"></div>
-
-<p>配置web.xml，注册DispatcherServlet：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
-         version=&quot;4.0&quot;&gt;
-
-    &lt;!-- 配置DispatcherServlet --&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-        &lt;init-param&gt;
-            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-            &lt;!-- 关联 Spring 的配置文件 --&gt;
-            &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;
-        &lt;!-- 启动级别：随着服务器启动而启动 --&gt;
-        &lt;/init-param&gt;
-        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
-    &lt;/servlet&gt;
-     &lt;!-- / 匹配所有的请求（不包括.jsp），/* 配置所有的请求（包括.jsp） --&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-    &lt;!-- 配置 Spring MVC 的乱码过滤 --&gt;
-    &lt;filter&gt;
-        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
-        &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
-        &lt;init-param&gt;
-            &lt;param-name&gt;encoding&lt;/param-name&gt;
-            &lt;param-value&gt;utf-8&lt;/param-value&gt;
-        &lt;/init-param&gt;
-    &lt;/filter&gt;
-    &lt;filter-mapping&gt;
-        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
-        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-    &lt;/filter-mapping&gt;
-&lt;/web-app&gt;
-</code></pre>
-<p>resources目录下新建Spring的配置文件applicationContext.xml：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
-
-    &lt;!-- 添加处理映射器 --&gt;
-    &lt;bean class=&quot;org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping&quot;/&gt;
-    &lt;!-- DispatchServlet 调用 HandlerMapping，HandlerMapping 根据请求 url 查找 Handler --&gt;
-
-    &lt;!-- 添加处理器适配器 --&gt;
-    &lt;bean class=&quot;org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter&quot;/&gt;
-    &lt;!-- HandlerAdapter 按照特定的规则去执行 Handler，Handler 让具体的 Controller 执行，Controller 将具体的执行信息返回给 HandlerAdapter，HandlerAdapter 将模型视图（ModelAndView）传递给 DispatcherServlet --&gt;
-
-    &lt;!--添加视图解析器--&gt;
-    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
-        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
-        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
-    &lt;/bean&gt;
-    &lt;!-- DispatcherServlet 调用视图解析器（ViewResolver）来解析 HandlerAdapter 传递的逻辑视图名，DispatcherServlet 调用具体的视图，最终呈现给用户 --&gt;
-
-    &lt;!-- Handler --&gt;
-    &lt;bean id=&quot;/hello&quot; class=&quot;controller.HelloController&quot;/&gt;
-    &lt;!-- HandlerExecution 表示具体的 Handler，其根据 url 查找 Controller，然后将解析后的信息传递给 DispatcherServlet --&gt;
-
-&lt;/beans&gt;   
-</code></pre>
-<p>新建Controller层：</p>
-<pre><code class="java">// 导入 SpringMVC 下的 Controller 接口
-public class HelloController implements Controller {
-
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception{
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject(&quot;msg&quot;, &quot;HelloSpringMVC!&quot;);
-        mv.setViewName(&quot;hello&quot;); // /WEB-INF/jsp/hello.jsp
-        return mv;
-    }
-}
-</code></pre>
-<h3 id="注解方式开发"><a href="#注解方式开发" class="headerlink" title="注解方式开发"></a>注解方式开发</h3><p>修改applicationContext.xml文件：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
-       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
-       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        https://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
-
-    &lt;!--1. 注解驱动--&gt;
-    &lt;mvc:annotation-driven/&gt;
-    &lt;!-- 在 spring 中一般采用 @RequestMapping 注解来完成映射关系，要想使 @RequestMapping 注解生效，必须向上下文中注册 DefaultAnnotationHandlerMapping 和一个 AnnotationMethodHandlerAdapter 实例，这两个实例分别在类级别和方法级别处理，而 annotation-driven 配置帮助我们自动完成上述两个实例的注入 --&gt;
-
-    &lt;!--2. 静态资源过滤--&gt;
-    &lt;mvc:default-servlet-handler/&gt;
-    &lt;!--3. 扫描包：controller--&gt;
-    &lt;context:component-scan base-package=&quot;controller&quot;/&gt;
-
-    &lt;!--4. 视图解析器--&gt;
-    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
-        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
-        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
-    &lt;/bean&gt;
-
-&lt;/beans&gt;
-</code></pre>
-<p>修改Controller层：</p>
-<pre><code class="java">@Controller
-public class HelloController {
-
-    @RequestMapping(&quot;/hello&quot;) // 也可在类上注解，表示映射方法与映射类的路径拼接关系
-    public String hello(@RequestParam(&quot;username&quot;) String name, Model model) {
-        // 接受前端用户传递的参数，判断参数的名字，假设名字一致，可以直接使用，假设传递的是一个对象，则匹配对象中的字段名，名字不一致则匹配不到，此时使用 @RequestParam 指定要接收传递的参数名
-        model.addAttribute(&quot;msg&quot;, &quot;Hello, SpringMVCAnnotation!&quot;); // 封装数据
-        return &quot;hello&quot;; // 会被视图解析器处理
-        // 不配置视图解析器的情况下
-        // return &quot;/WEB-INF/jsp/hello.jsp&quot; // 使用全限定路径表示转发
-        // return &quot;forward:/WEB-INF/jsp/hello.jsp&quot; // 转发（地址栏不变）
-        // return &quot;redirect:/hello.jsp&quot; // 重定向（地址栏变化）
-    }
-}
-
-// RestFul 风格
-@Controller
-public class RestFulController {
-    // 映射访问路径
-    @RequestMapping(value = &quot;/add/{a}/{b}&quot;, method = &quot;RequestMethod.POST&quot;)
-    // @PostMapping(&quot;/add/{a}/{b}&quot;) // 方法级别的注解处理地址栏的指定请求方式
-    public String add(@PathVariable int a, @PathVariable String b, Model model) {
-        // @PathVariable 注解让方法参数的值对应绑定到一个 URL 模板变量
-        int result = a + b;
-        // Spring MVC 会自动实例化一个 Model 对象用于向视图中传值
-        model.addAtrribute(&quot;msg&quot;, &quot;结果：&quot; + result); 
-        return &quot;hello&quot;;
-    }
-}
-</code></pre>
-<h3 id="json"><a href="#json" class="headerlink" title="json"></a>json</h3><p>导入jackson依赖：</p>
-<pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-    &lt;version&gt;2.13.3&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
-    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
-    &lt;version&gt;2.0.4&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>修改Controller层：</p>
-<pre><code class="java">@Controller
-// @RestController // 表示这个类下的所有方法都不会被视图解析器解析，而是直接返回
-public class UserController {
-    // 解决json数据乱码问题（不常用）
-    @RequestMapping(value = &quot;/j1&quot;, produces = &quot;application/json;charset=utf-8&quot;)
-    @ResponseBody // 这个方法被视图解析器解析，而是直接返回一个字符串，与 @RestController 效果相同
-    public String json() throws JsonProcessingException {
-        // jackson
-        ObjectMapper mapper = new ObjectMapper();
-        User user = new User(&quot;小明&quot;, 3, &quot;男&quot;);
-        String str = mapper.writeValueAsString(user); // 方法将对象转换为json格式字符串
-        return str;
-        // fastjson
-        // str = JSON.toJSONString(user); // java 对象转 JSON 字符串
-        // User user_json = JSON.parseObject(str, User.class); // JSON 字符串转 java 对象
-    }
-}
-</code></pre>
-<p>为了解决json乱码问题，在applicationContext.xml文件中添加：</p>
-<pre><code class="xml">&lt;mvc:annotation-driven&gt;
-    &lt;mvc:message-converters register-defaults=&quot;true&quot;&gt;
-        &lt;bean class=&quot;org.springframework.http.converter.StringHttpMessageConverter&quot;&gt;
-            &lt;constructor-arg value=&quot;UTF-8&quot;/&gt;
-        &lt;/bean&gt;
-        &lt;bean class=&quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&quot;&gt;
-            &lt;property name=&quot;objectMapper&quot;&gt;
-                &lt;bean class=&quot;org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean&quot;&gt;
-                    &lt;property name=&quot;failOnEmptyBeans&quot; value=&quot;false&quot;/&gt;
-                &lt;/bean&gt;
-            &lt;/property&gt;
-        &lt;/bean&gt;
-    &lt;/mvc:message-converters&gt;
-&lt;/mvc:annotation-driven&gt;
-</code></pre>
-<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>继承HandlerInterceptor接口：</p>
-<pre><code class="java">public class MyInterceptor implements HandlerInterceptor {
-    // 请求处理的方法之前执行
-    // 如果返回 true，放行（如果有，执行下一个拦截器）
-    // 如果返回 false，则拦截
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        System.out.pringln(&quot;-------处理前-------&quot;);
-        return true;
-    }
-    public boolean postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        System.out.pringln(&quot;-------处理后-------&quot;);
-    }
-}
-</code></pre>
-<p>在applicationContext.xml文件中添加：</p>
-<pre><code class="xml">&lt;mvc:interceptors&gt;
-    &lt;mvc:interceptor&gt;
-        &lt;!-- 包括这个请求下面的所有的请求 --&gt;
-        &lt;mvc:mapping path=&quot;/**&quot;/&gt;
-        &lt;bean class=&quot;interceptor.MyInterceptor&quot;/&gt;
-    &lt;/mvc:interceptro&gt;
-&lt;/mvc:interceptors&gt;
-</code></pre>
-<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p>导入依赖：</p>
-<pre><code class="xml">&lt;!-- 文件上传 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
-    &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
-    &lt;version&gt;1.4&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>在applicationContext.xml文件中添加：</p>
-<pre><code class="xml">&lt;bean id=&quot;multipartResolver&quot; class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;
-    &lt;!-- 请求的编码方式，必须和 jsp 的 pageEncoding 属性一致，以便正确读取表单内容，默认为 ISO-8859-1 --&gt;
-    &lt;property name=&quot;defaultEncoding&quot; value=&quot;utf-8&quot;/&gt;
-&lt;/bean&gt;
-</code></pre>
-<p>修改Controller层:</p>
-<pre><code class="java">@RestController
-public class FileController {
-
-    // @RequestParam(&quot;file&quot;) 将 name=file 控件得到的文件封装成 CommonsMultipartFile对象
-    @RequestMapping(&quot;/upload&quot;)
-    public String fileUpload(@RequestParam(&quot;file&quot;) CommonsMultipartFile file, HttpServletRequest request) throws IOException {
-        
-        // 上传路径保存设置
-        String path = request.getServletContext().getRealPath(&quot;/upload&quot;);
-        File realPath = new File(path);
-        if (!realPath.exists()) {
-            realPath.mkdir();
-        }
-        // 上传文件地址
-        System.out.println(&quot;上传文件保存地址:&quot; + realPath);
-        // 通过 CommonsMultipartFile 的方法直接写文件
-        file.transferTo(new File(realPath + &quot;/&quot; + file.getOriginalFilename()));
-        return &quot;ok&quot;;
-    }
-}
-</code></pre>
-<hr>
-
-          </div>
-          <!-- .entry-content -->
-          <!-- <div class="single-reward">
-            <div class="reward-open">赏
-              <div class="reward-main">
-                <ul class="reward-row">
-                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
-                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
-          <footer class="post-footer">
-            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
-            <div class="post-tags">
-            </div>
-            <div class="post-share">
-              <div class="social-share sharehidden share-component"></div>
-              <i class="iconfont show-share icon-forward"></i>
-            </div>
-          </footer> -->
-          <!-- .entry-footer -->
-        </article>
-        <!-- #post-## -->
-        <!-- <div class="toc" style="background: none;"></div> -->
-        <section class="post-squares nextprev">
-          
-          
-            
-              <div class="post-nepre full next">
-            
-              <a href="/2022/05/22/spring学习/" rel="next">
-                <div class="background">
-                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/spring.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/spring.webp">
-                </div>
-                <span class="label">
-                Next Post</span>
-                <div class="info">
-                  <h3>
-                  spring学习</h3>
-                  <!-- <hr> -->
-                </div>
-              </a>
-            </div>
-          
-        </section>
-        <!-- 
-   -->
-        <!-- <section class="author-profile">
-          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
-            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
-            <div class="meta">
-              <span class="title">Author</span>
-              <h3 itemprop="name">
-              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
-              </h3>
-            </div>
-          </div>
-          <hr>
-          <p><i class="iconfont icon-write"></i></p>
-        </section> -->
-      </main><!-- #main -->
-    </div><!-- #primary -->
-  </div>
+      <!-- <div class="blank" style="padding-top: 75px;">
+</div> -->
+<div class="pattern-center-blank" style="padding-top: 75px;">
 </div>
 <!-- 板块化 -->
 <div class="gather">
-  </div>
 <!-- 板块化 -->
 
+    <div class="pattern-center-sakura">
+      <div class="pattern-attachment-img">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/archiving.webp" class="lazyload" onerror="imgError(this,3)" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+      </div>
+      <header class="pattern-header ">
+        <h1 class="entry-title">
+        归档</h1>
+      </header>
+    </div>
+  
+<div id="content" class="site-content">
+  <div id="main">
+    <!-- <header class="page-header">
+      <h1 class="cat-title">
+      归档</h1>
+      <span class="cat-des">
+        <p>
+        Archives</p>
+      </span> 
+    </header> -->
+    <div id="main-part">
+      <article class="art">
+        <div class="art-main">
+          <div class="art-content">
+            <div id="archives">
+              <!-- <p style="text-align:right;">
+                [<span id="al_expand_collapse" style="cursor: s-resize;">
+                全部展开/收缩</span>
+              ]</p> -->
+              <p style="text-align:left;">
+                <button id="al_expand_collapse">
+                  <style>
+                  button#al_expand_collapse {
+                      color: white;
+                      border-radius: 16px;
+                      font-weight: bold;
+                      font-size: 15px;
+                      background-color: #ff9100;
+                      transition-duration: 0.3s;
+                      box-shadow: 0 3px 8px 0 rgba(0,0,0,0.11), 0 3px 8px 0 rgba(0,0,0,0.11);
+                      outline: none;
+                  }
+                  button#al_expand_collapse:hover {
+                      transition: all 0.2s linear 0s;
+                      background-color: #ff5900; 
+                  }
+                  </style>
+                  <i class="fa fa-bars" aria-hidden="true"></i> 全部展开/收缩
+              </button>
+              </p>              
+              
+              
+              
+              
+              
+                
+                <h3 class="al_year">2022年</h3>
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      04月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2022/04/08/mybatis-plus学习/">
+                          <span style="color:#0bf;">
+                          08日16:16:21</span>
+                          mybatis-plus学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+                
+                <h3 class="al_year">2021年</h3>
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      12月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/12/10/springboot学习/">
+                          <span style="color:#0bf;">
+                          10日16:26:45</span>
+                          springboot学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      11月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/11/15/springmvc学习/">
+                          <span style="color:#0bf;">
+                          15日11:35:02</span>
+                          springmvc学习
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/11/05/spring学习/">
+                          <span style="color:#0bf;">
+                          05日14:53:05</span>
+                          spring学习
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      10月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/10/27/rotated-data-maker/">
+                          <span style="color:#0bf;">
+                          27日21:30:45</span>
+                          rotated_data_maker
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/25/mybatis学习/">
+                          <span style="color:#0bf;">
+                          25日09:50:37</span>
+                          mybatis学习
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/09/yolov5-dota-obb/">
+                          <span style="color:#0bf;">
+                          09日10:19:20</span>
+                          yolov5-dota-obb
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/07/yolact/">
+                          <span style="color:#0bf;">
+                          07日11:34:57</span>
+                          yolact
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/10/07/PaddleOcr/">
+                          <span style="color:#0bf;">
+                          07日10:20:57</span>
+                          PaddleOCR
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+              
+              
+              
+              
+                
+                <ul class="al_mon_list">
+                  <li class="al_li">
+                    <span class="al_mon" style="cursor: s-resize;">
+                      09月(<span id="post-num">
+                      3</span>
+                    篇文章)</span>
+                    <ul class="al_post_list" style="">
+              
+                      <li>
+                        <a href="/2021/09/26/data-augtools/">
+                          <span style="color:#0bf;">
+                          26日15:14:03</span>
+                          data-augtools
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/22/text-generator/">
+                          <span style="color:#0bf;">
+                          22日12:37:14</span>
+                          text_generator
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/15/shape_based_matching/">
+                          <span style="color:#0bf;">
+                          15日10:13:12</span>
+                          shape_based_matching
+                        </a>
+                      </li>
+                      
+              
+              
+              
+              
+              
+                      <li>
+                        <a href="/2021/09/06/yolo_icdar/">
+                          <span style="color:#0bf;">
+                          06日20:30:01</span>
+                          yolo_icdar
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                </ul>
+              
+              
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
 
-
-<script>
-function imgInit(){
-    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
-    for(var i=0;i<imgs.length;++i){
-        var element = document.createElement("a"),record=imgs[i];
-        element.setAttribute("data-fancybox","gallery");
-        element.setAttribute("href",dsrc||imgs[i].src);
-        imgs[i].parentNode.appendChild(element);
-        imgs[i].parentNode.removeChild(imgs[i]);
-        element.appendChild(record);
-    }
-}
-imgInit();
-</script>
-
-<!-- <script>
-var spoiler=document.getElementsByClassName('spoiler');
-for(var i=0;i<spoiler.length;++i)
-spoiler[i].onclick=function(){this.classList.toggle("revealed");};
-</script> -->
-
+</div>
     </div>    
     <div class="ins-search">
     <div class="ins-search-mask"></div>
