@@ -1,0 +1,2269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">springboot学习 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI";
+  mashiro_option.v_appKey = "QLSh39tFIMnFiT4bET0u05WM";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      springboot学习</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-5-19
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <p><em><strong>内容部分转载自 公众号：狂神说，自学笔记，仅作学习交流用</strong></em></p>
+<h2 id="构建工程"><a href="#构建工程" class="headerlink" title="构建工程"></a>构建工程</h2><h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><p>使用IDEA创建项目，选择spring initializer，默认是到官网的快速构建工具实现，初始化组件一般选择Web即可</p>
+<p>在<strong>主程序的同级目录</strong>下，新建一个controller包</p>
+<pre><code class="java">@RestController
+public class HelloController {
+  @RequestMapping(&quot;/hello&quot;)
+  public String hello() {
+    return &quot;Hello World&quot;;
+  }
+}
+</code></pre>
+<p>从主程序启动项目，访问本机的Tomcat端口号即可</p>
+<h3 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h3><p>发现一个springboot项目主要是依赖于一个父项目</p>
+<pre><code class="xml">&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+  &lt;version&gt;2.7.0&lt;/version&gt;
+  &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+</code></pre>
+<p>父项目还有一个父依赖，里面存有复数依赖包的各版号</p>
+<pre><code class="xml">&lt;parent&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+  &lt;version&gt;2.7.0&lt;/version&gt;
+&lt;/parent&gt;
+</code></pre>
+<p><code>@SpringBootApplication</code>注解SpringBoot的主配置类，SpringBoot通过运行这个类的main方法来启动SpringBoot应用</p>
+<pre><code class="java">@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+public @interface SpringBootApplication {
+    // ......
+}
+</code></pre>
+<p><code>@SpringBootConfiguration</code>注解SpringBoot的某个配置类</p>
+<p><code>@EnableAutoConfiguration</code>开启自动配置功能</p>
+<pre><code class="java">@AutoConfigurationPackage
+@Import({AutoConfigurationImportSelector.class})
+public @interface EnableAutoConfiguration {
+  // ......
+}
+</code></pre>
+<p><code>@AutoConfigurationPackage</code>自动配置包</p>
+<pre><code class="java">@Import({Registrar.class})
+public @interface AutoConfigurationPackage {
+  // ......
+}
+</code></pre>
+<p><code>@Import</code>是Spring底层注解，给容器导入一个组件，<code>Registrar.class</code>作用，将主启动类所在包及包下面所有子包的所有组件扫描到Spring容器</p>
+<p><code>@Import({AutoConfigurationImportSelector.class})</code>自动配置导入选择器</p>
+<pre><code class="java">// 获得候选的配置
+protected List&lt;String&gt; getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) {
+  // getSpringFactoriesLoaderFactoryClass()方法返回启动自动导入配置文件的注解类：EnableAutoConfiguration
+    List&lt;String&gt; configurations = new ArrayList(SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader()));
+    ImportCandidates.load(AutoConfiguration.class, this.getBeanClassLoader()).forEach(configurations::add);
+    Assert.notEmpty(configurations, &quot;No auto configuration classes found in META-INF/spring.factories nor in META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports. If you are using a custom packaging, make sure that file is correct.&quot;);
+    return configurations;
+}
+</code></pre>
+<p>找到<code>SpringFactoriesLoader</code>的静态方法<code>loadFactoryNames</code>中调用的<code>loadSpringFactories</code>静态方法，获得自动配置的根源文件<code>spring.factories</code></p>
+<pre><code class="java">private static Map&lt;String, List&lt;String&gt;&gt; loadSpringFactories(ClassLoader classLoader) {
+    // 获取classLoader，这里得到的就是EnableAutoConfiguration标注的类本身
+    Map&lt;String, List&lt;String&gt;&gt; result = (Map)cache.get(classLoader);
+    if (result != null) {
+        return result;
+    } else {
+        HashMap result = new HashMap();
+
+        try {
+            // 获取资源文件
+            Enumeration urls = classLoader.getResources(&quot;META-INF/spring.factories&quot;);
+
+            // 将读取到的资源遍历，封装成为一个Properties
+            // ......
+        } catch (IOException var14) {
+            throw new IllegalArgumentException(&quot;Unable to load factories from location [META-INF/spring.factories]&quot;, var14);
+        }
+    }
+}
+</code></pre>
+<p>自动配置真正实现是从<strong>classpath</strong>中搜寻所有的<code>META-INF/spring.factories</code>配置文件 ，并将其中对应的<code>org.springframework.boot.autoconfigure</code>包下的配置项，通过反射实例化为对应标注了<code>@Configuration</code>的<strong>JavaConfig</strong>形式的IOC容器配置类（xxxAutoConfiguration），然后将这些都汇总成为一个实例并加载到IOC容器中</p>
+<p><code>SpringApplication.run</code>方法一部分是SpringApplication的实例化</p>
+<pre><code class="java">public SpringApplication(ResourceLoader resourceLoader, Class... primarySources) {
+    // ......
+    this.webApplicationType = WebApplicationType.deduceFromClasspath();
+    this.setInitializers(this.getSpringFactoriesInstances());
+    this.setListeners(this.getSpringFactoriesInstances(ApplicationListener.class));
+    this.mainApplicationClass = this.deduceMainApplicationClass();
+}
+</code></pre>
+<ol>
+<li>推断应用的类型是普通的项目还是Web项目</li>
+<li>查找并加载所有可用初始化器 ， 设置到initializers属性中</li>
+<li>找出所有的应用程序监听器，设置到listeners属性中</li>
+<li>推断并设置main方法的定义类，找到运行的主类</li>
+</ol>
+<p>另一部分是run方法的执行</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/springboot/01.webp"></div>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p><code>@ConfigurationProperties(prefix=&quot;pojo&quot;)</code>作用是将配置文件中配置的每一个属性的值，映射到这个组件中；告诉SpringBoot将本类中的所有属性和配置文件中相关的配置进行绑定，默认从全局配置文件中获取值<code>prefix=&quot;pojo&quot;</code>：将<strong>配置文件中的pojo</strong>下面的所有属性一一对应</p>
+<p><code>@PropertySource(value=&quot;classpath:pojo.properties&quot;)</code>加载指定的配置文件</p>
+<p><code>@Validated</code>用于校验数据</p>
+<pre><code class="java">@Component //注册bean
+@ConfigurationProperties(prefix = &quot;person&quot;)
+@Validated  //数据校验
+public class Person {
+    @Email(message=&quot;邮箱格式错误&quot;) //name必须是邮箱格式
+    private String name;
+}
+</code></pre>
+<p>通过<code>spring.profiles.active={profile}</code>指定使用不同的环境，环境使用不同的端口号，或者通过yaml文件来配置，<strong>默认使用properties配置文件</strong></p>
+<pre><code class="yml">server:
+  port: 8081
+#选择要激活那个环境块
+spring:
+  profiles:
+    active: prod
+---
+server:
+  port: 8083
+spring:
+  profiles: dev #配置环境的名称
+---
+server:
+  port: 8084
+spring:
+  profiles: prod  #配置环境的名称
+</code></pre>
+<p>springboot项目的配置文件扫描优先级从高到低</p>
+<ul>
+<li>项目路径下的config文件夹配置文件</li>
+<li>项目路径下配置文件</li>
+<li>资源路径下的config文件夹配置文件</li>
+<li>资源路径下配置文件</li>
+</ul>
+<p>可在项目打包好后，使用命令行参数启动项目的时候指定配置文件的位置，此优先级最高</p>
+<pre><code class="bash">java -jar spring-boot-config.jar --spring.config.location=F:/application.properties
+</code></pre>
+<h3 id="自动装配原理"><a href="#自动装配原理" class="headerlink" title="自动装配原理"></a>自动装配原理</h3><p><code>xxxAutoConfiguration</code>自动配置类，用于给容器添加组件，必须在一定条件下才能生效，在主配置文件中启用<code>debug=true</code>让控制台打印自动配置报告</p>
+<pre><code class="java">// 表示这是一个配置类
+@AutoConfiguration
+// 启动指定类的ConfigurationProperties功能，xxxProperties类中封装着能在主配置文件中配置的属性
+@EnableConfigurationProperties({ServerProperties.class})
+// Spring底层@Conditional注解，根据条件判断配置类是否生效
+@ConditionalOnWebApplication(
+    type = Type.SERVLET
+)
+// 判断当前项目有没有指定类
+@ConditionalOnClass({CharacterEncodingFilter.class})
+// 判断配置文件中是否存在某个配置，一般默认是存在的
+@ConditionalOnProperty(
+    prefix = &quot;server.servlet.encoding&quot;,
+    value = {&quot;enabled&quot;},
+    matchIfMissing = true
+)
+public class HttpEncodingAutoConfiguration {
+    // 映射为SpringBoot的主配置文件
+    private final Encoding properties;
+
+    public HttpEncodingAutoConfiguration(ServerProperties properties) {
+        this.properties = properties.getServlet().getEncoding();
+    }
+
+    // 给容器添加一个组件，值可以从主配置文件中获取
+    @Bean
+    // 判断容器中是否存在指定组件
+    @ConditionalOnMissingBean
+    public CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
+        filter.setEncoding(this.properties.getCharset().name());
+        filter.setForceRequestEncoding(this.properties.shouldForce(org.springframework.boot.web.servlet.server.Encoding.Type.REQUEST));
+        filter.setForceResponseEncoding(this.properties.shouldForce(org.springframework.boot.web.servlet.server.Encoding.Type.RESPONSE));
+        return filter;
+    }
+
+    // ......
+}
+</code></pre>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><p>SpringBoot默认自动配置的数据源为<code>class com.zaxxer.hikari.HikariDataSource</code>，可直接注入使用，数据源的自动配置类<code>DataSourceAutoConfiguration</code></p>
+<pre><code class="java">@Import({Hikari.class, Tomcat.class, Dbcp2.class, OracleUcp.class, Generic.class, DataSourceJmxConfiguration.class})
+protected static class PooledDataSourceConfiguration {
+    protected PooledDataSourceConfiguration() {
+    }
+}
+</code></pre>
+<p>SpringBoot也默认自动配置了JdbcTemplate放在容器中用于直接注入使用，其自动配置类<code>JdbcTemplateConfiguration</code></p>
+<p>通过主配置文件<code>spring.datasource.type</code>可指定其他数据源</p>
+<pre><code class="yml">spring:
+  datasource:
+    username: root
+    password: 123456
+    #?serverTimezone=UTC解决时区的报错
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+    #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+</code></pre>
+<p>需要为<code>DruidDataSource</code>绑定全局配置文件中的参数，再添加到容器中</p>
+<pre><code class="java">import com.alibaba.druid.pool.DruidDataSource;
+import javax.sql.DataSource;
+
+@Configuration
+public class DruidConfig {
+    /*
+       将自定义的Druid数据源添加到容器中，不再让SpringBoot自动创建
+       绑定全局配置文件中的druid数据源属性到com.alibaba.druid.pool.DruidDataSource从而让它们生效
+     */
+    @ConfigurationProperties(prefix = &quot;spring.datasource&quot;)
+    @Bean
+    public DataSource druidDataSource() {
+        return new DruidDataSource();
+    }
+}
+</code></pre>
+<p>Druid数据源具有监控的功能，并提供了一个web界面方便用户查看</p>
+<pre><code class="java">//配置 Druid 监控管理后台的Servlet；
+//内置 Servlet 容器时没有web.xml文件，所以使用 Spring Boot 的注册 Servlet 方式
+@Bean
+public ServletRegistrationBean statViewServlet() {
+    ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), &quot;/druid/*&quot;);
+
+    // 这些参数可以在 com.alibaba.druid.support.http.StatViewServlet 
+    // 的父类 com.alibaba.druid.support.http.ResourceServlet 中找到
+    Map&lt;String, String&gt; initParams = new HashMap&lt;&gt;();
+    initParams.put(&quot;loginUsername&quot;, &quot;admin&quot;); //后台管理界面的登录账号
+    initParams.put(&quot;loginPassword&quot;, &quot;123456&quot;); //后台管理界面的登录密码
+
+    //后台允许谁可以访问
+    //initParams.put(&quot;allow&quot;, &quot;localhost&quot;)：表示只有本机可以访问
+    //initParams.put(&quot;allow&quot;, &quot;&quot;)：为空或者为null时，表示允许所有访问
+    initParams.put(&quot;allow&quot;, &quot;&quot;);
+    //deny：Druid 后台拒绝谁访问
+    //initParams.put(&quot;kuangshen&quot;, &quot;192.168.1.20&quot;);表示禁止此ip访问
+
+    //设置初始化参数
+    bean.setInitParameters(initParams);
+    return bean;
+}
+</code></pre>
+<p>配置 Druid web 监控 filter 过滤器</p>
+<pre><code class="java">//配置 Druid 监控 之 web 监控的 filter
+//WebStatFilter：用于配置Web和Druid数据源之间的管理关联监控统计
+@Bean
+public FilterRegistrationBean webStatFilter() {
+    FilterRegistrationBean bean = new FilterRegistrationBean();
+    bean.setFilter(new WebStatFilter());
+
+    //exclusions：设置哪些请求进行过滤排除掉，从而不进行统计
+    Map&lt;String, String&gt; initParams = new HashMap&lt;&gt;();
+    initParams.put(&quot;exclusions&quot;, &quot;*.js,*.css,/druid/*,/jdbc/*&quot;);
+    bean.setInitParameters(initParams);
+
+    //&quot;/*&quot; 表示过滤所有请求
+    bean.setUrlPatterns(Arrays.asList(&quot;/*&quot;));
+    return bean;
+}
+</code></pre>
+<h4 id="整合Mybatis"><a href="#整合Mybatis" class="headerlink" title="整合Mybatis"></a>整合Mybatis</h4><p>导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;2.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>创建mapper目录以及对应的Mapper接口，如果不使用<code>@Mapper</code>注解，也可以在直接在主程序入口添加Mapper扫描<code>@Mapper(basePackages=&quot;com.xxx.mapper.DepartmentMapper&quot;)</code>。</p>
+<pre><code class="java">//@Mapper : 表示本类是一个 MyBatis 的 Mapper
+@Mapper
+@Repository
+public interface DepartmentMapper {
+    // 获取所有部门信息
+    List&lt;Department&gt; getDepartments();
+
+    // 通过id获得部门
+    Department getDepartment(Integer id);
+}
+</code></pre>
+<p>对应的Mapper映射文件</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+
+&lt;mapper namespace=&quot;com.xxx.mapper.DepartmentMapper&quot;&gt;
+
+    &lt;select id=&quot;getDepartments&quot; resultType=&quot;Department&quot;&gt;
+       select * from department;
+    &lt;/select&gt;
+
+    &lt;select id=&quot;getDepartment&quot; resultType=&quot;Department&quot; parameterType=&quot;int&quot;&gt;
+       select * from department where id = #{id};
+    &lt;/select&gt;
+
+&lt;/mapper&gt;
+</code></pre>
+<p>如果与Mapper接口放在同一个包下则可以自动扫描到，但是需要配置静态资源过滤。</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/java&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+        &lt;/resource&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+&lt;/build&gt;
+</code></pre>
+<p>否则需要在主配置文件中配置扫描地址<code>mybatis.mapper-locations=classpath:mapper/*.xml</code>，但此时不需要配置文件过滤。</p>
+<p>编写DepartmentController进行测试</p>
+<pre><code class="java">
+@RestController
+public class DepartmentController {
+    
+    @Autowired
+    DepartmentMapper departmentMapper;
+    
+    // 查询全部部门
+    @GetMapping(&quot;/getDepartments&quot;)
+    public List&lt;Department&gt; getDepartments(){
+        return departmentMapper.getDepartments();
+    }
+
+    // 查询全部部门
+    @GetMapping(&quot;/getDepartment/{id}&quot;)
+    public Department getDepartment(@PathVariable(&quot;id&quot;) Integer id){
+        return departmentMapper.getDepartment(id);
+    }
+}
+</code></pre>
+<h3 id="静态资源映射"><a href="#静态资源映射" class="headerlink" title="静态资源映射"></a>静态资源映射</h3><p>在<code>WebMvcAutoConfiguration</code>下，<code>WebMvcAutoConfigurationAdapter</code>中的<code>addResourceHandler</code>方法可添加资源处理</p>
+<pre><code class="java">@Import({WebMvcAutoConfiguration.EnableWebMvcConfiguration.class})
+@EnableConfigurationProperties({WebMvcProperties.class, WebProperties.class})
+public static class WebMvcAutoConfigurationAdapter implements WebMvcConfigurer, ServletContextAware {
+
+    // ......
+
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        if (!this.resourceProperties.isAddMappings()) {
+            logger.debug(&quot;Default resource handling disabled&quot;);
+        } else {
+            this.addResourceHandler(registry, &quot;/webjars/**&quot;, &quot;classpath:/META-INF/resources/webjars/&quot;);
+            this.addResourceHandler(registry, this.mvcProperties.getStaticPathPattern(), (registration) -&gt; {
+                registration.addResourceLocations(this.resourceProperties.getStaticLocations());
+                if (this.servletContext != null) {
+                    ServletContextResource resource = new ServletContextResource(this.servletContext, &quot;/&quot;);
+                    registration.addResourceLocations(new Resource[]{resource});
+                }
+
+            });
+        }
+    }
+}
+</code></pre>
+<p>Webjars本质就是以jar包的方式引入我们的静态资源，导入jQuery的对应依赖即可使用，另一种静态资源映射规则是访问当前项目任意资源<code>/**</code>，在<strong>WebMvcProperties.class</strong>中定义，在<strong>resourceProperties.class</strong>中可以找到对应的与访问静态资源有关的参数设置</p>
+<pre><code class="java">public static class Resources {
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = new String[]{&quot;classpath:/META-INF/resources/&quot;, &quot;classpath:/resources/&quot;, &quot;classpath:/static/&quot;, &quot;classpath:/public/&quot;};
+    private String[] staticLocations;
+    // ......
+
+    public Resources() {
+        this.staticLocations = CLASSPATH_RESOURCE_LOCATIONS;
+        // ......
+    }
+}
+</code></pre>
+<p>也可以在SpringBoot的主配置文件中配置，比如<code>spring.resources.static-locations=classpath:/xx/,classpath:/xx/</code></p>
+<h4 id="设置主页"><a href="#设置主页" class="headerlink" title="设置主页"></a>设置主页</h4><p>在<code>WebMvcAutoConfiguration</code>下，<code>EnableConfiguration</code>类中定义了起始页面的相关参数设置。还可以在静态资源目录下设置网站图标，不过要先关闭SpringBoot默认图标<code>spring.mvc.favicon.enabled=false</code></p>
+<pre><code class="java">private Resource getWelcomePage() {
+    String[] var1 = this.resourceProperties.getStaticLocations(); // 映射规则为&#39;/**&#39;
+    int var2 = var1.length;
+
+    for(int var3 = 0; var3 &lt; var2; ++var3) {
+        String location = var1[var3];
+        Resource indexHtml = this.getIndexHtml(location);
+        if (indexHtml != null) {
+            return indexHtml;
+        }
+    }
+
+    ServletContext servletContext = this.getServletContext();
+    if (servletContext != null) {
+        return this.getIndexHtml((Resource)(new ServletContextResource(servletContext, &quot;/&quot;)));
+    } else {
+        return null;
+    }
+}
+
+private Resource getIndexHtml(String location) {
+    return this.getIndexHtml(this.resourceLoader.getResource(location));
+}
+
+private Resource getIndexHtml(Resource location) {
+    try {
+        Resource resource = location.createRelative(&quot;index.html&quot;);
+        if (resource.exists() &amp;&amp; resource.getURL() != null) {
+            return resource;
+        }
+    } catch (Exception var3) {
+    }
+
+    return null;
+}
+</code></pre>
+<h3 id="MVC自动配置原理"><a href="#MVC自动配置原理" class="headerlink" title="MVC自动配置原理"></a>MVC自动配置原理</h3><pre><code class="java">Spring MVC Auto-configuration
+// Spring Boot为Spring MVC提供了自动配置，它可以很好地与大多数应用程序一起工作。
+Spring Boot provides auto-configuration for Spring MVC that works well with most applications.
+// 自动配置在Spring默认设置的基础上添加了以下功能：
+The auto-configuration adds the following features on top of Spring’s defaults:
+// 包含视图解析器
+Inclusion of ContentNegotiatingViewResolver and BeanNameViewResolver beans.
+// 支持静态资源文件夹的路径，以及webjars
+Support for serving static resources, including support for WebJars 
+// 自动注册了Converter：
+// 转换器，这就是我们网页提交数据到后台自动封装成为对象的东西，比如把&quot;1&quot;字符串自动转换为int类型
+// Formatter：【格式化器，比如页面给我们了一个2019-8-10，它会给我们自动格式化为Date对象】
+Automatic registration of Converter, GenericConverter, and Formatter beans.
+// HttpMessageConverters
+// SpringMVC用来转换Http请求和响应的，比如我们要把一个User对象转换为JSON字符串，可以去看官网文档解释；
+Support for HttpMessageConverters (covered later in this document).
+// 定义错误代码生成规则的
+Automatic registration of MessageCodesResolver (covered later in this document).
+// 首页定制
+Static index.html support.
+// 初始化数据绑定器：帮我们把请求数据绑定到JavaBean中！
+Automatic use of a ConfigurableWebBindingInitializer bean (covered later in this document).
+
+/*
+如果您希望保留Spring Boot MVC功能，并且希望添加其他MVC配置（拦截器、格式化程序、视图控制器和其他功能），则可以添加自己
+的@configuration类，类型为webmvcconfiguer，但不添加@EnableWebMvc。如果希望提供
+RequestMappingHandlerMapping、RequestMappingHandlerAdapter或ExceptionHandlerExceptionResolver的自定义
+实例，则可以声明WebMVCregistrationAdapter实例来提供此类组件。
+*/
+If you want to keep Spring Boot MVC features and you want to add additional MVC configuration 
+(interceptors, formatters, view controllers, and other features), you can add your own 
+@Configuration class of type WebMvcConfigurer but without @EnableWebMvc. If you wish to provide 
+custom instances of RequestMappingHandlerMapping, RequestMappingHandlerAdapter, or 
+ExceptionHandlerExceptionResolver, you can declare a WebMvcRegistrationsAdapter instance to provide such components.
+
+// 如果您想完全控制Spring MVC，可以添加自己的@Configuration，并用@EnableWebMvc进行注释。
+If you want to take complete control of Spring MVC, you can add your own @Configuration annotated with @EnableWebMvc.
+</code></pre>
+<p>在<code>WebMvcAutoConfiguration</code>下，找到内容协商视图解析器<code>ContentNegotiatingViewResolver</code>，在<code>viewResolver</code>方法中，进到这个类里面可以看到有关解析视图的代码，说明其作用就是组合视图解析器。因此可以自己添加一个视图解析器，这个类就会将它与SpringBoot中自动配置的视图解析器组合</p>
+<pre><code class="java">@Nullable // 参数可为null
+public View resolveViewName(String viewName, Locale locale) throws Exception {
+    RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
+    Assert.state(attrs instanceof ServletRequestAttributes, &quot;No current ServletRequestAttributes&quot;);
+    List&lt;MediaType&gt; requestedMediaTypes = this.getMediaTypes(((ServletRequestAttributes)attrs).getRequest());
+    if (requestedMediaTypes != null) {
+        // 获取候选的视图对象
+        List&lt;View&gt; candidateViews = this.getCandidateViews(viewName, locale, requestedMediaTypes);
+        // 选择一个最适合的视图对象，然后把这个对象返回
+        View bestView = this.getBestView(candidateViews, requestedMediaTypes, attrs);
+        if (bestView != null) {
+            return bestView;
+        }
+    }
+}
+    // ......
+
+private List&lt;View&gt; getCandidateViews(String viewName, Locale locale, List&lt;MediaType&gt; requestedMediaTypes) throws Exception {
+    List&lt;View&gt; candidateViews = new ArrayList();
+    if (this.viewResolvers != null) {
+        Assert.state(this.contentNegotiationManager != null, &quot;No ContentNegotiationManager set&quot;);
+        Iterator var5 = this.viewResolvers.iterator();
+
+        // 把所有的视图解析器，while循环，挨个解析
+        while(var5.hasNext()) {
+            ViewResolver viewResolver = (ViewResolver)var5.next();
+            View view = viewResolver.resolveViewName(viewName, locale);
+            if (view != null) {
+                candidateViews.add(view);
+            }
+
+            // ......
+        }
+    }
+}
+
+protected void initServletContext(ServletContext servletContext) {
+    // 这里它是从beanFactory工具中获取容器中的所有视图解析器
+    // ViewResolver.class 把所有的视图解析器来组合的
+    Collection&lt;ViewResolver&gt; matchingBeans = BeanFactoryUtils.beansOfTypeIncludingAncestors(this.obtainApplicationContext(), ViewResolver.class).values();
+    ViewResolver viewResolver;
+    if (this.viewResolvers == null) {
+        this.viewResolvers = new ArrayList(matchingBeans.size());
+        Iterator var3 = matchingBeans.iterator();
+
+        while(var3.hasNext()) {
+            viewResolver = (ViewResolver)var3.next();
+            if (this != viewResolver) {
+                this.viewResolvers.add(viewResolver);
+            }
+        }
+        // ......
+    }
+}
+</code></pre>
+<p>SpringBoot自动配置很多组件时，先看容器中有没有用户自己配置的@bean，如果没有就用自动配置的，且有些组件可以存在多个</p>
+<pre><code class="java">//应为类型要求为WebMvcConfigurer，所以我们实现其接口
+//可以使用自定义类扩展MVC的功能
+@Configuration
+public class MyMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        // 浏览器发送/test ， 就会跳转到test页面；
+        registry.addViewController(&quot;/test&quot;).setViewName(&quot;test&quot;);
+    }
+}
+</code></pre>
+<p>我们也可以扩展配置。比如设置虚拟目录映射，用于解决文件回显显示的问题</p>
+<pre><code class="java">@Configuration
+public class MyMvcConfig implements WebMvcConfigurer {
+   // 文件保存在真实目录/upload/下，
+   // 访问的时候使用虚路径/upload，比如文件名为1.png，就直接/upload/1.png就ok了。
+   @Override
+   public void addResourceHandlers(ResourceHandlerRegistry registry) {
+       registry.addResourceHandler(&quot;/upload/**&quot;)
+          .addResourceLocations(&quot;file:&quot;+System.getProperty(&quot;user.dir&quot;)+&quot;/upload/&quot;);
+  }
+}
+</code></pre>
+<p>在<code>WebMvcAutoConfiguration</code>中，<code>WebMvcAutoConfigurationAdapter</code>上有注解<code>@Import(EnableWebMvcConfiguration.class</code>，对应类继承了<code>DelegatingWebMvcConfiguration</code>父类</p>
+<pre><code class="java">public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
+    private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
+
+    // 从容器中获取所有的webmvcConfigurer
+    @Autowired(required = false)
+    public void setConfigurers(List&lt;WebMvcConfigurer&gt; configurers) {
+        if (!CollectionUtils.isEmpty(configurers)) {
+            this.configurers.addWebMvcConfigurers(configurers);
+        }
+    }
+
+    protected void addViewControllers(ViewControllerRegistry registry) {
+        this.configurers.addViewControllers(registry);
+    }
+
+    // ......
+}
+</code></pre>
+<p>其中设置<code>viewController</code>中调用了<code>addViewControllers</code>方法，可以看出不止SpringBoot的自动配置类，我们自己编写的扩展配置类也会被调用</p>
+<pre><code class="java">public void addViewControllers(ViewControllerRegistry registry) {
+    Iterator var2 = this.delegates.iterator();
+
+    while(var2.hasNext()) {
+        // 将所有的WebMvcConfigurer相关配置进行组合调用，包括我们自定义的配置和SpringBoot的自动配置
+        WebMvcConfigurer delegate = (WebMvcConfigurer)var2.next();
+        delegate.addViewControllers(registry);
+    }
+}
+</code></pre>
+<p>而<code>@EnableWebMvc</code>注解类导入了继承父类<code>WebMvcConfigurationSupport</code>的<code>DelegatingWebMvcConfiguration</code>类，而<code>WebMvcConfigurationSupport</code>组件只包含SpringMVC最基本的功能</p>
+<pre><code class="java">@Import({DelegatingWebMvcConfiguration.class})
+public @interface EnableWebMvc {
+    // ......
+}
+</code></pre>
+<pre><code class="java">public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
+  // ......
+}
+</code></pre>
+<pre><code class="java">@Configuration(proxyBeanMethods = false)
+@ConditionalOnWebApplication(type = Type.SERVLET)
+@ConditionalOnClass({ Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class })
+// 这个注解的意思就是：容器中没有这个组件的时候，这个自动配置类才生效
+@ConditionalOnMissingBean(WebMvcConfigurationSupport.class)
+public class WebMvcAutoConfiguration {
+    // ......
+}
+</code></pre>
+<p>使得<code>WebMvcAutoConfiguration</code>自动配置类失效，从而全面接管SpringMVC的配置，因此这是不推荐的</p>
+<h3 id="集成Swagger"><a href="#集成Swagger" class="headerlink" title="集成Swagger"></a>集成Swagger</h3><p>导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.mangofactory&lt;/groupId&gt;
+    &lt;artifactId&gt;swagger-springmvc&lt;/artifactId&gt;
+    &lt;version&gt;1.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+    &lt;version&gt;2.10.5&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+    &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+    &lt;version&gt;2.10.5&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>编写配置类SwaggerConfig</p>
+<pre><code class="java">@Configuration // 配置类
+@EnableSwagger2 // 开启Swagger2的自动配置
+public class SwaggerConfig {
+
+    @Bean // 配置docket以配置Swagger具体参数
+    public Docket docket() {
+        // 设置要显示swagger的环境
+        Profiles of = Profiles.of(&quot;dev&quot;, &quot;test&quot;);
+        // 判断当前是否处于该环境
+        // 通过 enable() 接收此参数判断是否要显示
+        boolean b = environment.acceptsProfiles(of);
+
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()); // 实例关联上 apiInfo()
+        .enable(b) // 配置是否启用Swagger，如果是false，在浏览器将无法访问
+        .select() // 通过.select()方法，去配置扫描接口，RequestHandlerSelectors配置如何扫描接口
+        .apis(RequestHandlerSelectors.basePackage(&quot;com.kuang.swagger.controller&quot;))
+        .paths(PathSeletors.ant(&quot;/author/**&quot;)) // 配置如何通过path过滤，这里只扫描请求以 /author 开头的接口
+        .groupName(&quot;hello&quot;) // 配置分组，配置多个分组只需要配置多个docket即可
+        .build();
+    }
+
+    //配置文档信息
+    private ApiInfo apiInfo() {
+        Contact contact = new Contact(&quot;联系人名字&quot;, &quot;http://xxx.xxx.com/联系人访问链接&quot;, &quot;联系人邮箱&quot;);
+        return new ApiInfo(
+                &quot;Swagger学习&quot;, // 标题
+                &quot;学习演示如何配置Swagger&quot;, // 描述
+                &quot;v1.0&quot;, // 版本
+                &quot;http://terms.service.url/组织链接&quot;, // 组织链接
+                contact, // 联系人信息
+                &quot;Apach 2.0 许可&quot;, // 许可
+                &quot;许可链接&quot;, // 许可连接
+                new ArrayList&lt;&gt;()// 扩展
+        );
+    }
+}
+</code></pre>
+<p>除了通过包路径配置扫描接口外，还通过配置其他方式扫描接口</p>
+<pre><code class="java">any() // 扫描所有，项目中的所有接口都会被扫描到
+none() // 不扫描接口
+// 通过方法上的注解扫描，如withMethodAnnotation(GetMapping.class)只扫描get请求
+withMethodAnnotation(final Class&lt;? extends Annotation&gt; annotation)
+// 通过类上的注解扫描，如.withClassAnnotation(Controller.class)只扫描有controller注解的类中的接口
+withClassAnnotation(final Class&lt;? extends Annotation&gt; annotation)
+basePackage(final String basePackage) // 根据包路径扫描接口
+</code></pre>
+<p>配置接口扫描过滤</p>
+<pre><code class="java">any() // 任何请求都扫描
+none() // 任何请求都不扫描
+regex(final String pathRegex) // 通过正则表达式控制
+ant(final String antPattern) // 通过ant()控制
+</code></pre>
+<p><strong>请求接口</strong>的返回值（包括泛型），都会映射到实体类上，<code>@ApiModel</code>和<code>@ApiModelProperty</code>只是为实体类添加注释</p>
+<!-- 让表格居中显示 -->
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<div class="class">
+
+<table>
+<thead>
+<tr>
+<th align="center">Swagger注解</th>
+<th align="center">简单说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">@Api(tags=”xxx模块说明”)</td>
+<td align="center">作用在模块类上</td>
+</tr>
+<tr>
+<td align="center">@ApiOperation(“xxx接口说明”)</td>
+<td align="center">作用在接口方法上</td>
+</tr>
+<tr>
+<td align="center">@ApiModel(“xxxPOJO说明”)</td>
+<td align="center">作用在模型类上：如VO、BO</td>
+</tr>
+<tr>
+<td align="center">@ApiModelProperty(value = “xxx属性说明”,hidden = true)</td>
+<td align="center">作用在类方法和属性上，hidden设置为true可以隐藏该属性</td>
+</tr>
+<tr>
+<td align="center">@ApiParam(“xxx参数说明”)</td>
+<td align="center">作用在参数、方法和字段上，类似@ApiModelProperty</td>
+</tr>
+</tbody></table>
+</div>
+
+<h3 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h3><p>为了便于后台使用多线程的方式进行异步处理，可以用<code>@Async</code>注解一个异步方法，此时SpringBoot就会自己开一个线程池进行调用，需要在主程序入口上添加一个注解<code>@EnableAsync</code>，开启异步注解功能</p>
+<h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h3><p>SpringBoot提供了异步执行任务调度的方式，提供了接口<code>TaskExecutor</code>和<code>TaskScheduler</code>，以及注解<code>Scheduled</code>，需要在主程序入口上添加注解<code>@EnableScheduling</code>，开启定时任务功能</p>
+<pre><code class="java">@Service
+public class ScheduledService { 
+   //秒   分   时     日   月   周几
+   //0 * * * * MON-FRI
+   //注意cron表达式的用法；
+   @Scheduled(cron = &quot;0 * * * * 0-7&quot;) // 定义方法的定时执行
+   public void hello(){
+       System.out.println(&quot;hello.....&quot;);
+  }
+}
+</code></pre>
+<p align="center">cron 表达式</p>
+
+<div class="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">允许值</th>
+<th align="center">允许的特殊字符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">秒</td>
+<td align="center">0-59</td>
+<td align="center">,-*/</td>
+</tr>
+<tr>
+<td align="center">分</td>
+<td align="center">0-59</td>
+<td align="center">,-*/</td>
+</tr>
+<tr>
+<td align="center">小时</td>
+<td align="center">0-23</td>
+<td align="center">,-*/</td>
+</tr>
+<tr>
+<td align="center">日期</td>
+<td align="center">1-31</td>
+<td align="center">,-*?/L W C</td>
+</tr>
+<tr>
+<td align="center">月份</td>
+<td align="center">1-12</td>
+<td align="center">,-*/</td>
+</tr>
+<tr>
+<td align="center">星期</td>
+<td align="center">0-7或SUN-SAT 0,7是SUN</td>
+<td align="center">,-*?/L C W</td>
+</tr>
+</tbody></table>
+</div>
+
+<div class="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">特殊字符</th>
+<th align="center">代表含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">,</td>
+<td align="center">枚举</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">区间</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">任意</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">步长</td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="center">日/星期冲突匹配</td>
+</tr>
+<tr>
+<td align="center">L</td>
+<td align="center">最后</td>
+</tr>
+<tr>
+<td align="center">W</td>
+<td align="center">工作日</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">和calendar联系后计算过的值</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="center">星期，4#2，第2个星期三</td>
+</tr>
+</tbody></table>
+</div>
+
+<h3 id="邮件任务"><a href="#邮件任务" class="headerlink" title="邮件任务"></a>邮件任务</h3><p>导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>查看自动配置类<code>MailSenderAutoConfiguration</code>，开启了自动配置<code>@EnableConfigurationProperties({MailProperties.class})</code>，对应SpringBoot主配置文件中可配置参数</p>
+<pre><code class="java">@ConfigurationProperties(
+    prefix = &quot;spring.mail&quot;
+)
+public class MailProperties {
+    private static final Charset DEFAULT_CHARSET;
+    private String host;
+    private Integer port;
+    private String username;
+    private String password;
+    private String protocol = &quot;smtp&quot;;
+    private Charset defaultEncoding;
+    private Map&lt;String, String&gt; properties;
+    private String jndiName;
+
+    // ......
+}
+</code></pre>
+<p>自动配置类中没有注册bean，发现导入类<code>MailSenderJndiConfiguration</code>，其中注册了类<code>JavaMailSenderImpl</code>，其中定义了邮件发送的方法</p>
+<pre><code class="java">@Bean
+JavaMailSenderImpl mailSender(Session session) {
+    JavaMailSenderImpl sender = new JavaMailSenderImpl();
+    sender.setDefaultEncoding(this.properties.getDefaultEncoding().name());
+    sender.setSession(session);
+    return sender;
+}
+</code></pre>
+<p>邮件收发测试</p>
+<pre><code class="java">@Autowired
+JavaMailSenderImpl mailSender;
+
+@Test
+public void contextLoads2() throws MessagingException {
+   // SimpleMailMessage message = new SimpleMailMessage(); // 发送简单邮件
+   MimeMessage mimeMessage = mailSender.createMimeMessage(); // 复杂邮件
+   MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+   helper.setSubject(&quot;主题&quot;);
+   helper.setText(&quot;正文&quot;,true); // 可以插入html样式
+
+   //发送附件
+   helper.addAttachment(&quot;1.jpg&quot;,new File(&quot;&quot;));
+   helper.addAttachment(&quot;2.jpg&quot;,new File(&quot;&quot;));
+
+   helper.setTo(&quot;xxx@qq.com&quot;);
+   helper.setFrom(&quot;xxx@qq.com&quot;);
+
+   mailSender.send(mimeMessage);
+}
+</code></pre>
+<h3 id="整合Redis"><a href="#整合Redis" class="headerlink" title="整合Redis"></a>整合Redis</h3><p>导入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+    &lt;version&gt;2.7.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>找到SpringBoot中有关Redis的自动配置<code>RedisAutoConfiguration</code></p>
+<pre><code class="java">@AutoConfiguration
+@ConditionalOnClass({RedisOperations.class})
+@EnableConfigurationProperties({RedisProperties.class})
+@Import({LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class})
+public class RedisAutoConfiguration {
+    public RedisAutoConfiguration() {
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(
+        name = {&quot;redisTemplate&quot;}
+    ) // 说明可以编写自己的 redisTemplate 来覆盖自动配置的
+    @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+    public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate&lt;Object, Object&gt; template = new RedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        return new StringRedisTemplate(redisConnectionFactory);
+    }
+}
+</code></pre>
+<p>在<code>RedisProperties.class</code>里发现能在SpringBoot主配置文件中配置的redis相关参数</p>
+<pre><code class="java">@ConfigurationProperties(
+    prefix = &quot;spring.redis&quot;
+)
+public class RedisProperties {
+    private int database = 0;
+    private String url;
+    private String host = &quot;localhost&quot;;
+    private String username;
+    private String password;
+    private int port = 6379;
+    private boolean ssl;
+    private Duration timeout;
+    private Duration connectTimeout;
+    private String clientName;
+    private RedisProperties.ClientType clientType;
+    private RedisProperties.Sentinel sentinel;
+    private RedisProperties.Cluster cluster;
+    // ......
+}
+</code></pre>
+<p>实体类作为数据传递时需要进行序列化，比如实现<strong>serializable</strong>接口，或者自定义配置类，修改自动配置中的序列化方法</p>
+<pre><code class="java">@Configuration
+public class RedisConfig {
+    @Bean
+    @SuppresWarnings(&quot;all&quot;)
+    // 定制一个 RedisTemplate
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        // 一般直接使用 &lt;String, Object&gt;
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+        template.setConnectionFactory(redisConnectionFactory);
+
+        //Json序列化配置
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        StringRedisSerializer stringRedisSerializer = StringRedisSerializer();
+
+        // key采用String的序列化方式
+        template.setKeySerializer(stringRedisSerializer);
+        // hash的key也采用String的序列化方式
+        template.setHashKeySerializer(stringRedisSerializer);
+        // value序列化方式采用jackson
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        // hash的value序列化方式采用jackson
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+
+        return template;
+    }
+}
+</code></pre>
+<p>Redis的基本操作都通过注入的<code>redisTemplate</code>的API进行实现，一般进一步封装成工具类<code>RedisUtil</code>以便开发。</p>
+<p>还可以使用<code>Redis</code>来作为<code>Cache</code>的实现，首先在主程序入口加入注解<code>@EnableCaching</code>，发现SpringBoot自动配置了一个<code>RedisCacheManager</code>，它间接实现了<code>Spring</code>中的<code>Cache</code>接口：</p>
+<pre><code class="java">@Configuration
+@ConditionalOnClass(RedisConnectionFactory.class)
+@AutoConfigureAfter(RedisAutoConfiguration.class)
+@ConditionalOnBean(RedisConnectionFactory.class)
+@ConditionalOnMissingBean(CacheManager.class)
+@Conditional(CacheCondition.class)
+class RedisCacheConfiguration {
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory,
+            ResourceLoader resourceLoader) {
+        RedisCacheManagerBuilder builder = RedisCacheManager
+                .builder(redisConnectionFactory)
+                .cacheDefaults(determineConfiguration(resourceLoader.getClassLoader()));
+        List&lt;String&gt; cacheNames = this.cacheProperties.getCacheNames();
+        if (!cacheNames.isEmpty()) {
+            builder.initialCacheNames(new LinkedHashSet&lt;&gt;(cacheNames));
+        }
+        returnthis.customizerInvoker.customize(builder.build());
+    }
+}
+</code></pre>
+<p><code>@CacheConfig</code>注解在类上使用，用来描述该类中所有方法使用的缓存名称。</p>
+<pre><code class="java">@Service
+@CacheConfig(cacheNames = &quot;c1&quot;)
+publicclass UserService {
+}
+</code></pre>
+<p><code>@Cacheable</code>注解一般用在查询方法上，表示将一个方法的返回值缓存起来。默认情况下，缓存的<strong>key</strong>就是方法的参数，缓存的<strong>value</strong>就是方法的返回值。</p>
+<pre><code class="java">@Cacheable(key = &quot;#id&quot;) // 也可以通过 key 属性来指定键，如果对缓存的键有复杂要求，可以自定义 keyGenerator
+public User getUserById(Integer id,String username) {
+    System.out.println(&quot;getUserById&quot;);
+    return getUserFromDBById(id);
+}
+</code></pre>
+<p>也可以使用<code>Spring Cache</code>中提供的<code>root</code>对象：</p>
+<div class="center">
+
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">methodName</td>
+<td align="center">当前方法名</td>
+<td align="center">#root.methodName</td>
+</tr>
+<tr>
+<td align="center">method</td>
+<td align="center">当前方法</td>
+<td align="center">#root.method.name</td>
+</tr>
+<tr>
+<td align="center">target</td>
+<td align="center">当前被调用的对象</td>
+<td align="center">#root.target</td>
+</tr>
+<tr>
+<td align="center">targetClass</td>
+<td align="center">当前被调用的对象的class</td>
+<td align="center">#root.targetClass</td>
+</tr>
+<tr>
+<td align="center">args</td>
+<td align="center">当前方法参数数组</td>
+<td align="center">#root.args[0]</td>
+</tr>
+<tr>
+<td align="center">caches</td>
+<td align="center">当前被调用的方法使用的Cache</td>
+<td align="center">#root.caches[0].name</td>
+</tr>
+</tbody></table>
+</div>
+
+<p><code>@CachePut</code>注解一般用在更新方法上，当数据库中的数据更新后，缓存中的数据也要跟着更新，使用该注解，可以将方法的返回值自动更新到已经存在的<strong>key</strong>上。</p>
+<pre><code class="java">@CachePut(key = &quot;#user.id&quot;)
+public User updateUserById(User user) {
+    return user;
+}
+</code></pre>
+<p><code>@CacheEvict</code>注解一般用在删除方法上，当数据库中的数据删除后，相关的缓存数据也要自动清除，该注解在使用的时候也可以配置按照某种条件删除（condition 属性）或者或者配置清除所有缓存（allEntries 属性）。</p>
+<pre><code class="java">@CacheEvict()
+public void deleteUserById(Integer id) {
+    //在这里执行删除操作，删除是去数据库中删除
+}
+</code></pre>
+<h3 id="整合rabbitmq"><a href="#整合rabbitmq" class="headerlink" title="整合rabbitmq"></a>整合rabbitmq</h3><p><a href="https://www.iocoder.cn/Spring-Boot/RabbitMQ/" target="_blank" rel="noopener">芋道SpringBoot消息队列rabbitmq入门</a></p>
+<h3 id="整合Websocket"><a href="#整合Websocket" class="headerlink" title="整合Websocket"></a>整合Websocket</h3><p>导入依赖：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>编写配置类<code>WebSocketConfig</code>：</p>
+<pre><code class="java">@Configuration
+@EnableWebSocketMessageBroker // 表示使用STOMP协议（webSocket的子协议）来传输基于消息代理的消息
+// 此时可以在@Controller类中使用@MessageMapping，类似于@RequestMapping
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        /*
+          注册Stomp的端点
+          addEndpoint：添加STOMP协议的端点。这个HTTP URL是供WebSocket或SockJS客户端访问的地址
+          withSockJS：指定端点使用SockJS协议
+         */
+        registry.addEndpoint(&quot;/simple&quot;)
+                .setAllowedOrigins(&quot;http://localhost:8080&quot;) // 添加允许跨域访问
+                .withSockJS();
+        // sockjs是websocket协议的实现，增加了对浏览器不支持websocket的时候的兼容支持
+        // SockJS的支持的传输的协议有3类: WebSocket, HTTP Streaming, and HTTP Long Polling
+        // 默认使用websocket，如果浏览器不支持websocket，则使用后两类
+    }
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        /*
+          配置消息代理
+          启动简单Broker，消息的发送的地址符合配置的前缀来的消息才发送到这个broker
+         */
+        registry.enableSimpleBroker(&quot;/topic&quot;);
+    }
+}
+</code></pre>
+<p>编写controller：</p>
+<pre><code class="java">@Controller
+public class WsController {
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
+
+    @MessageMapping(&quot;/ws/chat&quot;) // 指定要接收消息的地址，类似@RequestMapping。除了注解到方法上，也可以注解到类上
+    @SendTo(&quot;/topic/say&quot;) // 注解表示当服务器有消息需要推送的时候，会对订阅了@SendTo中路径的浏览器发送消息
+    public ResponseMessage say(RequestMessage message) {
+        System.out.pringln(message.getName());
+        return new ResponseMessage(&quot;welcome&quot; + message.getName() + &quot; !&quot;);
+    }
+    /**
+     * 定时推送消息
+     */
+     @Scheduled(fixedRate=1000)
+     public void callback() {
+        // 发现消息
+        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+        messageingTemplate.convertAndSend(&quot;/topic/callback&quot;, &quot;定时推送消息时间：&quot; + df.format(new Date()));
+     }
+}
+</code></pre>
+<p>前端调用方式类似如下：</p>
+<pre><code class="js">var stompClient = null;
+function connect() {
+    var socket = new SockJS(&#39;http://localhost:8081/simple&#39;); // 连接到/simple节点
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log(&#39;Connected:&#39; + frame);
+        // 会接收到服务器的say方法的返回
+        stompClient.subscribe(&#39;/topic/say&#39;, function (response) {
+            showResponse(JSON.parse(response.body).responseMessage);
+        });
+        // 再订阅一下定时任务
+        stompClient.subscribe(&#39;/topic/callback&#39;, function (response) {
+            showCallback(response.body);
+        });
+    });
+}
+function disconnect() {
+    if (stompClient != null) {
+        stompClient.disconnect();
+    }
+    console.log(&#39;Disconnected&#39;);
+}
+function sendName() {
+    var name = $(&#39;#name&#39;).val();
+    console.log(&#39;name:&#39; + name);
+    stompClient.send(&quot;/welcome&quot;, {}, JSON.stringify({&#39;name&#39;: name})); // 想/welcome的url发送消息
+}
+function showResponse(message) {
+    $(&quot;#response&quot;).html(message);
+}
+function showCallback(message) {
+    $(&quot;#callback&quot;).html(message);
+}
+</code></pre>
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/05/21/二叉树/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/binaryTree.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/binaryTree.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  二叉树</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/05/15/优先队列/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/priorityqueue.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/priorityqueue.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  优先队列</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="7009173444"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+

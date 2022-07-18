@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">栈与队列 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "zIx0Y0K8lrzwI2hWUc3vncrC-MdYXbMMI";
+  mashiro_option.v_appKey = "QLSh39tFIMnFiT4bET0u05WM";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/stack.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/stack.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      栈与队列</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-4-30
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h2><p>底层仍是数组实现，添加和删除元素的时候，为了维护其他元素的相对顺序，需要将一系列元素进行<strong>平行复制</strong>，当数组元素满了的时候，需要动态扩容，就是申请一块更大的内存空间，然后<strong>把原来的数组元素依次赋值到新的内存空间</strong>，才能继续添加元素。也可以做动态缩容，不过为了避免造成数组由于添加删除元素的缘故反复扩容缩容，引起<strong>复杂度震荡</strong>，可以当数组的真正存放数据的区域减少到数组长度的<strong>1/4</strong>的时候，才缩减数组的容量，缩减到原来的<strong>1/2</strong>。 </p>
+<pre><code class="java">/**
+ * 动态数组，参考了 java.util.ArrayList 类的实现
+ *
+ * @param &lt;E&gt;
+ */
+public class ArrayList&lt;E&gt; {
+    private E[] data;
+    private int size;
+    /**
+     * 构造函数，传入数组的初始化容量 capacity 构造动态数组
+     *
+     * @param capacity
+     */
+    public ArrayList(int capacity) {
+        data = (E[]) new Object[capacity];
+        size = 0;
+    }
+    /**
+     * 无参数的构造函数，默认数组的容量 capacity = 10
+     */
+    public ArrayList() {
+        this(10);
+    }
+    /**
+     * 获取数组真正的容量
+     *
+     * @return
+     */
+    public int getCapacity() {
+        return data.length;
+    }
+    /**
+     * 获取数组中的元素个数
+     *
+     * @return
+     */
+    public int size() {
+        return size;
+    }
+    /**
+     * 返回数组是否为空
+     *
+     * @return
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    /**
+     * 在下标 index 位置插入一个新元素 e
+     *
+     * @param index
+     * @param e
+     */
+    public void add(int index, E e) {
+        if (index &lt; 0 || index &gt; size) {
+            throw new IndexOutOfBoundsException(String.format(&quot;Index %s out of bounds for length %s&quot;, index, size));
+        }
+        if (size == data.length) {
+            newCapacity(2 * data.length);
+        }
+        // 插入元素的时候，从后向前逐个向后赋值，留出空位
+        for (int i = size - 1; i &gt;= index; i--) {
+            data[i + 1] = data[i];
+        }
+        data[index] = e;
+        size++;
+    }
+    /**
+     * 向所有元素后添加一个新元素
+     *
+     * @param e
+     */
+    public void add(E e) {
+        add(size, e);
+    }
+    /**
+     * 获取下标 index 位置的元素
+     *
+     * @param index
+     * @return
+     */
+    public E get(int index) {
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IndexOutOfBoundsException(String.format(&quot;Index %s out of bounds for length %s&quot;, index, size));
+        }
+        return data[index];
+    }
+    /**
+     * 修改下标 index 位置的元素为 e
+     *
+     * @param index
+     * @param e
+     */
+    public void set(int index, E e) {
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IllegalArgumentException(&quot;Set failed. Index is illegal.&quot;);
+        }
+        data[index] = e;
+    }
+    /**
+     * 查找数组中是否有元素 e
+     *
+     * @param e
+     * @return
+     */
+    public boolean contains(E e) {
+        for (int i = 0; i &lt; size; i++) {
+            if (data[i].equals(e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * 查找数组中元素 e 所在的下标，如果不存在元素e，则返回-1
+     *
+     * @param e
+     * @return
+     */
+    public int indexOf(E e) {
+        for (int i = 0; i &lt; size; i++) {
+            if (data[i].equals(e)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    /**
+     * 注意：该方法下有缩容机制
+     *
+     * @param index 被删除的元素的下标
+     * @return 删除的元素
+     */
+    public E remove(int index) {
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IllegalArgumentException(&quot;Remove failed. Index is illegal.&quot;);
+        }
+        E ret = data[index];
+        for (int i = index + 1; i &lt; size; i++) {
+            data[i - 1] = data[i];
+        }
+        size--;
+        data[size] = null;
+        // 防止复杂度震荡机制，当真正存放的元素的个数成为数组长度的 1 / 4 时，才缩容为原来的 1 / 2
+        if (size == data.length / 4 &amp;&amp; data.length != 1) {
+            newCapacity(data.length / 2);
+        }
+        return ret;
+    }
+    /**
+     * 从数组中删除元素e
+     *
+     * @param e
+     */
+    public void removeElement(E e) {
+        int index = indexOf(e);
+        if (index != -1) {
+            remove(index);
+        }
+    }
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append(String.format(&quot;数组的长度: size = %d , 容量 = %d\n&quot;, size, data.length));
+        res.append(&#39;[&#39;);
+        for (int i = 0; i &lt; size; i++) {
+            res.append(data[i]);
+            if (i != size - 1) {
+                res.append(&quot;, &quot;);
+            }
+        }
+        res.append(&#39;]&#39;);
+        return res.toString();
+    }
+    /**
+     * 将数组空间的容量变成 capacity大小
+     *
+     * @param capacity
+     */
+    private void newCapacity(int capacity) {
+        E[] newData = (E[]) new Object[capacity];
+        if (size &gt;= 0) {
+            System.arraycopy(data, 0, newData, 0, size);
+        }
+        // 原来的数组 data 内存等待垃圾回收机制
+        data = newData;
+    }
+}
+</code></pre>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>后进先出</strong>的数据结构，可以用<code>java.util.ArrayDeque</code>实现，因为它底层是数组实现的，所以建议添加和删除元素都在<code>ArrayDeque</code>的末尾进行；或者使用<code>java.util.LinkedList</code>实现，链表则可以通过虚拟的头结点很方便地在链表的头部和尾部删除元素。</p>
+<p><strong>力扣316</strong>：给你一个字符串<code>s</code>，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证<strong>返回结果的字典序最小</strong>（要求不能打乱其他字符的相对位置）。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：s = “cbacdcbc”</p>
+<p>输出：”acdb”</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public String removeDuplicateLetters(String s) {
+        int len = s.length();
+        if (len &lt; 2) {
+            return s;
+        }
+        char[] charArray = s.toCharArray();
+        // 记录每个字符出现的最后一个位置
+        int[] lastIndex = new int[26];
+        for (int i = 0; i &lt; len; i++) {
+            lastIndex[charArray[i] - &#39;a&#39;] = i;
+        }
+        Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;(len);
+        stack.addLast(&#39;a&#39;); // 在栈里放一个永远不会被弹出的元素（哨兵），可以省去栈非空的判断，
+        // 栈中有的字符记录在这里
+        boolean[] visited = new boolean[26];
+        for (int i = 0; i &lt; len; i++) {
+            char currentChar = charArray[i];
+            // 如果栈中已经存在，就跳过
+            if (visited[currentChar - &#39;a&#39;]) {
+                continue;
+            }
+            // 在 ① 栈非空，② 当前元素字典序 &lt; 栈顶元素，并且 ③ 栈顶元素在以后还会出现，弹出栈顶元素
+            while (currentChar &lt; stack.peekLast() &amp;&amp; lastIndex[stack.peekLast() - &#39;a&#39;] &gt; i) {
+                char top = stack.removeLast();
+                visited[top - &#39;a&#39;] = false;
+            }
+            stack.addLast(currentChar);
+            visited[currentChar - &#39;a&#39;] = true;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        // 注意：弹出 size - 1 个元素，无需把哨兵元素弹出
+        int size = stack.size();
+        for (int i = 0; i &lt; size - 1; i++) {
+            stringBuilder.insert(0, stack.removeLast());
+        }
+        return stringBuilder.toString();
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h3><p>单调栈就是普通的栈，只是在解决一些特定问题的过程中，栈中的元素在数值上<strong>恰好保持单调性</strong>。</p>
+<p>经典问题，<strong>力扣42：接雨水</strong></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/pointer-01.webp"></div>
+
+<p>单调栈解法如下：</p>
+<pre><code class="java">public class Solution {
+    public int trap(int[] height) {
+        int len = height.length;
+        if (len &lt; 3) { // 特判
+            return 0;
+        }
+        int area = 0;
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;(len);
+        for (int i = 0; i &lt; len; i++) {
+            while (!stack.isEmpty() &amp;&amp; height[stack.peekLast()] &lt; height[i]) {
+                // 作为底部支撑的那个柱形的下标
+                Integer bottomIndex = stack.removeLast();
+                // 出栈以后，如果栈为空，说明不能形成凹槽，此时跳过即可
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int width = i - stack.peekLast() - 1;
+                // 根据木桶原理，高度取决于，i 的高度和弹栈以后的新栈顶元素的高度
+                int currentHeight = Math.min(height[stack.peekLast()], height[i]) - height[bottomIndex];
+                area += (width * currentHeight);
+            }
+            // 栈中存下标
+            stack.addLast(i);
+        }
+        return area;
+    }
+}
+</code></pre>
+<p><strong>力扣84</strong>：给定n个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为1。求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/stack-01.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：heights = [2,1,5,6,2,3]</p>
+<p>输出：10</p>
+<p>解释：最大的矩形为图中红色区域，面积为 10</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        // 在遍历结束后，栈中仍然有一些位置，这些位置对应的右边界就是位置为 n 的「哨兵」。我们可以将它们依次出栈并更新右边界，也可以在初始化右边界数组时就将所有的元素的值置为 n
+        Arrays.fill(right, n);
+        Deque&lt;Integer&gt; mono_stack = new ArrayDeque&lt;Integer&gt;();
+        for (int i = 0; i &lt; n; ++i) {
+            while (!mono_stack.isEmpty() &amp;&amp; heights[mono_stack.peek()] &gt;= heights[i]) {
+                // 确实无法求出正确的右边界，但对最终的答案没有任何影响。这是因为在答案对应的矩形中，如果有若干个柱子的高度都等于矩形的高度，那么最右侧的那根柱子是可以求出正确的右边界的（因此最终的答案还是可以从最右侧的与矩形高度相同的柱子求得的）
+                right[mono_stack.peek()] = i;
+                mono_stack.pop();
+            }
+            left[i] = (mono_stack.isEmpty() ? -1 : mono_stack.peek()); // 左边界可以正确求出，-1 表示左边界的「哨兵」
+            mono_stack.push(i);
+        }
+        
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            ans = Math.max(ans, (right[i] - left[i] - 1) * heights[i]);
+        }
+        return ans;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>先进先出</strong>的数据结构，可以用数组或链表实现，例如<code>java.util.concurrent.ArrayBlockingQueue</code>就是由数组支持的有界队列，由于数组扩容有性能消耗，因此它不支持扩容，当队列满的时候，它的处理策略是阻塞。一些场合，我们希望在队列的两端都可以进行出队和入队的操作，这种更灵活的数据结构称为<strong>双端队列</strong>。</p>
+<p>经典问题，<strong>用栈实现队列</strong>：设计用两个栈实现，一个栈用于元素进栈，一个栈用于元素出栈。为保证出队顺序，<strong>一定要在元素出栈的栈为空时，才从用于元素进栈的栈中将所有元素倒入用于元素出栈的栈</strong></p>
+<pre><code class="java">public class MyQueue {
+    private Deque&lt;Integer&gt; pushStack;
+    private Deque&lt;Integer&gt; popStack;
+    /**
+     * Initialize your data structure here.
+     */
+    public MyQueue() {
+        pushStack = new ArrayDeque&lt;&gt;();
+        popStack = new ArrayDeque&lt;&gt;();
+    }
+    /**
+     * Push element x to the back of queue.
+     */
+    public void push(int x) {
+        // 在任何时候都可以向 pushStack 推入元素
+        pushStack.addLast(x);
+    }
+    /**
+     * Removes the element from in front of queue and returns that element.
+     */
+    public int pop() {
+        // 从 popStack 取出元素
+        if (!popStack.isEmpty()) {
+            return popStack.removeLast();
+        }
+        // 走到这里是因为 popStack 为空，此时需要将 pushStack 里的所有元素依次放入 popStack
+        while (!pushStack.isEmpty()) {
+            popStack.addLast(pushStack.removeLast());
+        }
+        return popStack.removeLast();
+    }
+    /**
+     * Get the front element.
+     */
+    public int peek() {
+        // 从 popStack 取出元素
+        if (!popStack.isEmpty()) {
+            return popStack.peekLast();
+        }
+        // 走到这里是因为 popStack 为空，此时需要将 pushStack 里的所有元素依次放入 popStack
+        while (!pushStack.isEmpty()) {
+            popStack.addLast(pushStack.removeLast());
+        }
+        return popStack.peekLast();
+    }
+    /**
+     * Returns whether the queue is empty.
+     */
+    public boolean empty() {
+        // 两个栈都为空，才说明队列为空
+        return pushStack.isEmpty() &amp;&amp; popStack.isEmpty();
+    }
+}
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
+</code></pre>
+<p>经典问题，<strong>用队列实现栈</strong>：思路是在<code>peek()</code>和<code>pop()</code>的时候，依次将队首出队到队尾：</p>
+<pre><code class="java">public class MyStack {
+    private Queue&lt;Integer&gt; queue;
+    /**
+     * Initialize your data structure here.
+     */
+    public MyStack() {
+        queue = new LinkedList&lt;&gt;();
+    }
+    /**
+     * Push element x onto stack.
+     */
+    public void push(int x) {
+        queue.add(x);
+    }
+    /**
+     * Removes the element on top of the stack and returns that element.
+     */
+    public int pop() {
+        int size = queue.size();
+        for (int i = 0; i &lt; size - 1; i++) {
+            queue.add(queue.poll());
+        }
+        return queue.poll(); // 获取队尾元素（新队首），满足后进先出
+    }
+    /**
+     * Get the top element.
+     */
+    public int top() {
+        int size = queue.size();
+        for (int i = 0; i &lt; size - 1; i++) {
+            queue.add(queue.poll());
+        }
+        int res = queue.poll();
+        queue.add(res); // 为保证下次元素入队顺序的正确性，得到队尾元素之后，要继续将队首元素（旧队尾）移动到队尾
+        return res;
+    }
+    /**
+     * Returns whether the stack is empty.
+     */
+    public boolean empty() {
+        return queue.isEmpty();
+    }
+}
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
+</code></pre>
+<p><strong>思考题</strong>：如何设计一个能在常数时间内检索到最小元素的栈？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class MinStack {
+    Deque&lt;Integer&gt; xStack;
+    Deque&lt;Integer&gt; minStack; // 辅助栈
+    public MinStack() {
+        xStack = new LinkedList&lt;Integer&gt;();
+        minStack = new LinkedList&lt;Integer&gt;();
+        minStack.push(Integer.MAX_VALUE);
+    }
+    public void push(int x) {
+        xStack.push(x);
+        minStack.push(Math.min(minStack.peek(), x)); // 每个入栈的元素都有一个对应当时栈（状态）中的一个最小值
+    }
+    public void pop() {
+        xStack.pop();
+        minStack.pop(); // 辅助栈的栈顶元素也一并弹出
+    }
+    public int top() {
+        return xStack.peek();
+    }
+    public int getMin() {
+        return minStack.peek(); // 当前栈内元素的最小值总是辅助栈的栈顶元素
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p>经典问题，<strong>设计循环队列</strong>：依旧是队列的数据结构，但是<strong>队尾被连接在队首之后以形成一个环</strong>，特点是可以利用这个队列之前用过的空间。</p>
+<pre><code class="java">public class MyCircularQueue {
+    private int[] arr;
+    private int capacity;
+    /**
+     * front 指向当前队列中最早入队的元素
+     */
+    private int front;
+    /**
+     * rear 指向下一个添加到队尾的元素
+     */
+    private int rear;
+    /**
+     * Initialize your data structure here. Set the size of the queue to be k.
+     */
+    public MyCircularQueue(int k) {
+        // 始终保持 1 个位置不存有效元素，是为了避免判断队列为空和队列为满的条件冲突
+        capacity = k + 1;
+        arr = new int[capacity];
+        front = 0;
+        rear = 0;
+    }
+    /**
+     * Insert an element into the circular queue. Return true if the operation is successful.
+     */
+    public boolean enQueue(int value) {
+        // 队尾为满不可以入队
+        if (isFull()) {
+            return false;
+        }
+        arr[rear] = value;
+        rear = (rear + 1) % capacity;
+        return true;
+    }
+    /**
+     * Delete an element from the circular queue. Return true if the operation is successful.
+     */
+    public boolean deQueue() {
+        // 队尾为空不可以出队
+        if (isEmpty()) {
+            return false;
+        }
+        front = (front + 1) % capacity;
+        return true;
+    }
+    /**
+     * Get the front item from the queue.
+     */
+    public int Front() {
+        // 队列非空才可以取出队头
+        if (isEmpty()) {
+            return -1;
+        }
+        return arr[front];
+    }
+    /**
+     * Get the last item from the queue.
+     */
+    public int Rear() {
+        // 队列非空才可以取出队尾
+        if (isEmpty()) {
+            return -1;
+        }
+        // 有数组下标的计算一定要考虑是否越界
+        return arr[(rear - 1 + capacity) % capacity];
+    }
+    /**
+     * Checks whether the circular queue is empty or not.
+     */
+    public boolean isEmpty() {
+        return front == rear;
+    }
+    /**
+     * Checks whether the circular queue is full or not.
+     */
+    public boolean isFull() {
+        // 有数组下标的计算一定要考虑是否越界
+        return (rear + 1) % capacity == front;
+    }
+}
+</code></pre>
+<p>若设计循环<strong>双端</strong>队列，则需要添加两个方法：</p>
+<pre><code class="java">/**
+* Adds an item at the front of Deque. Return true if the operation is successful.
+*/
+public boolean insertFront(int value) {
+    if (isFull()) {
+        return false;
+    }
+    front = (front - 1 + capacity) % capacity; // 由于 front 指向第一个队首元素，因此需要先将 front 左移一个单位，然后再赋值，要避免数组下标越界和处理循环
+    arr[front] = value;
+    return true;
+}
+/**
+* Deletes an item from the rear of Deque. Return true if the operation is successful.
+*/
+public boolean deleteLast() {
+    if (isEmpty()) {
+        return false;
+    }
+    rear = (rear - 1 + capacity) % capacity; // 由于 rear 指向 队尾元素的下一个元素，因此需要将 rear 左移一个单位即可，同样要避免数组下标越界和处理循环
+    return true;
+}
+</code></pre>
+<h3 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h3><p>同样只是普通的队列，只不过在使用队列的过程中，根据问题的特点保持了<strong>队列的单调性</strong>。</p>
+<p><strong>力扣239</strong>：给定一个数组<code>nums</code>，有一个大小为<code>k</code>的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的<code>k</code>个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,3,-1,-3,5,3,6,7], k = 3</p>
+<p>输出：[3,3,5,5,6,7]</p>
+<p>解释：</p>
+<p>滑动窗口的位置                最大值</p>
+<p>=============  </p>
+<p>[1  3  -1] -3  5  3  6  7       (3)</p>
+<p>1 [3  -1  -3] 5  3  6  7       (3)</p>
+<p>1  3 [-1  -3  5] 3  6  7       (5)</p>
+<p>1  3  -1 [-3  5  3] 6  7       (5)</p>
+<p>1  3  -1  -3 [5  3  6] 7       (6)</p>
+<p>1  3  -1  -3  5 [3  6  7]      (7)</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <p>分析题意，需要使用<strong>双端队列</strong>来实现，整个队列的数值（不是下标）呈现的特征是单调不减的，因此是一个<strong>单调队列</strong>：</p>
+<ul>
+<li>删除队首信息：当滑窗离开左边界的时候，当前最大值需要被删除，这一步需要准确知道队首的下标，因此队列中存的是下标</li>
+<li>查看队首信息：队首元素一定是当前滑动窗口的最大值</li>
+<li>队尾添加：如果一个数有可能是将来的滑动窗口的最大值，就把它添加到队尾</li>
+<li>队尾删除：如果新来的数比当前队尾的数还要大，当前队尾元素一定不可能是滑动窗口的最大值，需要把当前队尾删除，这个过程是循环进行的</li>
+</ul>
+<pre><code class="java">public class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int len = nums.length;
+        int[] res = new int[len - k + 1]; // 注意结果集长度
+        Deque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;(k); // 双端队列实现的滑动窗口
+        for (int i = 0; i &lt; len; i++) {
+            // 判断队首元素是否移出滑动窗口
+            if (i &gt;= k &amp;&amp; deque.peekFirst() == i - k) {
+                deque.removeFirst();
+            }
+            // 依次判断待添加元素是否比队首元素大，注意可以取等号
+            while (!deque.isEmpty() &amp;&amp; nums[deque.peekLast()] &lt;= nums[i]) {
+                deque.removeLast();
+            }
+            // 加入队列的是下标
+            deque.addLast(i);
+            if (i &gt;= k - 1) {
+                res[i - k + 1] = nums[deque.peekFirst()]; // 队首元素总是对内最大值
+            }
+        }
+        return res;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+
+
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/05/02/spring学习/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/spring.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/spring.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  spring学习</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/04/28/链表/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/linkedlist.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/linkedlist.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  链表</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="7009173444"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+
