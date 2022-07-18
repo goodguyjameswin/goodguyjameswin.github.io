@@ -848,7 +848,7 @@ if(null!=servletClassName){
     ReflectUtil.invoke(servletObject, &quot;doGet&quot;, request, response);
 }
 </code></pre>
-<h2 id="Tomcat类加载器"><a href="#Tomcat类加载器" class="headerlink" title="Tomcat类加载器"></a>Tomcat类加载器</h2><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/diytomcat/02.webp"></div>
+<h2 id="Tomcat类加载器"><a href="#Tomcat类加载器" class="headerlink" title="Tomcat类加载器"></a>Tomcat类加载器</h2><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/diytomcat/02.webp" width="400"></div>
 
 <p>Tomcat的顶层自定义加载器是公共类加载器。它负责加载<code>%tomcat_home%/lib</code>这个目录里的类和jar；<code>WebappClassLoader</code>，用于加载某个web应用，比如j2ee下的<code>/WEB-INF/classes</code>，<code>/WEB-INF/lib</code>目录里的类和jar；<code>JspClassLoader</code>，用于加载jsp转换成.java被编译之后的类。再还有 Catalina 和 Share 类加载器，分别加载<code>%tomcat_home%/catalina/</code>和<code>%tomcat_home%/share</code>目录下的jar。</p>
 <pre><code class="java">public class CommonClassLoader extends URLClassLoader {
@@ -911,7 +911,7 @@ pause
 ClassLoader commonClassLoader = Thread.currentThread().getContextClassLoader();
 this.webappClassLoader = new WebappClassLoader(docBase, commonClassLoader);
 </code></pre>
-<h2 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h2><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/diytomcat/04.webp"></div>
+<h2 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h2><div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/diytomcat/04.webp" width="300"></div>
 
 <p>通过设置监听器<code>ContextFileChangeWatcher</code>监听web工作目录变化，来实现热加载功能：</p>
 <pre><code class="java">public class ContextFileChangeWatcher {

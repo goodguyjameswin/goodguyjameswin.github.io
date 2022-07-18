@@ -570,7 +570,36 @@
           
           <div class="entry-content">
             <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>的基础上，添加了针对标注工具labelimg2的数据增强</p>
-<p>在labelme的数据增强部分添加了旋转和裁剪处理，并做了标签增强</p>
+<p>在labelme的数据增强部分添加了旋转和裁剪处理，并做了标签增强：</p>
+<pre><code class="python"> # 旋转
+def _rotate_pic_bboxes(self, img, json_info, degree = 5):
+    # ---------------------- 旋转图像 ----------------------
+    height, width = img.shape[:2]
+    heightNew = int(width * fabs(sin(radians(degree))) + height * fabs(cos(radians(degree))))
+    widthNew = int(height * fabs(sin(radians(degree))) + width * fabs(cos(radians(degree))))
+    matRotation = cv2.getRotationMatrix2D((width // 2, height // 2), degree, 1)
+    matRotation[0, 2] += (widthNew - width) // 2
+    matRotation[1, 2] += (heightNew - height) // 2
+    # imgRotation = cv2.warpAffine(img, matRotation, (widthNew, heightNew), borderValue=(255, 255, 255))
+    imgRotation = cv2.warpAffine(img, matRotation, (widthNew, heightNew), borderValue=(0, 0, 0))
+    # ---------------------- 调整boundingbox ----------------------
+    json_dict = {}
+    for key, value in json_info.items():
+        if key == &#39;imageHeight&#39;:
+            json_dict[key] = imgRotation.shape[0]
+        elif key == &#39;imageWidth&#39;:
+            json_dict[key] = imgRotation.shape[1]
+        else:
+            json_dict[key] = value
+    for item in json_dict[&#39;shapes&#39;]:
+        for key, value in item.items():
+            if key == &#39;points&#39;:
+                for item2 in range(len(value)):
+                    pt1 = np.dot(matRotation, np.array([[value[item2][0]], [value[item2][1]], [1]]))
+                    value[item2][0], value[item2][1] = pt1[0][0], pt1[1][0]
+    return imgRotation, json_dict
+ # ...
+</code></pre>
 <p><a href="https://github.com/goodguyjameswin/mydata_augtools" target="_blank" rel="noopener">修改后</a></p>
 <hr>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
