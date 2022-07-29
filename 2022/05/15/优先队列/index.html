@@ -575,6 +575,262 @@
 <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/priorityqueue-02.webp"></div>
 
 <p>完全二叉树，指的是在二叉树的基础上，从上至下、从左至右没有空结点。堆是完全二叉树，又分为最大堆和最小堆，前者表示任一结点的数值都大于等于它的两个孩子结点的数值，后者则表示任一结点的数值都小于等于它的两个孩子结点（如存在）的数值，因此它是一个<strong>局部有序</strong>的结构。</p>
+<h3 id="用数组实现堆"><a href="#用数组实现堆" class="headerlink" title="用数组实现堆"></a>用数组实现堆</h3><pre><code class="java">public class MaxHeap implements Queue {
+
+    /**
+     * 本实现 0 号下标不存放真正数据，底层使用动态数组是更好的实现
+     */
+    private int[] data;
+    /**
+     * 堆中能够存储的元素的最大数量
+     */
+    private int capacity;
+    /**
+     * 当前最大堆中真正存储的元素的个数
+     */
+    private int size;
+
+    @Override
+    public int size() {
+        return size;
+    }
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    @Override
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        // 下标 0 不存元素
+        return data[1];
+    }
+    public MaxHeap(int capacity) {
+        data = new int[capacity + 1];
+        this.capacity = capacity;
+        size = 0;
+    }
+    @Override
+    public void offer(int item) {
+        if (size + 1 &gt; capacity) {
+            throw new IllegalArgumentException(&quot;堆空间已满。&quot;);
+        }
+        // 把新添加的元素放在数组的最后一位
+        data[size + 1] = item;
+        // 维护 size 的定义
+        size++;
+        // 考虑将 data[size] 元素上移到合适的位置
+        siftUp(size);
+    }
+    private void shiftUp(int k) {
+        // 先暂存，再逐个移动，最后空出位置把先前暂存元素放进去
+        int temp = data[k];
+        // 有下标就要考虑索引越界的情况，已经在下标 1 的位置，就没有必要上移了
+        while (k &gt; 1) {
+            if (data[k / 2] &lt; temp) {
+                data[k] = data[k / 2];
+                k /= 2;
+            } else {
+                break;
+            }
+        }
+        data[k] = temp;
+    }
+    @Override
+    public int poll() {
+        if (size == 0) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        int ret = data[1];
+        // 把最后一个元素的值赋值到二叉堆的根结点
+        data[1] = data[size];
+        size--;
+        siftDown(1);
+        return ret;
+    }
+    private void shiftDown(int k) {
+        // 先暂存，再逐个移动，最后空出位置把先前暂存元素放进去
+        int temp = data[k];
+        // 只要它有孩子，注意这里使用等于号，是因为真正存数据的下标从 1 开始
+        while (2 * k &lt;= size) {
+            int j = 2 * k;
+            if (j + 1 &lt;= size &amp;&amp; data[j + 1] &gt; data[j]) {
+                // 右边的孩子胜出，此时可以认为没有左孩子，
+                j++;
+            }
+            // 如果当前的元素的值，比右边的孩子节点要大，则逐渐下落的过程到此结束
+            if (temp &gt;= data[j]) {
+                break;
+            }
+            // 否则，交换位置，继续上浮
+            data[k] = data[j];
+            k = j;
+        }
+        data[k] = temp;
+    }
+    public void replace(int item) {
+        if (isEmpty()) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        // 注意：堆顶元素替换，size 不变
+        data[1] = item;
+        siftDown(1);
+    }
+}
+</code></pre>
+<h3 id="将数组整理成堆"><a href="#将数组整理成堆" class="headerlink" title="将数组整理成堆"></a>将数组整理成堆</h3><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">具体描述</th>
+<th align="center">合理性解释</th>
+<th align="center">时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">自顶向下</td>
+<td align="center">从非根结点开始逐个上移（siftUp）</td>
+<td align="center">每一个结点朝上看是堆有序的</td>
+<td align="center">O(NlogN)</td>
+</tr>
+<tr>
+<td align="center">自底向上</td>
+<td align="center">从非叶子结点开始逐个下移（siftDown）</td>
+<td align="center">每一个结点朝下看是堆有序的</td>
+<td align="center">O(N)</td>
+</tr>
+</tbody></table>
+<p>因此<strong>自底向上</strong>是一种更高效的使得数组<strong>堆有序</strong>的方式，每一个元素执行<code>sift down</code>操作，一开始就排除了一半以上的元素，因为完全二叉树中，叶子结点的个数几乎占了整棵树结点总数的一半。</p>
+<pre><code class="java">public MaxHeap(int[] arr) {
+    capacity = arr.length + 1;
+    data = new int[capacity];
+    size = arr.length;
+    for (int i = 0; i &lt; size; i++) {
+        data[i + 1] = arr[i];
+    }
+    // 从 1 开始编号的堆最后一个非叶子结点的下标是 size / 2
+    for (int i = size / 2; i &gt;= 1; i--) {
+        siftDown(i);
+    }
+}
+</code></pre>
+<p><strong>力扣295</strong>：中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。例如，<code>[2,3,4]</code>的中位数是<code>3</code>，<code>[2,3]</code>的中位数是<code>(2+3)/2=2.5</code>，设计一个数据结构满足以下操作：</p>
+<ul>
+<li>void addNum(int num) - 从数据流中添加一个这个念书到数据结构中</li>
+<li>double findMedian() - 返回目前所有元素的中位数</li>
+</ul>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class MedianFinder {
+    PriorityQueue&lt;Integer&gt; queMin;
+    PriorityQueue&lt;Integer&gt; queMax;
+    // 用两个优先队列`queMax`和`queMin`分别记录大于中位数的数和小于等于中位数的数。当累计添加的数的数量为奇数时，`queMin`中的数的数量比`queMax`多一个，此时中位数为`queMin`的队头。当累计添加的数的数量为偶数时，两个优先队列中的数的数量相同，此时中位数为它们的队头的平均值
+    public MedianFinder() {
+        queMin = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; (b - a));
+        queMax = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; (a - b));
+    }
+    public void addNum(int num) {
+        if (queMin.isEmpty() || num &lt;= queMin.peek()) {
+            queMin.offer(num);
+            if (queMax.size() + 1 &lt; queMin.size()) {
+                queMax.offer(queMin.poll());
+            }
+        } else {
+            queMax.offer(num);
+            if (queMax.size() &gt; queMin.size()) {
+                queMin.offer(queMax.poll());
+            }
+        }
+    }
+    public double findMedian() {
+        if (queMin.size() &gt; queMax.size()) {
+            return queMin.peek();
+        }
+        return (queMin.peek() + queMax.peek()) / 2.0;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣218</strong>：城市的<strong>天际线</strong>是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回<em>由这些建筑物形成的<strong>天际线</strong></em>。</p>
+<p>每个建筑物的几何信息由数组<code>buildings</code>表示，其中三元组<code>building[i]=[lefti,righti,heighti]</code>表示：</p>
+<ul>
+<li><code>lefti</code>是第<code>i</code>座建筑物的左边缘的<code>x</code>坐标</li>
+<li><code>righti</code>是第<code>i</code>座建筑物右边缘的<code>x</code>坐标</li>
+<li><code>heighti</code>是第<code>i</code>座建筑物的高度</li>
+</ul>
+<p>你可以假设所有的鉴主都是完美的长方形，在高度为<code>0</code>的绝对平坦的表面上。</p>
+<p><strong>天际线</strong>应该表示为由“关键点”组成的列表，格式<code>[[x1,y1],[x2,y2],...]</code>，并按<strong>x坐标</strong>进行<strong>排序</strong>。<strong>关键点是水平线段的左端点</strong>。列表中最后一个点是最右侧建筑物的终点，<code>y</code>坐标始终为<code>0</code>，仅用于标记天际线的终点。此外，任何两个相邻建筑物中间的地面都应被视为天际线轮廓的一部分。</p>
+<p>注意：输出天际线中不得有连续的相同高度的水平线。例如<code>[...[2 3],[4 5],[7 5],[11 5],[12 7]...]</code>是不正确的答案；三条高度为5的线应该在最终输出中合并为一个：<code>[...[2 3],[4 5],[12 7],...]</code></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/priorityqueue-03.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]</p>
+<p>输出：[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]</p>
+<p>解释：</p>
+<p>图A显示输入的所有建筑物的位置和高度，</p>
+<p>图B显示由这些建筑物形成的天际线。图B中的红点表示输出列表中的关键点。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    // 关键点的横坐标总是落在建筑的左右边缘上。给出「包含该横坐标」的定义：建筑的左边缘小于等于该横坐标，右边缘大于该横坐标（也就是不考虑建筑的右边缘）。
+    // 我们首先将「包含该横坐标」的建筑加入到优先队列中，然后不断检查优先队列的队首元素是否「包含该横坐标」，如果不「包含该横坐标」，我们就将该队首元素弹出队列，直到队空或队首元素「包含该横坐标」即可。最后我们用变量 maxn 记录最大高度（即纵坐标的值），当优先队列为空时，maxn=0，否则 maxn 即为队首元素。最后我们还需要再做一步检查：如果当前关键点的纵坐标大小与前一个关键点的纵坐标大小相同，则说明当前关键点无效，我们跳过该关键点即可。
+    public List&lt;List&lt;Integer&gt;&gt; getSkyline(int[][] buildings) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a, b) -&gt; b[1] - a[1]);
+        List&lt;Integer&gt; boundaries = new ArrayList&lt;Integer&gt;();
+        for (int[] building : buildings) {
+            boundaries.add(building[0]);
+            boundaries.add(building[1]);
+        }
+        Collections.sort(boundaries);
+        List&lt;List&lt;Integer&gt;&gt; ret = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        int n = buildings.length, idx = 0;
+        for (int boundary : boundaries) {
+            while (idx &lt; n &amp;&amp; buildings[idx][0] &lt;= boundary) {
+                pq.offer(new int[]{buildings[idx][1], buildings[idx][2]});
+                idx++;
+            }
+            while (!pq.isEmpty() &amp;&amp; pq.peek()[0] &lt;= boundary) {
+                pq.poll();
+            }
+            int maxn = pq.isEmpty() ? 0 : pq.peek()[1];
+            if (ret.size() == 0 || maxn != ret.get(ret.size() - 1).get(1)) {
+                ret.add(Arrays.asList(boundary, maxn));
+            }
+        }
+        return ret;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<hr>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
           <!-- .entry-content -->

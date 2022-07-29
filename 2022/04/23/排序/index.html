@@ -594,6 +594,49 @@
 }
 </code></pre>
 <p>选择排序的每一轮循环没有为下一次循环记录更多的信息。<strong>堆</strong>可以帮助我们在每次<strong>未排定的部分</strong>里快速地选择出当前最小的元素。因此<strong>堆排序</strong>是<strong>选择排序</strong>的优化排序算法。</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆排序每一次以<code>O(logN)</code>的时间复杂度选取出当前未排定部分的最大元素，基本思路是让堆顶元素和当前堆的最后一个元素交换，当前最大元素就被交换到此时数组的末尾，这个位置就被排定了。接下来<strong>只需要让这个数组的前半部分继续称为一个堆即可</strong>。</p>
+<pre><code class="java">public class Solution {
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        // 第 1 步：先整理成最大堆
+        heapify(nums, len);
+
+        // 第 2 步：先交换，再将堆顶元素下沉
+        // 注意：这里 i 表示当前二叉树所表示的数组的结尾下标
+        for (int i = len - 1; i &gt;= 1; ) {
+            swap(nums, 0, i);
+            i--;
+            siftDown(nums, 0, i);
+        }
+        return nums;
+    }
+    private void heapify(int[] nums, int len) {
+        // 下标从0开始整理成堆（也可从1开始）
+        for (int i = (len - 1) / 2; i &gt;= 0; i--) {
+            siftDown(nums, i, len - 1);
+        }
+    }
+    private void siftDown(int[] nums, int k, int end) {
+        while (2 * k + 1 &lt;= end) {
+            int j = 2 * k + 1;
+            if (j + 1 &lt;= end &amp;&amp; nums[j + 1] &gt; nums[j]) {
+                j++;
+            }
+            if (nums[j] &gt; nums[k]) {
+                swap(nums, j, k);
+            } else {
+                break;
+            }
+            k = j;
+        }
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序的<strong>内循环</strong>使用相邻双指针<code>j, j+1</code>从左至右遍历，依次比较相邻元素大小，若左元素大于右元素则将它们交换，遍历完成时，<strong>最大元素会被交换至数组最右边</strong>；<strong>外循环</strong>不断重复内循环，每轮将当前最大元素交换至<strong>剩余未排序数组最右边</strong>，直至所有元素都被交换至正确位置时结束。</p>
 <pre><code class="java">public class Solution {
     public int[] bubbleSort(int[] nums) {
@@ -1366,12 +1409,12 @@
     </div>
 </div>
 
-<p><strong>力扣287</strong>：给定一个包含<code>n + 1</code>个整数的数组<code>nums</code>，其数字都在<code>[1, n]</code>范围内（包括<code>1</code>和<code>n</code>），可知至少存在一个重复的整数。假设<code>nums</code>只有<strong>一个重复的整数</strong>，返回<strong>这个重复的数</strong>。</p>
+<p>给你一个整数数组<code>nums</code>和一个整数<code>k</code>，请你返回其中出现频率前<code>k</code>高的元素。你可以按<strong>任意顺序</strong>返回答案。</p>
 <div class="center">
 
 <blockquote>
-<p>输入：nums = [1,3,4,2,2]</p>
-<p>输出：2</p>
+<p>输入：nums = [1,1,1,2,2,3], k = 2</p>
+<p>输出：[1,2]</p>
 </blockquote>
 </div>
 
@@ -1380,48 +1423,151 @@
         查看解析
     </div>
     <div class="spoiler-content">
-        <p>方法一：二分查找</p>
+        <p>方法一：基于快速排序（求出出现次数数组的前k大的值）</p>
 <pre><code class="java">class Solution {
-    // 定义 cnt[i] 表示 nums 数组中小于等于 i 的数有多少个，cnt[] 数组随数字 i 逐渐增大具有单调性
-    public int findDuplicate(int[] nums) {
-        int n = nums.length;
-        int l = 1, r = n - 1, ans = -1;
-        while (l &lt;= r) {
-            int mid = (l + r) &gt;&gt; 1;
-            int cnt = 0;
-            for (int i = 0; i &lt; n; ++i) {
-                if (nums[i] &lt;= mid) {
-                    cnt++;
-                }
-            }
-            if (cnt &lt;= mid) {
-                l = mid + 1;
-            } else {
-                r = mid - 1;
-                ans = mid;
+    public int[] topKFrequent(int[] nums, int k) {
+        Map&lt;Integer, Integer&gt; occurrences = new HashMap&lt;Integer, Integer&gt;();
+        for (int num : nums) {
+            occurrences.put(num, occurrences.getOrDefault(num, 0) + 1);
+        }
+        List&lt;int[]&gt; values = new ArrayList&lt;int[]&gt;();
+        for (Map.Entry&lt;Integer, Integer&gt; entry : occurrences.entrySet()) {
+            int num = entry.getKey(), count = entry.getValue();
+            values.add(new int[]{num, count});
+        }
+        int[] ret = new int[k];
+        qsort(values, 0, values.size() - 1, ret, 0, k);
+        return ret;
+    }
+    public void qsort(List&lt;int[]&gt; values, int start, int end, int[] ret, int retIndex, int k) {
+        int picked = (int) (Math.random() * (end - start + 1)) + start;
+        Collections.swap(values, picked, start);
+        int pivot = values.get(start)[1];
+        int index = start;
+        for (int i = start + 1; i &lt;= end; i++) {
+            if (values.get(i)[1] &gt;= pivot) {
+                Collections.swap(values, index + 1, i);
+                index++;
             }
         }
-        return ans;
+        Collections.swap(values, start, index);
+        if (k &lt;= index - start) {
+            qsort(values, start, index - 1, ret, retIndex, k);
+        } else {
+            for (int i = start; i &lt;= index; i++) {
+                ret[retIndex++] = values.get(i)[0];
+            }
+            if (k &gt; index - start + 1) {
+                qsort(values, index + 1, end, ret, retIndex, k - (index - start + 1));
+            }
+        }
     }
 }
 </code></pre>
-<p>方法二：快慢指针</p>
-<pre><code class="java">// 看成是链表，数组下标i是当前节点，nums[i] 是下一个节点，如果成环,按照这种方式遍历链表会无限循环
-class Solution {
-    // 当存在多个重复值，也就是多个环时，只会在最小环中无限循环，也就是重复元素第2次出现的位置形成的环，不会走到后面更大的环
-    public int findDuplicate(int[] nums) {
-        // 因此可以用环形链表的解法来找出环的入口
-        int slow = 0, fast = 0;
-        do {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-        } while (slow != fast);
-        slow = 0;
-        while (slow != fast) {
-            slow = nums[slow];
-            fast = nums[fast];
+<p>方法二：桶排序：</p>
+<pre><code class="java">class Solution {
+    public List&lt;Integer&gt; topKFrequent(int[] nums, int k) {
+        List&lt;Integer&gt; res = new ArrayList();
+        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
+        HashMap&lt;Integer,Integer&gt; map = new HashMap();
+        for(int num : nums){
+            if (map.containsKey(num)) {
+               map.put(num, map.get(num) + 1);
+             } else {
+                map.put(num, 1);
+             }
         }
-        return slow;
+        //桶排序
+        //将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
+        List&lt;Integer&gt;[] list = new List[nums.length+1];
+        for(int key : map.keySet()){
+            // 获取出现的次数作为下标
+            int i = map.get(key);
+            if(list[i] == null){
+               list[i] = new ArrayList();
+            } 
+            list[i].add(key);
+        }
+        // 倒序遍历数组获取出现顺序从大到小的排列
+        for(int i = list.length - 1;i &gt;= 0 &amp;&amp; res.size() &lt; k;i--){
+            if(list[i] == null) continue;
+            res.addAll(list[i]);
+        }
+        return res;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣220</strong>：给你一个整数数组<code>nums</code>和两个整数<code>k</code>和<code>t</code>。请你判断是否存在<strong>两个不同下标</strong><code>i</code>和<code>j</code>，使得<code>abs(nums[i] - nums[j]) &lt;= t</code>，同时又满足<code>abs(i - j) &lt;= k</code>。如果存在则返回<code>true</code>，不存在返回<code>false</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,2,3,1], k = 3, t = 0</p>
+<p>输出：true</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <p>方法一：滑动窗口+有序集合</p>
+<pre><code class="java">class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        // 维护一个大小为 k 的滑动窗口，每次遍历到元素 x 时，滑动窗口中包含元素 x 前面的最多 k 个元素，我们检查窗口中是否存在元素落在区间 [x−t,x+t] 中即可
+        int n = nums.length;
+        TreeSet&lt;Long&gt; set = new TreeSet&lt;Long&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            Long ceiling = set.ceiling((long) nums[i] - (long) t);
+            if (ceiling != null &amp;&amp; ceiling &lt;= (long) nums[i] + (long) t) {
+                return true;
+            }
+            set.add((long) nums[i]);
+            if (i &gt;= k) {
+                set.remove((long) nums[i - k]);
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p>方法二：桶</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/sort-01.webp"></div>
+
+<pre><code class="java">class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+    // 同一个桶中的任两个元素之差的绝对值小于等于t，相邻桶中的某两个元素之差的绝对值可能小于等于t（通过计算判断是否真的小于等于t），不同相邻的桶中的元素之差的绝对值不可能满足小于等于t
+        int n = nums.length;
+        Map&lt;Long, Long&gt; map = new HashMap&lt;Long, Long&gt;();
+        long w = (long) t + 1; // t 可能为 0
+        for (int i = 0; i &lt; n; i++) {
+            long id = getID(nums[i], w);
+            if (map.containsKey(id)) {
+                return true;
+            }
+            if (map.containsKey(id - 1) &amp;&amp; Math.abs(nums[i] - map.get(id - 1)) &lt; w) {
+                return true;
+            }
+            if (map.containsKey(id + 1) &amp;&amp; Math.abs(nums[i] - map.get(id + 1)) &lt; w) {
+                return true;
+            }
+            map.put(id, (long) nums[i]);
+            if (i &gt;= k) {
+                map.remove(getID(nums[i - k], w));
+            }
+        }
+        return false;
+    }
+    // 我们将 int 范围内的每一个整数 x 表示为：x=(t+1)×a+b(0≤b≤t) 的形式，这样 x 即归属于编号为 a 的桶。一个桶内至多只会有一个元素
+    public long getID(long x, long w) {
+        if (x &gt;= 0) {
+            return x / w;
+        }
+        return (x + 1) / w - 1;
     }
 }
 </code></pre>
@@ -1605,7 +1751,7 @@ class Solution {
             
               <div class="post-nepre half next">
             
-              <a href="/2022/04/20/PaddleOcr/" rel="next">
+              <a href="/2022/04/20/PaddleOCR/" rel="next">
                 <div class="background">
                   <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/paddleocr.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/paddleocr.webp">
                 </div>

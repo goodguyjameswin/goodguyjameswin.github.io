@@ -569,7 +569,613 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            <h2 id="什么是回溯算法"><a href="#什么是回溯算法" class="headerlink" title="什么是回溯算法"></a>什么是回溯算法</h2><p>当要解决一个问题有多个步骤，每一个步骤有多种选择，使用回溯算法可以通过深度优先遍历得到所有的解决方案。回溯算法递归地建立了局部的可能的解决方案，当发现一个可能的解决方案无法得出正确的结果时，<strong>回退到上一步</strong>，尝试下一个可能的解决方案。</p>
+<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p><strong>剪枝</strong>是指根据问题的特点，在遍历的过程中检测不可能搜索到正确结果的子树，以缩短遍历的路径，从而缩短程序运行的时间。</p>
+<p><strong>经典问题</strong>：给定一个包含重复数字的序列，返回所有不重复的全排列。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [1,1,2]</p>
+<p>输出:</p>
+<p>[[1,1,2],</p>
+<p>[1,2,1],</p>
+<p>[2,1,1]]</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; permuteUnique(int[] nums) {
+        int len = nums.length;
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        if (len == 0) {
+            return res;
+        }
+        // 排序（升序或者降序都可以），排序是剪枝的前提
+        Arrays.sort(nums);
+        // 初始化的时候所有的元素都为 false
+        boolean[] used = new boolean[len];
+        Deque&lt;Integer&gt; path = new ArrayDeque&lt;&gt;(len);
+        dfs(nums, len, 0, used, path, res);
+        return res;
+    }
+    private void dfs(int[] nums, int len, int index, boolean[] used, Deque&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; res) {
+      // 当 index == len 时，path 是一个排列，把它添加到结果集中
+        if (index == len) {
+            res.add(new ArrayList&lt;&gt;(path));
+            // 程序就没有必要执行下去了，这里显式地写上 return 让程序不要再往下面走
+            return;
+        }
+        // 排列与顺序有关，因此每次都头开始遍历
+        for (int i = 0; i &lt; len; ++i) {
+          // 因为排列中原序列中每个数只能选一次，所以如果某个数已经选择过，跳过
+            if (used[i]) {
+                continue;
+            }
+            // 剪枝条件：i &gt; 0 是为了保证 nums[i - 1] 有意义；
+            // 要解决重复问题，就要保证在填第 idx 个数的时候重复数字只会被填入一次。因此通过对原数组排序，保证相同的数字都相邻，然后每次填入的数一定是这个数所在重复数集合中 从左往右第一个未被填过的数字。
+            if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1] &amp;&amp; !used[i - 1]) {
+                continue;
+            }
+            path.addLast(nums[i]);
+            used[i] = true;
+            dfs(nums, len, index + 1, used, path, res);
+            // 回溯部分的代码，和 dfs 之前的代码是对称的
+            used[i] = false;
+            path.removeLast();
+        }
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：给定一个<strong>无重复元素</strong>的数组<code>candidates</code>和一个目标数<code>target</code>，找出<code>candidates</code>中所有可以使数字和为<code>target</code>的组合。<code>candidates</code>中的数字可以无限制重复被选取。</p>
+<p>其中所有数字（包括<code>target</code>）都是正整数；解集不能包含重复的组合。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: candidates = [2,3,5], target = 8,</p>
+<p>所求解集为：</p>
+<p>[[2,2,2,2],</p>
+<p>[2,3,3],</p>
+<p>[3,5]]</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) {
+        int len = candidates.length;
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        if (len == 0) {
+            return res;
+        }
+        // 排序是剪枝的前提
+        Arrays.sort(candidates);
+        Deque&lt;Integer&gt; path = new ArrayDeque&lt;&gt;();
+        dfs(candidates, 0, len, target, path, res);
+        return res;
+    }
+    private void dfs(int[] candidates, int begin, int len, int target, Deque&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; res) {
+        // 由于进入更深层的时候，小于 0 的部分被剪枝，因此递归终止条件值只判断等于 0 的情况
+        if (target == 0) {
+            res.add(new ArrayList&lt;&gt;(path));
+            return;
+        }
+        // 注意从 begin 开始搜索，因为前面已经遍历完所有组合中包含 candidates[begin] 元素的情况
+        for (int i = begin; i &lt; len; i++) {
+            // 剪枝：如果一个正数减去一个较小的数都小于等于0，那么它再减去一个更大的数，一定小于0
+            if (target - candidates[i] &lt; 0) {
+                break;
+            }
+            path.addLast(candidates[i]);
+            // 注意：由于每一个元素可以重复使用，下一轮搜索的起点依然是 i，否则是 i + 1
+            dfs(candidates, i, len, target - candidates[i], path, res);
+            // 状态重置
+            path.removeLast();
+        }
+    }
+}
+</code></pre>
+<h3 id="漫水填充"><a href="#漫水填充" class="headerlink" title="漫水填充"></a>漫水填充</h3><p>在图论里指：从一个结点出发，遍历与它同在一个连通分量中的所有点，可以使用深度优先遍历的方式。<strong>如果要寻找最短路径，可以使用广度优先遍历</strong>。</p>
+<p><strong>经典问题</strong>：给你一个由<code>1</code>（陆地）和<code>0</code>（水）组成的二维网格，请你计算网格中岛屿的数量。</p>
+<p>岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。此外，你可以假设该网格的四条边均被水包围。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：grid = </p>
+<p>[[“1”,”1”,”1”,”1”,”0”],</p>
+<p>[“1”,”1”,”0”,”1”,”0”],</p>
+<p>[“1”,”1”,”0”,”0”,”0”],</p>
+<p>[“0”,”0”,”0”,”0”,”0”]]</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    void dfs(char[][] grid, int r, int c) {
+        int nr = grid.length;
+        int nc = grid[0].length;
+        if (r &lt; 0 || c &lt; 0 || r &gt;= nr || c &gt;= nc || grid[r][c] == &#39;0&#39;) {
+            return;
+        }
+        grid[r][c] = &#39;0&#39;;
+        dfs(grid, r - 1, c);
+        dfs(grid, r + 1, c);
+        dfs(grid, r, c - 1);
+        dfs(grid, r, c + 1);
+    }
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+        int nr = grid.length;
+        int nc = grid[0].length;
+        int num_islands = 0;
+        for (int r = 0; r &lt; nr; ++r) {
+            for (int c = 0; c &lt; nc; ++c) {
+                if (grid[r][c] == &#39;1&#39;) {
+                    ++num_islands;
+                    dfs(grid, r, c);
+                }
+            }
+        }
+        return num_islands;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣417</strong>：有一个<code>m * n</code>的矩形岛屿，与<strong>太平洋</strong>和<strong>大西洋</strong>相邻。“<strong>太平洋</strong>”处于大陆的左边界和上边界，而“<strong>大西洋</strong>”处于大陆的右边界和下边界。这个岛被分割成一个由若干方形单元格组成的网格。给定一个<code>m * n</code>的整数矩阵<code>heights</code>，<code>heights[r][c]</code>表示坐标<code>(r, c)</code>上单元格<strong>海平面的高度</strong>。</p>
+<p>岛上雨水较多，如果相邻单元格的高度<strong>小于或等于</strong>当前单元格的高度，雨水可以直接向北、南、东、西流向相邻单元格。水可以从海洋附近的任何单元格流入海洋。</p>
+<p>返回网格坐标<code>result</code>的<strong>2D列表</strong>，其中<code>result[i] = [ri, ci]</code>表示雨水从单元格<code>(ri, ci)</code>流动<strong>即可流向太平洋也可流向大西洋</strong>。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/backtrace-01.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入: heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]</p>
+<p>输出: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]</p>
+</blockquote>
+</div>
+
+<p>{ % spoiler 查看解析 % }</p>
+<pre><code class="java">class Solution {
+    static int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int[][] heights;
+    int m, n;
+
+    public List&lt;List&lt;Integer&gt;&gt; pacificAtlantic(int[][] heights) {
+        this.heights = heights;
+        this.m = heights.length;
+        this.n = heights[0].length;
+        boolean[][] pacific = new boolean[m][n];
+        boolean[][] atlantic = new boolean[m][n];
+        for (int i = 0; i &lt; m; i++) {
+            dfs(i, 0, pacific);
+        }
+        for (int j = 1; j &lt; n; j++) {
+            dfs(0, j, pacific);
+        }
+        for (int i = 0; i &lt; m; i++) {
+            dfs(i, n - 1, atlantic);
+        }
+        for (int j = 0; j &lt; n - 1; j++) {
+            dfs(m - 1, j, atlantic);
+        }
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        for (int i = 0; i &lt; m; i++) {
+            for (int j = 0; j &lt; n; j++) {
+                if (pacific[i][j] &amp;&amp; atlantic[i][j]) {
+                    List&lt;Integer&gt; cell = new ArrayList&lt;Integer&gt;();
+                    cell.add(i);
+                    cell.add(j);
+                    result.add(cell);
+                }
+            }
+        }
+        return result;
+    }
+    public void dfs(int row, int col, boolean[][] ocean) {
+        if (ocean[row][col]) {
+            return;
+        }
+        ocean[row][col] = true;
+        for (int[] dir : dirs) {
+            int newRow = row + dir[0], newCol = col + dir[1];
+            if (newRow &gt;= 0 &amp;&amp; newRow &lt; m &amp;&amp; newCol &gt;= 0 &amp;&amp; newCol &lt; n &amp;&amp; heights[newRow][newCol] &gt;= heights[row][col]) {
+                dfs(newRow, newCol, ocean);
+            }
+        }
+    }
+}
+</code></pre>
+<p>{ % endspoiler % }</p>
+<p><strong>经典问题</strong>：给你一个整数<code>n</code>，返回<strong>和</strong>为<code>n</code>的完全平方数的最少数量。<strong>完全平方数</strong>是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：n = 12 </p>
+<p>输出：3</p>
+<p>解释：12 = 4 + 4 + 4</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    public int numSquares(int n) {
+        Queue&lt;Integer&gt; queue=new LinkedList&lt;&gt;();
+        HashSet&lt;Integer&gt; visited=new HashSet&lt;&gt;();
+        queue.offer(n);
+        visited.add(n);
+        int level=0;
+        while(!queue.isEmpty()){
+            level++;
+            int len=queue.size();
+            for(int i=0;i&lt;len;i++){
+                int cur=queue.poll();
+                for(int j=1;j*j&lt;=cur;j++){
+                    int tmp=cur-j*j;
+                    if(tmp==0)
+                        return level;
+                    if(!visited.contains(tmp))
+                        queue.offer(tmp);
+                    visited.add(tmp);
+                }
+            }
+        }
+        return level;
+    }
+}
+</code></pre>
+<p><strong>思考</strong>：请尝试用动态规划解答本题。</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int numSquares(int n) {
+        int[] f = new int[n + 1];
+        for (int i = 1; i &lt;= n; i++) {
+            int minn = Integer.MAX_VALUE;
+            for (int j = 1; j * j &lt;= i; j++) {
+                minn = Math.min(minn, f[i - j * j]);
+            }
+            f[i] = minn + 1;
+        }
+        return f[n];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣773</strong>：在一个<code>2 * 3</code>的板上（<code>board</code>）有 5 块砖瓦，用数字<code>1~5</code>来表示，以及一块空缺用<code>0</code>来表示。一次<strong>移动</strong>定义为选择<code>0</code>与一个相邻的数字（上下左右）进行交换。</p>
+<p>最终当板<code>board</code>的结果是<code>[[1,2,3],[4,5,0]]</code>迷板被解开。</p>
+<p>给出一个谜板的初始状态<code>board</code>，返回最少可以通过多少次移动解开谜板，如果不能解开谜板，则返回<code>-1</code>。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/backtrace-02.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：board = [[1,2,3],[4,0,5]]</p>
+<p>输出：1</p>
+<p>解释：交换 0 和 5，1 步完成</p>
+</blockquote>
+</div>
+
+<p>{ % spoiler 查看解析 % }</p>
+<pre><code class="java">class Solution {
+    int[][] neighbors = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+    public int slidingPuzzle(int[][] board) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i &lt; 2; ++i) {
+            for (int j = 0; j &lt; 3; ++j) {
+                sb.append(board[i][j]);
+            }
+        }
+        String initial = sb.toString();
+        if (&quot;123450&quot;.equals(initial)) {
+            return 0;
+        }
+        int step = 0;
+        Queue&lt;String&gt; queue = new LinkedList&lt;String&gt;();
+        queue.offer(initial);
+        Set&lt;String&gt; seen = new HashSet&lt;String&gt;();
+        seen.add(initial);
+        while (!queue.isEmpty()) {
+            ++step;
+            int size = queue.size();
+            for (int i = 0; i &lt; size; ++i) {
+                String status = queue.poll();
+                for (String nextStatus : get(status)) {
+                    if (!seen.contains(nextStatus)) {
+                        if (&quot;123450&quot;.equals(nextStatus)) {
+                            return step;
+                        }
+                        queue.offer(nextStatus);
+                        seen.add(nextStatus);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+    // 枚举 status 通过一次交换操作得到的状态
+    public List&lt;String&gt; get(String status) {
+        List&lt;String&gt; ret = new ArrayList&lt;String&gt;();
+        char[] array = status.toCharArray();
+        int x = status.indexOf(&#39;0&#39;);
+        for (int y : neighbors[x]) {
+            swap(array, x, y);
+            ret.add(new String(array));
+            swap(array, x, y);
+        }
+        return ret;
+    }
+    public void swap(char[] array, int x, int y) {
+        char temp = array[x];
+        array[x] = array[y];
+        array[y] = temp;
+    }
+}
+</code></pre>
+<p>{ % endspoiler % }</p>
+<p><strong>力扣886</strong>：给定一组<code>n</code>人（编号为<code>1,2,...,n</code>），我们想把每个人分进<strong>任意</strong>大小的两组。每个人都可能不喜欢其他人，那么他们不应该属于同一组。</p>
+<p>给定整数<code>n</code>和数组<code>dilikes</code>，其中<code>dilikes[i]=[ai,bi]</code>，表示不允许将编号为<code>ai</code>和<code>bi</code>的人归入同一组。当可以用这种方法将所有人分进两组时，返回<code>true</code>；否则返回<code>false</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：n = 4, dislikes = [[1,2],[1,3],[2,4]]</p>
+<p>输出：true</p>
+<p>解释：group1 [1,4], group2 [2,3]</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    ArrayList&lt;Integer&gt;[] graph;
+    Map&lt;Integer, Integer&gt; color;
+    // 考虑由给定的 “不喜欢” 边缘形成的 N 人的图表，检查这个图的每个连通分支是否为二分的；
+    // 对于每个连通的部分，我们只需试着用两种颜色对它进行着色，就可以检查它是否是二分的。如何做到这一点：将任一结点涂成红色，然后将它的所有邻居都涂成蓝色，然后将所有的邻居的邻居都涂成红色，以此类推。如果我们将一个红色结点涂成蓝色（或蓝色结点涂成红色），那么就会产生冲突
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        graph = new ArrayList[N+1];
+        for (int i = 1; i &lt;= N; ++i)
+            graph[i] = new ArrayList();
+
+        for (int[] edge: dislikes) {
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+
+        color = new HashMap();
+        for (int node = 1; node &lt;= N; ++node)
+            if (!color.containsKey(node) &amp;&amp; !dfs(node, 0))
+                return false;
+        return true;
+    }
+
+    public boolean dfs(int node, int c) {
+        if (color.containsKey(node))
+            return color.get(node) == c;
+        color.put(node, c);
+
+        for (int nei: graph[node])
+            if (!dfs(nei, c ^ 1))
+                return false;
+        return true;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="回溯模拟"><a href="#回溯模拟" class="headerlink" title="回溯模拟"></a>回溯模拟</h3><p><strong>经典问题</strong>：按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。<strong>n皇后问题</strong>研究的是如何将<code>n</code>个皇后放置在<code>n * n</code>的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p>给你一个整数<code>n</code>，返回所有不同的<strong>n皇后问题</strong>的解决方案。每一种解法包含不同的<strong>n皇后问题</strong>的棋子放置方案，该方案中<code>&#39;Q&#39;</code>和<code>&#39;.&#39;</code>分别代表了皇后和空位。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/backtrace-03.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：n = 4</p>
+<p>输出：[[“.Q..”,”…Q”,”Q…”,”..Q.”],[“..Q.”,”Q…”,”…Q”,”.Q..”]]</p>
+<p>解释：如上图所示，4 皇后问题存在两个不同的解法。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
+public class Solution {
+    private int n;
+    /**
+     * 记录某一列是否放置了皇后
+     */
+    private boolean[] col;
+    /**
+     * 记录主对角线上的单元格是否放置了皇后
+     */
+    private boolean[] main;
+    /**
+     * 记录了副对角线上的单元格是否放置了皇后
+     */
+    private boolean[] sub;
+    private List&lt;List&lt;String&gt;&gt; res;
+
+    public List&lt;List&lt;String&gt;&gt; solveNQueens(int n) {
+        res = new ArrayList&lt;&gt;();
+        if (n == 0) {
+            return res;
+        }
+        // 设置成员变量，减少参数传递
+        this.n = n;
+        this.col = new boolean[n];
+        this.main = new boolean[2 * n - 1];
+        this.sub = new boolean[2 * n - 1];
+        Deque&lt;Integer&gt; path = new ArrayDeque&lt;&gt;();
+        dfs(0, path);
+        return res;
+    }
+    private void dfs(int row, Deque&lt;Integer&gt; path) {
+        if (row == n) {
+            // 深度优先遍历到下标为 n，表示 [0.. n - 1] 已经填完，得到了一个结果
+            List&lt;String&gt; board = convert2board(path);
+            res.add(board);
+            return;
+        }
+        // 针对下标为 row 的每一列，尝试是否可以放置
+        for (int j = 0; j &lt; n; j++) {
+            if (!col[j] &amp;&amp; !main[row - j + n - 1] &amp;&amp; !sub[row + j]) {
+                path.addLast(j);
+                col[j] = true;
+                // 主对角线方向上的单元格：横坐标 - 纵坐标 = 定值
+                main[row - j + n - 1] = true; // 加上偏移防止数组下标越界
+                // 副对角线方向上的单元格：横坐标 + 纵坐标 = 定值
+                sub[row + j] = true;
+                // 按行遍历，所以摆放的皇后肯定不在同一行
+                dfs(row + 1, path);
+                sub[row + j] = false;
+                main[row - j + n - 1] = false;
+                col[j] = false;
+                path.removeLast();
+            }
+        }
+    }
+    private List&lt;String&gt; convert2board(Deque&lt;Integer&gt; path) {
+        List&lt;String&gt; board = new ArrayList&lt;&gt;();
+        for (Integer num : path) {
+            StringBuilder row = new StringBuilder();
+            row.append(&quot;.&quot;.repeat(Math.max(0, n)));
+            row.replace(num, num + 1, &quot;Q&quot;);
+            board.add(row.toString());
+        }
+        return board;
+    }
+}
+</code></pre>
+<p><strong>力扣37</strong>：编写一个程序，通过填充空格来解决数独问题。一个数独的解法需<strong>遵循如下规则</strong>：</p>
+<ol>
+<li>数字<code>1-9</code>在每一行只能出现一次</li>
+<li>数字<code>1-9</code>在每一列只能出现一次</li>
+<li>数字<code>1-9</code>在每一个以粗实线分隔的<code>3*3</code>宫内只能出现一次</li>
+</ol>
+<p>数独部分空格内已填入了数字，空白格用<code>&#39;.&#39;</code>表示。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/backtrace-04.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：board = [[“5”,”3”,”.”,”.”,”7”,”.”,”.”,”.”,”.”],[“6”,”.”,”.”,”1”,”9”,”5”,”.”,”.”,”.”],[“.”,”9”,”8”,”.”,”.”,”.”,”.”,”6”,”.”],[“8”,”.”,”.”,”.”,”6”,”.”,”.”,”.”,”3”],[“4”,”.”,”.”,”8”,”.”,”3”,”.”,”.”,”1”],[“7”,”.”,”.”,”.”,”2”,”.”,”.”,”.”,”6”],[“.”,”6”,”.”,”.”,”.”,”.”,”2”,”8”,”.”],[“.”,”.”,”.”,”4”,”1”,”9”,”.”,”.”,”5”],[“.”,”.”,”.”,”.”,”8”,”.”,”.”,”7”,”9”]]</p>
+<p>输出：[[“5”,”3”,”4”,”6”,”7”,”8”,”9”,”1”,”2”],[“6”,”7”,”2”,”1”,”9”,”5”,”3”,”4”,”8”],[“1”,”9”,”8”,”3”,”4”,”2”,”5”,”6”,”7”],[“8”,”5”,”9”,”7”,”6”,”1”,”4”,”2”,”3”],[“4”,”2”,”6”,”8”,”5”,”3”,”7”,”9”,”1”],[“7”,”1”,”3”,”9”,”2”,”4”,”8”,”5”,”6”],[“9”,”6”,”1”,”5”,”3”,”7”,”2”,”8”,”4”],[“2”,”8”,”7”,”4”,”1”,”9”,”6”,”3”,”5”],[“3”,”4”,”5”,”2”,”8”,”6”,”1”,”7”,”9”]]</p>
+<p>解释：输入的数独如上图所示，唯一有效的解决方案如下所示：</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/backtrace-05.webp"></div>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    private boolean[][] row;
+    private boolean[][] col;
+    private boolean[][][] box;
+
+    public void solveSudoku(char[][] board) {
+        row = new boolean[9][9];
+        col = new boolean[9][9];
+        box = new boolean[3][3][9];
+        // 步骤 1：先遍历棋盘一次，然后每一行，每一列在 row col cell 里占住位置
+        for (int i = 0; i &lt; 9; i++) {
+            for (int j = 0; j &lt; 9; j++) {
+                if (board[i][j] != &#39;.&#39;) {
+                    // 计算在布尔数值中的下标，减去 1 使得下标从 0 开始
+                    int index = board[i][j] - &#39;1&#39;;
+                    // 在下标为 i 这一行，记录为 true
+                    row[i][index] = true;
+                    // 在下标为 j 这一列，记录为 true
+                    col[j][index] = true;
+                    // 在横坐标为 i / 3、纵坐标 j / 3 的地方， 看到的那个数字记录为 true
+                    box[i / 3][j / 3][index] = true;
+                }
+            }
+        }
+        // 步骤 2：进行一次深度优先遍历，尝试所有的可能性
+        dfs(board, 0, 0);
+    }
+    /**
+     * @param board 棋盘
+     * @param i     棋盘横坐标
+     * @param j     棋盘纵坐标
+     * @return 由于存在唯一解，搜索到一个解就可以退出了，递归函数的返回值为是否搜索到一个解
+     */
+    private boolean dfs(char[][] board, int i, int j) {
+        // 递归终止条件 1：全部填完
+        if (i == 9) {
+            return true;
+        }
+        // 对 &#39;.&#39; 尝试从 1 填到 9
+        if (board[i][j] == &#39;.&#39;) {
+            for (char c = &#39;1&#39;; c &lt;= &#39;9&#39;; c++) {
+                // 如果行、列、box 已经填了 c - &#39;1&#39; 则尝试下一个数字
+                int index = c - &#39;1&#39;;
+                if (row[i][index] || col[j][index] || box[i / 3][j / 3][index]) {
+                    continue;
+                }
+                // 填写当前字符，并且对应 row、col、box 占位
+                board[i][j] = c;
+                row[i][index] = true;
+                col[j][index] = true;
+                box[i / 3][j / 3][index] = true;
+                // 题目保证只有唯一解，继续填写下一格
+                // ①：i + (j + 1) / 9 表示如果 j 已经在一列的末尾（此时 j = 8），跳转到下一行
+                // (j + 1) % 9 ，当 j = 8 时，j + 1 重置到 0
+                if (dfs(board, i + (j + 1) / 9, (j + 1) % 9)) {
+                    return true;
+                }
+                // 重置变量
+                board[i][j] = &#39;.&#39;;
+                row[i][index] = false;
+                col[j][index] = false;
+                box[i / 3][j / 3][index] = false;
+            }
+        } else {
+            // 填写下一格和 ① 一样
+            return dfs(board, i + (j + 1) / 9, (j + 1) % 9);
+        }
+        // 递归终止条件 2：全部尝试过以后，返回 false
+        return false;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+
+
+
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
           <!-- .entry-content -->
           <!-- <div class="single-reward">

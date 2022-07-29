@@ -739,6 +739,8 @@ public boolean isPalindrome(ListNode head) {
         ListNode head = new ListNode(0);
         ListNode tail = head;
         while (!queue.isEmpty()) {
+            // 这里选择的操作是先从优先队列里拿出最小的元素，然后再添加，事实上
+            // 如果优先队列有提供 replace 操作，应该优先选择 replace（替换堆顶元素）
             ListNode node = queue.poll();
             tail.next = node;
             tail = tail.next;

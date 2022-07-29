@@ -569,7 +569,738 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            <h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p>并查集也是建立在数组上的树形结构，<strong>是一颗完全二叉树</strong>。结点的个数通常是确定的，特点是<strong>由该子结点指向父亲结点，从而形成一条边</strong>。</p>
+<h3 id="并查集的quick-find实现"><a href="#并查集的quick-find实现" class="headerlink" title="并查集的quick-find实现"></a>并查集的quick-find实现</h3><p><code>quick-find</code>基于<code>id</code>的思想：给每一个组一个编号，这个编号称为<code>id</code>，<strong>如果两个元素的<code>id</code>一样，就认为它们同属于一个集合</strong>，时间复杂度为<code>O(1)</code>。要想合并两个组，就需要将它们的<code>id</code>设置成一样，最坏情况需要修改整个数组元素的<code>id</code>，因此<strong>查询快，合并慢</strong>。</p>
+<pre><code class="java">public class UnionFind {
+    /**
+      * 每个结点的 id 标识，id 标识一样，表示被分在一个组
+      */
+    private int[] id;
+    /**
+      * 连通分量的个数
+      */
+    private int count;
+    private int N;
+
+    public int getCount() {
+        return count;
+    }
+    public UnionFind(int N) {
+        this.N = N;
+        this.count = N;
+        this.id = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            id[i] = i;
+        }
+    }
+    public int find(int x) {
+        return id[x];
+    }
+    public void union(int x, int y) {
+        int xid = find(x);
+        int yid = find(y);
+        // 合并之前先做判断
+        if (xid == yid) {
+            return;
+        }
+        // 这里需要遍历，时间复杂度为 $O(N)$
+        for (int i = 0; i &lt; N; i++) {
+            if (id[i] == xid) {
+                id[i] = yid;
+            }
+        }
+        count--;
+    }
+}
+</code></pre>
+<h3 id="并查集的quick-union实现"><a href="#并查集的quick-union实现" class="headerlink" title="并查集的quick-union实现"></a>并查集的quick-union实现</h3><p>为每一个不相交的集合设置一个代表元素来标识这个元素。一开始和<code>quick-find</code>一样，所有的元素都是独立的。只要有发生合并，不是修改标识，而是<strong>把其中一个元素的根结点的链接指向另一个元素的根结点</strong>，其设计思想是：为每一个集合选出一个代表元素，这个代表元素位于这棵树的<code>根结点</code>，因此也叫<strong>代表元法</strong>。</p>
+<pre><code class="java"> public class UnionFind {
+    /**
+      * 在查找的过程中，总是从下到上查找，每个结点的父结点是我们关心的，因此把这个数组命名为 parent
+      */
+    private int[] parent;
+    // 以i为根节点的子树的个数
+    // private int[] size;
+    // 以i为根节点的子树的高度
+    private int[] rank;
+    private int count;
+    private int N;
+
+    public int getCount() {
+        return count;
+    }
+    public UnionFind(int N) {
+        this.N = N;
+        this.count = N;
+        this.parent = new int[N];
+        // 初始化的时候，每个元素指向它自己，即：单独的一个结点是一棵树
+        for (int i = 0; i &lt; N; i++) {
+            parent[i] = i;
+        }
+        // 初始化的时候，每个结点都是一棵树，只有1个结点
+        // Arrays.fill(size, 1);
+        // 初始化的时候，每个结点的高度为1
+        Arrays.fill(rank, 1);
+    }
+    public int find(int x) { // 在查找过程中，使得树的高度变得更低
+        while (x != parent[x]) {
+            // 路径压缩：隔代压缩
+            parent[x] = parent[parent[x]]; // 让查询过程中经历的部分结点指向它的父亲结点的父亲结点
+            x = parent[x];
+        }
+        return x;
+        // // 路径压缩：完全压缩
+        // if (x != parent[x]) {
+        //     // find(parent[x]) 会返回树的根结点，
+        //     // parent[x] = find(parent[x]) 会将沿途经过的结点的父亲结点都指向根结点
+        //     parent[x] = find(parent[x]);
+        // }
+        // // 输入 x 没有发生变化，应返回 x 的父亲结点，才表示树根结点
+        // return parent[x];
+    }
+    public void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX == rootY) {
+            return;
+        }
+        // // 按size合并：把结点个数较少的树的根结点指向结点个数较多的树的根结点
+        // if (size[rootX] == size[rootY]) {
+        //   // 将其中一棵树的根结点指向另一棵树的根结点即可，两个根结点不分彼此
+        //   parent[rootX] = rootY;
+        //   size[rootY] += size[rootX];
+        // } else if (size[rootX] &lt; size[rootY]) {
+        //   parent[rootX] = rootY;
+        //   // 此时以 rootY 为根结点的子树多了 size[rootX] 这么多结点
+        //   // 需要维护定义
+        //   size[rootY] += size[rootX];
+        // } else {
+        //   parent[rootY] = rootX;
+        //   // 此时以 rootY 为根结点的子树多了 size[rootX] 这么多结点
+        //   // 需要维护定义
+        //   size[rootX] += size[rootY];
+        // }
+        
+        // 按秩合并：将高度较低树的根节点指向高度较高的树的根节点，这样合并以后不会增加树的高度（合并之前两棵树高度相等的情况，合并以后其中一个树的高度增加 1）
+        if (rank[rootX] == rank[rootY]) {
+          parent[rootX] = rootY;
+          // 此时以 rootY 为根节点的树的高度仅增加了1
+          rank[rootY] += 1;
+        } else if (rank[rootX] &lt; rank[rootY]) {
+          parent[rootX] = rootY;
+          // 此时以rootY为根节点的树的高度不变
+        } else {
+          // 同理，此时以rootX为根节点的树的高度不变
+          parent[rootY] = rootX;
+        }
+        count--;
+    }
+}
+</code></pre>
+<p><strong>力扣128</strong>：给定一个未排序的整数数组<code>nums</code>，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。请你设计并实现时间复杂度为<code>O(n)</code>的算法解决此问题。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [100,4,200,1,3,2]</p>
+<p>输出：4</p>
+<p>解释：最长数字连续序列是 [1,2,3,4]。它的长度为4。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int longestConsecutive(int[] nums) {
+      // 用Map进行一个下标和值的对应，进行重复元素的排除，且可快速判断当前并查集中已有元素
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        UF uf = new UF(nums.length);
+        for (int i = 0; i &lt; nums.length; i++) {
+            // 存在重复元素，跳过
+            if (map.containsKey(nums[i])) continue;
+            // 与相邻元素相连
+            if (map.containsKey(nums[i] - 1)) {
+                uf.union(i, map.get(nums[i] - 1));
+            }
+            if (map.containsKey(nums[i] + 1)) {
+                uf.union(i, map.get(nums[i] + 1));
+            }
+            map.put(nums[i], i);        
+        }
+        return uf.getMaxConnectSize();
+    }
+    class UF {
+        private int[] parent;
+        private int[] size;
+
+        public UF(int n) {
+            parent = new int[n];
+            size = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+                size[i] = 1;
+            }
+        }
+        public void union(int p, int q) {
+            int rootP = find(p);
+            int rootQ = find(q);
+            if (rootP == rootQ) return;
+            parent[rootP] = rootQ;
+            // 注意 别写反了
+            size[rootQ] += size[rootP];
+        }
+        // get root id
+        private int find(int x) {
+            // 路径压缩
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+        public int getMaxConnectSize() {
+            int maxSize = 0;
+            for (int i = 0; i &lt; parent.length; i++) {
+                if (i == parent[i]) {
+                    maxSize = Math.max(maxSize, size[i]);
+                }
+            }
+            return maxSize;
+        }
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣959</strong>：在由<code>1*1</code>方格组成的<code>n*n</code>网格<code>grid</code>中，每个<code>1*1</code>方块由<code>&#39;/&#39;</code>、<code>&#39;\&#39;</code>或空格构成。这些字符会将方块划分为一些共边的区域。给定网格<code>grid</code>表示为一个字符串数组，返回<strong>区域的数量</strong>。请注意，反斜杠字符是转义的，因此<code>&#39;\&#39;</code>用<code>&#39;\\&#39;</code>表示。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-01.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：grid = [“/\“, “\/“]</p>
+<p>输出：5</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-02.webp"></div>
+
+<pre><code class="java">public class Solution {
+    public int regionsBySlashes(String[] grid) {
+        int N = grid.length;
+        int size = 4 * N * N;
+        UnionFind unionFind = new UnionFind(size);
+        for (int i = 0; i &lt; N; i++) {
+            char[] row = grid[i].toCharArray();
+            for (int j = 0; j &lt; N; j++) {
+                // 二维网格转换为一维表格，index 表示将单元格拆分成 4 个小三角形以后，编号为 0 的小三角形的在并查集中的下标
+                int index = 4 * (i * N + j);
+                char c = row[j];
+                // 单元格内合并
+                if (c == &#39;/&#39;) {
+                    // 合并 0、3，合并 1、2
+                    unionFind.union(index, index + 3);
+                    unionFind.union(index + 1, index + 2);
+                } else if (c == &#39;\\&#39;) {
+                    // 合并 0、1，合并 2、3
+                    unionFind.union(index, index + 1);
+                    unionFind.union(index + 2, index + 3);
+                } else {
+                    unionFind.union(index, index + 1);
+                    unionFind.union(index + 1, index + 2);
+                    unionFind.union(index + 2, index + 3);
+                }
+                // 单元格间合并
+                // 向右合并：1（当前）、3（右一列）
+                if (j + 1 &lt; N) {
+                    unionFind.union(index + 1, 4 * (i * N + j + 1) + 3);
+                }
+                // 向下合并：2（当前）、0（下一行）
+                if (i + 1 &lt; N) {
+                    unionFind.union(index + 2, 4 * ((i + 1) * N + j));
+                }
+            }
+        }
+        return unionFind.getCount();
+    }
+    private class UnionFind {
+        private int[] parent;
+        private int count;
+
+        public int getCount() {
+            return count;
+        }
+        public UnionFind(int n) {
+            this.count = n;
+            this.parent = new int[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+            }
+        }
+        public int find(int x) {
+            while (x != parent[x]) {
+                parent[x] = parent[parent[x]];
+                x = parent[x];
+            }
+            return x;
+        }
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            if (rootX == rootY) {
+                return;
+            }
+            parent[rootX] = rootY;
+            count--;
+        }
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="带权并查集"><a href="#带权并查集" class="headerlink" title="带权并查集"></a>带权并查集</h3><p><strong>经典问题</strong>：给你一个变量对数组<code>equations</code>和一个实数值数组<code>values</code>作为已知条件，其中<code>equations[i]=[Ai,Bi]</code>和<code>values[i]</code>共同表示等式<code>Ai/Bi=values[i]</code>。每个<code>Ai</code>或<code>Bi</code>是一个表示单个变量的字符串。</p>
+<p>另有一些以数组<code>queries</code>表示的问题，其中<code>queries[j]=[Cj,Dj]</code>表示第<code>j</code>个问题，请你根据已知条件找出<code>Cj/Dj=?</code>的结果作为答案。</p>
+<p>返回<strong>所有问题的答案</strong>。如果存在某个无法确定的答案，则用<code>-1.0</code>替代这个答案。如果问题中出现了给定的已知条件中没有出现的字符串，也需要用<code>-1.0</code>替代这个答案。（注意输入总是有效的）</p>
+<div class="center">
+
+<blockquote>
+<p>输入：equations = [[“a”,”b”],[“b”,”c”]], values = [2.0,3.0], queries = [[“a”,”c”],[“b”,”a”],[“a”,”e”],[“a”,”a”],[“x”,”x”]]</p>
+<p>输出：[6.00000,0.50000,-1.00000,1.00000,-1.00000]</p>
+<p><strong>解释</strong>：</p>
+<p>条件：a / b = 2.0, b / c = 3.0</p>
+<p>问题：a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?</p>
+<p>结果：[6.0, 0.5, -1.0, 1.0, -1.0]</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-03.webp"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-04.webp"></div>
+
+<pre><code class="java">public class Solution {
+    public double[] calcEquation(List&lt;List&lt;String&gt;&gt; equations, double[] values, List&lt;List&lt;String&gt;&gt; queries) {
+        int equationsSize = equations.size();
+        // 最极端情况下，每一个等式的两边的变量都不同，因此并查集底层数组开 2 倍的 equations 的长度即可
+        UnionFind unionFind = new UnionFind(2 * equationsSize);
+        // 第 1 步：预处理，将变量的值与 id 进行映射，使得并查集的底层使用数组实现，方便编码
+        Map&lt;String, Integer&gt; hashMap = new HashMap&lt;&gt;();
+        int id = 0;
+        for (int i = 0; i &lt; equationsSize; i++) {
+            List&lt;String&gt; equation = equations.get(i);
+            String var1 = equation.get(0);
+            String var2 = equation.get(1);
+            if (!hashMap.containsKey(var1)) {
+                hashMap.put(var1, id);
+                id++;
+            }
+            if (!hashMap.containsKey(var2)) {
+                hashMap.put(var2, id);
+                id++;
+            }
+            unionFind.union(hashMap.get(var1), hashMap.get(var2), values[i]);
+        }
+        // 第 2 步：做查询
+        int queriesSize = queries.size();
+        double[] res = new double[queriesSize];
+        for (int i = 0; i &lt; queriesSize; i++) {
+            // 对每一个 query 查询变量对应的 id
+            String var1 = queries.get(i).get(0);
+            String var2 = queries.get(i).get(1);
+            Integer id1 = hashMap.get(var1);
+            Integer id2 = hashMap.get(var2);
+            // 两个变量只要其中一个不在以前出现过的变量集合中，返回 -1
+            if (id1 == null || id2 == null) {
+                res[i] = -1.0;
+            } else {
+                // 对并查集进行查询，如果在一个集合中，返回「权值商」
+                // 如果不在一个集合中，返回 -1
+                res[i] = unionFind.isConnected(id1, id2);
+            }
+        }
+        return res;
+    }
+    private class UnionFind {
+        private int[] parent;
+        /**
+         * 把父结点作为分母时的商（重点维护）
+         */
+        private double[] weight;
+
+        public UnionFind(int n) {
+            this.parent = new int[n];
+            this.weight = new double[n];
+            for (int i = 0; i &lt; n; i++) {
+                parent[i] = i;
+                // 单独一个结点的时候，自己除以自己，商为 1
+                weight[i] = 1.0d;
+            }
+        }
+        public void union(int x, int y, double value) {
+            int rootX = find(x);
+            int rootY = find(y);
+            parent[rootX] = rootY;
+            // 需要列方程计算
+            weight[rootX] = weight[y] * value / weight[x];
+        }
+        public int find(int x) {
+            // 这里只能使用完全压缩
+            if (x != parent[x]) {
+                // 注意：这里维护 weight 的定义
+                int origin = parent[x];
+                parent[x] = find(parent[x]);
+                // 先更新较浅层结点的权值，较深层结点的权值需要根据较浅层结点的权值进行更新
+                weight[x] *= weight[origin];
+            }
+            return parent[x];
+        }
+        public double isConnected(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            // 注意：由于 find 执行了「完全压缩」的路径压缩优化，两个 find 执行完成以后
+            // 如果 x 和 y 在同一个集合中，此时它们的父亲结点已经指向同一个根结点了
+            if (rootX == rootY) {
+                // 在一个集合中，返回权值商
+                return weight[x] / weight[y];
+            } else {
+                // 不在一个集合中，返回 -1
+                return -1.0d;
+            }
+        }
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣685</strong>：在本问题中，有根树指满足以下条件的<strong>有向</strong>图。该树只有一个根节点，所有其他节点都是该根节点的后继。该树除了根节点之外的每一个节点都有且只有一个父节点，而根节点没有父节点。</p>
+<p>输入一个有向图，该图由一个有着<code>n</code>个节点（节点值不重复，从<code>1</code>到<code>n</code>）的树及一条附加的有向边构成。附加的边包含在<code>1</code>到<code>n</code>中的两个不同顶点间，这条附加的边不属于树中已存在的边。</p>
+<p>结果图是一个以边组成的二维数组<code>edges</code>。每个元素是一对<code>[ui, vi]</code>，用以表示有向图中连接顶点<code>ui</code>和顶点<code>vi</code>的边，其中<code>ui</code>是<code>vi</code>的一个父节点。</p>
+<p>返回一条能删除的边，使得剩下的图是有<code>n</code>个节点的有根树。若有多个答案，返回最后出现在给定二维数组的答案。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-09.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：edges = [[1,2],[2,3],[3,4],[4,1],[1,5]]</p>
+<p>输出：[4,1]</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">// 树中的每个节点都有一个父节点，除了根节点没有父节点。在多了一条附加的边之后：
+// 1、附加的边指向根节点，则包括根节点在内的每个节点都有一个父节点，此时图中一定有环路
+// 2、附加的边指向非根节点，则恰好有一个节点（即被附加的边指向的节点）有两个父节点，此时图中可能有环路也可能没有环路
+class Solution {
+    public int[] findRedundantDirectedConnection(int[][] edges) {
+        int n = edges.length;
+        UnionFind uf = new UnionFind(n + 1);
+        int[] parent = new int[n + 1];
+        for (int i = 1; i &lt;= n; ++i) {
+            parent[i] = i;
+        }
+        int conflict = -1;
+        int cycle = -1;
+        for (int i = 0; i &lt; n; ++i) {
+            int[] edge = edges[i];
+            int node1 = edge[0], node2 = edge[1];
+            if (parent[node2] != node2) { // 说明 node2 有两个父结点，标记为导致冲突的边
+                conflict = i;
+            } else {
+                parent[node2] = node1;
+                if (uf.find(node1) == uf.find(node2)) { // 祖先相同，标记为导致环路出现的边
+                    cycle = i;
+                } else {
+                    uf.union(node1, node2);
+                }
+            }
+        }
+        // 同一条边不可能同时被记为导致冲突的边和导致环路出现的边。如果访问到的边确实同时导致冲突和环路出现，则这条边被记为导致冲突的边
+        if (conflict &lt; 0) {
+            // 如果没有导致冲突的边，说明附加的边一定导致环路出现，而且是在环路中的最后一条被访问到的边，因此附加的边即为导致环路出现的边
+            int[] redundant = {edges[cycle][0], edges[cycle][1]};
+            return redundant;
+        } else {
+            int[] conflictEdge = edges[conflict];
+            if (cycle &gt;= 0) {
+                // 如果有导致环路的边，则附加的边不可能是已经被标记为导致冲突的边
+                int[] redundant = {parent[conflictEdge[1]], conflictEdge[1]};
+                return redundant;
+            } else {
+                // 如果没有导致环路的边，则附加的边是后被访问到的边
+                int[] redundant = {conflictEdge[0], conflictEdge[1]};
+                return redundant;
+            }
+        }
+    }
+}
+class UnionFind {
+    int[] ancestor;
+
+    public UnionFind(int n) {
+        ancestor = new int[n];
+        for (int i = 0; i &lt; n; ++i) {
+            ancestor[i] = i;
+        }
+    }
+    public void union(int index1, int index2) {
+        ancestor[find(index1)] = find(index2);
+    }
+    public int find(int index) {
+        if (ancestor[index] != index) {
+            ancestor[index] = find(ancestor[index]);
+        }
+        return ancestor[index];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><h4 id="Prim算法"><a href="#Prim算法" class="headerlink" title="Prim算法"></a>Prim算法</h4><p>集合<code>V</code>保存未加入到最小生成树中的节点，最开始，所有的图节点都在集合<code>V</code>中；集合<code>Vnew</code>保存已经加入到最小生成树中的节点，如果一个节点加入到了最小生成树中，则将该节点加入到<code>Vnew</code>（即最小生成树）</p>
+<p>Prim算法主要维护两个数组：</p>
+<ul>
+<li><code>lowcost数组</code>，表示<code>V</code>中的节点，保存<code>V</code>中每个节点离集合<code>Vnew</code>中所有节点的最短距离。如果节点已经加入到了集合<code>Vnew</code>中，则置为-1</li>
+<li><code>v数组</code>，表示<code>V</code>中节点的访问情况，最开始全部为<code>0</code>，表示未加入到<code>Vnew</code>中，若某节点加入到了集合<code>Vnew</code>中，则将其置为<code>-1</code></li>
+</ul>
+<p>步骤：</p>
+<ol>
+<li>随机选择一个起点，将其加入到<code>Vnew</code>中。同时，更新此时的数组<code>lowcost</code>和数组<code>v</code></li>
+<li>遍历<code>lowcost</code>，寻找<code>lowcost</code>中的最小值<code>min</code>（假设索引为<code>j</code>，<code>j</code>为<code>Vnew</code>中离<code>V</code>最近的点），将与索引<code>j</code>相对应的节点加入到<code>Vnew</code>中，并更新数组<code>lowcost[j]</code>和数组<code>v[j]</code></li>
+<li>找到<code>lowcost</code>中的最小值<code>j</code>后，此时数组<code>lowcost</code>中的所有结点都要更新，因为此时集合<code>Vnew</code>中的节点增加了，集合<code>V</code>中的结点离<code>Vnew</code>的最近距离可能会缩短</li>
+<li>根据新加入集合<code>Vnew</code>中的结点<code>j</code>，更新所有的<code>lowcost</code></li>
+<li>重复步骤2，直到访问了所有的结点</li>
+</ol>
+<p><strong>最后需要计算的最小生成树中所有结点之间的距离之和 便是每一步迭代时求得得<code>lowcost</code>中得最小值<code>min</code>的和</strong></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-05.webp"></div>
+
+<pre><code class="java">public class Prim {
+    // 存在横切边的数据结构
+    private final Queue&lt;int[]&gt; pq;
+    // 记录已经成为最小生成树的节点
+    private boolean[] inMST;
+    // 记录最小生成树的权重和
+    private Integer weightSum = 0;
+    // graph 是用邻接表表示的一幅图
+    // graph[s] 记录节点 s 所有相邻的边
+    // 三元组 int[]{from, to, weight} 表示一条边
+    private final List&lt;int[]&gt;[] graph;
+
+    public Prim(List&lt;int[]&gt;[] graph) {
+        this.graph = graph;
+        // 按照边的权重从小到大排序
+        this.pq = new PriorityQueue&lt;&gt;(Comparator.comparingInt(a -&gt; a[2]));
+        // 图中有 n 个节点
+        int n = graph.length;
+        this.inMST = new boolean[n];
+        // 随便从一个点开始切分都可以，我们不妨从节点 0 开始
+        inMST[0] = true;
+        cut(0);
+        // 不断进行切分，向最小生成树中添加边
+        while (!pq.isEmpty()) {
+            int[] edge = pq.poll();
+            int to = edge[1];
+            int weight = edge[2];
+            if (inMST[to]) {
+                // 节点 to 已经在最小生成树中，跳过
+                // 否则这条边会产生环
+                continue;
+            }
+            // 将边 edge 加入最小生成树
+            weightSum += weight;
+            inMST[to] = true;
+            // 节点 to 加入后，进行新一轮切分，会产生更多横切边
+            cut(to);
+        }
+    }
+    // 将 s 的横切边加入优先队列
+    private void cut(int x) {
+        // 遍历 s 的邻边
+        for (int[] edge : graph[x]) {
+            int to = edge[1];
+            if (inMST[to]) {
+                // 相邻接点 to 已经在最小生成树中，跳过
+                // 否则这条边会产生环
+                continue;
+            }
+            // 加入横切边队列
+            pq.offer(edge);
+        }
+    }
+    // 最小生成树的权重和
+    public int weightSum() {
+        return this.weightSum;
+    }
+    // 判断最小生成树是否包含图中的所有节点
+    public boolean allConnected() {
+        for (int i = 0; i &lt; graph.length; i++) {
+            if (!inMST[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+</code></pre>
+<h4 id="Kruskal算法"><a href="#Kruskal算法" class="headerlink" title="Kruskal算法"></a>Kruskal算法</h4><p>以<strong>边</strong>为基础，每次从<strong>边集合</strong>中寻找最小的边（不管两个顶点属于<code>V</code>还是<code>Vnew</code>），然后判断该边的两个顶点是否同源（属于同一个连通分量），Kruskal需要对所有的边进行排序，然后从小到大，依次遍历每条边，同时判断每条边是否同源，如果同源，跳过；如果不同源，将两个连通分量合并，直到所有顶点属于同一个连通分量，算法结束</p>
+<p>步骤：</p>
+<ol>
+<li>初始化：将图（邻接矩阵或邻接表）转换成<code>点-边式</code>，并对<code>点-边式</code>按边的长度进行排序。同时，初始化并查集</li>
+<li>依次遍历所有的<code>点-边式</code>，每次取最小值</li>
+<li>如果该<code>点-边式</code>的两个顶点同源，跳过；如果该<code>点-边式</code>的两个顶点不同源，则将这两个源（连通分量）合并</li>
+<li>重复步骤2，知道存在一个连通分量，包含了图中所有的结点</li>
+</ol>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-06.webp"></div>
+
+<pre><code class="java">class Solution {
+    public int minimumCost(int n, int[][] edges) {
+        // 编号为 0...n
+        UnionFind uf = new UnionFind(n + 1);
+        // 对所有边按照权重从小到大排序
+        Arrays.sort(edges, (a, b) -&gt; (a[2] - b[2]));
+        // 记录最小生成树的权重之和
+        int mst = 0;
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int weight = edge[2];
+            // 若这条边会产生环，则不能加入 mst
+            if (uf.connected(u, v)) {
+                continue;
+            }
+            // 若这条边不会产生环，则属于最小生成树
+            mst += weight;
+            uf.union(u, v);
+        }
+        // 保证所有节点都被连通
+        // uf.count() == 1 说明所有节点被连通
+        return uf.count() == 1 ? mst : -1;
+    }
+    class UnionFind {
+        // ...
+    }
+}
+</code></pre>
+<p><strong>力扣1168</strong>：村里面一共有<code>n</code>栋房子。我们希望通过建造水井和铺设管道来为所有房子供水。</p>
+<p>对于每个房子<code>i</code>，我们有两种可选的供水方案：一种是直接在房子内建造水井，成本为<code>wells[i-1]</code>（注意<code>-1</code>，因为<strong>索引从0开始</strong>）；另一种是从另一口井铺设管道引水，数组<code>pipes</code>给出了在房子间铺设管道的成本，其中每个<code>pipes[j]=[house1j,house2j,costj]</code>代表用管道将<code>house1j</code>和<code>house2j</code>连接在一起的成本。连接是双向的。请返回<strong>为所有房子都供水的最低总成本</strong>。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-07.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：n = 3, wells = [1,2,2], pipies = [[1,2,1],[2,3,1]]</p>
+<p>输出：3</p>
+<p>解释：</p>
+<p>上图展示了铺设管道连接房屋的成本。</p>
+<p>最好的策略是在第一个房子里建造水井（成本为1），然后将其他房子铺设管道连起来（成本为2），所以总成本为3</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/unionfind-08.webp"></div>
+
+<pre><code class="java">class Solution {
+    public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
+        int res = 0;
+        var uf = new UnionFind(n + 1);
+        var edges = new ArrayList&lt;int[]&gt;();
+         for (int i = 0; i &lt; n; ++i) {
+             edges.add(new int[]{0, i + 1, wells[i]});
+         }
+         for (int[] pipe : pipes) {
+             edges.add(pipe);
+         }
+         Collections.sort(edges, (a, b) -&gt; a[2] - b[2]);
+         for (int[] edge : edges) {
+             int from = edge[0];
+             int to = edge[1];
+             if (!uf.isConnected(from, to)) {
+                 res += edge[2];
+                 uf.union(from, to);
+             }
+         }
+         return res;
+    }
+    class UnionFind {
+        int[] parent;
+        int[] rank;
+
+        public UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i &lt; n; ++i) {
+                parent[i] = i;
+                rank[i] = 1;
+            }
+        }
+        public int find(int x) {
+            if (x != parent[x]) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            if (rootX == rootY) {
+                return;
+            }
+            if (rank[rootX] == rank[rootY]) {
+                parent[rootX] = rootY;
+                rank[rootX] += 1;
+            } else if (rank[rootX] &lt; rank[rootY]) {
+                parent[rootX] = rootY;
+            } else {
+                parent[rootY] = rootX;
+            }
+        }
+        public boolean isConnected(int x, int y) {
+            return find(x) == find(y);
+        }
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
           <!-- .entry-content -->
           <!-- <div class="single-reward">
