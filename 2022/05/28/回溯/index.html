@@ -741,13 +741,13 @@
 </blockquote>
 </div>
 
-<p>{ % spoiler 查看解析 % }</p>
 <pre><code class="java">class Solution {
-    static int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    int[][] heights;
+    static int dirs[][];
+    int heights[][];
     int m, n;
 
     public List&lt;List&lt;Integer&gt;&gt; pacificAtlantic(int[][] heights) {
+        this.dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         this.heights = heights;
         this.m = heights.length;
         this.n = heights[0].length;
@@ -792,7 +792,6 @@
     }
 }
 </code></pre>
-<p>{ % endspoiler % }</p>
 <p><strong>经典问题</strong>：给你一个整数<code>n</code>，返回<strong>和</strong>为<code>n</code>的完全平方数的最少数量。<strong>完全平方数</strong>是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，1、4、9 和 16 都是完全平方数，而 3 和 11 不是。</p>
 <div class="center">
 
@@ -867,10 +866,10 @@
 </blockquote>
 </div>
 
-<p>{ % spoiler 查看解析 % }</p>
 <pre><code class="java">class Solution {
-    int[][] neighbors = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
+    int neighbors[][];
     public int slidingPuzzle(int[][] board) {
+        this.neighbors = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i &lt; 2; ++i) {
             for (int j = 0; j &lt; 3; ++j) {
@@ -923,7 +922,6 @@
     }
 }
 </code></pre>
-<p>{ % endspoiler % }</p>
 <p><strong>力扣886</strong>：给定一组<code>n</code>人（编号为<code>1,2,...,n</code>），我们想把每个人分进<strong>任意</strong>大小的两组。每个人都可能不喜欢其他人，那么他们不应该属于同一组。</p>
 <p>给定整数<code>n</code>和数组<code>dilikes</code>，其中<code>dilikes[i]=[ai,bi]</code>，表示不允许将编号为<code>ai</code>和<code>bi</code>的人归入同一组。当可以用这种方法将所有人分进两组时，返回<code>true</code>；否则返回<code>false</code>。</p>
 <div class="center">
