@@ -569,7 +569,394 @@
           <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
           
           <div class="entry-content">
-            <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+            <h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>贪心算法总假设问题具有<strong>最优子结构</strong>和<strong>贪心选择性质</strong>（从子问题的局部最优解可以通过<strong>递推</strong>得到全局最优解），贪心算法往往不会像回溯算法与动态规划那样尝试枚举每一步可能的操作，并且比较<strong>所有</strong>可能的方案的结果。</p>
+<h2 id="问题选讲"><a href="#问题选讲" class="headerlink" title="问题选讲"></a>问题选讲</h2><p><strong>经典问题</strong>：给定长度为<code>2n</code>的整数数组<code>nums</code>，你的任务是将这些数分成<code>n</code>对，例如<code>(a1, b1), (a2, b2), ..., (an, bn)</code>，使得从 1 到 n 的<code>min(ai, bi)</code>总和最大。返回该<strong>最大总和</strong>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [6,2,6,5,1,2]</p>
+<p>输出：9</p>
+<p>解释：最优的分法为 (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5) + min(6, 6) = 1 + 2 + 6 = 9</p>
+</blockquote>
+</div>
+
+<pre><code class="java">// 贪心算法的直觉：配对的两个数里，较大的数会被「消去」，所以输入数组里最大的数一定会被消去，为了得到「配对以后取最小、最小值的和最大」的结果，需要让「倒数第二大的数」和「最大的数」配对，好让「倒数第二大的数」作为一个加法项被保留
+public class Solution {
+    public int arrayPairSum(int[] nums) {
+        int len = nums.length;
+        // 输入数组长度为偶数，因此可以对输入数组升序排列，然后相邻位置「两两配对」
+        Arrays.sort(nums);
+        int res = 0;
+        for (int i = 0; i &lt; len; i += 2) {
+            res += nums[i];
+        }
+        return res;
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。你需要按照以下要求，帮助老师给这些孩子分发糖果：</p>
+<ul>
+<li>每个孩子至少分配到 1 个糖果。</li>
+<li>相邻的孩子中，评分高的孩子必须获得更多的糖果。</li>
+</ul>
+<p>那么这样下来，老师至少需要准备多少颗糖果呢？</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [1,0,2]</p>
+<p>输出: 5</p>
+<p>解释: 你可以分别给这三个孩子分发 2、1、2 颗糖果。</p>
+</blockquote>
+</div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/greedy-01.webp"></div>
+
+<pre><code class="java">// 贪心思路：一次遍历，我们每看到一个元素的时候，就需要想是不是可以只根据之前看到的数据决定当前需要的糖果数
+public class Solution {
+    public int candy(int[] ratings) {
+        int len = ratings.length;
+        if (len == 0) {
+            return 0;
+        }
+        int res = 1;
+        // 最近的、处于上升区间里的最后一个元素的值
+        int up = 0;
+        // 下降区间的元素的长度
+        int down = 0;
+        // 上升区间里，循环变量 i 的左边一个位置的小朋友得到的糖果数
+        int prev = 0;
+        for (int i = 1; i &lt; len; i++) {
+            if (ratings[i - 1] &lt; ratings[i]) {
+                up++;
+                down = 0;
+                prev = up;
+                res += (up + 1);
+            } else if (ratings[i - 1] == ratings[i]) {
+                // 不管处于上升区间还是下降区间，这三个变量都重置为 0
+                up = 0;
+                prev = 0;
+                down = 0;
+
+                // 不管处于上升区间还是下降区间，此时都只贪心地给当前小朋友 1 颗糖果
+                res += 1;
+            } else {
+                // 此时处于下降区间
+                up = 0;
+                down++;
+                if (down &lt;= prev) {
+                    res += down;
+                } else {
+                    res += down + 1;
+                }
+            }
+        }
+        return res;
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。</p>
+<ul>
+<li>可以认为区间的终点总是大于它的起点。</li>
+<li>区间<code>[1,2]</code>和<code>[2,3]</code>的边界相互“接触”，但没有相互重叠。</li>
+</ul>
+<div class="center">
+
+<blockquote>
+<p>输入: [ [1,2], [2,3], [3,4], [1,3] ]</p>
+<p>输出: 1</p>
+<p>解释: 移除 [1,3] 后，剩下的区间没有重叠。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">// 贪心思路：图中的所有区间按照右端点升序排序，然后我们遍历这些区间，每一次选择结束较早的、且与之前的区间不重合的区间，留给后面富裕的区间长度就更长，这样才能保留更多不重合的区间
+public class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int len = intervals.length;
+        if (len == 0) {
+            return 0;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(interval -&gt; interval[1]));
+        int end = intervals[0][1];
+        int maxLen = 1;
+        for (int i = 1; i &lt; len; ++i) {
+            if (end &lt;= intervals[i][0]) {
+                maxLen++;
+                end = intervals[i][1];
+            }
+        }
+        return len - maxLen;
+    }
+}
+</code></pre>
+<p><strong>力扣253</strong>：给你一个会议时间安排的数组<code>intervals</code>，每个会议时间都会包括开始和结束的时间<code>intervals[i] = [start_i, end_i]</code>，为避免会议冲突，同时要考虑充分利用会议室资源，请你计算至少需要多少间会议室，才能满足这些会议安排</p>
+<div class="center">
+
+<blockquote>
+<p>输入：intervals = [[0,30],[5,10],[15,20]]</p>
+<p>输出：2</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">// 贪心思路：总是希望之前的会议越早结束越好，这是因为 如果一个会议结束得越早，那么后面的会议可以开始且不同时进行的概率就会越大
+public class Solution {
+    public int minMeetingRooms(int[][] intervals) {
+        int len = intervals.length;
+        if (len &lt; 2) {
+            return len;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(o -&gt; o[0]));
+        // 但问题要求的其实是：可以同时进行的会议有多少个；因此需要关注每个会议结束的时间
+        PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+        int res = 0;
+        for (int[] interval : intervals) {
+            // 这个过程很可能会弹出很多会议，因此使用 while
+            while (!minHeap.isEmpty() &amp;&amp; interval[0] &gt;= minHeap.peek()) {
+                minHeap.poll();
+            }
+            minHeap.add(interval[1]);
+            res = Math.max(res, minHeap.size());
+        }
+        return res;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>经典问题</strong>：给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。判断你是否能够到达最后一个位置。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [2,3,1,1,4]</p>
+<p>输出: true</p>
+<p>解释: 从位置 0 到 1 跳 1 步, 然后跳 3 步到达最后一个位置。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public boolean canJump(int[] nums) {
+        int len = nums.length;
+        if (len == 1) {
+            return true;
+        }
+        int maxReached = 0;
+        // 数组的最后一个值可以不看
+        for (int i = 0; i &lt; len - 1; i++) {
+            // 判断当前位置是否能达到
+            if (i &gt; maxReached) {
+                return false;
+            }
+            // 读取 nums[i] 更新 maxReached
+            maxReached = Math.max(maxReached, i + nums[i]);
+            if (maxReached &gt;= len - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p><strong>思考</strong>：假设你总是可以到达数组的最后一个位置，最少的跳跃次数是多少？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">// 除了关心「当前步骤可以跳到的最远的位置」以外，还需要关心「下一步跳跃可以到达的最远的位置」
+public class Solution {
+    public int jump(int[] nums) {
+        int len = nums.length;
+        int currMaxReached = 0;
+        int nextMaxReached = 0;
+        int res = 0;
+        // 最后一个位置不用看
+        for (int i = 0; i &lt; len - 1; i++) {
+            nextMaxReached = Math.max(nextMaxReached, nums[i] + i);
+            if (i == currMaxReached) {
+                // 遇到这一步可以到达的最远边界，就更新为下一步可以达到的最远边界，并且最少步数加一
+                currMaxReached = nextMaxReached;
+                res++;
+            }
+        }
+        return res;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣402</strong>：给你一个以字符串表示的非负整数<code>num</code>和一个整数<code>k</code>，移除这个数中的<code>k</code>位数字，使得剩下的数字最小。请你以字符串形式返回这个最小的数字。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：num = “1432219”, k = 3</p>
+<p>输出：”1219”</p>
+<p>解释：移除掉三个数字 4, 3, 和 2 形成一个新的最小的数字 1219 。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/greedy-02.webp"></div>
+
+<pre><code class="java">public class Solution {
+    public String removeKdigits(String num, int k) {
+        int len = num.length();
+        if (len == k) {
+            return &quot;0&quot;;
+        }
+        int remaining = len - k;
+        char[] charArray = num.toCharArray();
+        Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;();
+        for (char c : charArray) {
+            while (k &gt; 0 &amp;&amp; !stack.isEmpty() &amp;&amp; stack.peekLast() &gt; c) {
+                stack.removeLast();
+                k--;
+            }
+            stack.addLast(c);
+        }
+        // 针对单调不减的用例，只取前面剩下的部分，针对 String num = &quot;112&quot;; int k = 1; 这种用例
+        while (stack.size() &gt; remaining) {
+            stack.pollLast();
+        }
+        // 去掉前导 0
+        while (!stack.isEmpty() &amp;&amp; stack.peekFirst() == &#39;0&#39;) {
+            // 恰好 Deque 有提供 removeFirst() 实现
+            stack.removeFirst();
+        }
+        // 栈为空，说明已从原数字移除所有的数字，返回数字就是0
+        if (stack.isEmpty()) {
+            return &quot;0&quot;;
+        }
+        // 此时栈内从栈底到栈顶拼接成的字符串就是题目要求的结果
+        int size = stack.size();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i &lt; size; i++) {
+            stringBuilder.append(stack.removeFirst());
+        }
+        return stringBuilder.toString();
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>经典问题</strong>：数轴上放置了一些筹码，每个筹码的位置存在数组<code>chips</code>当中。你可以对<strong>任何筹码</strong>执行下面两种操作之一（<strong>不限操作次数</strong>，0 次也可以）：</p>
+<ul>
+<li>将第 i 个筹码向左或者右移动 2 个单位，代价为 0。</li>
+<li>将第 i 个筹码向左或者右移动 1 个单位，代价为 1。</li>
+</ul>
+<p>最开始的时候，同一位置上也可能放着两个或者更多的筹码。返回将所有筹码移动到同一位置（任意位置）上所需要的最小代价。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：chips = [1,2,3]</p>
+<p>输出：1</p>
+<p>解释：第二个筹码移动到位置三的代价是 1，第一个筹码移动到位置三的代价是 0，总代价为 1。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">// 贪心思路：既然「不限操作次数」，且「将第 i 个筹码向左或者右移动 2 个单位，代价为 0」，就可以尽量多地使用这种操作，将 所有的 筹码放在 相邻的 两个位置上
+// 然后再使用「将第 i 个筹码向左或者右移动 1 个单位，代价为 1」 操作，将其中一个位置上的所有筹码移动到另一个位置上，为了使得代价最少，我们将数量较少的筹码堆的所有筹码移动到数量较多的筹码堆。
+public class Solution {
+    public int minCostToMoveChips(int[] position) {
+        // 统计输入数组里奇数的个数
+        int odd = 0;
+        // 统计输入数组里偶数的个数
+        int even = 0;
+        for (int p : position) {
+            if ((p % 2) == 0) {
+                even++;
+            } else {
+                odd++;
+            }
+        }
+        return Math.min(odd, even);
+    }
+}
+</code></pre>
+<p><strong>力扣1247</strong>：有两个长度相同的字符串<code>s1</code>和<code>s2</code>，且它们其中<strong>只含有</strong>字符<code>&quot;x&quot;</code>和<code>&quot;y&quot;</code>，你需要通过「交换字符」的方式使这两个字符串相同。</p>
+<p>每次「交换字符」的时候，你都可以在两个字符串中各选一个字符进行交换。</p>
+<p>交换只能发生在两个不同的字符串之间，绝对不能发生在同一个字符串内部。也就是说，我们可以交换<code>s1[i]</code>和<code>s2[j]</code>，但不能交换<code>s1[i]</code>和<code>s1[j]</code>。</p>
+<p>最后，请你返回使<code>s1</code>和<code>s2</code>相同的最小交换次数，如果没有方法能够使得这两个字符串相同，则返回<code>-1</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：s1 = “xy”, s2 = “yx”</p>
+<p>输出：2</p>
+<p>解释：</p>
+<p>交换 s1[0] 和 s2[0]，得到 s1 = “yy”，s2 = “xx” 。</p>
+<p>交换 s1[0] 和 s2[1]，得到 s1 = “xy”，s2 = “xy” 。</p>
+<p>注意，你不能交换 s1[0] 和 s1[1] 使得 s1 变成 “yx”，因为我们只能交换属于两个不同字符串的字符。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <ul>
+<li>当<code>s1 = &quot;xx&quot;，s2 = &quot;yy&quot;</code>时，只需交换一次，就可以使两个字符串相等</li>
+<li>当<code>s1 = &quot;xy&quot;，s2 = &quot;yx&quot;</code>时，需要交换两次才可以使两个字符串相等</li>
+</ul>
+<p>遍历比较两个字符串，如果<code>s1[i] = s2[i]</code>则不用交换</p>
+<ul>
+<li>xy 表示<code>s1[i] = x，s2[i] = y</code>的次数</li>
+<li>yx 表示<code>s1[i] = y，s2[i] = x</code>的次数</li>
+</ul>
+<p>因为需要每两组字符才可以进行交换，如果<code>xy+yx</code>为奇数，必定有一组字符不能交换，返回<code>-1</code></p>
+<p>优先交换所有的<code>&quot;xx&quot; &quot;yy&quot;</code>和<code>&quot;yy&quot; &quot;xx&quot;</code>，因为只需一次交换。若还剩一组<code>&quot;xy&quot; &quot;yx&quot;</code>则再加<code>2</code>即可</p>
+<pre><code class="java">class Solution {
+    public int minimumSwap(String s1, String s2) {
+        int xy = 0, yx = 0;
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        for(int i = 0; i &lt; c1.length; i++){
+            if(c1[i] == c2[i]) continue;
+            if(c1[i] == &#39;x&#39;) xy++;
+            else yx++;
+        }
+        if(((xy + yx) &amp; 1) != 0) return -1;
+        return xy / 2 + yx / 2 + (xy % 2 * 2);
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           </div>
           <!-- .entry-content -->
           <!-- <div class="single-reward">
