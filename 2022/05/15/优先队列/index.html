@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">优先队列 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "Cb5p5SgcQdXKfhOvP5x1hifH-gzGzoHsz";
+  mashiro_option.v_appKey = "7YNH9O5dADsyAurqxcJA31CN";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/priorityqueue.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/priorityqueue.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      优先队列</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-5-15
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>优先队列是抽象数据类型，而堆是具体的、高效的实现，显然用数组可以实现优先队列，但是无法突破时间复杂度O(N)的限制，可以通过将数组表示成<strong>树形结构</strong>来实现堆，其优点是<strong>不用维护左右子结点、父结点的引用关系</strong>。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/priorityqueue-01.webp"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/priorityqueue-02.webp"></div>
+
+<p>完全二叉树，指的是在二叉树的基础上，从上至下、从左至右没有空结点。堆是完全二叉树，又分为最大堆和最小堆，前者表示任一结点的数值都大于等于它的两个孩子结点的数值，后者则表示任一结点的数值都小于等于它的两个孩子结点（如存在）的数值，因此它是一个<strong>局部有序</strong>的结构。</p>
+<h3 id="用数组实现堆"><a href="#用数组实现堆" class="headerlink" title="用数组实现堆"></a>用数组实现堆</h3><pre><code class="java">public class MaxHeap implements Queue {
+
+    /**
+     * 本实现 0 号下标不存放真正数据，底层使用动态数组是更好的实现
+     */
+    private int[] data;
+    /**
+     * 堆中能够存储的元素的最大数量
+     */
+    private int capacity;
+    /**
+     * 当前最大堆中真正存储的元素的个数
+     */
+    private int size;
+
+    @Override
+    public int size() {
+        return size;
+    }
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    @Override
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        // 下标 0 不存元素
+        return data[1];
+    }
+    public MaxHeap(int capacity) {
+        data = new int[capacity + 1];
+        this.capacity = capacity;
+        size = 0;
+    }
+    @Override
+    public void offer(int item) {
+        if (size + 1 &gt; capacity) {
+            throw new IllegalArgumentException(&quot;堆空间已满。&quot;);
+        }
+        // 把新添加的元素放在数组的最后一位
+        data[size + 1] = item;
+        // 维护 size 的定义
+        size++;
+        // 考虑将 data[size] 元素上移到合适的位置
+        siftUp(size);
+    }
+    private void shiftUp(int k) {
+        // 先暂存，再逐个移动，最后空出位置把先前暂存元素放进去
+        int temp = data[k];
+        // 有下标就要考虑索引越界的情况，已经在下标 1 的位置，就没有必要上移了
+        while (k &gt; 1) {
+            if (data[k / 2] &lt; temp) {
+                data[k] = data[k / 2];
+                k /= 2;
+            } else {
+                break;
+            }
+        }
+        data[k] = temp;
+    }
+    @Override
+    public int poll() {
+        if (size == 0) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        int ret = data[1];
+        // 把最后一个元素的值赋值到二叉堆的根结点
+        data[1] = data[size];
+        size--;
+        siftDown(1);
+        return ret;
+    }
+    private void shiftDown(int k) {
+        // 先暂存，再逐个移动，最后空出位置把先前暂存元素放进去
+        int temp = data[k];
+        // 只要它有孩子，注意这里使用等于号，是因为真正存数据的下标从 1 开始
+        while (2 * k &lt;= size) {
+            int j = 2 * k;
+            if (j + 1 &lt;= size &amp;&amp; data[j + 1] &gt; data[j]) {
+                // 右边的孩子胜出，此时可以认为没有左孩子，
+                j++;
+            }
+            // 如果当前的元素的值，比右边的孩子节点要大，则逐渐下落的过程到此结束
+            if (temp &gt;= data[j]) {
+                break;
+            }
+            // 否则，交换位置，继续上浮
+            data[k] = data[j];
+            k = j;
+        }
+        data[k] = temp;
+    }
+    public void replace(int item) {
+        if (isEmpty()) {
+            throw new IllegalArgumentException(&quot;堆为空。&quot;);
+        }
+        // 注意：堆顶元素替换，size 不变
+        data[1] = item;
+        siftDown(1);
+    }
+}
+</code></pre>
+<h3 id="将数组整理成堆"><a href="#将数组整理成堆" class="headerlink" title="将数组整理成堆"></a>将数组整理成堆</h3><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">具体描述</th>
+<th align="center">合理性解释</th>
+<th align="center">时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">自顶向下</td>
+<td align="center">从非根结点开始逐个上移（siftUp）</td>
+<td align="center">每一个结点朝上看是堆有序的</td>
+<td align="center">O(NlogN)</td>
+</tr>
+<tr>
+<td align="center">自底向上</td>
+<td align="center">从非叶子结点开始逐个下移（siftDown）</td>
+<td align="center">每一个结点朝下看是堆有序的</td>
+<td align="center">O(N)</td>
+</tr>
+</tbody></table>
+<p>因此<strong>自底向上</strong>是一种更高效的使得数组<strong>堆有序</strong>的方式，每一个元素执行<code>sift down</code>操作，一开始就排除了一半以上的元素，因为完全二叉树中，叶子结点的个数几乎占了整棵树结点总数的一半。</p>
+<pre><code class="java">public MaxHeap(int[] arr) {
+    capacity = arr.length + 1;
+    data = new int[capacity];
+    size = arr.length;
+    for (int i = 0; i &lt; size; i++) {
+        data[i + 1] = arr[i];
+    }
+    // 从 1 开始编号的堆最后一个非叶子结点的下标是 size / 2
+    for (int i = size / 2; i &gt;= 1; i--) {
+        siftDown(i);
+    }
+}
+</code></pre>
+<p><strong>力扣295</strong>：中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。例如，<code>[2,3,4]</code>的中位数是<code>3</code>，<code>[2,3]</code>的中位数是<code>(2+3)/2=2.5</code>，设计一个数据结构满足以下操作：</p>
+<ul>
+<li>void addNum(int num) - 从数据流中添加一个这个念书到数据结构中</li>
+<li>double findMedian() - 返回目前所有元素的中位数</li>
+</ul>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class MedianFinder {
+    PriorityQueue&lt;Integer&gt; queMin;
+    PriorityQueue&lt;Integer&gt; queMax;
+    // 用两个优先队列`queMax`和`queMin`分别记录大于中位数的数和小于等于中位数的数。当累计添加的数的数量为奇数时，`queMin`中的数的数量比`queMax`多一个，此时中位数为`queMin`的队头。当累计添加的数的数量为偶数时，两个优先队列中的数的数量相同，此时中位数为它们的队头的平均值
+    public MedianFinder() {
+        queMin = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; (b - a));
+        queMax = new PriorityQueue&lt;Integer&gt;((a, b) -&gt; (a - b));
+    }
+    public void addNum(int num) {
+        if (queMin.isEmpty() || num &lt;= queMin.peek()) {
+            queMin.offer(num);
+            if (queMax.size() + 1 &lt; queMin.size()) {
+                queMax.offer(queMin.poll());
+            }
+        } else {
+            queMax.offer(num);
+            if (queMax.size() &gt; queMin.size()) {
+                queMin.offer(queMax.poll());
+            }
+        }
+    }
+    public double findMedian() {
+        if (queMin.size() &gt; queMax.size()) {
+            return queMin.peek();
+        }
+        return (queMin.peek() + queMax.peek()) / 2.0;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣218</strong>：城市的<strong>天际线</strong>是从远处观看该城市中所有建筑物形成的轮廓的外部轮廓。给你所有建筑物的位置和高度，请返回<em>由这些建筑物形成的<strong>天际线</strong></em>。</p>
+<p>每个建筑物的几何信息由数组<code>buildings</code>表示，其中三元组<code>building[i]=[lefti,righti,heighti]</code>表示：</p>
+<ul>
+<li><code>lefti</code>是第<code>i</code>座建筑物的左边缘的<code>x</code>坐标</li>
+<li><code>righti</code>是第<code>i</code>座建筑物右边缘的<code>x</code>坐标</li>
+<li><code>heighti</code>是第<code>i</code>座建筑物的高度</li>
+</ul>
+<p>你可以假设所有的鉴主都是完美的长方形，在高度为<code>0</code>的绝对平坦的表面上。</p>
+<p><strong>天际线</strong>应该表示为由“关键点”组成的列表，格式<code>[[x1,y1],[x2,y2],...]</code>，并按<strong>x坐标</strong>进行<strong>排序</strong>。<strong>关键点是水平线段的左端点</strong>。列表中最后一个点是最右侧建筑物的终点，<code>y</code>坐标始终为<code>0</code>，仅用于标记天际线的终点。此外，任何两个相邻建筑物中间的地面都应被视为天际线轮廓的一部分。</p>
+<p>注意：输出天际线中不得有连续的相同高度的水平线。例如<code>[...[2 3],[4 5],[7 5],[11 5],[12 7]...]</code>是不正确的答案；三条高度为5的线应该在最终输出中合并为一个：<code>[...[2 3],[4 5],[12 7],...]</code></p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/priorityqueue-03.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]</p>
+<p>输出：[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]</p>
+<p>解释：</p>
+<p>图A显示输入的所有建筑物的位置和高度，</p>
+<p>图B显示由这些建筑物形成的天际线。图B中的红点表示输出列表中的关键点。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    // 关键点的横坐标总是落在建筑的左右边缘上。给出「包含该横坐标」的定义：建筑的左边缘小于等于该横坐标，右边缘大于该横坐标（也就是不考虑建筑的右边缘）。
+    // 我们首先将「包含该横坐标」的建筑加入到优先队列中，然后不断检查优先队列的队首元素是否「包含该横坐标」，如果不「包含该横坐标」，我们就将该队首元素弹出队列，直到队空或队首元素「包含该横坐标」即可。最后我们用变量 maxn 记录最大高度（即纵坐标的值），当优先队列为空时，maxn=0，否则 maxn 即为队首元素。最后我们还需要再做一步检查：如果当前关键点的纵坐标大小与前一个关键点的纵坐标大小相同，则说明当前关键点无效，我们跳过该关键点即可。
+    public List&lt;List&lt;Integer&gt;&gt; getSkyline(int[][] buildings) {
+        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;int[]&gt;((a, b) -&gt; b[1] - a[1]);
+        List&lt;Integer&gt; boundaries = new ArrayList&lt;Integer&gt;();
+        for (int[] building : buildings) {
+            boundaries.add(building[0]);
+            boundaries.add(building[1]);
+        }
+        Collections.sort(boundaries);
+        List&lt;List&lt;Integer&gt;&gt; ret = new ArrayList&lt;List&lt;Integer&gt;&gt;();
+        int n = buildings.length, idx = 0;
+        for (int boundary : boundaries) {
+            while (idx &lt; n &amp;&amp; buildings[idx][0] &lt;= boundary) {
+                pq.offer(new int[]{buildings[idx][1], buildings[idx][2]});
+                idx++;
+            }
+            while (!pq.isEmpty() &amp;&amp; pq.peek()[0] &lt;= boundary) {
+                pq.poll();
+            }
+            int maxn = pq.isEmpty() ? 0 : pq.peek()[1];
+            if (ret.size() == 0 || maxn != ret.get(ret.size() - 1).get(1)) {
+                ret.add(Arrays.asList(boundary, maxn));
+            }
+        }
+        return ret;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/05/19/springboot学习/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springboot.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  springboot学习</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/05/12/springmvc学习/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  springmvc学习</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="870006474"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.5"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+

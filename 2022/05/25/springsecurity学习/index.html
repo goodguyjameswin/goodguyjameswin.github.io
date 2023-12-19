@@ -1,0 +1,2922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">springsecurity学习 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "Cb5p5SgcQdXKfhOvP5x1hifH-gzGzoHsz";
+  mashiro_option.v_appKey = "7YNH9O5dADsyAurqxcJA31CN";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springsecurity.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springsecurity.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      springsecurity学习</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-5-25
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <p><em><strong>内容部分转载自 公众号：江南一点雨，自学笔记，仅作学习交流用</strong></em></p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>新建<code>SpringBoot</code>项目，引入依赖：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+    &lt;version&gt;2.7.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>启动项目后，访问任何接口，都会自动重定向到登录页面了。</p>
+<h3 id="登录页面和接口"><a href="#登录页面和接口" class="headerlink" title="登录页面和接口"></a>登录页面和接口</h3><p>在<code>SpringSecurity</code>中，默认的登录页面和登录接口，都是<code>/login</code>，只不过一个是<code>get</code>请求（登录页面），另一个是<code>post</code>请求（登录接口）。</p>
+<p><code>form</code>表单的相关配置在<code>FormLoginConfigurer</code>中，该类继承自<code>AbstractAuthenticationFilterConfigurer</code>，后者的构造方法中配置了默认的<code>loginPage</code>为<code>/login</code>。</p>
+<pre><code class="java">protected AbstractAuthenticationFilterConfigurer() {
+    this.setLoginPage(&quot;/login&quot;);
+}
+</code></pre>
+<p><code>FormLoginConfigurer</code>的初始化方法<code>init</code>中也调用了父类的<code>init</code>方法：</p>
+<pre><code class="java">protected final void updateAuthenticationDefaults() {
+    if (loginProcessingUrl == null) {
+        loginProcessingUrl(loginPage);
+    }
+    //省略
+}
+</code></pre>
+<p>因此当用户没有给<code>loginProcessingUrl</code>设置值的时候，就默认使用<code>loginPage</code>作为<code>loginProcessingUrl</code></p>
+<h3 id="表单参数"><a href="#表单参数" class="headerlink" title="表单参数"></a>表单参数</h3><p><code>FormLoginConfigurer</code>类的构造方法中，有配置用户名和密码的方法：</p>
+<pre><code class="java">public FormLoginConfigurer() {
+    super(new UsernamePasswordAuthenticationFilter(), null);
+    usernameParameter(&quot;username&quot;);
+    passwordParameter(&quot;password&quot;);
+}
+</code></pre>
+<p>首先调用父类构造方法，传入<code>UsernamePasswordAuthenticationFilter</code>实例，它将被赋值给父类的<code>authFilter</code>属性。</p>
+<p><code>usernameParameter</code>方法如下：</p>
+<pre><code class="java">public FormLoginConfigurer&lt;H&gt; usernameParameter(String usernameParameter) {
+  // 调用父类的getAuthenticationFilter方法，返回authFilter属性，实际上是构造时创建的UsernamePasswordAuthenticationFilter实例，然后调用其setUsernameParameter方法
+    getAuthenticationFilter().setUsernameParameter(usernameParameter);
+    return this;
+}
+</code></pre>
+<p>在类<code>UsernamePasswordAuthenticationFilter</code>中可以拿到请求<code>HttpServletRequest</code>中取出来用户的登录名和密码</p>
+<pre><code class="java">protected String obtainPassword(HttpServletRequest request) {
+    return request.getParameter(passwordParameter);
+}
+protected String obtainUsername(HttpServletRequest request) {
+    return request.getParameter(usernameParameter);
+}
+</code></pre>
+<p>因此它默认的表单参数名就是<code>username</code>和<code>password</code>。</p>
+<h3 id="配置用户名和密码"><a href="#配置用户名和密码" class="headerlink" title="配置用户名和密码"></a>配置用户名和密码</h3><p>和用户相关的自动化配置类在<code>UserDetailsServiceAutoConfiguration</code>里面，该类的<code>getOrDeducePassword</code>方法中，看到打印日志：</p>
+<pre><code class="java">if (user.isPasswordGenerated()) {
+    logger.info(String.format(&quot;%n%nUsing generated security password: %s%n&quot;, user.getPassword()));
+}
+</code></pre>
+<p>而<code>user.getPassword</code>出现在<code>SecurityProperties</code>中：</p>
+<pre><code class="java">/**
+ * Default user name.
+ */
+private String name = &quot;user&quot;;
+/**
+ * Password for the default user name.
+ */
+private String password = UUID.randomUUID().toString();
+private boolean passwordGenerated = true;
+</code></pre>
+<p>因此默认的用户密码每次重启项目都会变，同时也知道如果要定义自己的用户名和密码，就必然要去覆盖默认配置。</p>
+<pre><code class="java">@ConfigurationProperties(prefix = &quot;spring.security&quot;)
+publicclass SecurityProperties { ... }
+</code></pre>
+<p><code>properties</code>中定义的用户名密码是通过<code>set</code>注入到属性中去的，并且此时控制台就不会打印默认的密码了：</p>
+<pre><code class="java">public void setPassword(String password) {
+    if (!StringUtils.hasLength(password)) {
+        return;
+    }
+    this.passwordGenerated = false;
+    this.password = password;
+}
+</code></pre>
+<p>同时密码需要经过加密处理，一般采用散列函数，并且加密过程中还需要加盐（一般存在数据库里），<code>SpringSecurity</code>推荐使用<code>BCryptPasswordEncoder</code>（自带加盐），它是<code>PasswordEncoder</code>的接口实现类。</p>
+<pre><code class="java">public interface PasswordEncoder {
+  // 对明文密码进行加密，返回加密之后的密文
+    String encode(CharSequence rawPassword);
+  // 校对密码，以用户传来的明文密码和数据库中保存的密文密码作为参数，根据返回值判断用户密码是否输入正确
+    boolean matches(CharSequence rawPassword, String encodedPassword);
+  // 是否需要再次加密
+    default boolean upgradeEncoding(String encodedPassword) {
+        returnfalse;
+    }
+}
+</code></pre>
+<p>定义配置类，覆盖自动配置：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        // NoOpPasswordEncoder表示不对密码进行加密
+        return NoOpPasswordEncoder.getInstance();
+    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // inMemoryAuthentication开启在内存中定义用户，如果要配置多个用户，用and相连
+        auth.inMemoryAuthentication()
+                // withUser 中是用户名，password 中则是用户密码，roles 中是用户角色
+                .withUser(&quot;javaboy.org&quot;)
+                .password(&quot;123&quot;).roles(&quot;admin&quot;);
+    }
+}
+</code></pre>
+<p>由于<code>SpringSecurity</code>支持多种数据源，例如内存、数据库、LDAP等，这些不同来源的数据被共同封装成了一个<code>UserDetailService</code>接口，任何实现了该接口的对象都可以作为认证数据源</p>
+<p>因此还可以重写<code>WebSecurityConfigurerAdapter</code>中的<code>userDetailsService</code>来提供一个<code>userDetailsService</code>实例进而配置多个用户：</p>
+<pre><code class="java">@Bean
+protected UserDetailsService userDetailsService() {
+    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+    manager.createUser(User.withUsername(&quot;javaboy&quot;).password(&quot;123&quot;).roles(&quot;admin&quot;).build());
+    manager.createUser(User.withUsername(&quot;江南一点雨&quot;).password(&quot;123&quot;).roles(&quot;user&quot;).build());
+    return manager;
+}
+</code></pre>
+<p>或者通过JDBC的方式根据数据库存放的用户信息创建用户：</p>
+<pre><code class="java">@Autowired
+DataSource dataSource;
+@Override
+@Bean
+protected UserDetailsService userDetailsService() {
+    JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+    manager.setDataSource(dataSource);
+    if (!manager.userExists(&quot;javaboy&quot;)) {
+        manager.createUser(User.withUsername(&quot;javaboy&quot;).password(&quot;123&quot;).roles(&quot;admin&quot;).build());
+    }
+    if (!manager.userExists(&quot;江南一点雨&quot;)) {
+        manager.createUser(User.withUsername(&quot;江南一点雨&quot;).password(&quot;123&quot;).roles(&quot;user&quot;).build());
+    }
+    return manager;
+}
+</code></pre>
+<p><code>createUser</code>或者<code>userExists</code>方法其实都是调用写好的<code>SQL</code>去判断的：</p>
+<pre><code class="java">public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsManager,
+  GroupManager {
+ public static final String DEF_USER_EXISTS_SQL = &quot;select username from users where username = ?&quot;;
+
+ private String userExistsSql = DEF_USER_EXISTS_SQL;
+
+ public boolean userExists(String username) {
+  List&lt;String&gt; users = getJdbcTemplate().queryForList(userExistsSql,
+    new String[] { username }, String.class);
+
+  if (users.size() &gt; 1) {
+   throw new IncorrectResultSizeDataAccessException(
+     &quot;More than one user found with name &#39;&quot; + username + &quot;&#39;&quot;, 1);
+  }
+
+  return users.size() == 1;
+ }
+}
+</code></pre>
+<h3 id="登录和注销"><a href="#登录和注销" class="headerlink" title="登录和注销"></a>登录和注销</h3><pre><code class="java">@Override
+public void configure(WebSecurity web) throws Exception {
+  // 配置要忽略的URL地址，一般针对静态文件
+    web.ignoring().antMatchers(&quot;/js/**&quot;, &quot;/css/**&quot;,&quot;/images/**&quot;);
+}
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            // 配置拦截规则
+            .antMatchers(&quot;/admin/**&quot;).hasRole(&quot;admin&quot;)
+            .antMatchers(&quot;/user/**&quot;).hasRole(&quot;user&quot;)
+            .anyRequest().authenticated() // 表示其他格式的请求路径，认证（登录）后即可访问
+            .and()
+            .formLogin()
+            .loginPage(&quot;/login.html&quot;) // 配置登录页面
+            .loginProcessingUrl(&quot;/doLogin&quot;) // 配置提交登录数据请求接口
+            .usernameParameter(&quot;name&quot;) // 自定义用户名表单参数
+            .passwordParameter(&quot;passwd&quot;) // 自定义密码表单参数
+            .successForwardUrl(&quot;/index&quot;) // 登录成功后，服务端跳转到 /index 页面
+            .defaultSuccessUrl(&quot;/index&quot;, false) // 默认第二个参数为false，当请求需要登录才能访问的页面时，会重定向到登录页，登录成功后就直接跳转到之前访问的页面，如果之前直接访问的登录页，登陆成功后就会跳转到 /index 页面；如果第二个参数为 true，则效果与 successForwardUrl一致
+            .failureForwardUrl(&quot;/index&quot;) // 登录失败后发生服务端跳转
+            .failureUrl(&quot;/index&quot;) // 登录失败后发生重定向
+            .permitAll() // 表示登录相关的页面/接口不要被拦截
+            .and()
+            .csrf().disable(); // 关闭csrf
+}
+</code></pre>
+<p>注销登录的默认接口是<code>/logout</code>，也可以配置：</p>
+<pre><code class="java">.and()
+.logout()
+.logoutUrl(&quot;/logout&quot;) // 是一个 GET 请求
+.logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;,&quot;POST&quot;)) // 不仅可以修改注销 URL，还可以修改请求方式，与 logoutUrl等效
+.logoutSuccessUrl(&quot;/index&quot;) // 注销成功后要跳转的页面
+.deleteCookies() // 清楚 cookie
+.clearAuthentication(true) // 清除认证消息
+.invalidateHttpSession(true) // 使HttpSession失效，可以不用配置，默认就会清除
+.permitAll()
+.and()
+</code></pre>
+<h3 id="回调方法"><a href="#回调方法" class="headerlink" title="回调方法"></a>回调方法</h3><p>登录成功后回调，可以取消重定向，而通过<code>JSON</code>来与前端交互：</p>
+<pre><code class="java">// successHandler的方法参数是一个AuthenticationSuccessHandler对象，需要实现onAuthenticationSuccess方法，它有三个参数分别是HttpServletRequest、HttpServletResponse和Authentication，而第三个参数保存了我们刚刚登录的用户信息
+.successHandler((req, resp, authentication) -&gt; {
+    Object principal = authentication.getPrincipal();
+    resp.setContentType(&quot;application/json;charset=utf-8&quot;);
+    PrintWriter out = resp.getWriter();
+    out.write(new ObjectMapper().writeValueAsString(principal));
+    out.flush();
+    out.close();
+})
+</code></pre>
+<p>登录失败后回调，因此可以根据不同的异常类型，通过<code>JSON</code>返回给前端以提供给用户一个更加明确的提示：</p>
+<pre><code class="java">// 方法的第三个参数是一个Exception，里面保存了登录失败的原因
+.failureHandler((req, resp, e) -&gt; {
+    resp.setContentType(&quot;application/json;charset=utf-8&quot;);
+    PrintWriter out = resp.getWriter();
+    RespBean respBean = RespBean.error(e.getMessage());
+    if (e instanceof LockedException) {
+        respBean.setMsg(&quot;账户被锁定，请联系管理员!&quot;);
+    } elseif (e instanceof CredentialsExpiredException) {
+        respBean.setMsg(&quot;密码过期，请联系管理员!&quot;);
+    } elseif (e instanceof AccountExpiredException) {
+        respBean.setMsg(&quot;账户过期，请联系管理员!&quot;);
+    } elseif (e instanceof DisabledException) {
+        respBean.setMsg(&quot;账户被禁用，请联系管理员!&quot;);
+    } elseif (e instanceof BadCredentialsException) {
+        respBean.setMsg(&quot;用户名或者密码输入错误，请重新输入!&quot;);
+    }
+    out.write(new ObjectMapper().writeValueAsString(respBean));
+    out.flush();
+    out.close();
+})
+</code></pre>
+<p>查找用户名失败对应的异常是<code>UsernameNotFoundException</code>，而密码匹配失败对应的异常是<code>BadCredentialsException</code>，但实际上总是抛出<code>BadCredentialsException</code>异常</p>
+<pre><code class="java">public Authentication authenticate(Authentication authentication)
+        throws AuthenticationException {
+    try {
+        user = retrieveUser(username,
+                (UsernamePasswordAuthenticationToken) authentication);
+    }
+    catch (UsernameNotFoundException notFound) {
+        logger.debug(&quot;User &#39;&quot; + username + &quot;&#39; not found&quot;);
+        if (hideUserNotFoundExceptions) {
+            thrownew BadCredentialsException(messages.getMessage(
+                    &quot;AbstractUserDetailsAuthenticationProvider.badCredentials&quot;,
+                    &quot;Bad credentials&quot;));
+        }
+        else {
+            throw notFound;
+        }
+    }
+}
+</code></pre>
+<p>从源码中可以看出，因为<code>hideUserNotFoundExceptions</code>的值总是为<code>true</code>，所以抛出的<code>UsernameNotFoundException</code>总是被捕获</p>
+<h3 id="JSON交互"><a href="#JSON交互" class="headerlink" title="JSON交互"></a>JSON交互</h3><p>如果不想让未认证的用户重定向到登录页面，则需要重写<code>AuthenticationEntryPoint</code>中接口实现类<code>LoginUrlAuthenticationEntryPoint</code>的<code>commence</code>方法：</p>
+<pre><code class="java">/**
+ * Performs the redirect (or forward) to the login form URL.
+ */
+public void commence(HttpServletRequest request, HttpServletResponse response,
+        AuthenticationException authException) {
+    String redirectUrl = null;
+    if (useForward) {
+        if (forceHttps &amp;&amp; &quot;http&quot;.equals(request.getScheme())) {
+            redirectUrl = buildHttpsRedirectUrlForRequest(request);
+        }
+        if (redirectUrl == null) {
+            String loginForm = determineUrlToUseForThisRequest(request, response,
+                    authException);
+            if (logger.isDebugEnabled()) {
+                logger.debug(&quot;Server side forward to: &quot; + loginForm);
+            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher(loginForm);
+            dispatcher.forward(request, response);
+            return;
+        }
+    }
+    else {
+        redirectUrl = buildRedirectUrlToLoginPage(request, response, authException);
+    }
+    redirectStrategy.sendRedirect(request, response, redirectUrl);
+}
+</code></pre>
+<p>可以看到默认<code>useForward</code>的值为<code>false</code>，所以请求总是走到重定向，因此自定义配置如下：</p>
+<pre><code class="java">.csrf().disable().exceptionHandling()
+.authenticationEntryPoint((req, resp, authException) -&gt; {
+            resp.setContentType(&quot;application/json;charset=utf-8&quot;);
+            PrintWriter out = resp.getWriter();
+            out.write(&quot;尚未登录，请先登录&quot;);
+            out.flush();
+            out.close();
+        }
+);
+</code></pre>
+<p>也可以配置注销成功后只返回<code>JSON</code>：</p>
+<pre><code class="java">.and()
+.logout()
+.logoutUrl(&quot;/logout&quot;)
+.logoutSuccessHandler((req, resp, authentication) -&gt; {
+    resp.setContentType(&quot;application/json;charset=utf-8&quot;);
+    PrintWriter out = resp.getWriter();
+    out.write(&quot;注销成功&quot;);
+    out.flush();
+    out.close();
+})
+.permitAll()
+.and()
+</code></pre>
+<h3 id="自定义授权数据库模型"><a href="#自定义授权数据库模型" class="headerlink" title="自定义授权数据库模型"></a>自定义授权数据库模型</h3><p>配置数据库连接和数据源，为用户实体类建表，用户实体类需要实现<code>UserDetails</code>接口，并实现接口方法：</p>
+<pre><code class="java">public class User implements UserDetails {
+
+    private Long id;
+    private String username;
+    private String password;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    private List&lt;Role&gt; roles;
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+        List&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();
+        for (Role role : getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public String getUsername() {
+        return username;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+    //省略其他 get/set 方法
+}
+</code></pre>
+<p><code>accountNonExpired</code>、<code>accountNonLocked</code>、<code>credentialsNonExpired</code>、<code>enabled</code>这四个属性分别用来描述用户的状态，表示账户是否没有过期、账户是否没有被锁定、密码是否没有过期、以及账户是否可用。</p>
+<p><code>roles</code>属性表示用户的角色，<code>User</code>和<code>Role</code>是多对多关系。<code>getAuthorities</code>方法返回用户的角色信息</p>
+<p>然后自定义<code>UserService</code>实现<code>UserDetailsService</code>接口，实现<code>loadUserByUsername</code>方法，参数就是用户登录时传入的用户名，根据用户名去查询用户信息（查出来之后，系统会自动进行密码比对）。</p>
+<pre><code class="java">@Service
+public class HrService implements UserDetailsService {
+    @Autowired
+    HrMapper hrMapper;
+    @Autowired
+    HrRoleMapper hrRoleMapper;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Hr hr = hrMapper.loadUserByUsername(username);
+        if (hr == null) {
+            throw new UsernameNotFoundException(&quot;用户名不存在!&quot;);
+        }
+        hr.setRoles(hrMapper.getHrRolesById(hr.getId()));
+        return hr;
+    }
+    // ...
+}
+</code></pre>
+<p>在<code>SecurityConfig</code>中配置用户：</p>
+<pre><code class="java">@Autowired
+UserService userService;
+@Override
+protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userService);
+}
+</code></pre>
+<h3 id="配置登录验证码"><a href="#配置登录验证码" class="headerlink" title="配置登录验证码"></a>配置登录验证码</h3><p>编写验证码生成类：</p>
+<pre><code class="java">/**
+ * 生成验证码的工具类
+ */
+public class VerifyCode {
+
+    private int width = 100;// 生成验证码图片的宽度
+    private int height = 50;// 生成验证码图片的高度
+    private String[] fontNames = { &quot;宋体&quot;, &quot;楷体&quot;, &quot;隶书&quot;, &quot;微软雅黑&quot; };
+    private Color bgColor = new Color(255, 255, 255);// 定义验证码图片的背景颜色为白色
+    private Random random = new Random();
+    private String codes = &quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+    private String text;// 记录随机字符串
+
+    /**
+     * 获取一个随意颜色
+     *
+     * @return
+     */
+    private Color randomColor() {
+        int red = random.nextInt(150);
+        int green = random.nextInt(150);
+        int blue = random.nextInt(150);
+        returnnew Color(red, green, blue);
+    }
+
+    /**
+     * 获取一个随机字体
+     *
+     * @return
+     */
+    private Font randomFont() {
+        String name = fontNames[random.nextInt(fontNames.length)];
+        int style = random.nextInt(4);
+        int size = random.nextInt(5) + 24;
+        returnnew Font(name, style, size);
+    }
+
+    /**
+     * 获取一个随机字符
+     *
+     * @return
+     */
+    private char randomChar() {
+        return codes.charAt(random.nextInt(codes.length()));
+    }
+
+    /**
+     * 创建一个空白的BufferedImage对象
+     *
+     * @return
+     */
+    private BufferedImage createImage() {
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        g2.setColor(bgColor);// 设置验证码图片的背景颜色
+        g2.fillRect(0, 0, width, height);
+        return image;
+    }
+
+    public BufferedImage getImage() {
+        BufferedImage image = createImage();
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i &lt; 4; i++) {
+            String s = randomChar() + &quot;&quot;;
+            sb.append(s);
+            g2.setColor(randomColor());
+            g2.setFont(randomFont());
+            float x = i * width * 1.0f / 4;
+            g2.drawString(s, x, height - 15);
+        }
+        this.text = sb.toString();
+        drawLine(image);
+        return image;
+    }
+
+    /**
+     * 绘制干扰线
+     *
+     * @param image
+     */
+    private void drawLine(BufferedImage image) {
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        int num = 5;
+        for (int i = 0; i &lt; num; i++) {
+            int x1 = random.nextInt(width);
+            int y1 = random.nextInt(height);
+            int x2 = random.nextInt(width);
+            int y2 = random.nextInt(height);
+            g2.setColor(randomColor());
+            g2.setStroke(new BasicStroke(1.5f));
+            g2.drawLine(x1, y1, x2, y2);
+        }
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public static void output(BufferedImage image, OutputStream out) throws IOException {
+        ImageIO.write(image, &quot;JPEG&quot;, out);
+    }
+}
+</code></pre>
+<p>通过流将验证码写到前端页面<code>&lt;img src=&quot;/vercode&quot; alt=&quot;&quot;&gt;</code>：</p>
+<pre><code class="java">@RestController
+public class VerifyCodeController {
+    @GetMapping(&quot;/vercode&quot;)
+    public void code(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        VerifyCode vc = new VerifyCode(); // 创建一个 VerifyCode 对象
+        BufferedImage image = vc.getImage();
+        String text = vc.getText();
+        HttpSession session = req.getSession();
+        session.setAttribute(&quot;index_code&quot;, text); // 将生成的验证码字符保存到 session 中
+        VerifyCode.output(image, resp.getOutputStream());
+    }
+}
+</code></pre>
+<p>用户登录的用户名/密码是在<code>UsernamePasswordAuthenticationFilter</code>类中处理的：</p>
+<pre><code class="java">public Authentication attemptAuthentication(HttpServletRequest request,
+        HttpServletResponse response) throws AuthenticationException {
+    String username = obtainUsername(request);
+    String password = obtainPassword(request);
+    //省略
+}
+protected String obtainPassword(HttpServletRequest request) {
+    return request.getParameter(passwordParameter);
+}
+protected String obtainUsername(HttpServletRequest request) {
+    return request.getParameter(usernameParameter);
+}
+</code></pre>
+<p><code>SpringSecurity</code>默认通过<code>key/value</code>的形式来传递登录参数，因此可以自定义一个过滤器来代替<code>UsernamePasswordAuthenticationFilter</code>，然后获取<code>JSON</code>形式数据</p>
+<pre><code class="java">publicclass LoginFilter extends UsernamePasswordAuthenticationFilter {
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if (!request.getMethod().equals(&quot;POST&quot;)) { // 登录请求肯定是 POST
+            throw new AuthenticationServiceException(
+                    &quot;Authentication method not supported: &quot; + request.getMethod());
+        }
+        String verify_code = (String) request.getSession().getAttribute(&quot;verify_code&quot;); // 处理验证码
+        if (request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE) || request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)) {
+            Map&lt;String, String&gt; loginData = new HashMap&lt;&gt;();
+            try {
+              // 通过读取 request 中的 I/O 流，将 JSON 映射到一个 Map 上
+                loginData = new ObjectMapper().readValue(request.getInputStream(), Map.class);
+            } catch (IOException e) {
+            }finally {
+                String code = loginData.get(&quot;code&quot;);
+                checkCode(response, code, verify_code);
+            }
+            String username = loginData.get(getUsernameParameter());
+            String password = loginData.get(getPasswordParameter());
+            if (username == null) {
+                username = &quot;&quot;;
+            }
+            if (password == null) {
+                password = &quot;&quot;;
+            }
+            username = username.trim();
+            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+                    username, password);
+            setDetails(request, authRequest);
+            return this.getAuthenticationManager().authenticate(authRequest);
+        } else {
+            checkCode(response, request.getParameter(&quot;code&quot;), verify_code);
+            // 既支持 JSON 形式传递参数，也支持 key/value 形式传递参数
+            return super.attemptAuthentication(request, response);
+        }
+    }
+
+    public void checkCode(HttpServletResponse resp, String code, String verify_code) {
+        if (code == null || verify_code == null || &quot;&quot;.equals(code) || !verify_code.toLowerCase().equals(code.toLowerCase())) {
+            //验证码不正确
+            throw new AuthenticationServiceException(&quot;验证码不正确&quot;);
+        }
+    }
+}
+</code></pre>
+<p>提供一个<code>LoginFilter</code>的实例，原本在<code>SecurityConfig#configure</code>方法中关于<code>form</code>表单的配置就会失效，那些失效的属性，都可以在配置<code>LoginFilter</code>实例的时候配置。</p>
+<pre><code class="java">@Bean
+LoginFilter loginFilter() throws Exception {
+    LoginFilter loginFilter = new LoginFilter();
+    loginFilter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+            response.setContentType(&quot;application/json;charset=utf-8&quot;);
+            PrintWriter out = response.getWriter();
+            Hr hr = (Hr) authentication.getPrincipal();
+            hr.setPassword(null);
+            RespBean ok = RespBean.ok(&quot;登录成功!&quot;, hr);
+            String s = new ObjectMapper().writeValueAsString(ok);
+            out.write(s);
+            out.flush();
+            out.close();
+        }
+    });
+    loginFilter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+            response.setContentType(&quot;application/json;charset=utf-8&quot;);
+            PrintWriter out = response.getWriter();
+            RespBean respBean = RespBean.error(exception.getMessage());
+            if (exception instanceof LockedException) {
+                respBean.setMsg(&quot;账户被锁定，请联系管理员!&quot;);
+            } elseif (exception instanceof CredentialsExpiredException) {
+                respBean.setMsg(&quot;密码过期，请联系管理员!&quot;);
+            } elseif (exception instanceof AccountExpiredException) {
+                respBean.setMsg(&quot;账户过期，请联系管理员!&quot;);
+            } elseif (exception instanceof DisabledException) {
+                respBean.setMsg(&quot;账户被禁用，请联系管理员!&quot;);
+            } elseif (exception instanceof BadCredentialsException) {
+                respBean.setMsg(&quot;用户名或者密码输入错误，请重新输入!&quot;);
+            }
+            out.write(new ObjectMapper().writeValueAsString(respBean));
+            out.flush();
+            out.close();
+        }
+    });
+    loginFilter.setAuthenticationManager(authenticationManagerBean()); // 根据 WebSecurityConfigurerAdapter 中提供的配置
+    loginFilter.setFilterProcessesUrl(&quot;/doLogin&quot;); // 默认是 /login
+    return loginFilter;
+}
+</code></pre>
+<p>最后调用<code>addFilterAt</code>方法完成替换操作：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        ...
+        //省略
+    http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
+}
+</code></pre>
+<h3 id="自动登录"><a href="#自动登录" class="headerlink" title="自动登录"></a>自动登录</h3><h4 id="认证原理"><a href="#认证原理" class="headerlink" title="认证原理"></a>认证原理</h4><p><code>SpringSecurity</code>中有个重要对象<code>Authentication</code>，可以在任何地方注入它以获得当前登录用户信息，它本身是一个接口，最常用的实现类就是<code>UsernamePasswordAuthenticationToken</code>，这个类及其父类的属性就保存了登录用户的基本信息。那么登录信息是如何存到两个对象里的？</p>
+<p><code>SpringSecurity</code>中，认证和授权的相关校验都是在一系列的过滤器链中完成的，而认证相关的就是<code>UsernamePasswordAuthenticationFilter</code>。</p>
+<pre><code class="java">public class UsernamePasswordAuthenticationFilter extends
+        AbstractAuthenticationProcessingFilter {
+    public UsernamePasswordAuthenticationFilter() {
+        super(new AntPathRequestMatcher(&quot;/login&quot;, &quot;POST&quot;));
+    }
+    public Authentication attemptAuthentication(HttpServletRequest request,
+            HttpServletResponse response) throws AuthenticationException {
+        String username = obtainUsername(request);
+        String password = obtainPassword(request);
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+                username, password);
+        setDetails(request, authRequest);
+        returnthis.getAuthenticationManager().authenticate(authRequest);
+    }
+    protected String obtainPassword(HttpServletRequest request) {
+        return request.getParameter(passwordParameter);
+    }
+    protected String obtainUsername(HttpServletRequest request) {
+        return request.getParameter(usernameParameter);
+    }
+    protected void setDetails(HttpServletRequest request,
+            UsernamePasswordAuthenticationToken authRequest) {
+        authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
+    }
+}
+</code></pre>
+<ul>
+<li>首先通过<code>obtainUsername</code>和<code>obtainPassword</code>提取请求里的用户名和密码，因此默认的表单登录要通过<code>key/value</code>形式传递参数</li>
+<li>接下来构造<code>UsernamePasswordAuthenticationToken</code>对象，传入的参数分别对应其中的<code>principal</code>属性和<code>credentials</code>属性</li>
+<li>然后通过<code>setDetails</code>方法给其<code>details</code>属性赋值（属性在父类<code>AbstractAuthenticationToken</code>（实现了<code>Authentication</code>接口）中定义），<code>details</code>是一个对象，里面存放<code>WebAuthenticationDetails</code>实例，其中主要描述了请求的<code>remoteAddress</code>和<code>sessionId</code></li>
+<li>调用<code>authenticate</code>方法进行校验</li>
+</ul>
+<p>其中校验操作首先要获取一个<code>AuthenticationManager</code>，拿到的是<code>ProviderManager</code>，因此进入其<code>authenticate</code>方法中：</p>
+<pre><code class="java">public Authentication authenticate(Authentication authentication)
+        throws AuthenticationException {
+    Class&lt;? extends Authentication&gt; toTest = authentication.getClass();
+    for (AuthenticationProvider provider : getProviders()) {
+        if (!provider.supports(toTest)) {
+            continue;
+        }
+        result = provider.authenticate(authentication);
+        if (result != null) {
+            copyDetails(authentication, result);
+            break;
+        }
+    }
+    if (result == null &amp;&amp; parent != null) {
+        result = parentResult = parent.authenticate(authentication);
+    }
+    if (result != null) {
+        if (eraseCredentialsAfterAuthentication
+                &amp;&amp; (result instanceof CredentialsContainer)) {
+            ((CredentialsContainer) result).eraseCredentials();
+        }
+        if (parentResult == null) {
+            eventPublisher.publishAuthenticationSuccess(result);
+        }
+        return result;
+    }
+    throw lastException;
+}
+</code></pre>
+<ul>
+<li>首先获取<code>authentication</code>的<code>Class</code>，判断当前<code>provider</code>是否支持该<code>authentication</code></li>
+<li>如果支持，则调用<code>provider</code>的<code>authenticate</code>方法开始做校验，校验完成后，会返回一个新的<code>Authentication</code></li>
+<li>这里的<code>provider</code>可能有多个，如果<code>provider</code>的<code>authenticate</code>方法没能正常返回一个<code>Authentication</code>，则调用<code>provider</code>的<code>parent</code>的<code>authenticate</code>方法继续校验</li>
+<li><code>copyDetails</code>方法则用来把旧<code>Token</code>的<code>details</code>属性拷贝到新的<code>Token</code>中来</li>
+<li>接下来会调用<code>eraseCredentials</code>方法擦除凭证信息，也就是密码，这个擦除方法比较简单，就是将<code>Token</code>中的<code>credentials</code>属性置空</li>
+<li>最后通过<code>publishAuthenticationSuccess</code>方法将登录成功的事件广播出去</li>
+</ul>
+<p>需要注意的是，方法中的<code>for</code>循环里，第一个拿到的<code>provider</code>是一个<code>AnonymousAuthenticationProvider</code>，它不支持<code>UsernamePasswordAuthenticationToken</code>，因此会直接调用<code>parent</code>的<code>authenticate</code>方法进行校验。</p>
+<p>而这个<code>parent</code>就是<code>ProviderManager</code>，因此会再次回到<code>authenticate</code>方法，<code>provider</code>也变成了<code>DaoAuthenticationProvider</code>，它是支持<code>UsernamePasswordAuthenticationToken</code>的，它继承自父类<code>AbstractUserDetailsAuthenticationProvider</code>，并且没有重写其<code>authenticate</code>方法，因此直接调用这个方法：</p>
+<pre><code class="java">public Authentication authenticate(Authentication authentication)
+        throws AuthenticationException {
+    String username = (authentication.getPrincipal() == null) ? &quot;NONE_PROVIDED&quot;
+            : authentication.getName();
+    user = retrieveUser(username,(UsernamePasswordAuthenticationToken) authentication);
+    preAuthenticationChecks.check(user);
+    additionalAuthenticationChecks(user,(UsernamePasswordAuthenticationToken) authentication);
+    postAuthenticationChecks.check(user);
+    Object principalToReturn = user;
+    if (forcePrincipalAsString) {
+        principalToReturn = user.getUsername();
+    }
+    return createSuccessAuthentication(principalToReturn, authentication, user);
+}
+</code></pre>
+<ul>
+<li>首先从·<code>Authentication</code>中提取登录用户名</li>
+<li>通过拿到的<code>username</code>去调用<code>retrieveUser</code>方法获取当前用户对象，此时会调用<code>loadUserByUsername</code>方法，所以这里返回的<code>user</code>其实就是登录对象</li>
+<li>接下来调用<code>preAuthenticationChecks.check</code>方法检验<code>user</code>中的各个账户状态属性是否正常，例如账户是否被禁用、账户是否被锁定、账户是否过期等等</li>
+<li><code>additionalAuthenticationChecks</code>方法则是做密码比对的</li>
+<li>最后在<code>postAuthenticationChecks.check</code>方法中检查密码是否过期</li>
+<li>接下来有一个<code>forcePrincipalAsString</code>属性，这个是是否强制将<code>Authentication</code>中的<code>principal</code>属性设置为字符串，默认为<code>false</code></li>
+<li>最后，通过<code>createSuccessAuthentication</code>方法构建一个新的<code>UsernamePasswordAuthenticationToken</code></li>
+</ul>
+<p>来到<code>UsernamePasswordAuthenticationFilter</code>的父类<code>AbstractAuthenticationProcessingFilter</code>中，如果需要自定义过滤器，都需要继承自这个类，而<code>UsernamePasswordAuthenticationFilter</code>的<code>attemptAuthentication</code>方法就是在这个父类的<code>doFilter</code>中被触发的：</p>
+<pre><code class="java">public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+        throws IOException, ServletException {
+    HttpServletRequest request = (HttpServletRequest) req;
+    HttpServletResponse response = (HttpServletResponse) res;
+    Authentication authResult;
+    try {
+        authResult = attemptAuthentication(request, response);
+        if (authResult == null) {
+            return;
+        }
+        sessionStrategy.onAuthentication(authResult, request, response);
+    }
+    catch (InternalAuthenticationServiceException failed) {
+        unsuccessfulAuthentication(request, response, failed);
+        return;
+    }
+    catch (AuthenticationException failed) {
+        unsuccessfulAuthentication(request, response, failed);
+        return;
+    }
+    if (continueChainBeforeSuccessfulAuthentication) {
+        chain.doFilter(request, response);
+    }
+    successfulAuthentication(request, response, chain, authResult);
+}
+</code></pre>
+<p>当<code>attemptAuthentication</code>方法被调用时，如果登录成功，<code>successAuthentication</code>方法就会被调用：</p>
+<pre><code class="java">protected void successfulAuthentication(HttpServletRequest request,
+        HttpServletResponse response, FilterChain chain, Authentication authResult)
+        throws IOException, ServletException {
+    SecurityContextHolder.getContext().setAuthentication(authResult);
+    rememberMeServices.loginSuccess(request, response, authResult);
+    // Fire event
+    if (this.eventPublisher != null) {
+        eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(
+                authResult, this.getClass()));
+    }
+    successHandler.onAuthenticationSuccess(request, response, authResult);
+}
+</code></pre>
+<p>其中可以看出，登录的用户信息可以通过<code>SecurityContextHolder.getContext()</code>获得，如果想要修改，也可以在这里修改。并且从最后的<code>successHandler.onAuthenticationSuccess</code>可以看出，<code>SecurityConfig</code>中配置登录成功的回调方法就是在这里触发的。</p>
+<p>需要注意的是，<code>SecurityContextHolder</code>中的数据，本质是保存在<code>ThreadLocal</code>中，它的限制了仅有保存该数据的线程才能访问。然而正常情况下，我们每次登录都能获取到登录用户信息。这是因为请求在到达<code>UsernamePasswordAuthenticationFilter</code>之前，会先经过另一个过滤器：</p>
+<pre><code class="java">public class SecurityContextPersistenceFilter extends GenericFilterBean {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        HttpRequestResponseHolder holder = new HttpRequestResponseHolder(request,
+                response);
+        SecurityContext contextBeforeChainExecution = repo.loadContext(holder);
+        try {
+            SecurityContextHolder.setContext(contextBeforeChainExecution);
+            chain.doFilter(holder.getRequest(), holder.getResponse());
+        }
+        finally {
+            SecurityContext contextAfterChainExecution = SecurityContextHolder
+                    .getContext();
+            SecurityContextHolder.clearContext();
+            repo.saveContext(contextAfterChainExecution, holder.getRequest(),
+                    holder.getResponse());
+        }
+    }
+}
+</code></pre>
+<ul>
+<li><code>SecurityContextPersistenceFilter</code>继承自 GenericFilterBean，而<code>GenericFilterBean</code>则是<code>Filter</code>的实现</li>
+<li>在<code>doFilter</code>方法中，它首先会从<code>repo</code>中读取一个<code>SecurityContext</code>出来，这里的<code>repo</code>实际上就是<code>HttpSessionSecurityContextRepository</code>，读取<code>SecurityContext</code>的操作会进入到<code>readSecurityContextFromSession</code>方法中，进入读取的核心方法<code>Object contextFromSession = httpSession.getAttribute(springSecurityContextKey);</code>，而这里的<code>springSecurityContextKey</code>实际上就是<code>SPRING_SECURITY_CONTEXT</code>，读取出来的对象最终会被转为一个<code>SecurityContext</code>对象</li>
+<li><code>SecurityContext</code>是一个接口，它有一个唯一的实现类<code>SecurityContextImpl</code>，这个实现类其实就是用户信息在<code>session</code>中保存的<code>value</code></li>
+<li>在拿到<code>SecurityContext</code>之后，通过<code>SecurityContextHolder.setContext</code>方法将这个<code>SecurityContext</code>设置到<code>ThreadLocal</code>中去</li>
+<li>在过滤器链走完，数据响应给前端之后，从<code>SecurityContextHolder</code>中获取到<code>SecurityContext</code>，然后把<code>SecurityContextHolder</code>清空，最后调用<code>repo.saveContext</code>方法将获取到的<code>SecurityContext</code>存入<code>session</code>中</li>
+</ul>
+<p>因此可以发现，如果登录请求不走<code>SecurityContextPersistenceFilter</code>过滤器，意味着不会将登录信息存入<code>session</code>，进而导致后续请求无法获取到用户信息</p>
+<h4 id="记住我"><a href="#记住我" class="headerlink" title="记住我"></a>记住我</h4><p>在<code>SpringSecurity</code>中配置即可：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .and()
+            .rememberMe() // 开启自动登录
+            .key(&quot;javaboy&quot;) // 设置令牌密钥
+            .and()
+            .csrf().disable();
+}
+</code></pre>
+<p>此时可以发现浏览器cookie中多了个<code>remember-me</code>令牌，其生成过程如下，核心的处理方法在<code>TokenBasedRememberMeServices</code>中：</p>
+<pre><code class="java">@Override
+public void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
+  Authentication successfulAuthentication) {
+ String username = retrieveUserName(successfulAuthentication);
+ String password = retrievePassword(successfulAuthentication);
+ if (!StringUtils.hasLength(password)) {
+  UserDetails user = getUserDetailsService().loadUserByUsername(username);
+  password = user.getPassword();
+ }
+ int tokenLifetime = calculateLoginLifetime(request, successfulAuthentication);
+ long expiryTime = System.currentTimeMillis();
+ expiryTime += 1000L * (tokenLifetime &lt; 0 ? TWO_WEEKS_S : tokenLifetime);
+ String signatureValue = makeTokenSignature(expiryTime, username, password);
+ setCookie(new String[] { username, Long.toString(expiryTime), signatureValue },
+   tokenLifetime, request, response);
+}
+protected String makeTokenSignature(long tokenExpiryTime, String username,
+  String password) {
+ String data = username + &quot;:&quot; + tokenExpiryTime + &quot;:&quot; + password + &quot;:&quot; + getKey();
+ MessageDigest digest;
+ digest = MessageDigest.getInstance(&quot;MD5&quot;);
+ return new String(Hex.encode(digest.digest(data.getBytes())));
+}
+</code></pre>
+<ul>
+<li>首先从登录成功的<code>Authentication</code>中提取出用户名/密码</li>
+<li>由于登录成功之后，密码可能被擦除了，所以，如果一开始没有拿到密码，就再从<code>UserDetailsService</code>中重新加载用户并重新获取密码</li>
+<li>再接下来去获取令牌的有效期，令牌有效期默认就是两周</li>
+<li>再接下来调用<code>makeTokenSignature</code>方法去计算散列值，实际上就是根据<code>username</code>、令牌有效期以及<code>password</code>、<code>key</code>一起计算一个散列值。如果我们没有自己去设置这个<code>key</code>，默认是在<code>RememberMeConfigurer#getKey</code>方法中进行设置的，它的值是一个<code>UUID</code>字符串</li>
+<li>最后，将用户名、令牌有效期以及计算得到的散列值放入<code>Cookie</code>中</li>
+</ul>
+<p>需要注意的是，如果服务端重启，自动生成的<code>key</code>就会变化，导致之前的<code>remember-me</code>令牌失效，因此需要自己配置<code>key</code>。触发流程是：<code>AbstractAuthenticationProcessingFilter#doFilter</code>-&gt;<code>AbstractAuthenticationProcessingFilter#successfulAuthentication</code>-&gt;<code>AbstractRememberMeServices#loginSuccess</code>-&gt;<code>TokenBasedRememberMeServices#onLoginSuccess</code></p>
+<p>认证过程则可以从<code>RememberMeAuthenticationFilter</code>过滤器中看到：</p>
+<pre><code class="java">public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+  throws IOException, ServletException {
+ HttpServletRequest request = (HttpServletRequest) req;
+ HttpServletResponse response = (HttpServletResponse) res;
+ if (SecurityContextHolder.getContext().getAuthentication() == null) {
+  Authentication rememberMeAuth = rememberMeServices.autoLogin(request,
+    response);
+  if (rememberMeAuth != null) {
+    rememberMeAuth = authenticationManager.authenticate(rememberMeAuth);
+    SecurityContextHolder.getContext().setAuthentication(rememberMeAuth);
+    onSuccessfulAuthentication(request, response, rememberMeAuth);
+    if (this.eventPublisher != null) {
+     eventPublisher
+       .publishEvent(new InteractiveAuthenticationSuccessEvent(
+         SecurityContextHolder.getContext()
+           .getAuthentication(), this.getClass()));
+    }
+    if (successHandler != null) {
+     successHandler.onAuthenticationSuccess(request, response,
+       rememberMeAuth);
+     return;
+    }
+   }
+  chain.doFilter(request, response);
+ }
+ else {
+  chain.doFilter(request, response);
+ }
+}
+</code></pre>
+<p>可以看到，如果从<code>SecurityContextHolder</code>中无法获取当前登录用户实例，那么就调用<code>rememberMeServices.autoLogin</code>进行登录：</p>
+<pre><code class="java">public final Authentication autoLogin(HttpServletRequest request,
+  HttpServletResponse response) {
+ String rememberMeCookie = extractRememberMeCookie(request);
+ if (rememberMeCookie == null) {
+  return null;
+ }
+ logger.debug(&quot;Remember-me cookie detected&quot;);
+ if (rememberMeCookie.length() == 0) {
+  logger.debug(&quot;Cookie was empty&quot;);
+  cancelCookie(request, response);
+  return null;
+ }
+ UserDetails user = null;
+ try {
+  String[] cookieTokens = decodeCookie(rememberMeCookie);
+  user = processAutoLoginCookie(cookieTokens, request, response);
+  userDetailsChecker.check(user);
+  logger.debug(&quot;Remember-me cookie accepted&quot;);
+  return createSuccessfulAuthentication(request, user);
+ }
+ catch (CookieTheftException cte) {
+  
+  throw cte;
+ }
+ cancelCookie(request, response);
+ return null;
+}
+</code></pre>
+<p>这里就是提取<code>cookie</code>信息，并对<code>cookie</code>信息进行解码，然后调用<code>processAutoLoginCookie</code>方法做校验，核心流程就是首先获取用户名和过期时间，再根据用户名查询到用户密码，然后通过<code>MD5</code>散列函数计算出散列值，在将拿到的散列值和浏览器传递来的散列值进行对比，就能确认这个令牌是否有效，进而确认登录是否有效。</p>
+<p>有时为了提高安全性，需要做持久化令牌和二次校验。在持久化令牌中，新增了两个经过<code>MD5</code>散列函数计算的校验参数，一个是<code>series</code>，另一个是<code>token</code>。其中，<code>series</code>只有当用户在使用用户名/密码登录时，才会生成或者更新，而<code>token</code>只要有新的会话，就会重新生成，这样就可以避免一个用户同时在多端登录。</p>
+<p>持久化令牌的具体处理类是<code>PersistentTokenBasedRememberMeServices</code>，保存令牌的处理类则是<code>PersistentRememberMeToken</code>：</p>
+<pre><code class="java">public class PersistentRememberMeToken {
+    private final String username;
+    private final String series;
+    private final String tokenValue;
+    private final Date date; // 表示上一次使用自动登录的时间
+    // 省略 getter、setter方法
+}
+</code></pre>
+<p>首先需要一张表来记录令牌信息，可以使用系统默认提供的JDBC来操作<code>JdbcTokenRepositoryImpl</code>：</p>
+<pre><code class="java">@Autowired
+DataSource dataSource;
+@Bean
+JdbcTokenRepositoryImpl jdbcTokenRepository() {
+    JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+    jdbcTokenRepository.setDataSource(dataSource);
+    return jdbcTokenRepository;
+}
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .and()
+            .rememberMe()
+            .key(&quot;javaboy&quot;)
+            .tokenRepository(jdbcTokenRepository())
+            .and()
+            .csrf().disable();
+}
+</code></pre>
+<p>通过提供一个<code>JdbcTokenRepositoryImpl</code>实例，给其配置<code>DataSource</code>数据源，最后通过<code>tokenRepository</code>将其纳入配置中即可。</p>
+<p>这时生成/解析令牌的实现类是<code>PersistentTokenBasedRememberMeServices</code>，令牌生成过程对应的方法是：</p>
+<pre><code class="java">protected void onLoginSuccess(HttpServletRequest request,
+  HttpServletResponse response, Authentication successfulAuthentication) {
+ String username = successfulAuthentication.getName();
+ PersistentRememberMeToken persistentToken = new PersistentRememberMeToken(
+   username, generateSeriesData(), generateTokenData(), new Date());
+ tokenRepository.createNewToken(persistentToken);
+ addCookie(persistentToken, request, response);
+}
+protected String generateSeriesData() {
+ byte[] newSeries = new byte[seriesLength];
+ random.nextBytes(newSeries);
+ return new String(Base64.getEncoder().encode(newSeries));
+}
+protected String generateTokenData() {
+ byte[] newToken = new byte[tokenLength];
+ random.nextBytes(newToken);
+ return new String(Base64.getEncoder().encode(newToken));
+}
+private void addCookie(PersistentRememberMeToken token, HttpServletRequest request,
+  HttpServletResponse response) {
+ setCookie(new String[] { token.getSeries(), token.getTokenValue() },
+   getTokenValiditySeconds(), request, response);
+}
+</code></pre>
+<ul>
+<li>登录成功后，还是首先获取到用户名<code>username</code></li>
+<li>然后构造一个<code>PersistentRememberMeToken</code>，<code>generateSeriesData</code>和<code>generateTokenData</code>方法分别用来获取<code>series</code>和<code>token</code>，具体的生成过程实际上就是调用<code>SecureRandom</code>生成随机数再进行<code>Base64</code>编码，<code>SecureRandom</code>则采用的是类似于密码学的随机数生成规则，其输出结果较难预测，适合在登录这样的场景下使用</li>
+<li>调用<code>tokenRepository</code>实例中的<code>createNewToken</code>方法，<code>tokenRepository</code>实际上就是我们一开始配置的<code>JdbcTokenRepositoryImpl</code>，所以这行代码实际上就是将<code>PersistentRememberMeToken</code>存入数据库中</li>
+</ul>
+<p>令牌校验过程对应的方法是：</p>
+<pre><code class="java">protected UserDetails processAutoLoginCookie(String[] cookieTokens,
+  HttpServletRequest request, HttpServletResponse response) {
+ final String presentedSeries = cookieTokens[0];
+ final String presentedToken = cookieTokens[1];
+ PersistentRememberMeToken token = tokenRepository
+   .getTokenForSeries(presentedSeries);
+ if (!presentedToken.equals(token.getTokenValue())) {
+  tokenRepository.removeUserTokens(token.getUsername());
+  throw new CookieTheftException(
+    messages.getMessage(
+      &quot;PersistentTokenBasedRememberMeServices.cookieStolen&quot;,
+      &quot;Invalid remember-me token (Series/token) mismatch. Implies previous cookie theft attack.&quot;));
+ }
+ if (token.getDate().getTime() + getTokenValiditySeconds() * 1000L &lt; System
+   .currentTimeMillis()) {
+  throw new RememberMeAuthenticationException(&quot;Remember-me login has expired&quot;);
+ }
+ PersistentRememberMeToken newToken = new PersistentRememberMeToken(
+   token.getUsername(), token.getSeries(), generateTokenData(), new Date());
+ tokenRepository.updateToken(newToken.getSeries(), newToken.getTokenValue(),
+    newToken.getDate());
+ addCookie(newToken, request, response);
+ return getUserDetailsService().loadUserByUsername(token.getUsername());
+}
+</code></pre>
+<ul>
+<li>首先从前端传来的<code>cookie</code>中解析出<code>series</code>和<code>token</code></li>
+<li>根据<code>series</code>从数据库中查询出一个<code>PersistentRememberMeToken</code>实例</li>
+<li>如果查出来的<code>token</code>和前端传来的<code>token</code>不相同，说明账号可能被人盗用（别人用你的令牌登录之后，<code>token</code>会变）。此时根据用户名移除相关的<code>token</code>，相当于必须要重新输入用户名密码登录才能获取新的自动登录权限</li>
+<li>校验<code>token</code>是否过期</li>
+<li>构造新的<code>PersistentRememberMeToken</code>对象，并且更新数据库中的<code>token</code>，新的会话都会对应一个新的<code>token</code></li>
+<li>将新的令牌重新添加到<code>cookie</code>中返回</li>
+<li>根据用户名查询用户信息，再走一遍登录流程</li>
+</ul>
+<p><strong>二次检验</strong>则可以通过配置接口访问来实现：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .antMatchers(&quot;/rememberme&quot;).rememberMe() // 需要 rememberMe 才能访问
+            .antMatchers(&quot;/admin&quot;).fullyAuthenticated() // 不同于 authenticated，fullyAuthenticated 不包含自动登录的形式
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .and()
+            .rememberMe()
+            .key(&quot;javaboy&quot;)
+            .tokenRepository(jdbcTokenRepository())
+            .and()
+            .csrf().disable();
+}
+</code></pre>
+<h3 id="设置会话数"><a href="#设置会话数" class="headerlink" title="设置会话数"></a>设置会话数</h3><p>想用新的登录踢掉旧的登录，只需要将最大会话数设置为1即可，或者设置禁止后面的登录操作：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage(&quot;/login.html&quot;)
+            .permitAll()
+            .and()
+            .csrf().disable()
+            .sessionManagement()
+            .maximumSessions(1); // 配置最大会话数为 1
+            .maxSessionsPreventsLogin(true); // 禁止新的登录操作
+}
+</code></pre>
+<p>还需要再提供一个<code>Bean</code>：</p>
+<pre><code class="java">@Bean
+HttpSessionEventPublisher httpSessionEventPublisher() {
+    return new HttpSessionEventPublisher();
+}
+</code></pre>
+<p>在<code>SpringSecurity</code>中，它是通过监听<code>session</code>的销毁事件，来及时清理<code>session</code>的记录。用户从不同的浏览器登录后，都会有对应的<code>session</code>，当用户注销登录之后，<code>session</code>就会失效，但是默认的失效是通过调用<code>StandardSession#invalidate</code>方法来实现的，这一个失效事件无法被<code>Spring</code>容器感知到，进而导致当用户注销登录之后，<code>SpringSecurity</code>没有及时清理会话信息表，以为用户还在线，进而导致用户无法重新登录进来。</p>
+<p>因此提供一个实现了<code>HttpSessionListener</code>接口的类，在该<code>Bean</code>中，可以将<code>session</code>创建以及销毁的事件及时感知到，并且调用<code>Spring</code>中的事件机制将相关的创建和销毁事件发布出去，进而被<code>SpringSecurity</code>感知到：</p>
+<pre><code class="java">public void sessionCreated(HttpSessionEvent event) {
+ HttpSessionCreatedEvent e = new HttpSessionCreatedEvent(event.getSession());
+ getContext(event.getSession().getServletContext()).publishEvent(e);
+}
+public void sessionDestroyed(HttpSessionEvent event) {
+ HttpSessionDestroyedEvent e = new HttpSessionDestroyedEvent(event.getSession());
+ getContext(event.getSession().getServletContext()).publishEvent(e);
+}
+</code></pre>
+<p>事实上<code>AbstractAuthenticationProcessingFilter#doFilter</code>方法调用中，走完认证流程后，接下来就是调用<code>sessionStrategy.onAuthentication</code>方法，这个方法就是用来处理<code>session</code>并发问题的：</p>
+<pre><code class="java">public class ConcurrentSessionControlAuthenticationStrategy implements
+  MessageSourceAware, SessionAuthenticationStrategy {
+ public void onAuthentication(Authentication authentication,
+   HttpServletRequest request, HttpServletResponse response) {
+
+  final List&lt;SessionInformation&gt; sessions = sessionRegistry.getAllSessions(
+    authentication.getPrincipal(), false);
+
+  int sessionCount = sessions.size();
+  int allowedSessions = getMaximumSessionsForThisUser(authentication);
+
+  if (sessionCount &lt; allowedSessions) {
+   // They haven&#39;t got too many login sessions running at present
+   return;
+  }
+  if (allowedSessions == -1) {
+   // We permit unlimited logins
+   return;
+  }
+  if (sessionCount == allowedSessions) {
+   HttpSession session = request.getSession(false);
+
+   if (session != null) {
+    // Only permit it though if this request is associated with one of the
+    // already registered sessions
+    for (SessionInformation si : sessions) {
+     if (si.getSessionId().equals(session.getId())) {
+      return;
+     }
+    }
+   }
+   // If the session is null, a new one will be created by the parent class,
+   // exceeding the allowed number
+  }
+  allowableSessionsExceeded(sessions, allowedSessions, sessionRegistry);
+ }
+ protected void allowableSessionsExceeded(List&lt;SessionInformation&gt; sessions,
+   int allowableSessions, SessionRegistry registry)
+   throws SessionAuthenticationException {
+  if (exceptionIfMaximumExceeded || (sessions == null)) {
+   throw new SessionAuthenticationException(messages.getMessage(
+     &quot;ConcurrentSessionControlAuthenticationStrategy.exceededAllowed&quot;,
+     new Object[] {allowableSessions},
+     &quot;Maximum sessions of {0} for this principal exceeded&quot;));
+  }
+  // Determine least recently used sessions, and mark them for invalidation
+  sessions.sort(Comparator.comparing(SessionInformation::getLastRequest));
+  int maximumSessionsExceededBy = sessions.size() - allowableSessions + 1;
+  List&lt;SessionInformation&gt; sessionsToBeExpired = sessions.subList(0, maximumSessionsExceededBy);
+  for (SessionInformation session: sessionsToBeExpired) {
+   session.expireNow();
+  }
+ }
+}
+</code></pre>
+<ul>
+<li>首先调用<code>sessionRegistry.getAllSessions</code>方法获取当前用户的所有<code>session</code>，该方法在调用时，传递两个参数，一个是当前用户的<code>authentication</code>，另一个参数<code>false</code>表示不包含已经过期的<code>session</code>（在用户登录成功后，会将用户的<code>sessionid</code>存起来，其中<code>key</code>是用户的主体（principal），<code>value</code>则是该主题对应的<code>sessionid</code>组成的一个集合）</li>
+<li>接下来计算出当前用户已经有几个有效<code>session</code>了，同时获取允许的<code>session</code>并发数</li>
+<li>如果当前<code>session</code>数（sessionCount）小于<code>session</code>并发数（allowedSessions），则不做任何处理；如果<code>allowedSessions</code>的值为-1，表示对<code>session</code>数量不做任何限制；如果当前<code>session</code>数（sessionCount）等于<code>session</code>并发数，且当前<code>session</code>不为<code>null</code>，并且已经存在于<code>session</code>中了，那么不做任何处理，否则说明将有一个新的<code>session</code>被创建出来，届时当前<code>sessionCount</code>数就会超过<code>allowedSessions</code>，进入策略判断方法<code>allowableSessionsExceeded</code></li>
+<li><code>allowableSessionsExceeded</code>方法中，首先会有<code>exceptionIfMaximumExceeded</code>属性，这就是我们在<code>SecurityConfig</code>中配置的<code>maxSessionsPreventsLogin</code>的值，默认为<code>false</code>，如果为<code>true</code>，就直接抛出异常，那么这次登录就失败了，如果为<code>false</code>，则对<code>sessions</code>按照请求时间进行排序，然后再使多余的<code>session</code>过期</li>
+</ul>
+<p><code>SpringSecurity</code>中通过<code>SessionRegistryImpl</code>类来实现对会话信息的统一管理：</p>
+<pre><code class="java">public class SessionRegistryImpl implements SessionRegistry,
+  ApplicationListener&lt;SessionDestroyedEvent&gt; {
+ /** &lt;principal:Object,SessionIdSet&gt; */
+ private final ConcurrentMap&lt;Object, Set&lt;String&gt;&gt; principals;
+ /** &lt;sessionId:Object,SessionInformation&gt; */
+ private final Map&lt;String, SessionInformation&gt; sessionIds;
+ public void registerNewSession(String sessionId, Object principal) {
+  if (getSessionInformation(sessionId) != null) {
+   removeSessionInformation(sessionId);
+  }
+  sessionIds.put(sessionId,
+    new SessionInformation(principal, sessionId, new Date()));
+
+  principals.compute(principal, (key, sessionsUsedByPrincipal) -&gt; {
+   if (sessionsUsedByPrincipal == null) {
+    sessionsUsedByPrincipal = new CopyOnWriteArraySet&lt;&gt;();
+   }
+   sessionsUsedByPrincipal.add(sessionId);
+   return sessionsUsedByPrincipal;
+  });
+ }
+ public void removeSessionInformation(String sessionId) {
+  SessionInformation info = getSessionInformation(sessionId);
+  if (info == null) {
+   return;
+  }
+  sessionIds.remove(sessionId);
+  principals.computeIfPresent(info.getPrincipal(), (key, sessionsUsedByPrincipal) -&gt; {
+   sessionsUsedByPrincipal.remove(sessionId);
+   if (sessionsUsedByPrincipal.isEmpty()) {
+    sessionsUsedByPrincipal = null;
+   }
+   return sessionsUsedByPrincipal;
+  });
+ }
+}
+</code></pre>
+<p>声明的<code>principals</code>是一个支持并发访问的<code>map</code>即可，它的<code>value</code>是一个set集合，保存了这个用户对应的<code>sessionId</code>；如果新的<code>session</code>需要添加，就在<code>registerNewSession</code>方法中添加，具体是调用<code>principals.compute</code>方法，如果用户注销登录，<code>sessionId</code>需要移除，相关操作类似。它的<code>key</code>是<code>principal</code>对象，因此要重写<code>equals</code>方法和<code>hashCode</code>方法。</p>
+<p>这一点可以从<code>SpringSecurity</code>中定义的基于内存的用户中看出：</p>
+<pre><code class="java">public class User implements UserDetails, CredentialsContainer {
+ private String password;
+ private final String username;
+ private final Set&lt;GrantedAuthority&gt; authorities;
+ private final boolean accountNonExpired;
+ private final boolean accountNonLocked;
+ private final boolean credentialsNonExpired;
+ private final boolean enabled;
+ @Override
+ public boolean equals(Object rhs) {
+  if (rhs instanceof User) {
+   return username.equals(((User) rhs).username);
+  }
+  return false;
+ }
+ @Override
+ public int hashCode() {
+  return username.hashCode();
+ }
+}
+</code></pre>
+<h3 id="扩展认证信息"><a href="#扩展认证信息" class="headerlink" title="扩展认证信息"></a>扩展认证信息</h3><p><code>Authentication</code>中<code>getDetails</code>方法用来存储有关身份认证的其他信息，比如IP地址、sessionId和证书信息等。</p>
+<p>在用户登录必经的过滤器<code>UsernamePasswordAuthenticationFilter</code>中，<code>attemptAuthentication</code>方法里有一个<code>setDetails</code>方法：</p>
+<pre><code class="java">protected void setDetails(HttpServletRequest request,
+  UsernamePasswordAuthenticationToken authRequest) {
+ authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
+}
+</code></pre>
+<p><code>details</code>的值是通过<code>authenticationDetailsSource</code>构建的：</p>
+<pre><code class="java">public class WebAuthenticationDetailsSource implements
+  AuthenticationDetailsSource&lt;HttpServletRequest, WebAuthenticationDetails&gt; {
+ public WebAuthenticationDetails buildDetails(HttpServletRequest context) {
+  return new WebAuthenticationDetails(context);
+ }
+}
+public class WebAuthenticationDetails implements Serializable {
+ private final String remoteAddress;
+ private final String sessionId;
+ public WebAuthenticationDetails(HttpServletRequest request) {
+  this.remoteAddress = request.getRemoteAddr();
+
+  HttpSession session = request.getSession(false);
+  this.sessionId = (session != null) ? session.getId() : null;
+ }
+    //省略其他方法
+}
+</code></pre>
+<p>实际上构建的是<code>WebAuthenticationDetails</code>，其中定义了用户登录地址和<code>sessionId</code>，而这个类可以自己定制，那么<code>WebAuthenticationDetailsSource</code>也需要重新定义：</p>
+<pre><code class="java">public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
+    public MyWebAuthenticationDetails(HttpServletRequest req) {
+        super(req);
+        // ...
+    }
+    // ...
+}
+@Component
+public class MyWebAuthenticationDetailsSource implements AuthenticationDetailsSource&lt;HttpServletRequest,MyWebAuthenticationDetails&gt; {
+    @Override
+    public MyWebAuthenticationDetails buildDetails(HttpServletRequest context) {
+        return new MyWebAuthenticationDetails(context);
+    }
+}
+</code></pre>
+<p>如果要扩展属性，只需要在<code>WebAuthenticationDetails</code>中定义更多属性，然后从<code>HttpServletRequest</code>中提取出来设置给对应的属性即可，登录成功后就可以随时随地获取这些属性了。最后需要在<code>SecurityConfig</code>中配置：</p>
+<pre><code class="java">@Autowired
+MyWebAuthenticationDetailsSource myWebAuthenticationDetailsSource;
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            ...
+            .and()
+            .formLogin()
+            .authenticationDetailsSource(myWebAuthenticationDetailsSource)
+            ...
+}
+</code></pre>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p><code>SpringSecurity</code>中提供了<code>HttpFirewall</code>，它可以自动处理一些非法请求。它有两个实现类：<code>DefaultHttpFirewall</code>和<code>StrictHttpFirewall</code>，前者的限制相比后者宽松，<code>SpringSecurity</code>中默认使用后者。</p>
+<pre><code class="java">public class StrictHttpFirewall implements HttpFirewall {
+ private Set&lt;String&gt; allowedHttpMethods = createDefaultAllowedHttpMethods();
+ private static Set&lt;String&gt; createDefaultAllowedHttpMethods() {
+  Set&lt;String&gt; result = new HashSet&lt;&gt;();
+  result.add(HttpMethod.DELETE.name());
+  result.add(HttpMethod.GET.name());
+  result.add(HttpMethod.HEAD.name());
+  result.add(HttpMethod.OPTIONS.name());
+  result.add(HttpMethod.PATCH.name());
+  result.add(HttpMethod.POST.name());
+  result.add(HttpMethod.PUT.name());
+  return result;
+ }
+ private void rejectForbiddenHttpMethod(HttpServletRequest request) {
+  if (this.allowedHttpMethods == ALLOW_ANY_HTTP_METHOD) {
+   return;
+  }
+  if (!this.allowedHttpMethods.contains(request.getMethod())) {
+   throw new RequestRejectedException(&quot;The request was rejected because the HTTP method \&quot;&quot; +
+     request.getMethod() +
+     &quot;\&quot; was not included within the whitelist &quot; +
+     this.allowedHttpMethods);
+  }
+ }
+}
+</code></pre>
+<p><code>HTTP</code>请求方法必须是<code>DELETE、GET、HEAD、OPTIONS、PATCH、POST 以及 PUT</code>中的一个，请求才能发送成功，否则的话，就会抛出<code>RequestRejectedException</code>异常。如果向发送其他<code>HTTP</code>请求，比如<code>TRACE</code>，需要自己提供一个<code>StrictHttpFirewall</code>实例：</p>
+<pre><code class="java">@Bean
+HttpFirewall httpFirewall() {
+    StrictHttpFirewall firewall = new StrictHttpFirewall();
+    firewall.setUnsafeAllowAnyHttpMethod(true); // 表示不做 HTTP 请求方法校验，表示任何请求方法都可以通过，也可以通过 setAllowedHttpMethods 方法重新定义可以通过的方法
+    return firewall;
+}
+</code></pre>
+<h3 id="防御会话固定攻击"><a href="#防御会话固定攻击" class="headerlink" title="防御会话固定攻击"></a>防御会话固定攻击</h3><p><code>HttpSession</code>是一个服务端的概念，服务端生成的<code>HttpSession</code>都会有一个对应的<code>sessionid</code>，这个<code>sessionid</code>会通过<code>cookie</code>传递给前端，前端以后发送请求的时候，就带上这个<code>sessionid</code>参数，服务端看到这个<code>sessionid</code>就会把这个前端请求和服务端的某一个<code>HttpSession</code>对应起来，形成“会话”的感觉。</p>
+<p>浏览器关闭并不会导致服务端的<code>HttpSession</code>失效，想让服务端的<code>HttpSession</code>失效，要么手动调用<code>HttpSession#invalidate</code>方法；要么等到<code>session</code>自动过期，要么重启服务端。事实上默认情况下，浏览器再次访问服务端的时候，服务端会给浏览器重新分配一个<code>sessionId</code>。</p>
+<p>在服务端的响应头中有一个<code>Set-Cookie</code>字段，该字段指示浏览器更新<code>sessionid</code>，同时还有一个<code>HttpOnly</code>属性，这个表示通过JS脚本无法读取到<code>Cookie</code>信息，这样能有效的防止XSS攻击。</p>
+<p>只要不关闭浏览器，并且服务端的<code>HttpSession</code>也没有过期，那么维系服务端和浏览器的<code>sessionid</code>是不会发生变化的，而会话固定攻击，则是利用这一机制，借助受害者用相同的会话ID获取认证和授权，然后利用该会话ID劫持受害者的会话以成功冒充受害者，造成会话固定攻击。</p>
+<p><code>SpringSecurity</code>中防御会话固定攻击主要体现在三个方面：</p>
+<ul>
+<li>请求地址中有<code>;</code>，请求会被直接拒绝</li>
+<li>响应的<code>Set-Cookie</code>字段中有<code>HttpOnly</code>属性，这种方式避免了通过<code>XSS</code>攻击来获取<code>Cookie</code>中的会话信息进而达成会话固定攻击</li>
+<li>可以配置改变<code>sessionId</code></li>
+</ul>
+<pre><code class="java">public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .permitAll()
+            .and()
+            .sessionManagement()
+            .sessionFixation().migrateSession() // 默认配置，表示登录成功之后，创建一个新的会话，将旧 session 中的信息复制到新的 session 中
+                            // .none() // 继续使用旧 session
+                            // .changeSessionId() // session 不变，修改 sessionId，用到了 Servlet 容器提供的防御会话固定攻击
+                            // .newSession() // 登录后创建一个新的 session
+    }
+}
+</code></pre>
+<h3 id="session共享"><a href="#session共享" class="headerlink" title="session共享"></a>session共享</h3><p>引入依赖：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.session&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>有时候需要在各个服务之间共享数据，此时可以用<code>Redis</code>将其保存到一个公共的地方，当所有<code>Tomcat</code>需要往<code>Session</code>中写数据时，都往<code>Redis</code>中写，当所有<code>Tomcat</code>需要读数据时，都从<code>Redis</code>中读。或者使用<code>Spring Session</code>来实现，<code>Spring Session</code>就是使用<code>Spring</code>中的代理过滤器，将所有的<code>Session</code>操作拦截下来，自动的将数据同步到<code>Redis</code>中，或者自动的从<code>Redis</code>中读取数据。</p>
+<p>引入依赖：</p>
+<pre><code class="xml">&lt;dependecies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.session&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p>引入<code>nginx</code>模拟<code>SpringBoot</code>集群：进入<code>nginx</code>的安装目录的<code>conf</code>目录下（默认是在<code>/usr/local/nginx/conf</code>），编辑<code>nginx.conf</code>文件：</p>
+<pre><code class="conf">upstream javaboy.org{ # upstream 表示配置上游服务器，javaboy.org 表示服务器集群的名字，upstream 里面配置的是一个个的单独服务
+    server 127.0.0.1:8080 weight=1; # weight 表示服务的权重，意味着将有多少比例的请求从 nginx 上转发到该服务上
+    server 127.0.0.1:8081 weight=2;
+}
+server {
+    listen 80;
+    server_name localhost;
+    #charset utf-8;
+    #access_log logs/host.access.log main;
+    location / {
+        proxy_pass http://javaboy.org; # 表示请求转发的地址，/ 表示拦截所有的请求，转发到刚刚配置好的服务器集群中
+        proxy_redirect default; # 表示设置发生重定向请求时，nginx 自动修正响应头数据（默认是 Tomcat 返回重定向，此时重定向的地址是 Tomcat 的地址）
+        #root html;
+        #index index.html index.html;
+    }
+}
+</code></pre>
+<p>配置完成后，正常使用<code>HttpSession</code>即可，<code>Session</code>同步到<code>Redis</code>等已由框架自动完成。因为会话注册表的维护默认是由<code>SessionRegistryImpl</code>完成，而它是基于内存的维护，所以要修改其实现逻辑：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    FindByIndexNameSessionRepository sessionRepository;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest()
+                ...
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
+    }
+    @Bean
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
+}
+</code></pre>
+<p>这时关于<code>session</code>并发的配置就生效了，集群环境下，用户也只能在一台设备上登录。</p>
+<h3 id="防御csrf攻击"><a href="#防御csrf攻击" class="headerlink" title="防御csrf攻击"></a>防御csrf攻击</h3><p><code>SpringSecurity</code>中，默认通过<code>Model</code>将相关<code>_csrf</code>参数带到前端来，前端发请求时，除了携带<code>Cookie</code>中的信息之外，还需要通过隐藏域携带这个参数，否则网站就会拒绝请求。</p>
+<p>也可以通过将<code>_csrf</code>参数放在<code>Cookie</code>中返回前端，配置如下：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .and()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()); // 此方法会设置 Cookie 中的 HttpOnly 属性为 false 以允许前端通过 js 操作 Cookie，否则前端无法获取到 _csrf 参数
+    }
+}
+</code></pre>
+<p>此时可以看到浏览器中返回的<code>Cookie</code>中多了个<code>XSRF-TOKEN</code>参数，当然服务端也要配置给<code>js</code>文件放行。</p>
+<p><code>SpringSecurity</code>中提供了一个保存<code>csrf</code>参数的规范，就是<code>CsrfToken</code>：</p>
+<pre><code class="java">public interface CsrfToken extends Serializable {
+ String getHeaderName();
+ String getParameterName(); // 获取 _csrf 参数的 key
+ String getToken(); // 获取 _csrf 参数的 value
+}
+</code></pre>
+<p>默认情况下使用<code>DefaultCsrfToken</code>实现类，<code>_csrf</code>参数的生成和保存则是另外一个类<code>HttpSessionCsrfTokenRepository </code>，它是<code>CsrfTokenRepository</code>接口的默认实现类。</p>
+<pre><code class="java">public final class HttpSessionCsrfTokenRepository implements CsrfTokenRepository {
+ private static final String DEFAULT_CSRF_PARAMETER_NAME = &quot;_csrf&quot;;
+ private static final String DEFAULT_CSRF_HEADER_NAME = &quot;X-CSRF-TOKEN&quot;;
+ private static final String DEFAULT_CSRF_TOKEN_ATTR_NAME = HttpSessionCsrfTokenRepository.class
+   .getName().concat(&quot;.CSRF_TOKEN&quot;);
+ private String parameterName = DEFAULT_CSRF_PARAMETER_NAME;
+ private String headerName = DEFAULT_CSRF_HEADER_NAME;
+ private String sessionAttributeName = DEFAULT_CSRF_TOKEN_ATTR_NAME;
+ public void saveToken(CsrfToken token, HttpServletRequest request,
+   HttpServletResponse response) {
+  if (token == null) {
+   HttpSession session = request.getSession(false);
+   if (session != null) {
+    session.removeAttribute(this.sessionAttributeName);
+   }
+  }
+  else {
+   HttpSession session = request.getSession();
+   session.setAttribute(this.sessionAttributeName, token);
+  }
+ }
+ public CsrfToken loadToken(HttpServletRequest request) {
+  HttpSession session = request.getSession(false);
+  if (session == null) {
+   return null;
+  }
+  return (CsrfToken) session.getAttribute(this.sessionAttributeName);
+ }
+ public CsrfToken generateToken(HttpServletRequest request) {
+  return new DefaultCsrfToken(this.headerName, this.parameterName,
+    createNewToken());
+ }
+ private String createNewToken() {
+  return UUID.randomUUID().toString();
+ }
+}
+</code></pre>
+<ul>
+<li><code>saveToken</code>方法将<code>CsrfToken</code>保存在<code>HttpSession</code>中，将来再从<code>HttpSession</code>中取出和前端传来的参数做比较</li>
+<li><code>loadToken</code>方法就是从<code>HttpSession</code>中读取<code>CsrfToken</code>出来</li>
+<li><code>generateToken</code>是生成<code>CsrfToken</code>的过程，可以看到，生成的默认载体就是<code>DefaultCsrfToken</code>，而<code>CsrfToken</code>的值则通过<code>createNewToken</code>方法生成，是一个<code>UUID</code>字符串</li>
+<li>在构造<code>DefaultCsrfToken</code>时还有两个参数<code>headerName</code>和<code>parameterName</code>，这两个参数是前端保存参数的<code>key</code></li>
+</ul>
+<p>如果将<code>_csrf</code>参数设置保存在<code>Cookie</code>中，则需要用到另一个实现类<code>CsrfTokenRepository</code>：</p>
+<pre><code class="java">public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
+ static final String DEFAULT_CSRF_COOKIE_NAME = &quot;XSRF-TOKEN&quot;;
+ static final String DEFAULT_CSRF_PARAMETER_NAME = &quot;_csrf&quot;;
+ static final String DEFAULT_CSRF_HEADER_NAME = &quot;X-XSRF-TOKEN&quot;;
+ private String parameterName = DEFAULT_CSRF_PARAMETER_NAME;
+ private String headerName = DEFAULT_CSRF_HEADER_NAME;
+ private String cookieName = DEFAULT_CSRF_COOKIE_NAME;
+ private boolean cookieHttpOnly = true;
+ private String cookiePath;
+ private String cookieDomain;
+ public CookieCsrfTokenRepository() {
+ }
+ @Override
+ public CsrfToken generateToken(HttpServletRequest request) {
+  return new DefaultCsrfToken(this.headerName, this.parameterName,
+    createNewToken());
+ }
+ @Override
+ public void saveToken(CsrfToken token, HttpServletRequest request,
+   HttpServletResponse response) {
+  String tokenValue = token == null ? &quot;&quot; : token.getToken();
+  Cookie cookie = new Cookie(this.cookieName, tokenValue);
+  cookie.setSecure(request.isSecure());
+  if (this.cookiePath != null &amp;&amp; !this.cookiePath.isEmpty()) {
+    cookie.setPath(this.cookiePath);
+  } else {
+    cookie.setPath(this.getRequestContext(request));
+  }
+  if (token == null) {
+   cookie.setMaxAge(0);
+  }
+  else {
+   cookie.setMaxAge(-1);
+  }
+  cookie.setHttpOnly(cookieHttpOnly);
+  if (this.cookieDomain != null &amp;&amp; !this.cookieDomain.isEmpty()) {
+   cookie.setDomain(this.cookieDomain);
+  }
+
+  response.addCookie(cookie);
+ }
+ @Override
+ public CsrfToken loadToken(HttpServletRequest request) {
+  Cookie cookie = WebUtils.getCookie(request, this.cookieName);
+  if (cookie == null) {
+   return null;
+  }
+  String token = cookie.getValue();
+  if (!StringUtils.hasLength(token)) {
+   return null;
+  }
+  return new DefaultCsrfToken(this.headerName, this.parameterName, token);
+ }
+ public static CookieCsrfTokenRepository withHttpOnlyFalse() {
+  CookieCsrfTokenRepository result = new CookieCsrfTokenRepository();
+  result.setCookieHttpOnly(false);
+  return result;
+ }
+ private String createNewToken() {
+  return UUID.randomUUID().toString();
+ }
+}
+</code></pre>
+<p>与默认实现不同，这里是将<code>CsrfToken</code>保存到<code>Cookie</code>中。然后校验参数则通过<code>CsrfFilter</code>过滤器来实现：</p>
+<pre><code class="java">protected void doFilterInternal(HttpServletRequest request,
+  HttpServletResponse response, FilterChain filterChain)
+    throws ServletException, IOException {
+ request.setAttribute(HttpServletResponse.class.getName(), response);
+ CsrfToken csrfToken = this.tokenRepository.loadToken(request);
+ final boolean missingToken = csrfToken == null;
+ if (missingToken) {
+  csrfToken = this.tokenRepository.generateToken(request);
+  this.tokenRepository.saveToken(csrfToken, request, response);
+ }
+ request.setAttribute(CsrfToken.class.getName(), csrfToken);
+ request.setAttribute(csrfToken.getParameterName(), csrfToken);
+ if (!this.requireCsrfProtectionMatcher.matches(request)) {
+  filterChain.doFilter(request, response);
+  return;
+ }
+ String actualToken = request.getHeader(csrfToken.getHeaderName());
+ if (actualToken == null) {
+  actualToken = request.getParameter(csrfToken.getParameterName());
+ }
+ if (!csrfToken.getToken().equals(actualToken)) {
+  if (this.logger.isDebugEnabled()) {
+   this.logger.debug(&quot;Invalid CSRF token found for &quot;
+     + UrlUtils.buildFullRequestUrl(request));
+  }
+  if (missingToken) {
+   this.accessDeniedHandler.handle(request, response,
+     new MissingCsrfTokenException(actualToken));
+  }
+  else {
+   this.accessDeniedHandler.handle(request, response,
+     new InvalidCsrfTokenException(csrfToken, actualToken));
+  }
+  return;
+ }
+ filterChain.doFilter(request, response);
+}
+</code></pre>
+<ul>
+<li>首先调用<code>tokenRepository.loadToken</code>，这个就是之前配置的<code>CsrfTokenRepository</code>实例</li>
+<li>如果调用<code>tokenRepository.loadToken</code>方法没有加载到<code>CsrfToken</code>，那说明这个请求可能是第一次发起，则调用<code>tokenRepository.generateToken</code>方法生成<code>CsrfToken</code>，并调用<code>tokenRepository.saveToken</code>方法保存<code>CsrfToken</code></li>
+<li>调用<code>request.setAttribute</code>方法存了一些值进去，这就是默认情况下，我们通过<code>jsp</code>或者<code>thymeleaf</code>标签渲染<code>_csrf</code>的数据来源</li>
+<li><code>requireCsrfProtectionMatcher.matches</code>方法则使用用来判断哪些请求方法需要做校验，默认情况下，”GET”, “HEAD”, “TRACE”, “OPTIONS”方法是不需要校验的</li>
+<li>接下来获取请求中传递来的CSRF参数，先从请求头中获取，获取不到再从请求参数中获取</li>
+<li>获取到请求传来的<code>csrf</code>参数之后，再和一开始加载到的<code>csrfToken</code>做比较，如果不同的话，就抛出异常</li>
+</ul>
+<p>常见的GET请求实际上是不需要CSRF攻击校验的，但是下面代码总会执行：</p>
+<pre><code class="java">if (missingToken) {
+ csrfToken = this.tokenRepository.generateToken(request);
+ this.tokenRepository.saveToken(csrfToken, request, response);
+}
+</code></pre>
+<p>因此可以使用<code>LazyCsrfTokenRepository</code>，使得只有开发者调用<code>getToken</code>想要去获取<code>csrfToken</code>时，才去对<code>csrfToken</code>做保存操作：</p>
+<pre><code class="java">public final class LazyCsrfTokenRepository implements CsrfTokenRepository {
+ @Override
+ public CsrfToken generateToken(HttpServletRequest request) {
+  return wrap(request, this.delegate.generateToken(request));
+ }
+ @Override
+ public void saveToken(CsrfToken token, HttpServletRequest request,
+   HttpServletResponse response) {
+  if (token == null) {
+   this.delegate.saveToken(token, request, response);
+  }
+ }
+ @Override
+ public CsrfToken loadToken(HttpServletRequest request) {
+  return this.delegate.loadToken(request);
+ }
+ private CsrfToken wrap(HttpServletRequest request, CsrfToken token) {
+  HttpServletResponse response = getResponse(request);
+  return new SaveOnAccessCsrfToken(this.delegate, request, response, token);
+ }
+ private static final class SaveOnAccessCsrfToken implements CsrfToken {
+  private transient CsrfTokenRepository tokenRepository;
+  private transient HttpServletRequest request;
+  private transient HttpServletResponse response;
+
+  private final CsrfToken delegate;
+
+  SaveOnAccessCsrfToken(CsrfTokenRepository tokenRepository,
+    HttpServletRequest request, HttpServletResponse response,
+    CsrfToken delegate) {
+   this.tokenRepository = tokenRepository;
+   this.request = request;
+   this.response = response;
+   this.delegate = delegate;
+  }
+  @Override
+  public String getToken() {
+   saveTokenIfNecessary();
+   return this.delegate.getToken();
+  }
+  private void saveTokenIfNecessary() {
+   if (this.tokenRepository == null) {
+    return;
+   }
+
+   synchronized (this) {
+    if (this.tokenRepository != null) {
+     this.tokenRepository.saveToken(this.delegate, this.request,
+       this.response);
+     this.tokenRepository = null;
+     this.request = null;
+     this.response = null;
+    }
+   }
+  }
+
+ }
+}
+</code></pre>
+<p>如果对<code>csrf</code>不做任何配置，默认其实就是<code>LazyCsrfTokenRepository+HttpSessionCsrfTokenRepository</code>组合，也可以自己配置：</p>
+<pre><code class="java">@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage(&quot;/login.html&quot;)
+            .successHandler((req,resp,authentication)-&gt;{
+                resp.getWriter().write(&quot;success&quot;);
+            })
+            .permitAll()
+            .and()
+            .csrf().csrfTokenRepository(new LazyCsrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+}
+</code></pre>
+<h3 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h3><p>当前端请求与后端同源时（仅端口不同），由于同源策略的限制，请求无法发送成功。通过在方法上配置注解<code>@CrossOrigin(value=&quot;http://xxx:xxx&quot;)</code>，表示其接受某一个域的请求。</p>
+<p>也可以通过<strong>全局配置</strong>：</p>
+<pre><code class="java">@Configuration
+publicclass WebMvcConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping(&quot;/**&quot;)
+        .allowedOrigins(&quot;http://localhost:8081&quot;)
+        .allowedMethods(&quot;*&quot;)
+        .allowedHeaders(&quot;*&quot;);
+    }
+}
+</code></pre>
+<p>或者在<code>SpringSecurity</code>中做全局配置：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .permitAll()
+                .and()
+                .httpBasic()
+                .and()
+                .cors() // 开启对CORS的支持
+                .configurationSource(corsConfigurationSource())
+                .and()
+                .csrf()
+                .disable();
+    }
+    // 通过 CorsConfigurationSource 实例对跨域信息作出详细配置，例如允许的请求来源、允许的请求方法、允许通过的请求头、探测请求的有效期、需要处理的路径等等
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedOrigins(Arrays.asList(&quot;*&quot;));
+        configuration.setAllowedMethods(Arrays.asList(&quot;*&quot;));
+        configuration.setAllowedHeaders(Arrays.asList(&quot;*&quot;));
+        configuration.setMaxAge(Duration.ofHours(1));
+        source.registerCorsConfiguration(&quot;/**&quot;,configuration);
+        return source;
+    }
+}
+</code></pre>
+<h3 id="动态权限配置"><a href="#动态权限配置" class="headerlink" title="动态权限配置"></a>动态权限配置</h3><p>权限管理本身是由<code>FilterSecurityInterceptor</code>控制的，系统默认已经自动创建好了，如果想修改它的属性，则可以利用<code>withObjectPostProcessor</code>方法：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .withObjectPostProcessor(new ObjectPostProcessor&lt;FilterSecurityInterceptor&gt;() {
+                    @Override
+                    public &lt;O extends FilterSecurityInterceptor&gt; O postProcess(O object) {
+                        object.setAccessDecisionManager(customUrlDecisionManager);
+                        object.setSecurityMetadataSource(customFilterInvocationSecurityMetadataSource);
+                        return object;
+                    }
+                })
+                .and()
+                // ...
+    }
+}
+</code></pre>
+<p><code>ObjectPostProcessor</code>接口就一个<code>postProcess</code>，最主要的实现类<code>AutowireBeanFactoryObjectPostProcessor</code>就实现了这个方法（里面就是具体的注册逻辑），因此最主要作用就是手动注册实例到<code>Spring</code>容器中（并且让实例走一遍<code>Bean</code>的生命周期）</p>
+<p>因为<code>FilterSecurityInterceptor</code>在创建成功后会重走一遍<code>postProcess</code>方法，因此这里通过重写<code>postProcess</code>方法就能实现属性修改。</p>
+<h3 id="自定义异常处理"><a href="#自定义异常处理" class="headerlink" title="自定义异常处理"></a>自定义异常处理</h3><p><code>ExceptionTranslationFilter</code>是<code>SpringSecurity</code>中专门负责处理异常的过滤器，默认情况下，这个过滤器已经被自动加载到过滤器链中。</p>
+<pre><code class="java">public class ExceptionTranslationFilter extends GenericFilterBean {
+ public ExceptionTranslationFilter(AuthenticationEntryPoint authenticationEntryPoint,
+   RequestCache requestCache) {
+  this.authenticationEntryPoint = authenticationEntryPoint;
+  this.requestCache = requestCache;
+ }
+ public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+   throws IOException, ServletException {
+  HttpServletRequest request = (HttpServletRequest) req;
+  HttpServletResponse response = (HttpServletResponse) res;
+  try {
+   chain.doFilter(request, response);
+  }
+  catch (IOException ex) {
+   throw ex;
+  }
+  catch (Exception ex) {
+   Throwable[] causeChain = throwableAnalyzer.determineCauseChain(ex);
+   RuntimeException ase = (AuthenticationException) throwableAnalyzer
+     .getFirstThrowableOfType(AuthenticationException.class, causeChain);
+   if (ase == null) {
+    ase = (AccessDeniedException) throwableAnalyzer.getFirstThrowableOfType(
+      AccessDeniedException.class, causeChain);
+   }
+   if (ase != null) {
+    if (response.isCommitted()) {
+     throw new ServletException(&quot;Unable to handle the Spring Security Exception because the response is already committed.&quot;, ex);
+    }
+    handleSpringSecurityException(request, response, chain, ase);
+   }
+   else {
+    if (ex instanceof ServletException) {
+     throw (ServletException) ex;
+    }
+    else if (ex instanceof RuntimeException) {
+     throw (RuntimeException) ex;
+    }
+    throw new RuntimeException(ex);
+   }
+  }
+ }
+ private void handleSpringSecurityException(HttpServletRequest request,
+   HttpServletResponse response, FilterChain chain, RuntimeException exception)
+   throws IOException, ServletException {
+  if (exception instanceof AuthenticationException) {
+   sendStartAuthentication(request, response, chain,
+     (AuthenticationException) exception);
+  }
+  else if (exception instanceof AccessDeniedException) {
+   Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+   if (authenticationTrustResolver.isAnonymous(authentication) || authenticationTrustResolver.isRememberMe(authentication)) {
+    sendStartAuthentication(
+      request,
+      response,
+      chain,
+      new InsufficientAuthenticationException(
+       messages.getMessage(
+        &quot;ExceptionTranslationFilter.insufficientAuthentication&quot;,
+        &quot;Full authentication is required to access this resource&quot;)));
+   }
+   else {
+    accessDeniedHandler.handle(request, response,
+      (AccessDeniedException) exception);
+   }
+  }
+ }
+ protected void sendStartAuthentication(HttpServletRequest request,
+   HttpServletResponse response, FilterChain chain,
+   AuthenticationException reason) throws ServletException, IOException {
+  SecurityContextHolder.getContext().setAuthentication(null);
+  requestCache.saveRequest(request, response);
+  logger.debug(&quot;Calling Authentication entry point.&quot;);
+  authenticationEntryPoint.commence(request, response, reason);
+ }
+}
+</code></pre>
+<ul>
+<li>这里的<code>doFilter</code>方法中过滤器链继续向下执行，<code>ExceptionTranslationFilter</code>处于<code>SpringSecurity</code>过滤器链的倒数第二个，最后一个是<code>FilterSecurityInterceptor</code>，它专门处理授权问题，如果发现用户未登录、未授权等，进而抛出异常，抛出的异常最终会被<code>ExceptionTranslationFilter#doFilter</code>方法捕获</li>
+<li>捕获异常之后，通过调用<code>throwableAnalyzer.getFirstThrowableOfType</code>方法判断是认证异常还是授权异常，判断出类型之后，进入到<code>handleSpringSecurityException</code>方法进行处理，如果不是<code>SpringSecurity</code>中的异常类型，则走<code>ServletException</code>异常类型的处理逻辑</li>
+<li>进入<code>handleSpringSecurityException </code>方法之后，还是根据异常类型判断，如果是认证相关的异常，就走<code>sendStartAuthentication</code>方法，最终被<code>authenticationEntryPoint.commence</code>方法处理；如果是授权相关的异常，就走<code>accessDeniedHandler.handle</code>方法进行处理</li>
+</ul>
+<p><code>AccessDeniedHandler</code>的默认实现类则是<code>AccessDeniedHandlerImpl</code>，因此授权异常默认是在<code>AccessDeniedHandlerImpl#handle</code>方法中处理的</p>
+<pre><code class="java">// 服务器跳转返回 403
+public void handle(HttpServletRequest request, HttpServletResponse response,
+  AccessDeniedException accessDeniedException) throws IOException,
+  ServletException {
+ if (!response.isCommitted()) {
+  if (errorPage != null) {
+   request.setAttribute(WebAttributes.ACCESS_DENIED_403,
+     accessDeniedException);
+   response.setStatus(HttpStatus.FORBIDDEN.value());
+   RequestDispatcher dispatcher = request.getRequestDispatcher(errorPage);
+   dispatcher.forward(request, response);
+  }
+  else {
+   response.sendError(HttpStatus.FORBIDDEN.value(),
+    HttpStatus.FORBIDDEN.getReasonPhrase());
+  }
+ }
+}
+</code></pre>
+<p>自定义异常处理逻辑需要在<code>exceptionHandling</code>上进行配置，首先自定义认证异常处理类和授权异常处理类：</p>
+<pre><code class="java">@Component
+public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.getWriter().write(&quot;login failed:&quot; + authException.getMessage());
+    }
+}
+@Component
+public class MyAccessDeniedHandler implements AccessDeniedHandler {
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+        response.setStatus(403);
+        response.getWriter().write(&quot;Forbidden:&quot; + accessDeniedException.getMessage());
+    }
+}
+</code></pre>
+<p>然后在<code>SecurityConfig</code>中进行配置：</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                // ...
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(myAuthenticationEntryPoint)
+                .accessDeniedHandler(myAccessDeniedHandler)
+                .and()
+                // ...
+    }
+}
+</code></pre>
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/05/28/回溯/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/backtrace.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/backtrace.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  回溯</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/05/21/二叉树/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/binaryTree.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/binaryTree.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  二叉树</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="870006474"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.5"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+

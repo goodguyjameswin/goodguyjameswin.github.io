@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">动态规划 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "Cb5p5SgcQdXKfhOvP5x1hifH-gzGzoHsz";
+  mashiro_option.v_appKey = "7YNH9O5dADsyAurqxcJA31CN";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/dynamicProgramming.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/dynamicProgramming.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      动态规划</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-6-5
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/思维/" > 思维</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="自底向上"><a href="#自底向上" class="headerlink" title="自底向上"></a>自底向上</h2><h3 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h3><p>由于遇到了重复的问题，每一阶段求解的结果应该被记录下来；更大规模问题的最优解参考了规模更小的子问题的最优解。</p>
+<p><strong>经典问题</strong>：给定不同面额的硬币<code>coins</code>和一个总金额<code>amount</code>。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回<code>-1</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: coins = [1, 2, 5], amount = 11</p>
+<p>输出: 3 </p>
+<p>解释: 11 = 5 + 5 + 1</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public int coinChange(int[] coins, int amount) {
+        // 给 0 占位
+        int[] dp = new int[amount + 1];
+        // 要求 恰好填满，所以初始化的时候需要赋值为一个不可能的值
+        // 初始化
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        // 递推开始
+        for (int i = 1; i &lt;= amount; i++) {
+            for (int coin : coins) {
+                if (i - coin &gt;= 0 &amp;&amp; dp[i - coin] != amount + 1) {
+                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
+                }
+            }
+        }
+        // 如果不能凑出，根据题意返回 -1
+        if (dp[amount] == amount + 1) {
+            dp[amount] = -1;
+        }
+        return dp[amount];
+    }
+}
+</code></pre>
+<p><strong>思考</strong>：如何用贪心算法解决本题？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public int changeForGreedy(int[] coins, int amount) {
+    // 将 coins 倒序排列
+    coins = IntStream.of(coins).boxed().sorted(Comparator.reverseOrder()).mapToInt(Integer::intValue).toArray();
+    int res = 0;
+    int index = 0;
+    // 贪心的点：尽可能多地优先选择面值大的纸币
+    while (amount &gt; 0) {
+        // 这一步算出当前面值的纸币需要使用多少张
+        int count = amount / coins[index];
+        // 纸币数加入总数
+        res += count;
+        // 扣除了当前使用掉的纸币以后还剩下多少金额
+        amount %= coins[index];
+        // 考虑下一种面额的纸币
+        index++;
+    }
+    return res;
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣343</strong>：给定一个正整数<code>n</code>，将其拆分为<code>k</code>个<strong>正整数</strong>的和（<code>k&gt;=2</code>），并使这些整数的乘积最大化。返回<em>你可以获得的最大乘积</em>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: n = 2</p>
+<p>输出: 1</p>
+<p>解释: 2 = 1 + 1, 1 × 1 = 1。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public int integerBreak(int n) {
+        int[] dp = new int[n + 1];
+        // 初始化
+        dp[1] = 1;
+        // 递推开始
+        for (int i = 2; i &lt;= n; i++) {
+            // 其中一个加法因子至少是 1，最多是 i - 1
+            for (int j = 1; j &lt;= i - 1; j++) {
+                dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j]));
+            }
+        }
+        return dp[n];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="无后效性"><a href="#无后效性" class="headerlink" title="无后效性"></a>无后效性</h3><p><strong>经典问题</strong>：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong>。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你<strong>在不触动警报装置的情况下</strong>，能够偷窃到的最高金额。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [2, 7, 9, 3, 1]</p>
+<p>输出: 12</p>
+<p>解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。偷窃到的最高金额 = 2 + 9 + 1 = 12 。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public int rob(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        if (len == 1) {
+            return nums[0];
+        }
+        // dp[i][0]：考虑区间 [0..i] ，并且下标为 i 的这个房屋不偷
+        // dp[i][1]：考虑区间 [0..i] ，并且下标为 i 的这个房屋偷
+        int[][] dp = new int[len][2];
+        // 初始化
+        dp[0][0] = 0;
+        dp[0][1] = nums[0];
+        // 递推开始
+        for (int i = 1; i &lt; len; i++) {
+            // 前一个房屋偷或不偷，取两者最大值
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+            // 由于相邻的两个房屋不能同时偷取，只有左边房屋不偷，当前房屋才可以偷
+            dp[i][1] = dp[i - 1][0] + nums[i];
+        }
+        return Math.max(dp[len - 1][0], dp[len - 1][1]);
+    }
+}
+</code></pre>
+<p><strong>力扣120</strong>：给定一个三角形<code>triangle</code>，找出自顶向下的最小路径和。</p>
+<p>每一步只能移动到下一行中相邻的节点上。<strong>相邻的结点</strong>在这里指的是<strong>下标</strong>与<strong>上一层结点下标</strong>相同或等于<strong>上一层结点下标 + 1</strong>的两个节点。也就是说，如果正位于当前行的下标<code>i</code>，那么下一步可以移动到下一行的下标<code>i</code>或<code>i + 1</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]</p>
+<p>输出：11</p>
+<p>解释：如下面简图所示：</p>
+<p>  2</p>
+<p> 3 4</p>
+<p>6 5 7</p>
+<p>4 1 8 3</p>
+<p>自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int minimumTotal(List&lt;List&lt;Integer&gt;&gt; triangle) {
+        int n = triangle.size();
+        // dp[i][j] 表示从点 (i, j) 到底边的最小路径和
+        int[] dp = new int[n + 1];
+        // 从三角形的最后一行开始递推
+        for (int i = n - 1; i &gt;= 0; i--) {
+            for (int j = 0; j &lt;= i; j++) { // 列数与行号对应
+                dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);
+            }
+        }
+        return dp[0];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>经典问题</strong>：给定一个数组<code>prices</code>，它的第<code>i</code>个元素<code>prices[i]</code>表示一支给定股票第<code>i</code>天的价格。</p>
+<p>你只能选择<strong>某一天</strong>买入这只股票，并选择在<strong>未来的某一个不同的日子</strong>卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回<code>0</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：[7,1,5,3,6,4]</p>
+<p>输出：5</p>
+<p>解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润= 6-1 = 5 。</p>
+<p>   注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    public int maxProfit(int[] prices) {
+        var dp = new int[2];
+        dp[0] = 0;
+        dp[1] = -prices[0];
+        int len = prices.length;
+        for (int i = 1; i &lt; len; ++i) {
+            dp[0] = Math.max(dp[0], dp[1] + prices[i]);
+            dp[1] = Math.max(dp[1], -prices[i]); // 注意只能交易一次
+        }
+        return dp[0];
+    }
+}
+</code></pre>
+<p><strong>思考</strong>：若你可以尽可能多地完成更多的交易，但是**卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)**，注意你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票），如何获取最大利润？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int len = prices.length;
+        var dp = new int[3];
+        Arrays.fill(dp, Integer.MIN_VALUE); // 其他不合法状态初始化为一个较大的负值
+        // dp[0][2] = −∞ ：第一天无法处于冷冻期，将不合法的状态初始化为一个较大的负值。
+        dp[0] = 0; // 第一天手上无股票，也没有购入股票
+        dp[1] = -prices[0]; // 第一天购入股票，花费 prices[0]
+        // dp[i][0] 表示第 i 天结束时，手上 没有 股票且 处于非冷冻期 时的最大利润，
+        // dp[i][1] 表示第 i 天结束时，手上 持有 股票时的最大利润。
+        // dp[i][2] 表示第 i 天结束时，手上 没有 股票且 处于冷冻期 时的最大利润（注意：第i天卖出，并随即进入冷冻期）。
+        for (int i = 1; i &lt; len; ++i) {
+            int temp0 = dp[0];
+            int temp1 = dp[1];
+            int temp2 = dp[2];
+            dp[0] = Math.max(temp0, temp2);
+            dp[1] = Math.max(temp1, temp0 - prices[i]);
+            dp[2] = temp1 + prices[i];
+        }
+        return Math.max(dp[0], dp[2]);
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>思考</strong>：若你有且仅有<code>k</code>次交易机会，注意你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票），如何获取最大利润？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int len = prices.length;
+        if (len &lt; 1 || k &lt; 1) {
+            return 0;
+        }
+        var dp = new int[k + 1][2];
+        for (int[] d : dp) {
+            Arrays.fill(d, Integer.MIN_VALUE); // 其他不合法状态初始化为一个较大的负值
+        }
+        dp[0][0] = 0; // 第一天手上无股票，也没有购入股票，也就是未进行交易
+        dp[1][1] = -prices[0]; // 第一天购入股票，也是第一次交易
+        int max = 0;
+        // dp[i][j][0] 表示第 i 天交易完，j 次交易（卖出）股票后，手上 没有 股票时的累计最大利润
+        // dp[i][j][1] 表示第 i 天交易完，j 次交易（买入）股票后，手上 持有 股票时的累计最大利润
+        for (int i = 1; i &lt; len; ++i) {
+            for (int j = 1; j &lt;= k; ++j) {
+                // 因为只有先第 j 次买了股票后才能第 j 次卖掉该股票
+                dp[j][0] = Math.max(dp[j][0], dp[j][1] + prices[i]);
+                // 因为只有将第 j-1 次买的股票卖出后才能第 j 次再次购买股票
+                dp[j][1] = Math.max(dp[j][1], dp[j - 1][0] - prices[i]);
+                max = Math.max(dp[j][0], max);
+            }
+        }
+        return max;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="线性DP问题"><a href="#线性DP问题" class="headerlink" title="线性DP问题"></a>线性DP问题</h3><p><strong>经典问题</strong>：给定一个整数数组<code>nums</code>，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [-2, 1, -3, 4, -1, 2, 1, -5, 4]</p>
+<p>输出: 6</p>
+<p>解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public int maxSubArray(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        // 起名叫 pre 表示的意思是「上一个状态的值」
+        int pre = nums[0];
+        int res = pre;
+        for (int i = 1; i &lt; len; i++) {
+            pre = Math.max(nums[i], pre + nums[i]);
+            res = Math.max(res, pre);
+        }
+        return res;
+    }
+}
+</code></pre>
+<p><strong>思考</strong>：若数组<code>nums</code>的末端将会与开头相连呈<strong>环状</strong>，那么如何求得其非空子数组的最大和？</p>
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/dynamicProgramming-01.webp"></div>
+
+<pre><code class="java">// 最大的环形子数组和 = max(最大子数组和，数组总和-最小子数组和)
+public int maxSubarraySumCircular(int[] A) {
+    int total = 0, maxSum = A[0], curMax = 0, minSum = A[0], curMin = 0;
+    for (int a : A) {
+        curMax = Math.max(curMax + a, a);
+        maxSum = Math.max(maxSum, curMax);
+        curMin = Math.min(curMin + a, a);
+        minSum = Math.min(minSum, curMin);
+        total += a;
+    }
+    return maxSum &gt; 0 ? Math.max(maxSum, total - minSum) : maxSum;
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣845</strong>：把符合下列属性的数组<code>arr</code>称为<strong>山脉数组</strong>：</p>
+<ul>
+<li>arr.length &gt;= 3</li>
+<li>存在下标<code>i（0 &lt; i &lt; arr.length - 1）</code>，满足: <code>arr[0] &lt; arr[1] &lt; ... &lt; arr[i - 1] &lt; arr[i]</code>且<code>arr[i] &gt; arr[i + 1] &gt; ... &gt; arr[arr.length - 1]</code><br>给出一个整数数组<code>arr</code>，返回最长山脉子数组的长度。如果不存在山脉子数组，返回 0 。</li>
+</ul>
+<div class="center">
+
+<blockquote>
+<p>输入：arr = [2,1,4,7,3,2,5]</p>
+<p>输出：5</p>
+<p>解释：最长的山脉子数组是 [1,4,7,3,2]，长度为 5。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int longestMountain(int[] arr) {
+        int n = arr.length;
+        if (n == 0) {
+            return 0;
+        }
+        int[] left = new int[n];
+        for (int i = 1; i &lt; n; ++i) {
+            left[i] = arr[i - 1] &lt; arr[i] ? left[i - 1] + 1 : 0;
+        }
+        int[] right = new int[n];
+        for (int i = n - 2; i &gt;= 0; --i) {
+            right[i] = arr[i + 1] &lt; arr[i] ? right[i + 1] + 1 : 0;
+        }
+        int ans = 0;
+        for (int i = 0; i &lt; n; ++i) {
+            if (left[i] &gt; 0 &amp;&amp; right[i] &gt; 0) {
+                ans = Math.max(ans, left[i] + right[i] + 1);
+            }
+        }
+        return ans;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="双序列DP问题"><a href="#双序列DP问题" class="headerlink" title="双序列DP问题"></a>双序列DP问题</h3><p><strong>经典问题</strong>：在两条独立的水平线上按给定的顺序写下 nums1 和 nums2 中的整数。现在，可以绘制一些连接两个数字 nums1[i] 和 nums2[j] 的直线，这些直线需要同时满足满足：</p>
+<ul>
+<li>nums1[i] == nums2[j]</li>
+<li>且绘制的直线不与任何其他连线（非水平线）相交。<br>请注意，连线即使在端点也不能相交：每个数字只能属于一条连线。以这种方法绘制线条，并返回可以绘制的最大连线数。</li>
+</ul>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/dynamicProgramming-02.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：nums1 = [1,4,2], nums2 = [1,2,4]</p>
+<p>输出：2</p>
+<p>解释：可以画出两条不交叉的线，如上图所示。<br>但无法画出第三条不相交的直线，因为从 nums1[1]=4 到 nums2[2]=4 的直线将与从 nums1[2]=2 到 nums2[1]=2 的直线相交。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    // 分割区域
+    public int maxUncrossedLines(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        var dp = new int[m + 1][n + 1];
+        // 初始化
+        for (int i = 0; i &lt;= m; i++) {
+            dp[i][0] = 0;
+        }
+        for (int j = 0; j &lt;= n; j++) {
+            dp[0][j] = 0;
+        }
+        for (int i = 1; i &lt;= m; ++i) {
+            for (int j = 1; j &lt;= n; ++j) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                }
+                else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+}
+</code></pre>
+<p><strong>力扣97</strong>：给定三个字符串<code>s1、s2、s3</code>，请你帮忙验证<code>s3</code>是否是由<code>s1</code>和<code>s2</code><strong>交错</strong>组成的。</p>
+<p>两个字符串<code>s</code>和<code>t</code><strong>交错</strong>的定义与过程如下，其中每个字符串都会被分割成若干<strong>非空</strong>子字符串：</p>
+<ul>
+<li><code>s = s1 + s2 + ... + sn</code></li>
+<li><code>t = t1 + t2 + ... + tm</code></li>
+<li><code>|n - m| &lt;= 1</code></li>
+<li><strong>交错</strong>是<code>s1 + t1 + s2 + t2 + s3 + t3 + ...</code>或者<code>t1 + s1 + t2 + s2 + t3 + s3 + ...</code><br>注意：<code>a + b</code>意味着字符串<code>a</code>和<code>b</code>连接。</li>
+</ul>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/dynamicProgramming-03.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：s1 = “aabcc”, s2 = “dbbca”, s3 = “aadbbcbcac”</p>
+<p>输出：true</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        int n = s1.length(), m = s2.length(), t = s3.length();
+        if (n + m != t) {
+            return false;
+        }
+        // 定义 f(i,j) 表示 s1 的前 i 个元素和 s2 的前 j 个元素是否能交错组成 s3 的前 i+j 个元素
+        boolean[][] f = new boolean[n + 1][m + 1];
+        f[0][0] = true;
+        for (int i = 0; i &lt;= n; ++i) {
+            for (int j = 0; j &lt;= m; ++j) {
+                int p = i + j - 1;
+                if (i &gt; 0) {
+                    // 表示 s1 的前 i-1 个元素和 s2 的前 j 个元素是否能交错组成 s3 的前 i+j-1 个元素
+                    f[i][j] = f[i][j] || (f[i - 1][j] &amp;&amp; s1.charAt(i - 1) == s3.charAt(p));
+                }
+                if (j &gt; 0) {
+                    // // 表示 s1 的前 i 个元素和 s2 的前 j-1 个元素是否能交错组成 s3 的前 i+j-1 个元素
+                    f[i][j] = f[i][j] || (f[i][j - 1] &amp;&amp; s2.charAt(j - 1) == s3.charAt(p));
+                }
+            }
+        }
+        return f[n][m];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣115</strong>：给定一个字符串<code>s</code>和一个字符串<code>t</code>，计算在<code>s</code>的子序列中<code>t</code>出现的个数。</p>
+<p>字符串的一个<strong>子序列</strong>是指，通过删除一些（也可以不删除）字符且不干扰剩余字符相对位置所组成的新字符串。（例如，<code>&quot;ACE&quot;</code>是<code>&quot;ABCDE&quot;</code>的一个子序列，而<code>AEC</code>不是）。题目数据保证答案符合32位带符号整数范围。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：s = “rabbbit”, t = “rabbit”</p>
+<p>输出：3</p>
+<p>解释：</p>
+<p>如下图所示, 有 3 种可以从 s 中得到 “rabbit” 的方案。</p>
+<p>rabbbit</p>
+<p>rabbbit</p>
+<p>rabbbit</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int numDistinct(String s, String t) {
+        if(t.length() &gt; s.length()) return 0; // s长度小于t时间直接返回0
+        int sn = s.length(), tn = t.length();
+        int[][] dp = new int[sn + 1][tn + 1]; // 注意数组大小由dp定义决定
+        for(int i = 0; i &lt; sn + 1; i++) dp[i][0] = 1; // 边界
+        for(int i = 1; i &lt; sn + 1; i++){
+            for(int j = 1; j &lt; tn + 1; j++){
+                //若s[i] = t[j]：假设s_i中的所有t_j子序列中，包含s[i]的有a个，不包含的有b个。s_i中包含s[i]的子序列个数相当于s_i-1中t_j-1的个数，不包含s[i]的子序列个数与上一种情况一样，于是得到该情形的转移方程：
+                if(s.charAt(i-1) == t.charAt(j-1)) 
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                //若s[i] ≠ t[j]：那么s_i中的所有t_j子序列，必不包含s[i]，即s_i-1和s_i中tj的数量是一样的，得到该情形的转移方程:
+                else dp[i][j] = dp[i-1][j];
+            }
+        }
+        return dp[sn][tn];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>经典问题</strong>：给你一个字符串<code>s</code>和一个字符规律<code>p</code>，请你来实现一个支持<code>&#39;.&#39;</code>和<code>&#39;*&#39;</code>的正则表达式匹配。</p>
+<ul>
+<li><code>&#39;.&#39;</code>匹配任意单个字符</li>
+<li><code>&#39;*&#39;</code>匹配零个或多个前面的那一个元素<br>所有匹配，是要涵盖<strong>整个</strong>字符串<code>s</code>的，而不是部分字符串。</li>
+</ul>
+<div class="center">
+
+<blockquote>
+<p>输入：s = “ab”, p = “.*”</p>
+<p>输出：true</p>
+<p>解释：”.<em>“ 表示可匹配零个或多个（’</em>‘）任意字符（’.’）。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    public boolean isMatch(String s, String p) {
+        int m = s.length();
+        int n = p.length();
+        // f[i][j]表示 s 的前 i 个字符与 P 中的前 j 个字符是否能够匹配
+        boolean[][] f = new boolean[m + 1][n + 1];
+        f[0][0] = true;
+        for (int i = 0; i &lt;= m; ++i) {
+            for (int j = 1; j &lt;= n; ++j) {
+                if (p.charAt(j - 1) == &#39;*&#39;) {
+                    // 将组合扔掉，不再进行匹配
+                    f[i][j] = f[i][j - 2];
+                    if (matches(s, p, i, j - 1)) {
+                        // 匹配 s 末尾的一个字符，将该字符扔掉，而该组合还可以继续进行匹配
+                        f[i][j] = f[i][j] || f[i - 1][j];
+                    }
+                } else { // 匹配一个字母
+                    if (matches(s, p, i, j)) {
+                        f[i][j] = f[i - 1][j - 1];
+                    }
+                }
+            }
+        }
+        return f[m][n];
+    }
+    public boolean matches(String s, String p, int i, int j) {
+        if (i == 0) {
+            return false;
+        }
+        if (p.charAt(j - 1) == &#39;.&#39;) {
+            return true;
+        }
+        return s.charAt(i - 1) == p.charAt(j - 1);
+    }
+}
+</code></pre>
+<p><strong>力扣72</strong>：给你两个单词<code>word1</code>和<code>word2</code>，请返回将<code>word1</code>转换成<code>word2</code>所使用的最少操作数。你可以对一个单词进行如下三种操作：</p>
+<ul>
+<li>插入一个字符</li>
+<li>删除一个字符</li>
+<li>替换一个字符</li>
+</ul>
+<div class="center">
+
+<blockquote>
+<p>输入：word1 = “intention”, word2 = “execution”</p>
+<p>输出：5</p>
+<p>解释：</p>
+<p>intention -&gt; inention (删除 ‘t’)</p>
+<p>inention -&gt; enention (将 ‘i’ 替换为 ‘e’)</p>
+<p>enention -&gt; exention (将 ‘n’ 替换为 ‘x’)</p>
+<p>exention -&gt; exection (将 ‘n’ 替换为 ‘c’)</p>
+<p>exection -&gt; execution (插入 ‘u’)</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int minDistance(String word1, String word2) {
+        int len1 = word1.length();
+        int len2 = word2.length();
+        int[][] dp = new int[len1 + 1][len2 + 1];
+        // 插入操作
+        for(int i = 1; i &lt;= len1; i++) {
+            dp[i][0] = dp[i - 1][0] + 1;
+        }
+        // 删除操作
+        for(int j = 1;j &lt;= len2; j++) {
+            dp[0][j] = dp[0][j - 1] + 1;
+        }
+        for(int i = 1; i &lt;= len1; i++) {
+            for(int j = 1; j &lt;= len2; j++) {
+                // 删除操作：dp[i - 1][j]
+                // 增加操作：dp[i][j - 1]
+                // 替换操作：dp[i - 1][j - 1]
+                dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i - 1][j - 1], dp[i][j - 1])) + 1;
+
+                if(word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][j - 1]);
+                }
+            }
+        }
+        return dp[len1][len2];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="区间DP和划分型DP问题"><a href="#区间DP和划分型DP问题" class="headerlink" title="区间DP和划分型DP问题"></a>区间DP和划分型DP问题</h3><p><strong>经典问题</strong>：给你一个字符串<code>s</code>，找出其中最长的回文子序列，并返回该序列的长度。</p>
+<p>子序列定义为：不改变剩余字符顺序的情况下，删除某些字符或者不删除任何字符形成的一个序列。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：s = “bbbab”</p>
+<p>输出：4</p>
+<p>解释：一个可能的最长回文子序列为 “bbbb” 。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        int[][] dp = new int[n][n];
+        for (int i = n - 1; i &gt;= 0; i--) {
+            dp[i][i] = 1;
+            char c1 = s.charAt(i);
+            for (int j = i + 1; j &lt; n; j++) {
+                char c2 = s.charAt(j);
+                if (c1 == c2) {
+                    dp[i][j] = dp[i + 1][j - 1] + 2;
+                } else {
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：有<code>n</code>个气球，编号为<code>0</code>到<code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组<code>nums</code>中。</p>
+<p>现在要求你戳破所有的气球。戳破第<code>i</code>个气球，你可以获得<code>nums[i - 1] * nums[i] * nums[i + 1]</code>枚硬币。 这里的<code>i - 1</code>和<code>i + 1</code>代表和<code>i</code>相邻的两个气球的序号。如果<code>i - 1</code>或<code>i + 1</code>超出了数组的边界，那么就当它是一个数字为<code>1</code>的气球。</p>
+<p>求所能获得硬币的最大数量。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [3,1,5,8]</p>
+<p>输出：167</p>
+<p>解释：</p>
+<p>nums = [3,1,5,8] –&gt; [3,5,8] –&gt; [3,8] –&gt; [8] –&gt; []</p>
+<p>coins = 315 + 358 + 138 + 181 = 167</p>
+</blockquote>
+</div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/dynamicProgramming-04.webp"></div>
+
+<pre><code class="java">public class Solution {
+    public int maxCoins(int[] nums) {
+        int len = nums.length;
+        // 预处理
+        int[] newNums = new int[len + 2];
+        newNums[0] = 1;
+        newNums[len + 1] = 1;
+        System.arraycopy(nums, 0, newNums, 1, len);
+        nums = newNums;
+        // 第一维是左边界下标，第二维是右边界下标
+        int[][] dp = new int[len + 2][len + 2];
+        // 递推开始
+        // 先枚举长度
+        for (int L = 1; L &lt;= len; L++) {
+            // i 是左边界
+            for (int i = 1; i &lt;= len - L + 1; i++) {
+                // j 是 i 和 L 确定的情况下，右边界
+                int j = i + L - 1;
+                // 枚举每一个位置，把气球编号 k 当做区间内最后一个被戳破的气球
+                for (int k = i; k &lt;= j; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][k - 1] + nums[i - 1] * nums[k] * nums[j + 1] + dp[k + 1][j]);
+                }
+            }
+        }
+        return dp[1][len];
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：给你一个整数数组<code>nums</code>。玩家 1 和玩家 2 基于这个数组设计了一个游戏。</p>
+<p>玩家 1 和玩家 2 轮流进行自己的回合，玩家 1 先手。开始时，两个玩家的初始分值都是 0 。每一回合，玩家从数组的任意一端取一个数字（即，<code>nums[0]</code> 或 <code>nums[nums.length - 1]）</code>，取到的数字将会从数组中移除（数组长度减 1 ）。玩家选中的数字将会加到他的得分上。当数组中没有剩余数字可取时，游戏结束。</p>
+<p>如果玩家 1 能成为赢家，返回<code>true</code>。如果两个玩家得分相等，同样认为玩家 1 是游戏的赢家，也返回<code>true</code>。你可以假设每个玩家的玩法都会使他的分数最大化。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,5,233,7]</p>
+<p>输出：true</p>
+<p>解释：玩家 1 一开始选择 1 。然后玩家 2 必须从 5 和 7 中进行选择。无论玩家 2 选择了哪个，玩家 1 都可以选择 233 。最终，玩家 1（234 分）比玩家 2（12 分）获得更多的分数，所以返回 true，表示玩家 1 可以成为赢家。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">class Solution {
+    public boolean PredictTheWinner(int[] nums) {
+        int length = nums.length;
+        // dp[i][j] 表示当数组剩下的部分为下标 i 到下标 j 时，即在下标范围 [i, j][i,j] 中，当前玩家与另一个玩家的分数之差的最大值，注意当前玩家不一定是先手
+        int[][] dp = new int[length][length];
+        // 只剩一个数字时，当前玩家只能拿这个数字
+        for (int i = 0; i &lt; length; i++) {
+            dp[i][i] = nums[i];
+        }
+        // 当 i&lt;j 时，当前玩家可以选择 nums[i] 或 nums[j]，然后轮到另一个玩家在数组剩下的部分选取数字。在两种方案中，当前玩家会选择最优的方案，使得自己的分数最大化
+        for (int i = length - 2; i &gt;= 0; i--) {
+            for (int j = i + 1; j &lt; length; j++) {
+                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
+            }
+        }
+        return dp[0][length - 1] &gt;= 0;
+    }
+}
+</code></pre>
+<p><strong>经典问题</strong>：给你一个字符串<code>s</code>，请你将<code>s</code>分割成一些子串，使每个子串都是回文。返回符合要求的<strong>最少分割次数</strong>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：s = “aab”</p>
+<p>输出：1</p>
+<p>解释：只需一次分割就可将 s 分割成 [“aa”,”b”] 这样两个回文子串。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">// 枚举最后一个回文串的起始位置 j+1，保证 s[j+1..i] 是一个回文串，那么 f[i] 就可以从 f[j] 转移而来，附加 1 次额外的分割次数。
+class Solution {
+    public int minCut(String s) {
+        int n = s.length();
+        boolean[][] g = new boolean[n][n];
+        for (int i = 0; i &lt; n; ++i) {
+            Arrays.fill(g[i], true);
+        }
+        // 将字符串 s 的每个子串是否为回文串预先计算出来
+        for (int i = n - 1; i &gt;= 0; --i) {
+            for (int j = i + 1; j &lt; n; ++j) {
+                g[i][j] = s.charAt(i) == s.charAt(j) &amp;&amp; g[i + 1][j - 1];
+            }
+        }
+        // f[i] 表示字符串的前缀 s[0..i] 的最少分割次数
+        int[] f = new int[n];
+        Arrays.fill(f, Integer.MAX_VALUE);
+        for (int i = 0; i &lt; n; ++i) {
+            if (g[0][i]) {
+                f[i] = 0;
+            } else {
+                for (int j = 0; j &lt; i; ++j) {
+                    if (g[j + 1][i]) {
+                        f[i] = Math.min(f[i], f[j] + 1);
+                    }
+                }
+            }
+        }
+        return f[n - 1];
+    }
+}
+</code></pre>
+<p><strong>力扣410</strong>：给定一个非负整数数组<code>nums</code>和一个整数<code>m</code>，你需要将这个数组分成<br><code>m</code>个非空的连续子数组。</p>
+<p>设计一个算法使得这<code>m</code>个子数组各自和的最大值最小。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [7,2,5,10,8], m = 2</p>
+<p>输出：18</p>
+<p>解释：一共有四种方法将 nums 分割为 2 个子数组。其中最好的方式是将其分为 [7,2,5] 和 [10,8]。因为此时这两个子数组各自的和的最大值为 18，在所有情况中最小。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public int splitArray(int[] nums, int m) {
+        int len = nums.length;
+        // 前缀和，preSum[i] = sum[0..i)
+        int[] preSum = new int[len + 1];
+        preSum[0] = 0;
+        for (int i = 0; i &lt; len; i++) {
+            preSum[i + 1] = preSum[i] + nums[i];
+        }
+        // 区间 [i..j] 的和 preSum(j + 1) - preSum(i)
+        int[][] dp = new int[len][m + 1];
+        // 初始化：由于要找最小值，初值赋值成为一个不可能达到的很大的值
+        for (int i = 0; i &lt; len; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+        // 分割数为 1 ，即不分割的情况，所有的前缀和就是依次的状态值
+        for (int i = 0; i &lt; len; i++) {
+            dp[i][1] = preSum[i + 1];
+        }
+        // 从分割数为 2 开始递推
+        for (int k = 2; k &lt;= m; k++) {
+            // 还未计算出的 i 是从 j 的最小值的下一位开始，因此是 k - 1
+            for (int i = k - 1; i &lt; len; i++) {
+                // j 表示第 k - 1 个区间的最后一个元素额下标，最小值为 k - 2，最大值为 len - 2（最后一个区间至少有 1 个元素）
+                for (int j = k - 2; j &lt; i; j++) {
+                    dp[i][k] = Math.min(dp[i][k], Math.max(dp[j][k - 1], preSum[i + 1] - preSum[j + 1]));
+                }
+            }
+        }
+        return dp[len - 1][m];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="树形DP问题"><a href="#树形DP问题" class="headerlink" title="树形DP问题"></a>树形DP问题</h3><p><strong>经典问题</strong>：在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为「根」。 除了「根」之外，每栋房子有且只有一个「父」房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
+<p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<div class="center">
+
+<blockquote>
+<p>输入: [3, 4, 5, 1, 3, null, 1]</p>
+<pre><code>    3
+   / \
+  4   5
+ / \   \ 
+1   3   1
+</code></pre>
+<p>输出: 9</p>
+<p>解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9.</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public int rob(TreeNode root) {
+        int[] res = dfs(root);
+        return Math.max(res[0], res[1]);
+    }
+    private int[] dfs(TreeNode root) {
+        if (root == null) {
+            return new int[2];
+        }
+        // 分类讨论的标准是：当前结点偷或者不偷
+        // 需要后序遍历，所以先计算左右子结点，然后计算当前结点的状态值
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
+        // dp[0]：以当前 node 为根结点的子树能够偷取的最大价值，规定 node 结点不偷
+        // dp[1]：以当前 node 为根结点的子树能够偷取的最大价值，规定 node 结点偷
+        int[] dp = new int[2];
+        // 根结点不打劫 = max(左子树不打劫, 左子树打劫) + max(右子树不打劫, 右子树打劫)
+        dp[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        // 根结点打劫 = 左右孩子结点都不能打劫
+        dp[1] = left[0] + right[0] + root.val;
+        return dp;
+    }
+}
+</code></pre>
+<p><strong>力扣865</strong>：给定一个根为<code>root</code>的二叉树，每个节点的深度是<strong>该节点到根的最短距离</strong>。返回包含原始树中所有<strong>最深节点</strong>的<em>最小子树</em>。如果一个节点在<strong>整个树</strong>的任意节点之间具有最大的深度，则该节点是<strong>最深的</strong>。一个节点的<strong>子树</strong>是该节点加上它的所有后代的集合。</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/dynamicProgramming-05.webp"></div>
+
+<div class="center">
+
+<blockquote>
+<p>输入：root = [3,5,1,6,2,0,8,null,null,7,4]</p>
+<p>输出：[2,7,4]</p>
+<p>解释：<br>我们返回值为 2 的节点，在图中用黄色标记。<br>在图中用蓝色标记的是树的最深的节点。<br>注意，节点 5、3 和 2 包含树中最深的节点，但节点 2 的子树最小，因此我们返回它。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    // 思路：从每个树开始，获得当前节点的左右子树的最大深度
+    // 深度相同，说明最深的节点在这个节点两边，那这个节点就是结果
+    // 如果深度不相同，则去深度大的子树继续判断，最终就能得到结果
+    public TreeNode subtreeWithAllDeepest(TreeNode root) {
+        if (root == null) return root;
+        // 获取当前节点的左右子树的最大深度
+        int leftMaxDepth = getMaxDepth(root.left);
+        int rightMaxDepth = getMaxDepth(root.right);
+        // 如果两边最大深度相同，则这个节点就是结果
+        if (leftMaxDepth == rightMaxDepth) return root;
+        // 不相等，那就去深度大的子树那边继续找
+        if (leftMaxDepth &gt; rightMaxDepth){
+            return subtreeWithAllDeepest(root.left);
+        }
+        return subtreeWithAllDeepest(root.right);
+    }
+    public int getMaxDepth(TreeNode root){
+        if (root == null) return 0;
+
+        return Math.max(getMaxDepth(root.left), getMaxDepth(root.right)) + 1;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h2><h3 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h3><p>有若干个物品，每个物品有两个属性：价值和重量。现在考虑将这些物品装入一个容器，称为<strong>背包</strong>，背包只有一个属性：<strong>最大承重</strong>，每个物品只有一件。问如何选择物品，使得所选物品的重量总和在<strong>不超过</strong>背包的最大承重的前提下，这些物品的<strong>价值总和最大</strong>。</p>
+<p>为满足<strong>无后效性</strong>，有约束可以在状态数组的后面增加一维。对于下标为<code>i</code>的物品，有<strong>选</strong>和<strong>不选</strong>两种方案，选出两者中较好的即可。</p>
+<pre><code class="java">public class Solution {
+    public int backpack01(int W, int[] weights, int[] values) {
+        int N = weights.length;
+        if (N == 0) {
+            return 0;
+        }
+        // dp[i][j] 表示：考虑物品区间 [0..i] 里，不超过背包容量，能够获得的最大价值
+        int[][] dp = new int[N + 1][W + 1];
+        // 递推开始，以 dp 数组为视角，从 1 开始，到 N 为止
+        // 注意：遇到物品的下标都减 1
+        for (int i = 1; i &lt;= N; i++) {
+            for (int j = 0; j &lt;= W; j++) {
+              // 下标为 i 的行参考了下标为 i - 1 的行的状态值。为了让 i - 1 &gt;= 0，下标为 0 的行需要初始化。事实上，可以将状态二维数组多设置一行，表示 添加了一个重量为 0、价值为 0 的物品，计算结果与原问题等价
+                dp[i][j] = dp[i - 1][j];
+                if (weights[i - 1] &lt;= j) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - weights[i - 1]] + values[i - 1]);
+                }
+            }
+        }
+        return dp[N][W];
+    }
+}
+</code></pre>
+<p>空间优化方法：状态值的更新只和它上边和左边的元素有关，我们可以把空间投影到一行，执行状态转移（填表）的时候，从右边到左边更新状态值，从而保证新状态值得计算可以参考到正确得旧状态值。</p>
+<pre><code class="java">public class Solution {
+    public int backpack01(int W, int[] weights, int[] values) {
+        int N = weights.length;
+        if (N == 0) {
+            return 0;
+        }
+        int[] dp = new int[W + 1];
+        // 注意：这里 i 从 1 开始，到 N 结束，N 可以取到
+        for (int i = 1; i &lt;= N; i++) {
+            for (int j = W; j &gt;= weights[i - 1]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - weights[i - 1]] + values[i - 1]);
+            }
+        }
+        return dp[W];
+    }
+}
+</code></pre>
+<p><strong>力扣474</strong>：给你一个二进制字符串数组<code>strs</code>和两个整数<code>m</code>和<code>n</code>。请你找出返回<code>strs</code>的最大子集的长度，该子集中<strong>最多</strong>有<code>m</code>个<code>0</code>和<code>n</code>个<code>1</code>。如果<code>x</code>的所有元素也是<code>y</code>的元素，集合<code>x</code>是集合<code>y</code>的子集。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：strs = [“10”,”0001”,”111001”,”1”,”0”], m = 5, n = 3</p>
+<p>输出：4</p>
+<p>解释：最多有 5 个 0 和 3 个 1 的最大子集是 {“10”,”0001”,”1”,”0”}，因此答案是 4。其他满足题意但较小的子集包括 {“0001”,”1”} 和 {“10”,”1”,”0”}。{“1110001”} 不满足题意，因为它包含 4 个 1，大于 n 的值 3。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public int findMaxForm(String[] strs, int m, int n) {
+        int len = strs.length;
+        int[][][] dp = new int[len + 1][m + 1][n + 1];
+        // 阶段
+        for (int i = 1; i &lt;= len; i++) {
+            int[] cnt = countZeroAndOne(strs[i - 1]);
+            // 状态 1
+            for (int j = 0; j &lt;= m; j++) {
+                // 状态 2
+                for (int k = 0; k &lt;= n; k++) {
+                    // 按照「0-1 背包问题」的状态转移过程，先把上一行的值抄下来
+                    dp[i][j][k] = dp[i - 1][j][k];
+                    int zeros = cnt[0];
+                    int ones = cnt[1];
+                    // 决策
+                    if (j &gt;= zeros &amp;&amp; k &gt;= ones) {
+                        dp[i][j][k] = Math.max(dp[i - 1][j][k], dp[i - 1][j - zeros][k - ones] + 1);
+                    }
+                }
+            }
+        }
+        return dp[len][m][n];
+    }
+    /**
+     * 分别统计每个单词 0 和 1 出现的次数
+     *
+     * @param str
+     * @return
+     */
+    private int[] countZeroAndOne(String str) {
+        int[] counter = new int[2];
+        for (char c : str.toCharArray()) {
+            counter[c - &#39;0&#39;]++;
+        }
+        return counter;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p>还有一类问题要求<strong>恰好能够装满总重量为 j 的背包</strong>，需要区分清楚<strong>恰好能够装满</strong>和<strong>装入不超过背包容量的物品</strong>的区别</p>
+<p><strong>经典问题</strong>：给你一个<strong>只包含正整数</strong>得<strong>非空</strong>数组<code>nums</code>。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,5,11,15]</p>
+<p>输出：true</p>
+<p>解释：数组可以分割成 [1,5,5] 和 [11]。</p>
+</blockquote>
+</div>
+
+<pre><code class="java">public class Solution {
+    public boolean canPartition(int[] nums) {
+        int len = nums.length;
+        // Java8 以后推出的流式语法求数组所有元素的和
+        int sum = Arrays.stream(nums).sum();
+        // 如果输入数组所有元素的和为奇数，一定找不到这样的子集
+        if (sum % 2 != 0) {
+            return false;
+        }
+        // 背包的总重量
+        int target = sum / 2;
+        // dp[i][j]：前缀区间 [0..i] 里是否有一部分元素的和恰好为 j
+        boolean[][] dp = new boolean[len][target + 1];
+        // 初始化：nums[0] 只能填满容积为 nums[0] 的背包
+        if (nums[0] &lt;= target) {
+            dp[0][nums[0]] = true;
+        }
+        // 递推开始
+        for (int i = 1; i &lt; len; i++) {
+            for (int j = 0; j &lt;= target; j++) {
+                // 不选：把上一行照抄下来
+                dp[i][j] = dp[i - 1][j];
+                if (nums[i] &lt;= j) {
+                    // 选：二者之中有一个为 true 即可
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+                }
+            }
+            // 如果某一行最后一列为 true，最后一行最后一列一定为 true，提前终止程序
+            if (dp[i][target]) {
+                return true;
+            }
+        }
+        return dp[len - 1][target];
+    }
+}
+</code></pre>
+<p><strong>力扣494</strong>：有一堆石头，每块石头的重量都是正整数。每一回合，从中选出<strong>任意两块石头</strong>，然后将它们一起粉碎。假设石头的重量分别为<code>x</code>和<code>y</code>，且<code>x &lt;= y</code>。那么粉碎的可能结果如下：</p>
+<ul>
+<li>如果<code>x == y</code>，那么两块石头都会被完全粉碎；</li>
+<li>如果<code>x != y</code>，那么重量为<code>x</code>的石头将会完全粉碎，而重量为<code>y</code>的石头新重量为<code>y-x</code></li>
+</ul>
+<p>最后，最多只会剩下一块石头。返回此石头<strong>最小的可能重量</strong>。如果没有石头剩下，就返回<code>0</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：[2,7,4,1,8,1]</p>
+<p>输出：1</p>
+<p>解释：</p>
+<p>组合 2 和 4，得到 2，所以数组转化为 [2,7,1,8,1]，</p>
+<p>组合 7 和 8，得到 1，所以数组转化为 [2,1,1,1]，</p>
+<p>组合 2 和 1，得到 1，所以数组转化为 [1,1,1]，</p>
+<p>组合 1 和 1，得到 0，所以数组转化为 [1]，这就是最优值。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <p>转换为<strong>0-1背包问题</strong>：<code>sum（所有添加正号的数） + sum（所有添加负号的数） = sum</code>；<code>sum（所有添加正号的数） - sum（所有添加负号的数） = target</code>。两式相减得到<code>2 * sum(所有添加负号的数) = sum - target</code>，因为<code>target &gt;= 0</code>，所以得到约束条件<code>sum(所有添加负号的数) &lt;= sum / 2</code>。因此问题转化为：<strong>从输入数组中找出一些数，每个数只能使用一次，并且这些数的和不能超过<code>sum / 2</code>，并且它们的「和」最大</strong>，这样才能使得<code>target = sum - 2 * sum(所有添加负号的数)</code>的值最小。</p>
+<pre><code class="java">public class Solution {
+    public int lastStoneWeightII(int[] stones) {
+        int len = stones.length;
+        int sum = Arrays.stream(stones).sum();
+        int target = sum / 2;
+        // dp[i][j] 表示：从输入数组的前缀区间 [0..i] 里取出一部分元素，并且和小于等于 j 的最大值
+        int[][] dp = new int[len][target + 1];
+        // 初始化
+        for (int j = stones[0]; j &lt;= target; j++) {
+            dp[0][j] = stones[0];
+        }
+        // 递推开始
+        for (int i = 1; i &lt; len; i++) {
+            for (int j = 0; j &lt;= target; j++) {
+                if (stones[i] &gt; j) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    // 状态转移方程：注意分析这里为什么取最大值
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - stones[i]] + stones[i]);
+                }
+            }
+        }
+        // dp[len - 1][target] 最大，整体就最小
+        return sum - 2 * dp[len - 1][target];
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h3 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h3><p>重点在于：</p>
+<ul>
+<li>每种物品都有无限件可用</li>
+<li>一种物品可以使用多个，且不计算顺序</li>
+</ul>
+<p>状态转移的时候，每一件物品在背包有限制的前提下可以使用多少个需要全部考虑进去，如果将每一种物品可以考虑的件数平铺开来，就可以转换成为0-1背包问题。<code>dp[i][j] = max(dp[i-1][j], dp[i][j-w[i]] + v[i])</code></p>
+<pre><code class="java">public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // 读第 1 行
+        int N = scanner.nextInt();
+        int V = scanner.nextInt();
+        // 读后面的体积和价值
+        int[] weight = new int[N];
+        int[] value = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            weight[i] = scanner.nextInt();
+            value[i] = scanner.nextInt();
+        }
+        int[] dp = new int[V + 1];
+        // 先写第 1 行
+        // 优化空间
+        for (int i = 1; i &lt;= N; i++) {
+            // 细节，j 从 weight[i - 1] 开始遍历
+            for (int j = weight[i - 1]; j &lt;= V; j++) {
+              // 完全背包问题中，当前状态参考当前行的值，所以优化空间采用正序填表
+                dp[j] = Math.max(dp[j], dp[j - weight[i - 1]] + value[i - 1]);
+            }
+        }
+        // 输出
+        System.out.println(dp[V]);
+    }
+}
+</code></pre>
+<p><strong>力扣322</strong>：给你一个整数数组<code>cost</code>和一个整数<code>target</code>。请你返回满足如下规则可以得到的<strong>最大</strong>整数：</p>
+<ul>
+<li>给当前结果添加一个数位<code>i + 1</code>的成本为<code>cost[i]</code>（<code>cost</code>数组下标从 0 开始）。</li>
+<li>总成本必须恰好等于<code>target</code>。</li>
+<li>添加的数位中没有数字 0 。</li>
+</ul>
+<p>由于答案可能会很大，请你以字符串形式返回。如果按照上述要求无法得到任何整数，请你返回 “0” 。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：cost = [7,6,5,5,5,6,8,7,8], target = 12</p>
+<p>输出：”85”</p>
+<p>解释：添加数位 ‘8’ 的成本是 7 ，添加数位 ‘5’ 的成本是 5 。”85” 的成本为 7 + 5 = 12 。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public String largestNumber(int[] cost, int target) {
+        // 第 1 步：使用动态规划计算最大位数
+        // dp[i][j] 表示：使用 cost 前缀区间 [0..i] 里的元素能够刚好凑成和为 j 的时候的数字的最大位数
+        int[][] dp = new int[9][target + 1];
+        for (int i = 0; i &lt; 9; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        // 初始化
+        dp[0][0] = 0;
+        for (int j = cost[0]; j &lt;= target; j++) {
+            if (dp[0][j - cost[0]] != -1) {
+                dp[0][j] = dp[0][j - cost[0]] + 1;
+            }
+        }
+        // 一个数一个数考虑，因此外层循环是 cost
+        for (int i = 1; i &lt; 9; i++) {
+            for (int j = 0; j &lt;= target; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (cost[i] &lt;= j &amp;&amp; dp[i][j - cost[i]] != -1) {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - cost[i]] + 1);
+                }
+            }
+        }
+        // 判断是否有结果
+        if (dp[8][target] == -1) {
+            return &quot;0&quot;;
+        }
+        // 第 2 步：根据第 1 步计算的结果，优先考虑数值大的放在高位，还原最大整数
+        int t = target;
+        // 最大整数的位数
+        int len = dp[8][target];
+        StringBuilder res = new StringBuilder();
+        int i = 8;
+        while (t &gt; 0) {
+            // 这一步选谁
+            int num = -1;
+            // 倒着选，如果正着选会选出最小值
+            for (int j = 9; j &gt;= 1; j--) {
+                if (t &gt;= cost[j - 1] &amp;&amp; dp[i][t - cost[j - 1]] == len - 1) {
+                    num = j;
+                    break;
+                }
+            }
+            res.append(num);
+            t -= cost[num - 1];
+            len--;
+        }
+        return res.toString();
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/06/10/mybatis-plus学习/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/mybatis-plus.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/mybatis-plus.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  mybatis-plus学习</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/06/01/diytomcat/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/diytomcat.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/diytomcat.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  DiyTomcat</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="870006474"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.5"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+

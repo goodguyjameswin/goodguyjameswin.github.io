@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">yolov5-dota-obb | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "Cb5p5SgcQdXKfhOvP5x1hifH-gzGzoHsz";
+  mashiro_option.v_appKey = "7YNH9O5dADsyAurqxcJA31CN";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolov5_dota_obb.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/yolov5_dota_obb.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      yolov5-dota-obb</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-5-10
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/技术/" > 技术</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/开源项目/" class="butterfly-tags">开源项目</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近出于项目需要，针对旋转目标检测的任务，做一个深度学习方案。浏览过程中看到一个国内大佬，针对yolov5做了修改，引入了<strong>长边表示法</strong>对旋转矩形检测框的定义，感觉效果还不错，标签的格式也比较好懂，准备上手尝试</p>
+<p>好家伙，还是离不开<a href="https://github.com/CAPTAIN-WHU/DOTA_devkit" target="_blank" rel="noopener">DOTA_devkit</a>的编译，今年四月份左右想入这个坑，就被windows上各种第三方库的编译给劝退了，然后发现旋转目标检测，基本都离不开对这个工具包的编译，因为旋转目标检测网络目前基本都是用<a href="https://github.com/SJTU-Thinklab-Det/DOTA-DOAI" target="_blank" rel="noopener">DOTA数据集</a>作benchmark，这个工具包可以很好的处理DOTA数据集</p>
+<p>后来发现其实编译这个工具包，目的是调用其中有关多边形（旋转矩形框）做NMS（非极大值抑制）的方法，好说，我记得python有个shapely的库，也可以做多边形的IOU（重叠面积占比）运算。</p>
+<h2 id="挖坑踩坑"><a href="#挖坑踩坑" class="headerlink" title="挖坑踩坑"></a>挖坑踩坑</h2><p>这个工程，训练的时候跟原本的yolov5生态环境是一样的，方法调用不需要其他第三方库的支持，比如经典的mosaic数据增强，但是有几个坑</p>
+<p>比如原作者的长边表示法是针对opencv4.2以前的版本中minAreaRect这一函数所返回的旋转矩形框所定义的角度做的优化，在高版本的opencv（比如opencv4.5以上）就不支持了。还有就是高版本的pytorch需要针对错误“torch.nn.modules.module.ModuleAttributeError: ‘Hardswish’ object has no attribute ‘inplace’”，找到pytorch的源码部分并做修改</p>
+<pre><code class="python">def __init__(self, inplace : bool = False) -&gt; None:
+  super(Hardwish, self).__init__()
+  self.inplace = inplace
+
+def forward(self, input : Tensor) -&gt; Tensor:
+  # 源码如下：
+  # return F.hardwish(input, self.inplace)
+  # 修改如下：
+  return F.hardwish(input)
+</code></pre>
+<p>然后重点就是预测的时候，因为需要对经过网络前向推理后的结果（旋转矩形检测框）做NMS，这里需要调用DOTA_devkit工具包里编译好的iou_poly及poly_nms方法，用shapely库重写这一块</p>
+<pre><code class="python">from shapely.geometry import Polygon, MultiPoint
+
+def iou_rotated_rect(line1, line2):
+    a = np.array(line1).reshape(4, 2)
+    poly1 = Polygon(a).convex_hull
+    b = np.array(line2).reshape(4, 2)
+    poly2 = Polygon(b).convex_hull
+    union_poly = np.concatenate((a, b))
+    if not poly1.intersects(poly2):  # if there is no intersection between two polygons
+        iou = 0
+    else:
+        inter_area = poly1.intersection(poly2).area  # intersection area
+        print(inter_area)
+        union_area = MultiPoint(union_poly).convex_hull.area
+        print(union_area)
+        if union_area == 0:
+            iou = 0
+        iou = float(inter_area) / union_area
+    return iou
+
+def nms_rotated_rect(dets, scores, thresh):
+    obbs = dets[:, 0:-1]
+    x1 = np.min(obbs[:, 0::2], axis=1)
+    y1 = np.min(obbs[:, 1::2], axis=1)
+    x2 = np.max(obbs[:, 0::2], axis=1)
+    y2 = np.max(obbs[:, 1::2], axis=1)
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)
+
+    polys = []
+    for i in range(len(dets)):
+        tm_polygon = [dets[i][0], dets[i][1], dets[i][2], dets[i][3],
+                      dets[i][4], dets[i][5], dets[i][6], dets[i][7]]
+        polys.append(tm_polygon)
+    order = scores.argsort()[::-1]
+
+    keep = []
+    while order.size &gt; 0:
+        i = order[0]
+        keep.append(i)
+        xx1 = np.maximum(x1[i], x1[order[1:]])
+        yy1 = np.maximum(y1[i], y1[order[1:]])
+        xx2 = np.minimum(x2[i], x2[order[1:]])
+        yy2 = np.minimum(y2[i], y2[order[1:]])
+        w = np.maximum(0.0, xx2 - xx1)
+        h = np.maximum(0.0, yy2 - yy1)
+        hbb_inter = w * h
+        hbb_ovr = hbb_inter / (areas[i] + areas[order[1:]] - hbb_inter)
+        h_inds = np.where(hbb_ovr &gt; 0)[0]
+        tmp_order = order[h_inds + 1]
+        for j in range(tmp_order.size):
+            iou = iou_rotated_rect(polys[i], polys[tmp_order[j]])
+            hbb_ovr[h_inds[j]] = iou
+        inds = np.where(hbb_ovr &lt;= thresh)[0]
+        order = order[inds + 1]
+    return keep
+</code></pre>
+<p>然后去掉原工程下detect.py中数据后处理部分对DOTA_devkit工具包的依赖</p>
+<pre><code class="python">def rotate_non_max_suppression(...):
+    ...
+    # 源码如下：
+    # i = np.array(py_cpu_nms_poly_fast(np.array(rects), np.array(scores.cpu()), iou_thres))
+    # 修改如下：
+    i = np.array(nms_rotated_rect(np.array(rects), np.array(scores.cpu()), iou_thres))
+    ... 
+</code></pre>
+<p>修改完毕，用“纯净版”的YOLOv5_DOTA_OBB跑一下demo，发现模型可以正常预测，性能好像也没有损失</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/demo.webp" width="500"></div>
+
+<p>然后开始制作自己的数据集，训练并测试，这里我用的是以前用过的标注工具<a href="https://github.com/chinakook/labelImg2" target="_blank" rel="noopener">labelimg2</a></p>
+<p>不过输出的格式是voc格式，所以我修改了下源码，让它能生成DOTA数据集格式的标签，在原工程的libs/labelFile.py里添加如下代码，会在当前目录下生成一个labels文件夹，里面存放对应标注图片的DOTA格式标签</p>
+<pre><code class="python">label_dir = os.path.join(imgFolderPath, &quot;labels&quot;)
+if not os.path.exists(label_dir):
+    os.makedirs(label_dir)
+label_file = os.path.join(label_dir, os.path.splitext(imgFileName)[0] + &#39;.txt&#39;)
+with open(label_file, &#39;w&#39;) as l:
+    for shape in shapes:
+        points = shape[&#39;points&#39;]
+        label = shape[&#39;label&#39;]
+        l.write(&#39; &#39;.join([str(points[0][0]), str(points[0][1]), str(points[1][0]), str(points[1][1]),
+                              str(points[2][0]), str(points[2][1]), str(points[3][0]), str(points[3][1]),
+                              label]) + &#39;\n&#39;)
+</code></pre>
+<p>这里调用我自己修改的<a href="https://github.com/goodguyjameswin/yolov5_obb/blob/master/data_maker/DataAugmentforLabelImg2.py" target="_blank" rel="noopener">脚本</a>，参考<a href="https://github.com/pureyangcry/tools" target="_blank" rel="noopener">原项目</a>，可以设置一下每张图片（标注好的）的增强次数，以及各类数据增强方法的参数</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/aug.webp"></div>
+
+<p>接着根据原作者提供的<a href="https://github.com/hukaixuan19970627/DOTA_devkit_YOLO" target="_blank" rel="noopener">工具</a>，将带DOTA格式标签的数据转换为“长边表示法”格式的标签数据</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/split.webp" width="300"></div>
+
+<p>有了数据集，接下来就是训练调参了，一开始训练采用的原作者的默认配置，后来loss就是降不下来，测试效果也就肉眼可见的差，翻了翻评论区，结合自己的一点点对超参数的理解，修改hyp_scratch.yaml文件中各部分loss的权重，以及根据评论区原作者建议，调低了mosaic数据增强的启用概率，然后象征性地打开了mixup数据增强</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/hyps.webp"></div>
+
+<ul>
+<li>由于原作者使用“长边表示法”表示旋转矩形框的算法具有局限性，标签在高版本opencv上无法成功从DOTA格式转换为longsideformat格式，<strong>宽高不等的图片无法作为数据正常送入网络进行训练，这是由于作者是先对图像宽高进行归一化之后再转换标签格式，然后在longsideformat格式下进行图片像素坐标的去归一化（会导致标签由旋转矩形框变成类平行四边形框）</strong>，有一个好的解决方案是<strong>对图片归一化时，宽高都针对两者中的较大值作为归一化的分母做归一化，这样转换标签格式后，图片像素坐标去归一化的分母还是一样的，不会产生标签偏移</strong>，最好的解决办法是<strong>修改标签转换部分代码以及整个深度学习工程的像素坐标归一化与去归一化过程</strong>，但是这样修改起来工作量较大，且可行性得不到验证，因此目前仍<strong>建议采用宽高相等的图片作为训练数据</strong></li>
+<li>如果数据增强的时候，开启了多种增强方式（如旋转，平移，裁剪），<strong>建议训练的时候，将角度、box和置信度的loss权重调高，若不是做多分类，分类部分的loss权重可以调低</strong>，生成的训练数据集比较复杂的情况下，mosaic和mixup数据增强方式的启用概率可以适当调低，并且为了保证网络收敛，<strong>建议调高epochs，并且采用Adam优化算法</strong></li>
+</ul>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/train_batch2.webp" width="300"></div>
+
+<p>忙活了半天，终于训练出来一个还不错的效果了</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_26.webp" width="300"></div>
+
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/yolo_obb/image_365.webp" width="300"></div>
+
+<p>640*640的图片，gpu单张预测时间在0.1s左右</p>
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/05/12/springmvc学习/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/springmvc.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  springmvc学习</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/05/08/rotated-data-maker/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/rotDataMaker.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/rotDataMaker.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  rotated_data_maker</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i>技术宅</p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="870006474"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.5"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+

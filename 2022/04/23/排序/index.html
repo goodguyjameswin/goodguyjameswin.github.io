@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">排序 | zt&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+  </style>  
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" type="text/css" href="/css/logo.css">
+  <link rel="stylesheet" type="text/css" href="/fonts/LOGO/logo.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "terryjoe";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://www.sao-kirito.top";
+  mashiro_option.v_appId = "Cb5p5SgcQdXKfhOvP5x1hifH-gzGzoHsz";
+  mashiro_option.v_appKey = "7YNH9O5dADsyAurqxcJA31CN";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/background.webp".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit" style="background-image: url(" ");">
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed">  -->
+<div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;right:52px;">
+  <div class="theme-controls row-container">
+        <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+      <ul class="menu-list"> <li id="white-bg"> 
+          <i class="fa fa-television" aria-hidden="true">
+          </i>
+          </li> 
+          <li id="sakura-bg"> 
+              <i class="iconfont icon-sakura">
+              </i>
+          </li>
+          <li id="gribs-bg">
+              <i class="fa fa-slack" aria-hidden="true">
+              </i>
+          </li>
+          <li id="KAdots-bg">
+              <i class="iconfont icon-dots">
+              </i>
+          </li>
+          <li id="totem-bg">
+              <i class="fa fa-optin-monster" aria-hidden="true">
+              </i>
+          </li>
+          <li id="pixiv-bg">
+              <i class="iconfont icon-pixiv">
+              </i>
+          </li>
+          <li id="bing-bg">
+              <i class="iconfont icon-bing">
+              </i>
+          </li>
+          <li id="dark-bg">
+              <i class="fa fa-moon-o" aria-hidden="true">
+              </i>
+          </li>
+      </ul>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> font <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="font-family-controls row-container">
+    <button type="button" class="control-btn-serif " data-mode="serif" onclick="mashiro_global.font_control.change_font()">Serif</button>
+    <button type="button" class="control-btn-sans-serif" data-mode="sans-serif" onclick="mashiro_global.font_control.change_font()">Sans Serif</button>
+  </div>
+  <hr>
+  <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> script <i style="color:grey" class="fa fa-chevron-right"></i></p>
+  <div class="theme-controls row-container">
+  <ul class="menu-list">
+    <li id="empty-effect">
+      <i class="fa fa-ban">
+      </i>
+    </li>
+    <li id="sakura-rain-effect">
+      <i class="iconfont icon-sakura">
+      </i>
+    </li>
+    <li id="snowy-effect">
+      <i class="fa fa-snowflake-o">
+      </i>
+    </li>
+    <li id="lines-effect">
+      <i class="fa fa-chevron-left">
+      </i>
+    </li>
+    <li id="colorful-belts-effect">
+      <i class="fa fa-map"></i>
+      </i>
+    </li>
+    <li id="words-rain-effect">
+      <i class="fa fa-font"></i>
+    </li>
+    <li id="point-rain-effect">
+      <i class="iconfont icon-dots"></i>
+    </li>
+    <li id="rain-drop-effect">
+      <i class="fa fa-tint"></i>
+    </li>
+  </ul>
+  </div>
+  <canvas id="night-mode-cover">
+  </canvas>
+</div>
+ 
+  <!-- <div class="changeSkin-gear no-select"> 
+  <div class="keys" id="setbtn"> 
+      <span id="open-skinMenu"> 
+          SCHEME TOOL | 主题工具 &nbsp;
+          <i class="iconfont icon-gear inline-block rotating">
+          </i> 
+      </span>
+  </div> 
+</div> -->
+<!-- <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;">  -->
+<div class="changeSkin-gear no-select" style="background: none 0px 0px repeat scroll rgba(0,0,0,0); visibility: visible; bottom: 0px;">
+  <div class="keys" id="setbtn"> 
+    <button id="open-skinMenu">
+        <style>
+        button#open-skinMenu{
+            transition: all 0.2s linear 0s;
+            outline:0;
+            position:fixed;
+            bottom:13px;
+            right:40px;
+            font-size:16px;
+            background-color: rgba(255,255,255,.95);
+            border-radius: 20px;
+            box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+        }
+        button#open-skinMenu:hover{
+            transition: all 0.2s linear 0s;
+            background-color: rgb(255, 165, 0);
+            color: rgba(255,255,255);
+        }
+        </style>
+        <i class="iconfont icon-gear inline-block rotating">
+      </i> 
+        SCHEME TOOL | 主题工具 
+    </button>
+  </div> 
+</div>
+ 
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <!-- <div class="header-tou">
+        <a href="https://www.sao-kirito.top">
+          <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+        </a>
+      </div> -->
+      <div class="header-tou">
+        <h1 class="center-text glitch is-glitching Ubuntu-font" data-text="JUST OTAKU">JUST OTAKU</h1>
+      </div>
+      <div class="header-info">
+        <!-- <p>Everything that has a beginning has its end.</p> -->
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="/images/cover/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/goodguyjameswin" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/github.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="/images/cover/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sheader sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <!-- <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">terryjoe</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span> -->
+      <span class="site-title">
+        <span class="logolink logo">
+            <a href="/">
+                <ruby>
+                <span class="sakuraso">Tao</span>
+                <span class="no">の</span>
+                <span class="shironeko">Blog</span>
+                <rp></rp>
+                <rt class="logo">terryjoe</rt>
+                <rp></rp>
+                </ruby>
+              </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+                    导航
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/">
+                          <i class="fa fa-tags" aria-hidden="true"></i>
+                          标签
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/">
+                          <i class="fa fa-bookmark" aria-hidden="true"></i>
+                          分类
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/comment/">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          留言
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/资源/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+                    游戏
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/2048/">
+                          <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                          2048
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/mikutap/">
+                          <i class="fa fa-music" aria-hidden="true"></i>
+                          Miku
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/adarkroom/">
+                          <i class="fa fa-fire" aria-hidden="true"></i>
+                          ADR
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/atom.xml">
+                          <i class="fa fa-rss" aria-hidden="true"></i>
+                          RSS
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"> -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.10.1/tocbot.css">
+<div class="pattern-center-blank"></div>
+<!-- 板块化 -->
+<div class="gather">
+<!-- 板块化 -->
+
+  <!-- <div class="pattern-center single-center"> -->
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/sort.webp);" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/sort.webp">
+    </div>
+    <!-- <header class="pattern-header single-header"> -->
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      排序</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://github.com/goodguyjameswin">
+            <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+          </a>
+        </span>
+        <span>
+          <a href="https://github.com/goodguyjameswin">terryjoe</a>
+        </span>
+        <span class="bull">
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+        </span>
+        2022-4-23
+        <!-- 给文章 -->
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/生活/" > 生活</a></span>
+          
+        </span>
+        
+        <!-- 加分类 -->
+        <span class="bull">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+      <!-- 给文章 -->
+      
+      
+      <div>
+            <ul class="spfk-ul">
+              &nbsp<i class="fa fa-tag" aria-hidden="true"></i>&nbsp;<li class="spfk-li"><span class="triangle"></span><a href="/tags/学习笔记/" class="butterfly-tags">学习笔记</a></li>
+            </ul>
+          </div>
+          <script>
+              function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+              function paintTags(){
+                  var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('spfk-li');
+                  for(var i = 0 ; i < tags.length ; ++i){
+                      if(!tagColors.length)colorInit(tagColors,colorNumber);
+                      var j=Math.floor(Math.random()*tagColors.length);
+                      tags[i].classList.add("spfk-color"+tagColors[j]);
+                      tagColors.splice(j,1);
+          }
+              }
+              paintTags()
+          </script>
+      
+      <!-- 打标签 -->
+    </header>
+  </div>
+  
+  <div id="content" class="site-content">
+    <div id="primary" class="content-area">
+      <main id="main" class="site-main" role="main">
+        <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+          <div class="gather toc" style="width:230px;max-height:372px;background:none"></div>
+          <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+          
+          <div class="entry-content">
+            <h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序每一轮都选取<strong>未排定部分</strong>的最小元素，然后将它交换到<strong>未排定部分</strong>的第一个位置。</p>
+<pre><code class="java">public class Solution {
+    public int[] selectSort(int[] nums) {
+        int len = nums.length;
+        // 最后一轮只有一个元素，一定是最大的元素，因此写 i &lt; len - 1
+        for (int i = 0; i &lt; len - 1; i++) {
+            // 在 [i + 1, len - 1] 区间里选择最小的元素的下标
+            int minIndex = i;
+            for (int j = i + 1; j &lt; len; j++) {
+                if (nums[j] &lt; nums[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            swap(nums, minIndex, i);
+        }
+        return nums;
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<p>选择排序的每一轮循环没有为下一次循环记录更多的信息。<strong>堆</strong>可以帮助我们在每次<strong>未排定的部分</strong>里快速地选择出当前最小的元素。因此<strong>堆排序</strong>是<strong>选择排序</strong>的优化排序算法。</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆排序每一次以<code>O(logN)</code>的时间复杂度选取出当前未排定部分的最大元素，基本思路是让堆顶元素和当前堆的最后一个元素交换，当前最大元素就被交换到此时数组的末尾，这个位置就被排定了。接下来<strong>只需要让这个数组的前半部分继续称为一个堆即可</strong>。</p>
+<pre><code class="java">public class Solution {
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        // 第 1 步：先整理成最大堆
+        heapify(nums, len);
+
+        // 第 2 步：先交换，再将堆顶元素下沉
+        // 注意：这里 i 表示当前二叉树所表示的数组的结尾下标
+        for (int i = len - 1; i &gt;= 1; ) {
+            swap(nums, 0, i);
+            i--;
+            siftDown(nums, 0, i);
+        }
+        return nums;
+    }
+    private void heapify(int[] nums, int len) {
+        // 下标从0开始整理成堆（也可从1开始）
+        for (int i = (len - 1) / 2; i &gt;= 0; i--) {
+            siftDown(nums, i, len - 1);
+        }
+    }
+    private void siftDown(int[] nums, int k, int end) {
+        while (2 * k + 1 &lt;= end) {
+            int j = 2 * k + 1;
+            if (j + 1 &lt;= end &amp;&amp; nums[j + 1] &gt; nums[j]) {
+                j++;
+            }
+            if (nums[j] &gt; nums[k]) {
+                swap(nums, j, k);
+            } else {
+                break;
+            }
+            k = j;
+        }
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序的<strong>内循环</strong>使用相邻双指针<code>j, j+1</code>从左至右遍历，依次比较相邻元素大小，若左元素大于右元素则将它们交换，遍历完成时，<strong>最大元素会被交换至数组最右边</strong>；<strong>外循环</strong>不断重复内循环，每轮将当前最大元素交换至<strong>剩余未排序数组最右边</strong>，直至所有元素都被交换至正确位置时结束。</p>
+<pre><code class="java">public class Solution {
+    public int[] bubbleSort(int[] nums) {
+      int N = nums.length;
+      for (int i = 0; i &lt; N - 1; i++) {  // 外循环
+        for (int j = 0; j &lt; N - i - 1; j++) {  // 内循环
+          if (nums[j] &gt; nums[j + 1]) {
+            // 交换 nums[j], nums[j + 1]
+            swap(nums, j, j + 1);
+          }
+        }
+      }
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序将一个元素插入到一个有序数组中，使之成为更长的有序数组。<strong>插入排序内层循环可以提前终止</strong>，如果<strong>待排序的数组是 接近有序 的数组（即数组中的元素离它最终排定以后的位置很近）和元素个数较少的数组</strong>，插入排序就可以很快完成。</p>
+<pre><code class="java">public class Solution {
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        // 循环不变量：将 nums[i] 插入到区间 [0, i) 使之有序
+        for (int i = 1; i &lt; len; i++) {
+            // 先暂存这个元素，然后之前数值严格小于 temp 的所有元素逐个后移
+            int temp = nums[i];
+            int j = i;
+            // 注意边界 j &gt; 0
+            while (j &gt; 0 &amp;&amp; nums[j - 1] &gt; temp) {
+                nums[j] = nums[j - 1];
+                j--;
+            }
+            // 最后这一步容易忽略
+            nums[j] = temp;
+        }
+        return nums;
+    }
+}
+</code></pre>
+<p>在内层循环里都有<code>j &gt; 0</code>这个判断条件，有一种插入排序的写法，先找到整个数组中最小的那个元素，把它交换到数组的第一个位置（下标为0），后面的逻辑就可以去掉<code>j &gt; 0</code>。这样的技巧有一个很形象的名字，叫<strong>哨兵</strong>，即放置一个元素，通常是边界位置，它能帮助我们<strong>回避边界条件</strong>，从而<strong>减少分类讨论</strong>。</p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序使用的是缩小增量（或者称有间隔的）的插入排序方法，<strong>以增量为步长</strong>划分子序列（与子数组不同，子序列不要求在原始序列中是连续的，但<strong>要保证数组中的元素位置相对顺序不变</strong>，子序列的长度可以为1），即属于同一子序列的元素，下标的步长等于增量。对每一个子序列应用插入排序，不断缩小增量，<strong>当增量为1时所有的数组元素都在一个子序列中，执行一次插入排序</strong>，数组最终有序。</p>
+<pre><code class="java">public class Solution {
+    // 希尔排序，使用 Shell 建议的序列 N/2,N/4,...,2,1
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        int h = 1;
+
+        int gap = len / 2;
+        while (gap &gt;= 1) {
+            // 缩小增量的插入排序
+            for (int i = h; i &lt; len; i++) {
+                insertionForDelta(nums, gap, i);
+            }
+            gap /= 2;
+        }
+        return nums;
+    }
+    /**
+     * 将 nums[end] 插入到对应分组的正确位置上，其实就是将原来 1 的部分改成 gap
+     *
+     * @param nums
+     * @param gap  间隔
+     * @param end
+     */
+    private void insertionForDelta(int[] nums, int gap, int end) {
+        int temp = nums[end];
+        int j = end;
+        while (j &gt;= gap &amp;&amp; nums[j - gap] &gt; temp) {
+            nums[j] = nums[j - gap];
+            j -= gap;
+        }
+        nums[j] = temp;
+    }
+}
+</code></pre>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>将两个或两个以上的<strong>有序</strong>序列合并成一个新的有序序列，数组的归并需要使用额外的空间。</p>
+<pre><code class="java">public class Solution {
+    // 列表大小等于或小于该大小，将优先于 mergesort 使用插入排序
+    private static final int INSERTION_SORT_THRESHOLD = 47;
+
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        优化3：全局使用一份临时数组
+        int[] temp = new int[len];
+        mergeSort(nums, 0, len - 1, temp);
+        return nums;
+    }
+    // 对数组 nums 的子区间 [left, right] 进行归并排序，左右边界都可以取到
+    private void mergeSort(int[] nums, int left, int right, int[] temp) {
+        if (left == right) {
+            return;
+        }
+        // 优化1：小区间使用插入排序
+        if (right - left &lt;= INSERTION_SORT_THRESHOLD) {
+            insertionSort(nums, left, right);
+            return;
+        }
+        int mid = left + (right - left) / 2;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid + 1, right);
+        // 优化2：数组已经有序的情况下，不再合并
+        if (nums[mid] &lt;= nums[mid + 1]) {
+            return;
+        }
+        mergeOfTwoSortedArray(nums, left, mid, right);
+    }
+    // 合并两个有序数组：先把值复制到临时数组，再合并回去，[left, mid] 有序，[mid + 1, right] 有序
+    private void mergeOfTwoSortedArray(int[] nums, int left, int mid, int right, int[] temp) {
+        for (int i = left; i&lt;= right; ++i) {
+            temp[i] = nums[i];
+        }
+        // i 和 j 分别指向前有序数组和后有序数组的起始位置
+        int i = left;
+        int j = mid + 1;
+        for (int k = left; k &lt;= right; ++k) {
+            // 先写 i 和 j 越界的情况
+            if (i == mid + 1) {
+                nums[k] = temp[j];
+                j++;
+            }
+            else if (j == right + 1) {
+                nums[k] = temp[i];
+                i++;
+            }
+            else if (temp[i] &lt;= temp[j]) {
+                // 这里是 &lt;= ，否则归并排序就变成了非稳定的排序
+                nums[k] = temp[i];
+                i++;
+            }
+            else {
+                nums[k] = temp[j];
+                j++;
+            }
+        }
+    }
+    // 对数组给定的部分使用插入排序，左右边界都能取到
+    private void insertionSort(int[] arr, int left, int right) {
+        for (int i = left + 1; i &lt;= right; ++i) {
+            int temp = arr[i];
+            int j = i;
+            while (j &gt; left &amp;&amp; arr[j - 1] &gt; temp) {
+                arr[j] = arr[j - 1];
+                j--;
+            }
+            arr[j] = temp;
+        }
+    }
+}
+</code></pre>
+<p><strong>力扣315</strong>：给你一个整数数组<code>nums</code>，按要求返回一个新数组<code>counts</code>。数组<code>counts</code>有该性质：<code>counts[i]</code>的值是<code>nums[i]</code>右侧小于<code>nums[i]</code>的元素的数量。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [5,2,6,1]</p>
+<p>输出：[2,1,1,0]</p>
+<p>解释：</p>
+<p>5 的右侧有 2 个更小的元素（2 和 1）</p>
+<p>2 的右侧仅有 1 个更小的元素（1）</p>
+<p>6 的右侧有 1 个更小的元素（1）</p>
+<p>1 的右侧有 0 个更小的元素</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public List&lt;Integer&gt; countSmaller(int[] nums) {
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        int len = nums.length;
+        if (len == 0) {
+            return result;
+        }
+        int[] temp = new int[len];
+        int[] res = new int[len];
+        // 索引数组，作用：归并回去的时候，方便知道是哪个下标的元素
+        int[] indexes = new int[len];
+        for (int i = 0; i &lt; len; i++) {
+            indexes[i] = i;
+        }
+        mergeAndCountSmaller(nums, 0, len - 1, indexes, temp, res);
+        // 把 int[] 转换成为 List&lt;Integer&gt;，没有业务逻辑
+        for (int i = 0; i &lt; len; i++) {
+            result.add(res[i]);
+        }
+        return result;
+    }
+    /**
+     * 针对数组 nums 指定的区间 [left, right] 进行归并排序，在排序的过程中完成统计任务
+     *
+     * @param nums
+     * @param left
+     * @param right
+     */
+    private void mergeAndCountSmaller(int[] nums, int left, int right, int[] indexes, int[] temp, int[] res) {
+        if (left == right) {
+            return;
+        }
+        int mid = left + (right - left) / 2;
+        mergeAndCountSmaller(nums, left, mid, indexes, temp, res);
+        mergeAndCountSmaller(nums, mid + 1, right, indexes, temp, res);
+
+        // 归并排序的优化，如果索引数组有序，则不存在逆序关系，没有必要合并
+        if (nums[indexes[mid]] &lt;= nums[indexes[mid + 1]]) {
+            return;
+        }
+        mergeOfTwoSortedArrAndCountSmaller(nums, left, mid, right, indexes, temp, res);
+    }
+    /**
+     * [left, mid] 是排好序的，[mid + 1, right] 是排好序的
+     *
+     * @param nums
+     * @param left
+     * @param mid
+     * @param right
+     * @param indexes
+     * @param temp
+     * @param res
+     */
+    private void mergeOfTwoSortedArrAndCountSmaller(int[] nums, int left, int mid, int right, int[] indexes, int[] temp, int[] res) {
+        for (int i = left; i &lt;= right; i++) {
+            temp[i] = indexes[i];
+        }
+
+        int i = left;
+        int j = mid + 1;
+        for (int k = left; k &lt;= right; k++) {
+            if (i &gt; mid) {
+                indexes[k] = temp[j];
+                j++;
+            } else if (j &gt; right) {
+                indexes[k] = temp[i];
+                i++;
+                res[indexes[k]] += (right - mid);
+            } else if (nums[temp[i]] &lt;= nums[temp[j]]) {
+                // 注意：这里是 &lt;= ，保证稳定性
+                indexes[k] = temp[i];
+                i++;
+                res[indexes[k]] += (j - mid - 1);
+            } else {
+                indexes[k] = temp[j];
+                j++;
+            }
+        }
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>最重要的思想是<strong>划分</strong>（partition），<strong>partition</strong>先选取一个元素作为基准元素（随机选择），一次划分将数组分为两个部分，跳过大于等于基准元素的元素，继续遍历，遇到小的元素，就把它们依次交换到数组的前面去。</p>
+<pre><code class="java">public class Solution {
+    private static final Random RANDOM = new Random();
+
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        quickSort(nums, 0, len - 1);
+        return nums;
+    }
+    private void quickSort(int[] nums, int left, int right) {
+        // 与归并排序不同，这里包括 &gt; 的情况
+        if (left &gt;= right) {
+            return;
+        }
+        int p = partition(nums, left, right);
+        quickSort(nums, left, p - 1);
+        quickSort(nums, p + 1, right);
+    }
+    private int partition(int[] nums, int left, int right) {
+        // 随机选择一个元素作为切分元素
+        int randomIndex = left + RANDOM.nextInt(right - left + 1);
+        swap(nums, randomIndex, left);
+        int pivot = nums[left];
+        // 循环不变量：lt 意即 less than
+        // [left + 1, lt] &lt; pivot
+        // [lt + 1, i) &gt;= pivot
+        int lt = left;
+        for (int i = left + 1; i &lt;= right; ++i) {
+            if (nums[i] &lt; pivot) {
+                ++lt;
+                swap(nums, lt, i);
+            }
+        }
+        // 最后要记得交换到起始位置
+        swap(nums, left, lt);
+        return lt;
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<p><strong>力扣80</strong>：给你一个有序数组<code>nums</code>。请你<strong>原地</strong>删除重复出现的元素，使得出现次数超过两次的元素<strong>只出现k次</strong>，返回删除后数组的新长度。不能使用额外的数组空间，你必须<strong>原地修改输入数组</strong>并仅使用<code>O(1)</code>的额外空间。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,1,1,2,2,3]，k = 2</p>
+<p>输出：5, nums = [1,1,2,2,3]</p>
+<p>解释：函数应返回新长度 length = 5，并且原数组的前五个元素被修改为 1, 1, 2, 2, 3。不需要考虑数组中超出新长度的后面的元素。</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    public int removeDuplicates(int[] nums, int k) {
+        int n = nums.length;
+        if (n &lt;= k) {
+            return n;
+        }
+        int slow = k, fast = k;
+        while (fast &lt; n) {
+            if (nums[slow - k] != nums[fast]) {
+                nums[slow] = nums[fast];
+                ++slow;
+            }
+            ++fast;
+        }
+        return slow;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>指针对撞</strong>的快速排序：当输入数组中有大量重复元素的数据时，需要把和<code>pivot</code>相等的元素平均分到数组的两边，使得递归树平衡。</p>
+<pre><code class="java">public class Solution {
+    private static final Random RANDOM = new Random();
+
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        quickSort(nums, 0, len - 1);
+        return nums;
+    }
+    private void quickSort(int[] nums, int left, int right) {
+        // 注意：这里包括 &gt; 的情况，与归并排序不同，请通过调试理解这件事情
+        if (left &gt;= right) {
+            return;
+        }
+        int p = partition(nums, left, right);
+        quickSort(nums, left, p - 1);
+        quickSort(nums, p + 1, right);
+    }
+    /**
+     * 目标：与切分元素相等的元素均匀地分布在切分元素最终所在位置的两侧
+     * 这个定义非常重要，直接影响我们的算法初始值定义
+     * [left + 1, i) 全部小于标定点
+     * (j, right] 全部大于标定点
+     * 在指针对撞的过程中，和标定点相同的元素就被挤到了中间
+     *
+     * @param nums
+     * @param left
+     * @param right
+     * @return
+     */
+    public int partition(int[] nums, int left, int right) {
+        int randomIndex = left + RANDOM.nextInt(right - left + 1);
+        swap(nums, randomIndex, left);
+        // 循环不变量，le = less equals，ge = greater equals
+        // all in [left + 1, le) &lt;= pivot
+        // all in (ge, right] &gt;= pivot
+        // le &gt; ge 的时候终止
+        int pivot = nums[left];
+        int le = left + 1;
+        int ge = right;
+        while (true) {
+            // 注意：这里一定是 nums[le] &lt; pivot，等于 pivot 的元素是被交换过来得到的
+            while (le &lt;= ge &amp;&amp; nums[le] &lt; pivot) {
+                le++;
+            }
+            // 此时 le 来到第 1 个大于等于 pivot 的位置
+            while (le &lt;= ge &amp;&amp; nums[ge] &gt; pivot) {
+                ge--;
+            }
+            // 此时 ge 来到第 1 个小于等于 pivot 的位置
+            if (le &gt; ge) {
+                break;
+            }
+            swap(nums, le, ge);
+            le++;
+            ge--;
+        }
+        // 循环退出后，ge 来到 le 的左边，根据循环不变量，它所指向的元素一定是小于等于 pivot 的，因此交换 left 与 ge 位置上的元素，这时排定的元素 ge 对应的元素，应该把 ge 返回回去
+        swap(nums, left, ge);
+        return ge;
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<p><strong>力扣215</strong>：给定整数数组<code>nums</code>和整数<code>k</code>，请返回数组中第<code>k</code>个最大的元素。请注意，你需要找的是数组排序后的第<code>k</code>个最大的元素，而不是第<code>k</code>个不同的元素。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：[3,2,1,5,6,4] 和 k = 2</p>
+<p>输出：5</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">class Solution {
+    private final static Random random = new Random(System.currentTimeMillis());
+    
+    public int findKthLargest(int[] nums, int k) {
+        // 第 1 大的数，下标是 len - 1;
+        // 第 2 大的数，下标是 len - 2;
+        // ...
+        // 第 k 大的数，下标是 len - k;
+        int len = nums.length;
+        int target = len - k;
+        int left = 0;
+        int right = len - 1;
+        while (true) {
+            // 无需使用递归调用栈，通过二分查找的方式即可逐步缩小搜索区间
+            int pivotIndex = partition(nums, left, right);
+            if (pivotIndex == target) {
+                return nums[pivotIndex]; 
+            } else if (pivotIndex &lt; target) {
+                left = pivotIndex + 1; 
+            } else {
+                // pivotIndex &gt; target
+                right = pivotIndex - 1; 
+            }
+        }
+    }
+    private int partition(int[] nums, int left, int right) {
+        int randomIndex = left + random.nextInt(right - left + 1);
+        swap(nums, left, randomIndex);
+        // all in nums[left + 1..le) &lt;= pivot;
+        // all in nums(ge..right] &gt;= pivot;
+        int pivot = nums[left];
+        int le = left + 1;
+        int ge = right;
+        while (true) {
+            while (le &lt;= ge &amp;&amp; nums[le] &lt; pivot) {
+                le++;
+            }
+            while (le &lt;= ge &amp;&amp; nums[ge] &gt; pivot) {
+                ge--;
+            }
+            if (le &gt;= ge) {
+                break;
+            }
+            swap (nums, le, ge);
+            le++;
+            ge--;
+        }
+        swap(nums, left, ge);
+        return ge;
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    } 
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>三向切分</strong>的快速排序：如果执行<code>partition</code>的子区间当中，有很多元素都和基准元素相等，那么这些元素在这一轮中都被挤到了中间，它们前面的元素都比<code>pivot</code>小，它们后面的元素都比<code>pivot</code>大，因此它们就位于排序以后最终应该在的位置。</p>
+<pre><code class="java">public class Solution {
+    private static final Random RANDOM = new Random();
+
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        quickSort(nums, 0, len - 1);
+        return nums;
+    }
+    private void quickSort(int[] nums, int left, int right) {
+        if (left &gt;= right) {
+            return;
+        }
+        int randomIndex = left + RANDOM.nextInt(right - left + 1);
+        swap(nums, randomIndex, left);
+        // all in [left + 1, lt] &lt; pivot
+        // all in [lt + 1, i) = pivot
+        // all in [gt, right] &gt; pivot
+        // 因为 i 是循环变量，定义为“遍历之前的元素”更好理解
+        int pivot = nums[left];
+        // 如下初始化，可保证遍历开始时三个区间都为空
+        int lt = left;
+        int gt = right + 1;
+        int i = left + 1;
+        while (i &lt; gt) {
+            if (nums[i] &lt; pivot) {
+                lt++;
+                swap(nums, i, lt);
+                i++;
+            } else if (nums[i] == pivot) {
+                i++;
+            } else {
+                gt--;
+                swap(nums, i, gt);
+                // 此时 i 无需移动，因为交换过来是一个未访问过的元素，需要在下一轮循环中继续判断
+            }
+        }
+        swap(nums, left, lt);
+        // 注意这里，大大减少了分治的区间，区间 [lt, gt - 1] 不必递归求解
+        quickSort(nums, left, lt - 1);
+        quickSort(nums, gt, right);
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><p>对于每一个输入数组的元素，计算严格小于它的元素的个数（前缀和计数数组），进而把它放到输出数组对应的位置上。</p>
+<pre><code class="java">public class CountingSort {
+    public void sort(int[] nums) {
+        int len = nums.length;
+        int max = nums[0];
+        // 检验数据有效性
+        // 找到数组中的最大值，以确定计数数组的长度
+        for (int i = 1; i &lt; len; i++) {
+            if (nums[i] &gt; max) {
+                max = nums[i];
+            }
+            // 数据有效性校验，因为要将数值作为数组 count 的下标使用，因此 nums[i] 不能小于 0
+            if (nums[i] &lt; 0) {
+                throw new IllegalArgumentException(&quot;该数组不适合使用计数排序&quot;);
+            }
+        }
+        // 第 1 步：对原始数组进行计数，这里将原始数组的值，作为了计数数组的下标
+        int[] count = new int[max + 1];
+        // 遍历原始数组，完成计数
+        for (int i = 0; i &lt; len; i++) {
+            count[nums[i]] += 1;
+        }
+        // 第 2 步：将 count 数组改造成前缀和数组，我们需要的是前缀和，在原地进行变换即可
+        // 由前缀和数组就可以推出这个元素所在的位置
+        for (int i = 1; i &lt;= max; i++) {
+            count[i] += count[i - 1];
+        }
+        // 为了写回去，需要对原始数组做一个拷贝
+        int[] numsCopy = new int[len];
+        System.arraycopy(nums, 0, numsCopy, 0, len);
+        // 第 3 步：从后向前扫描，依次把看到的数写回原始数组，从后向前是为了保证稳定性
+        for (int i = len - 1; i &gt;= 0; i--) {
+            // 位置有一个偏移，在纸上写出来就很容易发现规律
+            int position = count[numsCopy[i]] - 1;
+            // 把看到的数覆盖回去
+            nums[position] = numsCopy[i];
+            // 前缀和减一，作为下一个看到的相同数存放位置的依据
+            count[numsCopy[i]]--;
+        }
+    }
+}
+</code></pre>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>越高位的排序是放在后面进行的，在高位相同的情况下，需要比较次高位，需要比较次高位，而次高位在之前的排序中已经排好序。</p>
+<pre><code class="java">public class RadixSort {
+    public void sort(int[] nums) {
+        int len = nums.length;
+        // 第 1 步：找出最大的数字
+        int max = nums[0];
+        for (int i = 0; i &lt; len; i++) {
+            if (nums[i] &gt; max) {
+                max = nums[i];
+            }
+            // 数据有效性校验，因为要将数值作为 count 的索引用，因此 nums[i] 不能小于 0
+            if (nums[i] &lt; 0) {
+                throw new IllegalArgumentException(&quot;该数组不适合使用计数排序&quot;);
+            }
+        }
+        // 第 2 步：计算出最大的数字有几位，这个数值决定了我们要将整个数组看几遍
+        int maxLen = getMaxLen(max);
+        // 第 3 步：每一趟都使用计数排序
+        int[] count = new int[10];
+        int[] temp = new int[len];
+        int divisor = 1;
+        // 有几位数，外层循环就得执行几次
+        for (int i = 0; i &lt; maxLen; i++) {
+            // 每一步都使用计数排序，保证排序结果是稳定的，这一步需要额外空间保存结果集，因此把结果保存在 temp 中
+            countingSort(nums, temp, divisor, len, count);
+
+            System.arraycopy(temp, 0, nums, 0, len);
+            divisor *= 10;
+        }
+    }
+    /**
+     *
+     * @param nums 原始数组
+     * @param temp 在计数排序的过程中使用的辅助数组，这一次基于 divisor 关键字的排序结果存在这里
+     * @param divisor
+     * @param len 原始数组的长度（冗余变量）
+     * @param count 计数数组
+     */
+    private void countingSort(int[] nums, int[] temp, int divisor, int len, int[] count) {
+        // 内层循环得把数组从头到尾看一遍
+        for (int j = 0; j &lt; len; j++) {
+            // 计算数位上的数是几，先取个位，再十位、百位
+            int remainder = (nums[j] / divisor) % 10;
+            count[remainder]++;
+        }
+        for (int j = 1; j &lt; 10; j++) {
+            count[j] += count[j - 1];
+        }
+        for (int j = len - 1; j &gt;= 0; j--) {
+            int remainder = (nums[j] / divisor) % 10;
+            int index = count[remainder] - 1;
+            temp[index] = nums[j];
+            count[remainder]--;
+        }
+        // 重置数组 count，以便下次使用
+        for (int j = 0; j &lt; 10; j++) {
+            count[j] = 0;
+        }
+    }
+    /**
+     * 获取一个整数的最大位数
+     *
+     * @param num
+     * @return
+     */
+    private int getMaxLen(int num) {
+        int maxLen = 0;
+        while (num &gt; 0) {
+            num /= 10;
+            maxLen++;
+        }
+        return maxLen;
+    }
+}
+</code></pre>
+<h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>将待排序数组分配到若干个桶内，然后再对每个桶各自执行一次排序任务。桶内的排序可以使用不同的排序方法，每个桶内排序完成以后，<strong>依次</strong>将每个桶内的元素取出来，最终得到一个有序数组。</p>
+<pre><code class="java">public class BucketSort {
+    public void sort(int[] nums) {
+        int len = nums.length;
+        int max = nums[0];
+        // 第 1 步：找到数组中的最大值，以确定计数数组的长度
+        for (int i = 1; i &lt; len; i++) {
+            if (nums[i] &gt; max) {
+                max = nums[i];
+            }
+            // 数据有效性校验，因为要将数值作为 count 的索引用，因此 nums[i] 不能小于 0
+            if (nums[i] &lt; 0) {
+                throw new IllegalArgumentException(&quot;该数组不适合使用计数排序&quot;);
+            }
+        }
+        // 第 2 步：计算出最大的数字有几位，这个数值决定了桶的个数
+        int maxLen = getMaxLen(max);
+        // 步长
+        int step = 1000;
+        // 决定设置几个桶
+        if (maxLen &lt; 5) {
+            // 如果最大数小于 10000
+            // 3 位数就设置 100 个桶
+            // 2 位数就设置 10 个桶
+            step = (int) Math.pow(10, maxLen - 1);
+        }
+        // System.out.println(&quot;步长：&quot; + step);
+        // 桶的个数
+        int bucketLen = max / step + 1;
+        // System.out.println(&quot;桶的个数：&quot; + bucketLen);
+        // 因为不能确定每个桶存放的数据量，因此每个桶的长度都设置为 len
+        int[][] temp = new int[bucketLen][len];
+        int[] next = new int[bucketLen];
+        // 第 3 步：分桶
+        for (int i = 0; i &lt; len; i++) {
+            // 找到所在的桶的索引
+            int bucketIndex = nums[i] / step;
+            // 在该桶中放入元素
+            temp[bucketIndex][next[bucketIndex]] = nums[i];
+            // 该桶存放的元素个数 + 1
+            next[bucketIndex]++;
+        }
+        // 第 4 步：对于每个桶执行插入排序
+        for (int i = 0; i &lt; bucketLen; i++) {
+            insertionSort(temp[i], next[i] - 1);
+        }
+        // 第 5 步：从桶里依次取出来
+        int index = 0;
+        for (int i = 0; i &lt; bucketLen; i++) {
+            int curLen = next[i];
+            for (int j = 0; j &lt; curLen; j++) {
+                nums[index] = temp[i][j];
+                index++;
+            }
+        }
+    }
+    private void insertionSort(int[] arr, int endIndex) {
+        for (int i = 1; i &lt;= endIndex; i++) {
+            int temp = arr[i];
+            int j = i;
+            while (j &gt; 0 &amp;&amp; arr[j - 1] &gt; temp) {
+                arr[j] = arr[j - 1];
+                j--;
+            }
+            arr[j] = temp;
+        }
+    }
+    /**
+     * 获取一个整数的最大位数
+     *
+     * @param num
+     * @return
+     */
+    private int getMaxLen(int num) {
+        int maxLen = 0;
+        while (num &gt; 0) {
+            num /= 10;
+            maxLen++;
+        }
+        return maxLen;
+    }
+}
+</code></pre>
+<p><strong>力扣41</strong>：给你一个未排序的整数数组<code>nums</code>，请你找出其中没有出现的最小的正整数。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,2,0]</p>
+<p>输出：3</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <pre><code class="java">public class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int len = nums.length;
+        for (int i = 0; i &lt; len; i++) {
+            while (nums[i] &gt; 0 &amp;&amp; nums[i] &lt;= len &amp;&amp; nums[nums[i] - 1] != nums[i]) {
+                // 满足在指定范围内、并且没有放在正确的位置上，才交换
+                // 例如：数值 3 应该放在索引 2 的位置上
+                swap(nums, nums[i] - 1, i);
+            }
+        }
+        // [1, -1, 3, 4]
+        for (int i = 0; i &lt; len; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        // 都正确则返回数组长度 + 1
+        return len + 1;
+    }
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p>给你一个整数数组<code>nums</code>和一个整数<code>k</code>，请你返回其中出现频率前<code>k</code>高的元素。你可以按<strong>任意顺序</strong>返回答案。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,1,1,2,2,3], k = 2</p>
+<p>输出：[1,2]</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <p>方法一：基于快速排序（求出出现次数数组的前k大的值）</p>
+<pre><code class="java">class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map&lt;Integer, Integer&gt; occurrences = new HashMap&lt;Integer, Integer&gt;();
+        for (int num : nums) {
+            occurrences.put(num, occurrences.getOrDefault(num, 0) + 1);
+        }
+        List&lt;int[]&gt; values = new ArrayList&lt;int[]&gt;();
+        for (Map.Entry&lt;Integer, Integer&gt; entry : occurrences.entrySet()) {
+            int num = entry.getKey(), count = entry.getValue();
+            values.add(new int[]{num, count});
+        }
+        int[] ret = new int[k];
+        qsort(values, 0, values.size() - 1, ret, 0, k);
+        return ret;
+    }
+    public void qsort(List&lt;int[]&gt; values, int start, int end, int[] ret, int retIndex, int k) {
+        int picked = (int) (Math.random() * (end - start + 1)) + start;
+        Collections.swap(values, picked, start);
+        int pivot = values.get(start)[1];
+        int index = start;
+        for (int i = start + 1; i &lt;= end; i++) {
+            if (values.get(i)[1] &gt;= pivot) {
+                Collections.swap(values, index + 1, i);
+                index++;
+            }
+        }
+        Collections.swap(values, start, index);
+        if (k &lt;= index - start) {
+            qsort(values, start, index - 1, ret, retIndex, k);
+        } else {
+            for (int i = start; i &lt;= index; i++) {
+                ret[retIndex++] = values.get(i)[0];
+            }
+            if (k &gt; index - start + 1) {
+                qsort(values, index + 1, end, ret, retIndex, k - (index - start + 1));
+            }
+        }
+    }
+}
+</code></pre>
+<p>方法二：桶排序：</p>
+<pre><code class="java">class Solution {
+    public List&lt;Integer&gt; topKFrequent(int[] nums, int k) {
+        List&lt;Integer&gt; res = new ArrayList();
+        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
+        HashMap&lt;Integer,Integer&gt; map = new HashMap();
+        for(int num : nums){
+            if (map.containsKey(num)) {
+               map.put(num, map.get(num) + 1);
+             } else {
+                map.put(num, 1);
+             }
+        }
+        //桶排序
+        //将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
+        List&lt;Integer&gt;[] list = new List[nums.length+1];
+        for(int key : map.keySet()){
+            // 获取出现的次数作为下标
+            int i = map.get(key);
+            if(list[i] == null){
+               list[i] = new ArrayList();
+            } 
+            list[i].add(key);
+        }
+        // 倒序遍历数组获取出现顺序从大到小的排列
+        for(int i = list.length - 1;i &gt;= 0 &amp;&amp; res.size() &lt; k;i--){
+            if(list[i] == null) continue;
+            res.addAll(list[i]);
+        }
+        return res;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<p><strong>力扣220</strong>：给你一个整数数组<code>nums</code>和两个整数<code>k</code>和<code>t</code>。请你判断是否存在<strong>两个不同下标</strong><code>i</code>和<code>j</code>，使得<code>abs(nums[i] - nums[j]) &lt;= t</code>，同时又满足<code>abs(i - j) &lt;= k</code>。如果存在则返回<code>true</code>，不存在返回<code>false</code>。</p>
+<div class="center">
+
+<blockquote>
+<p>输入：nums = [1,2,3,1], k = 3, t = 0</p>
+<p>输出：true</p>
+</blockquote>
+</div>
+
+<div class="spoiler collapsed">
+    <div class="spoiler-title">
+        查看解析
+    </div>
+    <div class="spoiler-content">
+        <p>方法一：滑动窗口+有序集合</p>
+<pre><code class="java">class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        // 维护一个大小为 k 的滑动窗口，每次遍历到元素 x 时，滑动窗口中包含元素 x 前面的最多 k 个元素，我们检查窗口中是否存在元素落在区间 [x−t,x+t] 中即可
+        int n = nums.length;
+        TreeSet&lt;Long&gt; set = new TreeSet&lt;Long&gt;();
+        for (int i = 0; i &lt; n; i++) {
+            Long ceiling = set.ceiling((long) nums[i] - (long) t);
+            if (ceiling != null &amp;&amp; ceiling &lt;= (long) nums[i] + (long) t) {
+                return true;
+            }
+            set.add((long) nums[i]);
+            if (i &gt;= k) {
+                set.remove((long) nums[i - k]);
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p>方法二：桶</p>
+<div align="center"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/work_res/algorithms/sort-01.webp"></div>
+
+<pre><code class="java">class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+    // 同一个桶中的任两个元素之差的绝对值小于等于t，相邻桶中的某两个元素之差的绝对值可能小于等于t（通过计算判断是否真的小于等于t），不同相邻的桶中的元素之差的绝对值不可能满足小于等于t
+        int n = nums.length;
+        Map&lt;Long, Long&gt; map = new HashMap&lt;Long, Long&gt;();
+        long w = (long) t + 1; // t 可能为 0
+        for (int i = 0; i &lt; n; i++) {
+            long id = getID(nums[i], w);
+            if (map.containsKey(id)) {
+                return true;
+            }
+            if (map.containsKey(id - 1) &amp;&amp; Math.abs(nums[i] - map.get(id - 1)) &lt; w) {
+                return true;
+            }
+            if (map.containsKey(id + 1) &amp;&amp; Math.abs(nums[i] - map.get(id + 1)) &lt; w) {
+                return true;
+            }
+            map.put(id, (long) nums[i]);
+            if (i &gt;= k) {
+                map.remove(getID(nums[i - k], w));
+            }
+        }
+        return false;
+    }
+    // 我们将 int 范围内的每一个整数 x 表示为：x=(t+1)×a+b(0≤b≤t) 的形式，这样 x 即归属于编号为 a 的桶。一个桶内至多只会有一个元素
+    public long getID(long x, long w) {
+        if (x &gt;= 0) {
+            return x / w;
+        }
+        return (x + 1) / w - 1;
+    }
+}
+</code></pre>
+
+    </div>
+</div>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">最坏时间复杂度</th>
+<th align="center">平均时间复杂度</th>
+<th align="center">最好时间复杂度</th>
+<th align="center">额外空间复杂度</th>
+<th align="center">稳定性</th>
+<th align="center">是否原地排序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">选择排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N2)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">堆排序</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">冒泡排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">插入排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N)</td>
+<td align="center">O(1)</td>
+<td align="center">稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">希尔排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(n1.25)~O(1.6n1.25)</td>
+<td align="center">(没有相关研究)</td>
+<td align="center">O(1)</td>
+<td align="center">不稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">归并排序</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(N)</td>
+<td align="center">稳定</td>
+<td align="center">非原地排序</td>
+</tr>
+<tr>
+<td align="center">快速排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(NlogN)</td>
+<td align="center">O(logN)</td>
+<td align="center">不稳定</td>
+<td align="center">原地排序</td>
+</tr>
+<tr>
+<td align="center">计数排序</td>
+<td align="center">O(N+k)</td>
+<td align="center">O(N+K)</td>
+<td align="center">O(N+K)</td>
+<td align="center">O(N+K)</td>
+<td align="center">稳定</td>
+<td align="center">非原地排序</td>
+</tr>
+<tr>
+<td align="center">基数排序</td>
+<td align="center">O(kN)</td>
+<td align="center">O(KN)</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N+K)</td>
+<td align="center">稳定</td>
+<td align="center">非原地排序</td>
+</tr>
+<tr>
+<td align="center">桶排序</td>
+<td align="center">O(N2)</td>
+<td align="center">O(N)</td>
+<td align="center">O(N)</td>
+<td align="center">视情况而定</td>
+<td align="center">稳定</td>
+<td align="center">非原地排序</td>
+</tr>
+</tbody></table>
+<style>
+.center 
+{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          </div>
+          <!-- .entry-content -->
+          <!-- <div class="single-reward">
+            <div class="reward-open">赏
+              <div class="reward-main">
+                <ul class="reward-row">
+                  <li class="alipay-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Alipay.jpg"></li>
+                  <li class="wechat-code"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/donate/Wechan.jpg"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+          <footer class="post-footer">
+            <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+            <div class="post-tags">
+            </div>
+            <div class="post-share">
+              <div class="social-share sharehidden share-component"></div>
+              <i class="iconfont show-share icon-forward"></i>
+            </div>
+          </footer> -->
+          <!-- .entry-footer -->
+        </article>
+        <!-- #post-## -->
+        <!-- <div class="toc" style="background: none;"></div> -->
+        <section class="post-squares nextprev">
+          
+            
+              <div class="post-nepre half previous">
+            
+              <a href="/2022/04/25/data-augtools/" rel="prev">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/data_aug.webp">
+                </div>
+                <span class="label">
+                Previous Post</span>
+                <div class="info">
+                  <h3>
+                  data-augtools</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+          
+            
+              <div class="post-nepre half next">
+            
+              <a href="/2022/04/20/PaddleOCR/" rel="next">
+                <div class="background">
+                  <img class="lazyload" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/paddleocr.webp" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/images/paddleocr.webp">
+                </div>
+                <span class="label">
+                Next Post</span>
+                <div class="info">
+                  <h3>
+                  PaddleOCR</h3>
+                  <!-- <hr> -->
+                </div>
+              </a>
+            </div>
+          
+        </section>
+        <!-- 
+   -->
+        <!-- <section class="author-profile">
+          <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+            <a href="https://github.com/goodguyjameswin" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp" itemprop="image" alt="terryjoe" height="70" width="70"></a>
+            <div class="meta">
+              <span class="title">Author</span>
+              <h3 itemprop="name">
+              <a href="https://github.com/goodguyjameswin" itemprop="url" rel="author">terryjoe</a>
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <p><i class="iconfont icon-write"></i></p>
+        </section> -->
+      </main><!-- #main -->
+    </div><!-- #primary -->
+  </div>
+</div>
+<!-- 板块化 -->
+<div class="gather">
+  </div>
+<!-- 板块化 -->
+
+
+
+<script>
+function imgInit(){
+    var imgs=document.getElementsByClassName('entry-content').item(0).getElementsByTagName('img'),dsrc=record.getAttribute("data-src");
+    for(var i=0;i<imgs.length;++i){
+        var element = document.createElement("a"),record=imgs[i];
+        element.setAttribute("data-fancybox","gallery");
+        element.setAttribute("href",dsrc||imgs[i].src);
+        imgs[i].parentNode.appendChild(element);
+        imgs[i].parentNode.removeChild(imgs[i]);
+        element.appendChild(record);
+    }
+}
+imgInit();
+</script>
+
+<!-- <script>
+var spoiler=document.getElementsByClassName('spoiler');
+for(var i=0;i<spoiler.length;++i)
+spoiler[i].onclick=function(){this.classList.toggle("revealed");};
+</script> -->
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Terry Joe<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/img/other/disqus-preloader.svg">
+      </div>
+      <!-- <p style="color: #666666;">&copy 2021 | TERRY JOE</p> -->
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+      <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> Powered by <a href="https://hexo.io/zh-cn/index.html" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hexo</a>
+        </span>
+      </p>
+    </div>
+    <span style="color: #ccc;padding-left: 20px;">
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <span id="time" align="center">载入时间中...</span>
+      <script>
+        var now = new Date(); 
+        function createtime() { 
+          var grt= new Date("2022-04-09 10:20:00");//在此处修改你的建站时间
+          now.setTime(now.getTime()+250); 
+          days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+          hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+          if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+          mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+          seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+          snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+          document.getElementById("time").innerHTML = "小站已经苟活 "+ dnum +" 天 "+hnum + " 小时 " + mnum + " 分 " + snum + " 秒";      
+       } 
+       setInterval("createtime()",250);
+      </script>
+      <!--不蒜子网页计数器-->
+      <span style="color:#ccc;padding-left: 20px;"><i class="fa fa-eye" aria-hidden="true"></i>访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    </span>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="/js/av-min.js"></script>
+<!-- <script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script> -->
+<script type="text/javascript" src="/js/volantis.min.js"></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script async src="/js/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/video","name":"takiku.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;ww">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/goodguyjameswin/CDN@master/blog_res/img/icon/kirito.webp">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">terryjoe</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/goodguyjameswin" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-sign-in faa-horizontal" aria-hidden="true"></i>
+            导航
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/">
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                  标签
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/">
+                  <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  分类
+                </a>
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  留言
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/资源/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-spin" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-gamepad faa-tada" aria-hidden="true"></i>
+            游戏
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/2048/">
+                  <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                  2048
+                </a>
+              </li>
+            
+              <li>
+                <a href="/mikutap/">
+                  <i class="fa fa-music" aria-hidden="true"></i>
+                  Miku
+                </a>
+              </li>
+            
+              <li>
+                <a href="/adarkroom/">
+                  <i class="fa fa-fire" aria-hidden="true"></i>
+                  ADR
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-wrench" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-ring" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <i class="fa fa-rss" aria-hidden="true"></i>
+                  RSS
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="870006474"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="none"
+
+    volume="0.5"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+  <!-- <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script> -->
+  <script src="/js/fly-engine.js" type="module"></script>
+</body>
+</html>
+<script src="/js/mouse-click-firework.js"></script>
+<script src="/js/autoload.js"></script>
+<script src="/js/noSomeKey.js"></script>
+
